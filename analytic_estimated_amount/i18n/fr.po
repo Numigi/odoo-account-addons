@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* analytic_estimated_amount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-05 20:07+0000\n"
+"PO-Revision-Date: 2017-04-05 20:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: analytic_estimated_amount
+#: model:ir.model.fields,field_description:analytic_estimated_amount.field_purchase_order_line_analytic_line_id
+#: model:ir.model.fields,field_description:analytic_estimated_amount.field_sale_order_line_analytic_line_id
+msgid "Analytic Line"
+msgstr "Ligne Analytique"
+
+#. module: analytic_estimated_amount
+#: model:ir.model.fields,field_description:analytic_estimated_amount.field_account_analytic_line_estimated_amount
+msgid "Estimated Amount"
+msgstr "Montant estimé"
+
+#. module: analytic_estimated_amount
+#: model:ir.ui.view,arch_db:analytic_estimated_amount.view_account_analytic_line_tree
+msgid "Total"
+msgstr "Total"
