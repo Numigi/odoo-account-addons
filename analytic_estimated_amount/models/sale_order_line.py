@@ -19,6 +19,11 @@ class SaleOrderLine(models.Model):
         if analytic_lines:
             analytic_lines.unlink()
 
+    @api.multi
+    def _estimative_line_required(self):
+        self.ensure_one()
+        return True if self.order_id.project_id else False
+
     def _get_analytic_line_vals(self):
         self.ensure_one()
         return {
@@ -36,7 +41,7 @@ class SaleOrderLine(models.Model):
         self._remove_analytic_lines()
         line_cls = self.env['account.analytic.line']
         for line in self:
-            if line.order_id.project_id:
+            if line._estimative_line_required():
                 line.analytic_line_id = line_cls.create(
                     line._get_analytic_line_vals())
 
