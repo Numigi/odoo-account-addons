@@ -12,6 +12,12 @@ class PurchaseOrderLine(models.Model):
     analytic_line_id = fields.Many2one(
         'account.analytic.line', 'Analytic Line')
 
+    @api.multi
+    def _estimative_line_required(self):
+        self.ensure_one()
+        return True if self.account_analytic_id else False
+
+    @api.multi
     def _get_analytic_line_vals(self):
         self.ensure_one()
         return {
@@ -28,7 +34,7 @@ class PurchaseOrderLine(models.Model):
         self._remove_analytic_lines()
         line_cls = self.env['account.analytic.line']
         for line in self:
-            if line.account_analytic_id:
+            if line._estimative_line_required():
                 line.analytic_line_id = line_cls.create(
                     line._get_analytic_line_vals())
 
