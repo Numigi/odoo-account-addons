@@ -15,6 +15,9 @@
         'base',
         'account',
     ],
+    'data': [
+        'views/account_payment.xml',
+    ],
     'installable': True,
     'application': False,
 }
