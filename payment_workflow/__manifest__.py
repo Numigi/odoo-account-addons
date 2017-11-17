@@ -13,6 +13,7 @@
     'summary': 'Add new contact types.',
     'depends': [
         'base',
+        'account',
     ],
     'installable': True,
     'application': False,
