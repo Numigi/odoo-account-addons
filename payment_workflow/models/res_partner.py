@@ -9,13 +9,9 @@ class ResPartner(models.Model):
 
     _inherit = 'res.partner'
 
-    type = fields.Selection([
-        ('contact', 'Contact'),
-        ('invoice', 'Invoice address'),
+    type = fields.Selection(selection_add=[
         ('supplier_payment', 'Supplier Payment'),
         ('customer_payment', 'Customer Payment'),
-        ('delivery', 'Shipping address'),
-        ('other', 'Other address')
     ])
 
     def get_preferred_address(self, contact_types):
