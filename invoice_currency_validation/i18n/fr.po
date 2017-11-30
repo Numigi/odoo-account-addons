@@ -23,23 +23,39 @@ msgstr "Facture"
 #. module: invoice_currency_validation
 #: code:addons/invoice_currency_validation/models/account_invoice.py:59
 #, python-format
-msgid "The invoice %(invoice_name)s could not be validated. The selected journal (%(journal_name)s) has a currency (%(journal_currency)s) and the invoice has a currency (%(invoice_currency)s)."
-msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné (%(journal_name)s) est en devise (%(journal_currency)s) et la facture est en devise (%(invoice_currency)s)."
+msgid "The invoice %(invoice_name)s could not be validated. "
+"The selected journal (%(journal_name)s) has a currency (%(journal_currency)s) "
+"and the invoice has a currency (%(invoice_currency)s)."
+msgstr "La facture %(invoice_name)s n'a pas pu être validée. "
+"Le journal sélectionné (%(journal_name)s) est en devise (%(journal_currency)s) "
+"et la facture est en devise (%(invoice_currency)s)."
 
 #. module: invoice_currency_validation
 #: code:addons/invoice_currency_validation/models/account_invoice.py:45
 #, python-format
-msgid "The invoice %(invoice_name)s could not be validated. The selected journal (%(journal_name)s) has a currency (%(journal_currency)s) and the selected account (%(account_code)s) has a currency (%(account_currency)s)."
-msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné (%(journal_name)s) est en devise (%(journal_currency)s) et le compte sélectionné (%(account_code)s) est en devise (%(account_currency)s)."
+msgid "The invoice %(invoice_name)s could not be validated. "
+"The selected journal (%(journal_name)s) has a currency (%(journal_currency)s) "
+"and the selected account (%(account_code)s) has a currency (%(account_currency)s)."
+msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné "
+"(%(journal_name)s) est en devise (%(journal_currency)s) et le compte sélectionné "
+"(%(account_code)s) est en devise (%(account_currency)s)."
 
 #. module: invoice_currency_validation
 #: code:addons/invoice_currency_validation/models/account_invoice.py:21
 #, python-format
-msgid "The invoice %(invoice_name)s could not be validated. The selected journal (%(journal_name)s) has a currency (%(journal_currency)s) and the selected account (%(account_code)s) has no currency."
-msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné (%(journal_name)s) est en devise (%(journal_currency)s) et le compte sélectionné (%(account_code)s) n'a pas de devise."
+msgid "The invoice %(invoice_name)s could not be validated. "
+"The selected journal (%(journal_name)s) has a currency (%(journal_currency)s) "
+"and the selected account (%(account_code)s) has no currency."
+msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné "
+"(%(journal_name)s) est en devise (%(journal_currency)s) et le compte sélectionné "
+"(%(account_code)s) n'a pas de devise."
 
 #. module: invoice_currency_validation
 #: code:addons/invoice_currency_validation/models/account_invoice.py:33
 #, python-format
-msgid "The invoice %(invoice_name)s could not be validated. The selected journal (%(journal_name)s) has no currency and the selected account (%(account_code)s) has a currency (%(account_currency)s)."
-msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné (%(journal_name)s) n'a pas de devise et le compte sélectionné (%(account_code)s) est en devise (%(account_currency)s)."
+msgid "The invoice %(invoice_name)s could not be validated. "
+"The selected journal (%(journal_name)s) has no currency and the selected account "
+"(%(account_code)s) has a currency (%(account_currency)s)."
+msgstr "La facture %(invoice_name)s n'a pas pu être validée. Le journal sélectionné "
+"(%(journal_name)s) n'a pas de devise et le compte sélectionné (%(account_code)s) "
+"est en devise (%(account_currency)s)."
