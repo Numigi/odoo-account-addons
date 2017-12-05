@@ -28,6 +28,7 @@ This is mostly used for filtering move lines for the cash flow statement.
 Contributors
 ------------
 * David Dufresne (david.dufresne@savoirfairelinux.com)
+* Yasmine El Mrini (yasmine.elmrini@savoirfairelinux.com)
 
 More information
 ----------------
