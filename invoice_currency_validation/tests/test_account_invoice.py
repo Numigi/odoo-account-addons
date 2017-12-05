@@ -48,23 +48,26 @@ class TestAccountInvoice(SavepointCase):
             'invoice_line_ids': [(4, cls.line.id)],
         })
 
-    def test_01_journal_with_currency_and_account_without_currency(self):
+    def test_01_journal_without_currency_and_account_without_currency(self):
+        self.assertTrue(self.invoice.action_invoice_open())
+
+    def test_02_journal_with_currency_and_account_without_currency(self):
         self.journal.write({'currency_id': self.currency_cad.id})
         with self.assertRaises(UserError):
             self.invoice.action_invoice_open()
 
-    def test_02_journal_without_currency_and_account_with_currency(self):
+    def test_03_journal_without_currency_and_account_with_currency(self):
         self.account.write({'currency_id': self.currency_cad.id})
         with self.assertRaises(UserError):
             self.invoice.action_invoice_open()
 
-    def test_03_journal_and_account_with_different_currencies(self):
+    def test_04_journal_and_account_with_different_currencies(self):
         self.journal.write({'currency_id': self.currency_cad.id})
         self.account.write({'currency_id': self.currency_eur.id})
         with self.assertRaises(UserError):
             self.invoice.action_invoice_open()
 
-    def test_04_journal_and_invoice_with_different_currencies(self):
+    def test_05_journal_and_invoice_with_different_currencies(self):
         self.journal.write({'currency_id': self.currency_cad.id})
         self.account.write({'currency_id': self.currency_cad.id})
         with self.assertRaises(UserError):

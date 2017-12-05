@@ -15,15 +15,16 @@ class AccountInvoice(models.Model):
         journal_currency = (
             self.journal_id.currency_id or
             self.journal_id.company_id.currency_id)
+
         if journal_currency != self.currency_id:
             journal_type = 'sale' if self.type == 'out_invoice' else 'purchase'
-
             journal_id = self.env['account.journal'].search([
                 ('type', '=', journal_type),
                 '|',
                 ('currency_id', '=', self.currency_id.id),
                 ('currency_id', '=', False)
             ], order='sequence', limit=1)
+
             if journal_id:
                 self.journal_id = journal_id
 
