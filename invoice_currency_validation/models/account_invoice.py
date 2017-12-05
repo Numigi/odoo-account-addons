@@ -31,11 +31,11 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_open(self):
         for invoice in self:
-            invoice.check_currency()
+            invoice._check_currency()
 
         return super(AccountInvoice, self).action_invoice_open()
 
-    def check_currency(self):
+    def _check_currency(self):
         invoice_currency = self.currency_id
         journal_currency = self.journal_id.currency_id
         account_currency = self.account_id.currency_id
