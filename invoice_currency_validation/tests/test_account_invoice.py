@@ -15,9 +15,6 @@ class TestAccountInvoice(SavepointCase):
         cls.currency_cad = cls.env.ref('base.CAD')
         cls.currency_eur = cls.env.ref('base.EUR')
 
-        cls.supplier = cls.env['res.partner'].create({
-            'name': 'Supplier',
-        })
         cls.product = cls.env['product.product'].create({
             'name': 'Product',
         })
@@ -41,6 +38,11 @@ class TestAccountInvoice(SavepointCase):
             'name': 'Journal',
             'type': 'bank',
             'code': 'JR1717',
+        })
+
+        cls.supplier = cls.env['res.partner'].create({
+            'name': 'Supplier',
+            'property_account_payable_id': cls.account_2.id,
         })
 
         cls.line = cls.env['account.invoice.line'].create({
