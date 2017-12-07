@@ -61,7 +61,8 @@ class TestAccountInvoice(SavepointCase):
         })
 
     def test_01_journal_without_currency_and_account_without_currency(self):
-        self.assertTrue(self.invoice.action_invoice_open())
+        self.invoice.action_invoice_open()
+        self.assertEqual(self.invoice.state, 'open')
 
     def test_02_journal_with_currency_and_account_without_currency(self):
         self.journal.write({'currency_id': self.currency_cad.id})
