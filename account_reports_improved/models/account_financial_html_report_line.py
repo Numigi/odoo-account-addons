@@ -49,16 +49,13 @@ class AccountFinancialReportLine(models.Model):
     def create(self, vals):
         res = super(AccountFinancialReportLine, self).create(vals)
         res._update_formulas_from_type()
+        if res.parent_id:
+            res.parent_id._update_formulas_from_type()
         return res
 
     @api.multi
     def write(self, vals):
-        if (
-            'parent_id' in vals and self.parent_id and
-            vals.get('parent_id') != self.parent_id.id
-        ):
-            self.parent_id._update_formulas_from_type()
-
+        old_parent = self.parent_id
         super(AccountFinancialReportLine, self).write(vals)
 
         if (
@@ -69,7 +66,8 @@ class AccountFinancialReportLine(models.Model):
         ):
             self._update_formulas_from_type()
 
-        self.parent_id._update_formulas_from_type()
+        if 'parent_id' in vals:
+            (old_parent | self.parent_id)._update_formulas_from_type()
 
         return True
 
