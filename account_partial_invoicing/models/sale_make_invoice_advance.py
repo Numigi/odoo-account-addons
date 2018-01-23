@@ -22,14 +22,12 @@ class SaleAdvancePaymentInv(models.TransientModel):
 
     @api.onchange('advance_payment_method')
     def onchange_advance_payment_method(self):
-        res = {'value': {'is_partial_invoice': False,
-                         'sale_order_line_ids': []}}
-        return res
+        self.is_partial_invoice = False
+        self.sale_order_line_ids = []
 
     @api.onchange('is_partial_invoice')
     def onchange_is_partial_invoice(self):
-        res = {'value': {'sale_order_line_ids': []}}
-        return res
+        self.sale_order_line_ids = []
 
     # Modify the version of create_invoices from
     # https://github.com/odoo/odoo/blob/10.0/addons/sale/wizard/

@@ -83,11 +83,11 @@ class SaleOrder(models.Model):
                     references[invoice] = references[invoice] | order
 
         if not invoices:
-            raise UserError(_('There is no invoicable line.'))
+            raise UserError(_('There is no invoiceable line.'))
 
         for invoice in invoices.values():
             if not invoice.invoice_line_ids:
-                raise UserError(_('There is no invoicable line.'))
+                raise UserError(_('There is no invoiceable line.'))
             # If invoice is negative, do a refund invoice instead
             if invoice.amount_untaxed < 0:
                 invoice.type = 'out_refund'
@@ -100,10 +100,11 @@ class SaleOrder(models.Model):
             # In account_invoice, they are triggered
             # by onchanges, which are not triggered when doing a create.
             invoice.compute_taxes()
-            invoice.message_post_with_view('mail.message_origin_link',
-                                           values={'self': invoice,
-                                                   'origin': references[
-                                                       invoice]},
-                                           subtype_id=self.env.ref(
-                                               'mail.mt_note').id)
+            invoice.message_post_with_view(
+                'mail.message_origin_link',
+                values={
+                    'self': invoice,
+                    'origin': references[invoice]
+                },
+                subtype_id=self.env.ref('mail.mt_note').id)
         return [inv.id for inv in invoices.values()]
