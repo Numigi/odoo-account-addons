@@ -12,5 +12,4 @@ invoiceable lines from Sale Order Lines List.
 
 Contributors
 ------------
-
-* Savoir-Faire Linux
+* Rim BEN DHAOU <rim.bendhaou@savoirfairelinux.com>
