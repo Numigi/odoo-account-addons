@@ -4,7 +4,7 @@
 
 {
     'name': 'Payment Workflow Enterprise',
-    'version': '10.0.1.0.0',
+    'version': '1.0.0',
     'author': 'Savoir-faire Linux',
     'maintainer': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
@@ -12,7 +12,7 @@
     'category': 'Accounting',
     'summary': 'Set customer payment as default invoice address.',
     'depends': [
-        'project_workflow',
+        'payment_workflow',
         'account_reports',
     ],
     'installable': True,
