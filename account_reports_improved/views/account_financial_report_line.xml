@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_account_financial_report_line_form_2" model="ir.ui.view">
+            <field name="name">account.financial.html.report.line.form</field>
+            <field name="model">account.financial.html.report.line</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Report Line">
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <field name="code"/>
+                        <field name="formula_type"/>
+                        <field name="special_date_changer"/>
+                    </group>
+                    <notebook>
+                        <page name="computation" string="Computation">
+                            <group attrs="{'invisible': [('formula_type', '=', 'sum_of_categories')]}" string="Children Lines">
+                                <field name="children_ids" nolabel="1"/>
+                            </group>
+                            <group attrs="{'invisible': [('formula_type', '!=', 'sum_of_categories')]}">
+                                <field name="reverse_sum"/>
+                                <field name="account_tag_id"/>
+                                <field name="account_type_ids"/>
+                            </group>
+                        </page>
+                        <page name="advanced" string="Advanced">
+                            <group>
+                                <field name="green_on_positive"/>
+                                <field name="figure_type"/>
+                                <field name="parent_id"/>
+                                <field name="sequence"/>
+                                <field name="level"/>
+                                <field name="formulas" attrs="{'readonly': [('formula_type', '!=', False)]}"/>
+                                <field name="domain" attrs="{'readonly': [('formula_type', '!=', False)]}"/>
+                                <field name="show_domain"/>
+                                <field name="groupby" attrs="{'readonly': [('formula_type', '!=', False)]}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_financial_report_line_tree" model="ir.ui.view">
+            <field name="name">account.financial.html.report.line.tree</field>
+            <field name="model">account.financial.html.report.line</field>
+            <field name="inherit_id" ref="account_reports.view_account_financial_report_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="figure_type" position="after">
+                    <field name="account_tag_id"/>
+                    <field name="account_type_ids"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>
