@@ -3,6 +3,7 @@ MAINTAINER numigi <contact@numigi.com>
 
 USER root
 
+COPY ./account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY ./analytic_source /mnt/extra-addons/analytic_source
 COPY ./invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY ./docker_files/main /mnt/extra-addons/main
