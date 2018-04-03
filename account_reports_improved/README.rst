@@ -27,11 +27,5 @@ This is mostly used for filtering move lines for the cash flow statement.
 
 Contributors
 ------------
-* David Dufresne (david.dufresne@savoirfairelinux.com)
-* Yasmine El Mrini (yasmine.elmrini@savoirfairelinux.com)
-
-More information
-----------------
-* Module developed and tested with Odoo version 10.0
-* For questions, please contact our support services
-(support@savoirfairelinux.com)
+* David Dufresne (david.dufresne@numigi.com)
+* Yasmine El Mrini (yasmine.elmrini@numigi.com)
