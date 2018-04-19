@@ -14,6 +14,7 @@
         'account_negative_debit_credit',
         'analytic_source',
         'invoice_currency_validation',
+        'invoice_fiscal_position_required',
     ],
     'installable': True,
 }
