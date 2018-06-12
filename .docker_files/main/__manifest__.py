@@ -11,8 +11,11 @@
     'category': 'Other',
     'summary': 'Install all addons required for testing.',
     'depends': [
+        'l10n_generic_coa',  # Used for testing addons
+
         'account_negative_debit_credit',
         'analytic_source',
+        'hr_expense_tax_adjustment',
         'invoice_currency_validation',
         'invoice_fiscal_position_required',
     ],
