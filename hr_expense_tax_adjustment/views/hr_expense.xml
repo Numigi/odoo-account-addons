@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="hr_expense_form_with_tax_adjustment" model="ir.ui.view">
+        <field name="name">Expense Form With Tax Adjustment</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_form_view"/>
+        <field name="arch" type="xml">
+            <field name="tax_ids" position="after">
+                <field name="tax_line_ids" nolabel="1" colspan="2">
+                    <tree editable="bottom" create="0" delete="0">
+                        <field name="tax_id" readonly="1" force_save="1"/>
+                        <field name="account_id" invisible="1"/>
+                        <field name="amount"/>
+                        <field name="price_include" readonly="1" force_save="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+
+</odoo>
