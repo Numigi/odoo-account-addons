@@ -52,7 +52,9 @@ class TestAccountMoveLine(common.SavepointCase):
         cls.product = cls.env.ref('hr_expense.air_ticket')
         cls.product.supplier_taxes_id = cls.parent_tax
 
+        cls.user = cls.env.ref('base.user_demo')
         cls.employee = cls.env.ref('hr.employee_mit')
+        cls.employee.user_id = cls.user
 
         cls.payable = cls.env['account.account'].search(
             [('user_type_id.type', '=', 'payable')], limit=1)
@@ -63,7 +65,8 @@ class TestAccountMoveLine(common.SavepointCase):
             'name': 'Air Tickets',
             'employee_id': cls.employee.id,
         })
-        cls.expense = cls.env['hr.expense'].create({
+
+        cls.expense = cls.env['hr.expense'].sudo(cls.user).create({
             'name': 'Car Travel Expenses',
             'employee_id': cls.employee.id,
             'product_id': cls.product.id,
