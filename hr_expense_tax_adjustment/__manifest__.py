@@ -12,6 +12,7 @@
     'summary': 'Allow adjusting the tax amounts on expenses.',
     'depends': ['hr_expense'],
     'data': [
+        'security/ir.model.access.csv',
         'views/hr_expense.xml',
     ],
     'installable': True,
