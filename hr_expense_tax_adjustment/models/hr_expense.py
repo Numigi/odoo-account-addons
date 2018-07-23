@@ -102,8 +102,8 @@ class HrExpenseWithTotalBasedOnTaxLines(models.Model):
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)
 
         for expense in expenses_with_tax_lines:
-            included_tax_amount = sum(l.amount for l in self.tax_line_ids if l.price_include)
-            tax_amount = sum(l.amount for l in self.tax_line_ids)
+            included_tax_amount = sum(l.amount for l in expense.tax_line_ids if l.price_include)
+            tax_amount = sum(l.amount for l in expense.tax_line_ids)
 
             expense.untaxed_amount = expense.unit_amount * expense.quantity - included_tax_amount
             expense.total_amount = expense.untaxed_amount + tax_amount
