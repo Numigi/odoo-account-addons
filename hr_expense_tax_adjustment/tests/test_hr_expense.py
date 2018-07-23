@@ -180,3 +180,37 @@ class TestAccountMoveLine(common.SavepointCase):
         self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
         self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
         self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
+
+    def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
+        self.expense._onchange_amount_setup_tax_lines()
+
+        expense_2 = self.expense.copy({'unit_amount': 500})
+        expense_2._onchange_amount_setup_tax_lines()
+
+        (self.expense | expense_2)._compute_amount()
+
+        self.assertEqual(self.expense.total_amount, 700)
+        self.assertEqual(expense_2.total_amount, 500)
+        self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.14975, 2)
+        self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.14975, 2)
+
+    def test_withMultipleExpenseLines_taxesAreCorrectlyAccounted(self):
+        self.expense._onchange_amount_setup_tax_lines()
+
+        expense_2 = self.expense.copy({'unit_amount': 500})
+        expense_2._onchange_amount_setup_tax_lines()
+        expense_2.sheet_id = self.sheet
+
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
+
+        move_lines = self.sheet.account_move_id.line_ids
+
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+
+        total_amount = 700 + 500
+        self.assertAlmostEqual(sum(tax_1.mapped('debit')), total_amount * (0.05 / 1.14975), 0)
+        self.assertAlmostEqual(sum(tax_2.mapped('debit')), total_amount * (0.09975 / 1.14975), 0)
+        self.assertAlmostEqual(sum(payable.mapped('credit')), total_amount, 0)
