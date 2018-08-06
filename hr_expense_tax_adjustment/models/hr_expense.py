@@ -12,7 +12,11 @@ class HrExpenseWithAdjustableTaxes(models.Model):
     tax_line_ids = fields.One2many(
         'hr.expense.tax', 'expense_id', 'Taxes',
         readonly=True, copy=True,
-        states={'draft': [('readonly', False)], 'refused': [('readonly', False)]})
+        states={
+            'draft': [('readonly', False)],
+            'reported': [('readonly', False)],
+            'refused': [('readonly', False)],
+        })
 
     @api.onchange(
         'product_id', 'quantity', 'unit_amount', 'tax_ids',
@@ -21,7 +25,7 @@ class HrExpenseWithAdjustableTaxes(models.Model):
         if self.quantity and self.unit_amount and self.tax_ids:
             self._setup_tax_lines()
         else:
-            self.tax_line_ids.unlink()
+            self.tax_line_ids = self.env['hr.expense.tax']
 
     def _setup_tax_lines(self):
         """Setup the taxes on the expense."""
