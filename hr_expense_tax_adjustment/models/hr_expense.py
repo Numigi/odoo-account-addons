@@ -10,7 +10,7 @@ class HrExpenseWithAdjustableTaxes(models.Model):
     _inherit = 'hr.expense'
 
     tax_line_ids = fields.One2many(
-        'hr.expense.tax', 'expense_id', 'Taxes',
+        'hr.expense.tax', 'expense_id', 'Detailed Taxes',
         readonly=True, copy=True,
         states={
             'draft': [('readonly', False)],
