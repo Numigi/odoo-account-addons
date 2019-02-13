@@ -1,0 +1,104 @@
+# © 2019 Numigi
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+from .transaction_types import TRANSACTION_TYPES
+
+
+class Bank(models.Model):
+
+    _inherit = 'res.bank'
+
+    canada_institution = fields.Char(size=3, string='Institution Number')
+
+    @api.constrains('canada_institution')
+    def _check_canada_institution_is_3_digits(self):
+        banks_with_institution = self.filtered(lambda b: b.canada_institution)
+        for bank in banks_with_institution:
+            if not bank.canada_institution.isdigit() or len(bank.canada_institution) != 3:
+                raise ValidationError(_(
+                    'The institution number must contain 3 digits. Got `{}`.'
+                ).format(bank.canada_institution))
+
+
+class BankAccount(models.Model):
+
+    _inherit = 'res.partner.bank'
+
+    canada_transit = fields.Char(size=5, string='Transit Number')
+
+    @api.constrains('canada_transit')
+    def _check_canada_transit_is_5_digits(self):
+        accounts_with_transit = self.filtered(lambda b: b.canada_transit)
+        for account in accounts_with_transit:
+            if not account.canada_transit.isdigit() or len(account.canada_transit) != 5:
+                raise ValidationError(_(
+                    'The transit number must contain 5 digits. Got `{}`.'
+                ).format(account.canada_transit))
+
+    def name_get(self):
+        """Format the displayed name of canada accounts with the extra fields.
+
+        The transit and institution number are added.
+
+        If the transit or the institution number is missing, replace the number
+        with a series of `X`. This allows to easily identify what field is missing.
+        """
+        canada_accounts = self.canada_transit or self.bank_id.canada_institution
+        canada_accounts_result = [
+            (a.id, '{transit} {institution} {account_number}'.format(
+                transit=a.canada_transit or 'XXXXX',
+                institution=a.canada_institution or 'XXX',
+                account_number=a.acc_number,
+            )) for a in canada_accounts
+        ]
+
+        other_accounts = self - canada_accounts
+        other_accounts_result = super().name_get(other_accounts)
+
+        return canada_accounts_result + other_accounts_result
+
+
+class AccountJournal(models.Model):
+
+    _inherit = "account.journal"
+
+    canada_transit = fields.Char(
+        'Transit Number',
+        size=5,
+        related='bank_account_id.canada_transit',
+        readonly=False,
+    )
+
+    eft_user_short_name = fields.Char(
+        "EFT User Short Name",
+        size=15,
+        help="A short version of your company name. "
+        "Must be composed of maximum 15 alphanumeric caracters."
+    )
+
+    eft_user_number = fields.Char(
+        "EFT User Number",
+        size=10,
+        help="This number is attributed by your bank to identify your company. "
+        "It is composed of 10 alphanumeric caracters."
+    )
+
+    eft_destination = fields.Char(
+        "EFT Destination",
+        size=5,
+        help="Technical value of 5 digits used in the EFT file. "
+        "It indicates the data processing center that will handle your tranfers. "
+        "The value depends on the bank and the location of your company."
+    )
+
+
+class AccountPayment(models.Model):
+
+    _inherit = 'account.payment'
+
+    eft_transaction_type = fields.Selection(
+        TRANSACTION_TYPES,
+        'EFT Transaction Type',
+    )
