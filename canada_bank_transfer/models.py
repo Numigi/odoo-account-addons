@@ -37,6 +37,15 @@ class BankAccount(models.Model):
                     'The transit number must contain 5 digits. Got `{}`.'
                 ).format(account.canada_transit))
 
+    @property
+    def formatted_canada_number(self):
+        return '{transit} {institution} {account_number}'.format(
+            transit=self.canada_transit or 'XXXXX',
+            institution=self.bank_id.canada_institution or 'XXX',
+            account_number=self.acc_number,
+        )
+
+    @api.multi
     def name_get(self):
         """Format the displayed name of canada accounts with the extra fields.
 
@@ -45,19 +54,27 @@ class BankAccount(models.Model):
         If the transit or the institution number is missing, replace the number
         with a series of `X`. This allows to easily identify what field is missing.
         """
-        canada_accounts = self.canada_transit or self.bank_id.canada_institution
-        canada_accounts_result = [
-            (a.id, '{transit} {institution} {account_number}'.format(
-                transit=a.canada_transit or 'XXXXX',
-                institution=a.canada_institution or 'XXX',
-                account_number=a.acc_number,
-            )) for a in canada_accounts
-        ]
+        canada_accounts = self.filtered(lambda a: a.canada_transit or a.bank_id.canada_institution)
+        canada_accounts_result = [(a.id, a.formatted_canada_number) for a in canada_accounts]
 
         other_accounts = self - canada_accounts
-        other_accounts_result = super().name_get(other_accounts)
+        other_accounts_result = super(BankAccount, other_accounts).name_get()
 
         return canada_accounts_result + other_accounts_result
+
+    @api.depends('acc_number')
+    def _compute_sanitized_acc_number(self):
+        """Add canada parts to the field sanitized_acc_number.
+
+        This prevents the unique constraint from failling on sanitized_acc_number
+        if 2 accounts with different transits have the same number.
+        """
+        canada_accounts = self.filtered(lambda a: a.canada_transit)
+        for account in canada_accounts:
+            account.sanitized_acc_number = account.formatted_canada_number
+
+        other_accounts = self - canada_accounts
+        super(BankAccount, other_accounts)._compute_sanitized_acc_number()
 
 
 class AccountJournal(models.Model):
