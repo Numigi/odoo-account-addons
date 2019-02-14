@@ -176,7 +176,7 @@ def _verify_user_short_name(user_short_name: str, context: dict) -> None:
 
 def _format_user_short_name(user_short_name: str) -> str:
     user_short_name_sanitized = _remove_accents_and_special_caracters(user_short_name)
-    return _justify_left_with_blanks(user_short_name_sanitized, 15)
+    return _justify_left_with_blanks(user_short_name_sanitized.upper(), 15)
 
 
 def _verify_user_long_name(user_long_name: str, context: dict) -> None:
@@ -189,17 +189,17 @@ def _verify_user_long_name(user_long_name: str, context: dict) -> None:
 
 def _format_user_long_name(user_long_name: str) -> str:
     user_long_name_sanitized = _remove_accents_and_special_caracters(user_long_name)
-    return _justify_left_with_blanks(user_long_name_sanitized, 30)
+    return _justify_left_with_blanks(user_long_name_sanitized.upper(), 30)
 
 
 def _format_destinator_name(destinator_name: str) -> str:
     destinator_name_sanitized = _remove_accents_and_special_caracters(destinator_name)
-    return _justify_left_with_blanks(destinator_name_sanitized[:30], 30)
+    return _justify_left_with_blanks(destinator_name_sanitized[:30].upper(), 30)
 
 
 def _format_transaction_reference(reference: str) -> str:
     reference_sanitized = _remove_accents_and_special_caracters(reference)
-    return _justify_left_with_blanks(reference_sanitized, 19)
+    return _justify_left_with_blanks(reference_sanitized.upper(), 19)
 
 
 def _verify_transaction_type(transaction_type: str, context: dict) -> None:
@@ -224,7 +224,7 @@ def _verify_payment_amount(amount: float, context: dict) -> None:
 
 
 def _format_payment_amount(amount: float) -> str:
-    return "{0:0>9.0f}".format(float_round(amount, 2) * 100)
+    return "{0:0>9.0f}".format(float_round(amount * 100, 0))
 
 
 def _format_credit_detail_segment(payment: Payment) -> str:
@@ -339,7 +339,7 @@ def format_credit_details_group(
 
 
 def _format_total_amount(amount: float) -> str:
-    return "{0:0>13.0f}".format(float_round(amount, 2) * 100)
+    return "{0:0>13.0f}".format(float_round(amount * 100, 0))
 
 
 def _format_number_of_payments(number_of_payments: int) -> str:

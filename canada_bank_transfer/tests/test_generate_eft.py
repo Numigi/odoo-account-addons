@@ -203,24 +203,29 @@ class TestEFTCreditDetails(EFTCase):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[89:104] == 'YOUR COMPANY   '  # 15 caracters
 
+    def test_accents_are_removed_from_user_short_name(self):
+        self.journal.eft_user_short_name = 'Québec Inc. *'
+        record = format_credit_details_group(self.journal, self.payments, 1, 2)
+        assert record[89:104] == 'QUEBEC INC. _  '  # 15 caracters
+
     def test_destinator_short_name(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[104:134] == 'Supplier 1                    '  # 30 caracters
+        assert record[104:134] == 'SUPPLIER 1                    '  # 30 caracters
 
     def test_accents_are_removed_from_destinator_name(self):
         self.td_account.partner_id.name = '12345 Québec Inc. *test*'
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[104:134] == '12345 Quebec Inc. _test_      '  # 30 caracters
+        assert record[104:134] == '12345 QUEBEC INC. _TEST_      '  # 30 caracters
 
     def test_user_long_name(self):
         self.journal.company_id.name = 'Your Company Inc.'
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[134:164] == 'Your Company Inc.             '  # 30 caracters
+        assert record[134:164] == 'YOUR COMPANY INC.             '  # 30 caracters
 
     def test_accents_are_removed_from_user_long_name(self):
         self.journal.company_id.name = 'Your Company Inc. *test*'
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[134:164] == 'Your Company Inc. _test_      '  # 30 caracters
+        assert record[134:164] == 'YOUR COMPANY INC. _TEST_      '  # 30 caracters
 
     def test_user_number_at_164(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
