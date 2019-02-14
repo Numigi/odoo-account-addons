@@ -2,44 +2,43 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import math
+import re
 from unidecode import unidecode
 from datetime import date
 from odoo import _
-from odoo.addons.base.models.res_currency import Currency
 from odoo.addons.account.models.account import AccountJournal as Journal
 from odoo.addons.account.models.account_payment import account_payment as Payment
 from odoo.exceptions import ValidationError
+from odoo.tools.float_utils import float_round
 
 AUTHORIZED_ASCII_CHARS = (' ', '.')
 
 
 def _remove_accents_and_special_caracters(value: str) -> str:
     """Remove accents and special caracters from the given string."""
-    value = unidecode(value)
-    return ''.join((c if c.isalnum() or c in AUTHORIZED_ASCII_CHARS else '_' for c in value))
+    value_with_no_accents = unidecode(value)
+    return re.sub(r'[^a-zA-Z0-9,.\s]', '_', value_with_no_accents)
 
 
-def _format_with_right_justification(value: object, text_length: int):
-    """Format the given value with a left padding (justified to the right).
-
-    :param value: the value to format.
-    :param text_length: the total length of the returned string.
-    """
-    return str(value).zfill(text_length)
-
-
-def _format_with_left_justification(value: object, text_length: int):
-    """Format the given value with a right padding (justified to the left).
+def _justify_right_with_zeros(value: object, text_length: int):
+    """Format the given value with a left padding of zeros (justified to the right).
 
     :param value: the value to format.
     :param text_length: the total length of the returned string.
     """
-    padding_length = (text_length - len(value))
-    padding = ' ' * padding_length
-    return '{}{}'.format(value, padding)
+    return '{0:0>{length}}'.format(value, length=text_length)
 
 
-def _format_julian_date(date_: date, context: dict):
+def _justify_left_with_blanks(value: object, text_length: int):
+    """Format the given value with a right padding of blanks (justified to the left).
+
+    :param value: the value to format.
+    :param text_length: the total length of the returned string.
+    """
+    return '{0: <{length}}'.format(value, length=text_length)
+
+
+def _format_julian_date(date_: date):
     """Format the given date as Julian date (0AAJJJ)."""
     timetuple = date_.timetuple()
     year = str(timetuple.tm_year)[-2:]
@@ -47,40 +46,40 @@ def _format_julian_date(date_: date, context: dict):
     return '0{}{}'.format(year, day)
 
 
-def _format_file_number(file_number: int, context: dict) -> str:
+def _verify_file_number(file_number: int, context: dict) -> None:
     if not (1 <= file_number <= 9999):
         raise ValidationError(
             _('Expected an EFT file number between 1 and 9999. Got `{}`.')
             .format(file_number)
         )
-    return _format_with_right_justification(str(file_number), 4)
 
 
-def _format_user_number(user_number: str, context: dict) -> str:
+def _format_file_number(file_number: int) -> str:
+    return _justify_right_with_zeros(str(file_number), 4)
+
+
+def _verify_user_number(user_number: str, context: dict) -> None:
     if not user_number or len(user_number) != 10:
         raise ValidationError(
             _('Expected a bank user number with 10 caracters. Got `{}`.')
             .format(user_number)
         )
-    return user_number
 
 
-def _format_destination_code(destination: str, context: dict) -> str:
+def _verify_destination_code(destination: str, context: dict) -> None:
     if not destination or len(destination) != 5 or not destination.isdigit():
         raise ValidationError(
             _('Expected a destination code with 5 digits. Got `{}`.')
             .format(destination)
         )
-    return destination
 
 
-def _format_currency_code(currency: Currency, context: dict) -> str:
-    if len(currency.name) != 3:
+def _verify_currency_code(currency_code: str, context: dict) -> None:
+    if len(currency_code) != 3:
         raise ValidationError(
             _('Expected a currency name with 3 caracters. Got `{}`.')
-            .format(currency.name)
+            .format(currency_code)
         )
-    return currency.name
 
 
 def format_header(journal: Journal, file_number: int) -> str:
@@ -94,28 +93,34 @@ def format_header(journal: Journal, file_number: int) -> str:
         It is incremented after every EFT file.
     """
     context = journal._context
+
+    _verify_user_number(journal.eft_user_number, context)
+    _verify_file_number(file_number, context)
+    _verify_currency_code(journal.currency_id.name, context)
+    _verify_destination_code(journal.eft_destination, context)
+
     return (
         "A000000001{user_number}{file_number}{create_date}{destination}"
         "{blank_20}"
         "{currency_code}"
         "{blank_1406}"
         .format(
-            user_number=_format_user_number(journal.eft_user_number, context),
-            file_number=_format_file_number(file_number, context),
-            create_date=_format_julian_date(date.today(), context),
-            destination=_format_destination_code(journal.eft_destination, context),
+            user_number=journal.eft_user_number,
+            file_number=_format_file_number(file_number),
+            create_date=_format_julian_date(date.today()),
+            destination=journal.eft_destination,
             blank_20=" " * 20,
-            currency_code=_format_currency_code(journal.currency_id, context),
+            currency_code=journal.currency_id.name,
             blank_1406=" " * 1406,
         )
     )
 
 
-def _format_sequence_number(sequence_number: int, context: dict) -> str:
-    return _format_with_right_justification(str(sequence_number), 9)
+def _format_sequence_number(sequence_number: int) -> str:
+    return _justify_right_with_zeros(str(sequence_number), 9)
 
 
-def _format_institution_number(institution_number: str, context: dict) -> str:
+def _verify_institution_number(institution_number: str, context: dict) -> None:
     if not institution_number or len(institution_number) != 3:
         raise ValidationError(
             _('Expected an institution name with 3 caracters. Got `{}`.')
@@ -127,10 +132,9 @@ def _format_institution_number(institution_number: str, context: dict) -> str:
             _("The institution number `{}` must contain only digits.")
             .format(number)
         )
-    return institution_number
 
 
-def _format_transit(transit: str, context: dict) -> str:
+def _verify_transit(transit: str, context: dict) -> None:
     if not transit or len(transit) != 5:
         raise ValidationError(
             _('Expected a transit number with 5 caracters. Got `{}`.')
@@ -142,10 +146,9 @@ def _format_transit(transit: str, context: dict) -> str:
             _("The transit number `{}` must contain only digits.")
             .format(number)
         )
-    return transit
 
 
-def _format_account_number(number: str, context: dict) -> str:
+def _verify_account_number(number: str, context: dict) -> None:
     if not number.isdigit():
         raise ValidationError(
             _("The account number `{}` must contain only digits.")
@@ -158,45 +161,48 @@ def _format_account_number(number: str, context: dict) -> str:
             .format(number)
         )
 
-    return _format_with_left_justification(number, 12)
+
+def _format_account_number(number: str) -> str:
+    return _justify_left_with_blanks(number, 12)
 
 
-def _format_user_short_name(user_short_name: str, context: dict) -> str:
+def _verify_user_short_name(user_short_name: str, context: dict) -> None:
     if not user_short_name or len(user_short_name) > 15:
         raise ValidationError(
             _('Expected a user short name between 1 and 15 caracters. Got `{}`.')
             .format(user_short_name)
         )
+
+
+def _format_user_short_name(user_short_name: str) -> str:
     user_short_name_sanitized = _remove_accents_and_special_caracters(user_short_name)
-    return _format_with_left_justification(user_short_name_sanitized, 15)
+    return _justify_left_with_blanks(user_short_name_sanitized, 15)
 
 
-def _format_user_long_name(user_long_name: str, context: dict) -> str:
+def _verify_user_long_name(user_long_name: str, context: dict) -> None:
     if not user_long_name or len(user_long_name) > 30:
         raise ValidationError(
             _('Expected a user long name between 1 and 30 caracters. Got `{}`.')
             .format(user_long_name)
         )
+
+
+def _format_user_long_name(user_long_name: str) -> str:
     user_long_name_sanitized = _remove_accents_and_special_caracters(user_long_name)
-    return _format_with_left_justification(user_long_name_sanitized, 30)
+    return _justify_left_with_blanks(user_long_name_sanitized, 30)
 
 
-def _format_destinator_name(destinator_name: str, context: dict) -> str:
+def _format_destinator_name(destinator_name: str) -> str:
     destinator_name_sanitized = _remove_accents_and_special_caracters(destinator_name)
-    return _format_with_left_justification(destinator_name_sanitized[:30], 30)
+    return _justify_left_with_blanks(destinator_name_sanitized[:30], 30)
 
 
-def _format_transaction_reference(reference: str, context: dict) -> str:
-    if len(reference) > 19:
-        raise ValidationError(
-            _('Expected a transaction reference between 1 and 19 caracters. Got `{}`.')
-            .format(reference)
-        )
+def _format_transaction_reference(reference: str) -> str:
     reference_sanitized = _remove_accents_and_special_caracters(reference)
-    return _format_with_left_justification(reference_sanitized, 19)
+    return _justify_left_with_blanks(reference_sanitized, 19)
 
 
-def _format_transaction_type(transaction_type: str, context: dict) -> str:
+def _verify_transaction_type(transaction_type: str, context: dict) -> None:
     if not transaction_type.isdigit():
         raise ValidationError(
             _('The transaction type must have 3 digits. Got `{}`.')
@@ -207,16 +213,18 @@ def _format_transaction_type(transaction_type: str, context: dict) -> str:
             _('Expected a transaction reference with 3 caracters. Got `{}`.')
             .format(transaction_type)
         )
-    return transaction_type
 
 
-def _format_payment_amount(amount: float, context: dict):
+def _verify_payment_amount(amount: float, context: dict) -> None:
     if amount >= 10000000:
         raise ValidationError(
             _('EFT transfers support only payments below ten millions.')
             .format(transaction_type)
         )
-    return "{0:9.0f}".format(amount * 100).replace(' ', '0')
+
+
+def _format_payment_amount(amount: float) -> str:
+    return "{0:0>9.0f}".format(float_round(amount, 2) * 100)
 
 
 def _format_credit_detail_segment(payment: Payment) -> str:
@@ -245,12 +253,24 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             .format(payment.display_name)
         )
 
+    _verify_transaction_type(payment.eft_transaction_type, context)
+    _verify_user_number(payment.journal_id.eft_user_number, context)
+    _verify_user_short_name(payment.journal_id.eft_user_short_name, context)
+    _verify_user_long_name(payment.journal_id.company_id.name, context)
+    _verify_payment_amount(payment.amount, context)
+    _verify_institution_number(destination_account.bank_id.canada_institution, context)
+    _verify_institution_number(origin_account.bank_id.canada_institution, context)
+    _verify_transit(destination_account.canada_transit, context)
+    _verify_transit(origin_account.canada_transit, context)
+    _verify_account_number(destination_account.acc_number, context)
+    _verify_account_number(origin_account.acc_number, context)
+
     return (
         "{transaction_type}"
         "0{amount}"
         "{payment_date}"
         "0{destination_institution}{destination_transit}{destination_account}"
-        "0000000000000000000000000"
+        "{zero_25}"
         "{user_short_name}"
         "{destinator_name}"
         "{user_long_name}"
@@ -258,26 +278,25 @@ def _format_credit_detail_segment(payment: Payment) -> str:
         "{transaction_reference}"
         "0{origin_institution}{origin_transit}{origin_account}"
         "{blank_39}"
-        "00000000000"
+        "{zero_11}"
         .format(
-            transaction_type=_format_transaction_type(payment.eft_transaction_type, context),
-            amount=_format_payment_amount(payment.amount, context),
-            payment_date=_format_julian_date(payment.payment_date, context),
-            destination_institution=_format_institution_number(
-                destination_account.bank_id.canada_institution, context),
-            destination_transit=_format_transit(destination_account.canada_transit, context),
-            destination_account=_format_account_number(destination_account.acc_number, context),
-            user_short_name=_format_user_short_name(
-                payment.journal_id.eft_user_short_name, context),
-            destinator_name=_format_destinator_name(payment.partner_id.name, context),
-            user_long_name=_format_user_long_name(payment.journal_id.company_id.name, context),
-            user_number=_format_user_number(payment.journal_id.eft_user_number, context),
-            transaction_reference=_format_transaction_reference(str(payment.id), context),
-            origin_institution=_format_institution_number(
-                origin_account.bank_id.canada_institution, context),
-            origin_transit=_format_transit(origin_account.canada_transit, context),
-            origin_account=_format_account_number(origin_account.acc_number, context),
+            transaction_type=payment.eft_transaction_type,
+            amount=_format_payment_amount(payment.amount),
+            payment_date=_format_julian_date(payment.payment_date),
+            zero_25="0" * 25,
+            destination_institution=destination_account.bank_id.canada_institution,
+            destination_transit=destination_account.canada_transit,
+            destination_account=_format_account_number(destination_account.acc_number),
+            user_short_name=_format_user_short_name(payment.journal_id.eft_user_short_name),
+            destinator_name=_format_destinator_name(payment.partner_id.name),
+            user_long_name=_format_user_long_name(payment.journal_id.company_id.name),
+            user_number=payment.journal_id.eft_user_number,
+            transaction_reference=_format_transaction_reference(str(payment.id)),
+            origin_institution=origin_account.bank_id.canada_institution,
+            origin_transit=origin_account.canada_transit,
+            origin_account=_format_account_number(origin_account.acc_number),
             blank_39=" " * 39,
+            zero_11="0" * 11,
         )
     )
 
@@ -293,6 +312,10 @@ def format_credit_details_group(
     :param sequence_number: the sequence number to use.
     """
     context = journal._context
+
+    _verify_user_number(journal.eft_user_number, context)
+    _verify_file_number(file_number, context)
+
     return (
         "C{sequence_number}{user_number}{file_number}"
         "{segment_1}"
@@ -302,9 +325,9 @@ def format_credit_details_group(
         "{segment_5}"
         "{segment_6}"
         .format(
-            sequence_number=_format_sequence_number(sequence_number, context),
-            user_number=_format_user_number(journal.eft_user_number, context),
-            file_number=_format_file_number(file_number, context),
+            sequence_number=_format_sequence_number(sequence_number),
+            user_number=journal.eft_user_number,
+            file_number=_format_file_number(file_number),
             segment_1=_format_credit_detail_segment(payments[0:1]),
             segment_2=_format_credit_detail_segment(payments[1:2]),
             segment_3=_format_credit_detail_segment(payments[2:3]),
@@ -315,12 +338,12 @@ def format_credit_details_group(
     )
 
 
-def _format_total_amount(amount: float, context: dict) -> str:
-    return "{0:13.0f}".format(amount * 100).replace(' ', '0')
+def _format_total_amount(amount: float) -> str:
+    return "{0:0>13.0f}".format(float_round(amount, 2) * 100)
 
 
-def _format_number_of_payments(number_of_payments: int, context: dict) -> str:
-    return "{0:7.0f}".format(number_of_payments).replace(' ', '0')
+def _format_number_of_payments(number_of_payments: int) -> str:
+    return "{0:0>7.0f}".format(number_of_payments)
 
 
 def format_trailer(
@@ -338,6 +361,10 @@ def format_trailer(
     :param number_of_payments: the count of payments in the EFT.
     """
     context = journal._context
+
+    _verify_user_number(journal.eft_user_number, context)
+    _verify_file_number(file_number, context)
+
     return (
         "Z{sequence_number}{user_number}{file_number}"
         "{zero_22}"
@@ -346,12 +373,12 @@ def format_trailer(
         "{zero_44}"
         "{blank_1352}"
         .format(
-            sequence_number=_format_sequence_number(sequence_number, context),
-            user_number=_format_user_number(journal.eft_user_number, context),
-            file_number=_format_file_number(file_number, context),
+            sequence_number=_format_sequence_number(sequence_number),
+            user_number=journal.eft_user_number,
+            file_number=_format_file_number(file_number),
             zero_22="0" * 22,
-            total_amount=_format_total_amount(total_amount, context),
-            number_of_payments=_format_number_of_payments(number_of_payments, context),
+            total_amount=_format_total_amount(total_amount),
+            number_of_payments=_format_number_of_payments(number_of_payments),
             zero_44="0" * 44,
             blank_1352=" " * 1352,
         )

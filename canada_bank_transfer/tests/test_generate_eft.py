@@ -7,6 +7,8 @@ from ddt import ddt, data
 from freezegun import freeze_time
 from odoo.exceptions import ValidationError
 from ..generate_eft import (
+    _format_payment_amount,
+    _format_total_amount,
     format_header,
     format_credit_details_group,
     format_trailer,
@@ -18,6 +20,28 @@ from .common import (
     DESTINATION,
     EFTCase,
 )
+
+
+@pytest.mark.parametrize('number,expected_value', [
+    (10, '000001000'),
+    (10.23, '000001023'),
+    (10.234, '000001023'),
+    (10.235, '000001024'),
+    (1.49999999, '000000150')
+])
+def test_format_payment_amount(number, expected_value):
+    assert _format_payment_amount(number) == expected_value
+
+
+@pytest.mark.parametrize('number,expected_value', [
+    (10, '0000000001000'),
+    (10.23, '0000000001023'),
+    (10.234, '0000000001023'),
+    (10.235, '0000000001024'),
+    (1.49999999, '0000000000150')
+])
+def test_format_total_amount(number, expected_value):
+    assert _format_total_amount(number) == expected_value
 
 
 @ddt
