@@ -15,7 +15,6 @@ from ..generate_eft import (
     generate_eft,
 )
 from .common import (
-    USER_SHORT_NAME,
     USER_NUMBER,
     DESTINATION,
     EFTCase,
@@ -385,19 +384,19 @@ class TestCompleteEFTAmountPosition(CompleteEFTCase):
         cls.payments = cls._generate_payments(20)
 
     @data(
-        # (payment_index, formatted_payment_amount, amount_index_in_file)
-        (0, '0000000100', 1492),  # 1492 = 1464 + 1 + 27 (header + \n + 27)
-        (1, '0000000200', 1732),  # 1732 = 1492 + 240
-        (4, '0000000500', 2452),  # 2452 = 1492 + 240 * 4
-        (5, '0000000600', 2692),  # 2692 = 1492 + 240 * 5
-        (6, '0000000700', 2957),  # 2957 = 1464 + 1 + 1464 + 1 + 27 (header + \n + group1 + \n + 27)
-        (11, '0000001200', 4157),  # 4157 = 2957 + 240 * 5
-        (12, '0000001300', 4422),  # 4421 = 1464 * 3 + 3 + 27
-        (17, '0000001800', 5622),  # 5622 = 4421 + 240 * 5
-        (18, '0000001900', 5887),  # 5887 = 1464 * 4 + 4 + 27
-        (19, '0000002000', 6127),  # 6127 = 5887 + 240
+        # (formatted_payment_amount, amount_index_in_file)
+        ('0000000100', 1492),  # 1492 = 1464 + 1 + 27 (header + \n + 27)
+        ('0000000200', 1732),  # 1732 = 1492 + 240
+        ('0000000500', 2452),  # 2452 = 1492 + 240 * 4
+        ('0000000600', 2692),  # 2692 = 1492 + 240 * 5
+        ('0000000700', 2957),  # 2957 = 1464 + 1 + 1464 + 1 + 27 (header + \n + group1 + \n + 27)
+        ('0000001200', 4157),  # 4157 = 2957 + 240 * 5
+        ('0000001300', 4422),  # 4421 = 1464 * 3 + 3 + 27
+        ('0000001800', 5622),  # 5622 = 4421 + 240 * 5
+        ('0000001900', 5887),  # 5887 = 1464 * 4 + 4 + 27
+        ('0000002000', 6127),  # 6127 = 5887 + 240
     )
     def test_payments_order(self, data_):
-        payment_index, formatted_payment_amount, amount_index_in_file = data_
+        formatted_payment_amount, amount_index_in_file = data_
         eft = generate_eft(self.journal, self.payments, 1)
         assert eft[amount_index_in_file:amount_index_in_file + 10] == formatted_payment_amount
