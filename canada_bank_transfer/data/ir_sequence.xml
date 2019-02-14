@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sequence_eft" model="ir.sequence">
+        <field name="name">EFT</field>
+        <field name="code">account.payment.eft</field>
+        <field name="padding">4</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="payment_method_eft" model="account.payment.method">
+            <field name="name">EFT</field>
+            <field name="code">eft</field>
+            <field name="payment_type">outbound</field>
+        </record>
+
+    </data>
+</odoo>
