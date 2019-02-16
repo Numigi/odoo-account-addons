@@ -31,3 +31,4 @@ TRANSACTION_TYPES = [
     ('281', 'Lottery Payment'),
     ('450', 'Miscellaneous Payment'),
 ]
+DEFAULT_TRANSACTION_TYPE = '450'

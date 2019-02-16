@@ -1,0 +1,402 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* canada_bank_transfer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-17 14:28-0400\n"
+"PO-Revision-Date: 2017-08-17 14:29-0400\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/generate_eft.py:37
+#, python-format
+msgid "Expected an EFT file number between 1 and 9999. Got `{}`."
+msgstr "Le numéro de fichier EFT doit être entre 1 et 9999. La valeur donnée est `{}`."
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_account_eft_transfer
+msgid "Account EFT"
+msgstr "Transfert de compte EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Approve"
+msgstr "Approuver"
+
+#. module: canada_bank_transfer
+#: model:res.groups,name:canada_bank_transfer.group_approve_eft_transfers
+msgid "Approve EFTs"
+msgstr "Approuver les transferts EFT"
+
+#. module: canada_bank_transfer
+#: selection:account.eft,state:0
+msgid "Approved"
+msgstr "Approuvé"
+
+#. module: canada_bank_transfer
+#: model:account.payment.method,name:canada_bank_transfer.account_payment_method_eft_transfer
+msgid "EFT"
+msgstr "Transfert EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.view_account_payment_form
+#: code:addons/canada_bank_transfer/models/account_payment.py:0
+#, python-format
+msgid "EFTs"
+msgstr "Transferts EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "EFT File"
+msgstr "Fichier de transfert EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.view_account_eft_transfer_list
+msgid "EFT Files"
+msgstr "Fichiers de transfert EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.actions.act_window,name:canada_bank_transfer.action_view_account_eft_transfer
+#: model:ir.ui.menu,name:canada_bank_transfer.menu_action_eft_files
+#: model:ir.ui.view,arch_db:canada_bank_transfer.view_account_eft_transfer_filter
+msgid "EFTs"
+msgstr "Transfert EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_res_bank
+msgid "Bank"
+msgstr "Banque"
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr "Comptes bancaires"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+#: model:ir.ui.view,arch_db:canada_bank_transfer.transfer_confirmation_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: canada_bank_transfer
+#: selection:account.eft,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_transfer_confirmation_line_completed
+msgid "Completed"
+msgstr "Terminé"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Confirm Sending"
+msgstr "Confirmer l'envoi"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_content
+msgid "Content"
+msgstr "Contenu"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_currency_id
+msgid "Currency"
+msgstr "Devise"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: canada_bank_transfer
+#: selection:account.eft,state:0
+msgid "Done"
+msgstr "Terminé"
+
+#. module: canada_bank_transfer
+#: selection:account.eft,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Failed Payments"
+msgstr "Paiements en échec"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_data
+msgid "File"
+msgstr "Fichier"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_filename
+msgid "File Name"
+msgstr "Nom de Fichier"
+
+#. module: canada_bank_transfer
+#: model:ir.actions.server,name:canada_bank_transfer.action_accounteft_file
+msgid "Generate EFT File"
+msgstr "Générer le fichier de transfert EFT"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Generate File"
+msgstr "Générer le fichier"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_eft_id
+msgid "ID"
+msgstr "ID"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_bank_bank_number
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_partner_bank_bank_number
+msgid "Institution Number"
+msgstr "Numéro d'institution"
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_account_journal
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_journal_id
+msgid "Journal"
+msgstr "Journal"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer___last_update
+msgid "Last Modified on"
+msgstr "Dernière Modification le"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_name
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_transfer_confirmation_line_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_transfer_confirmation_line_partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_transfer_confirmation_line_amount
+msgid "Payment Amount"
+msgstr "Montant du paiement"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_transfer_confirmation_line_payment_date
+msgid "Payment Date"
+msgstr "Date de règlement"
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_account_payment
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_payment_ids
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:169
+#, python-format
+msgid ""
+"Payments to export as EFT must have 'EFT' selected as "
+"payment method. The wrong payments are : %s."
+msgstr ""
+"Les paiements à exporter dans un fichier de transfert EFT doivent avoir la "
+"méthode de paiement 'Transfert EFT'. Les paiements concernés sont : %s."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:180
+#, python-format
+msgid "Payments to export must be posted.The wrong payments are : %s."
+msgstr ""
+"Les paiements à exporter doivent être à l'état Comptabilisé. Les paiements "
+"qui ne sont pas à cet état sont : %s."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_payment_partner_bank_account_id
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_register_payments_partner_bank_account_id
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_transfer_confirmation_line_partner_bank_account_id
+msgid "Recipient Bank Account"
+msgstr "Compte bancaire du destinataire"
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_account_register_payments
+msgid "Register payments on multiple invoices"
+msgstr "Enregistrez des paiements sur plusieurs factures"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Send Payments Notices"
+msgstr "Envoyer les avis de paiement"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Set To Draft"
+msgstr "Mettre à brouillon"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_state
+msgid "State"
+msgstr "État"
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:188
+#, python-format
+msgid ""
+"The EFT file can not be generated because no account bank was found "
+"for the partner %s."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce qu'aucun compte "
+"bancaire n'est lié au partenaire %s."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:193
+#, python-format
+msgid ""
+"The EFT file can not be generated because no account bank was "
+"selected on the payment %s."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce qu'aucun compte "
+"bancaire n'est sélectionné pour le partenaire %s."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:198
+#, python-format
+msgid ""
+"The EFT file can not be generated because the account number linked "
+"to the payment %s is empty."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce que le compte bancaire "
+"lié au paiement %s est vide."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:0
+#, python-format
+msgid ""
+"The EFT file can not be generated because the account number length "
+"of the payment %s must be between 7 and 12."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce que le numéro de compte bancaire "
+"lié au paiement %s doit comporter entre 7 et 12 chiffres."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:203
+#, python-format
+msgid ""
+"The EFT file can not be generated because the institution number of "
+"the payment %s bank account is empty."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce que le numéro "
+"d'institution du compte bancaire du paiement %s est vide."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:0
+#, python-format
+msgid ""
+"The EFT file can not be generated because the institution number "
+"length of the payment %s bank account must be 3."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce que le numéro "
+"d'institution du compte bancaire du paiement %s doit contenir 3 chiffres."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:208
+#, python-format
+msgid ""
+"The EFT file can not be generated because the transit number of the "
+"payment %s bank account is empty."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce que le numéro de "
+"transit du compte bancaire du paiement %s est vide."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:0
+#, python-format
+msgid ""
+"The EFT file can not be generated because the transit number "
+"length of the payment %s bank account must be 5."
+msgstr ""
+"Le fichier de transfert EFT ne peut être généré parce que le numéro de "
+"transit du compte bancaire du paiement %s doit contenir 5 chiffres."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:372
+#, python-format
+msgid "The account number %s must contain only numbers."
+msgstr "Le compte bancaire %s ne peut contenir que des chiffres."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:345
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:356
+#, python-format
+msgid "The length of the value %s must not exceed %s."
+msgstr "La longueur de la valeur %s ne doit pas dépasser %s."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_transfer_total
+#: model:ir.ui.view,arch_db:canada_bank_transfer.accounteft_transfer_form
+msgid "Total"
+msgstr "Total"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal_branch_number
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_partner_bank_branch_number
+msgid "Transit Number"
+msgstr "Numéro de transit"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.transfer_confirmation_wizard_form
+msgid "Validate"
+msgstr "Valider"
+
+#. module: canada_bank_transfer
+#: model:ir.ui.view,arch_db:canada_bank_transfer.transfer_confirmation_wizard_form
+msgid "Uncheck payments that did not complete successfully, then click on Validate."
+msgstr "Décochez les paiements qui ont terminé en erreur, puis cliquez sur valider."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:89
+#, python-format
+msgid "You cannot delete a EFT that is not draft or cancelled."
+msgstr ""
+"Vous ne pouvez pas supprimer un transfert EFT qui n'est pas à l'état "
+"Brouillon ou Annulé."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_eft_transfer.py:55
+#, python-format
+msgid ""
+"You cannot select payments with different currencies in a same EFT "
+"file."
+msgstr ""
+"Tous les paiements sélectionnés pour un même fichier de transfert EFT "
+"doivent être du même journal."

@@ -10,11 +10,18 @@
     'license': 'LGPL-3',
     'category': 'Accounting',
     'depends': [
-        'account',
+        'payment',
     ],
     'data': [
-        'data/ir_sequence.xml',
+        'security/ir.model.access.csv',
+        'security/res_groups.xml',
+        'data/email_template.xml',
         'data/payment_method.xml',
+        'views/bank_account.xml',
+        'views/eft.xml',
+        'views/journal.xml',
+        'views/payment_with_eft_smart_button.xml',
+        'wizard/eft_confirmation.xml',
     ],
     'external_dependencies': {
         'python': ['unidecode'],

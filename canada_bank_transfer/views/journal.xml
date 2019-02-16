@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='bank_account']//field[@name='bank_id']" position="after">
+                    <field name="canada_transit"/>
+                </xpath>
+
+                <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                    <field name="eft_enabled" invisible="1"/>
+                    <group string="EFT" attrs="{'invisible': [('eft_enabled', '=', False)]}">
+                        <field name="eft_user_short_name" string="User Short Name"/>
+                        <field name="eft_user_number" string="User Number"/>
+                        <field name="eft_destination" string="Destination"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_bank_journal_form" model="ir.ui.view">
+            <field name="name">account.bank.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_bank_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="bank_id" position="after">
+                    <field name="canada_transit"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

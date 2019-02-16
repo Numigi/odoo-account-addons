@@ -3,7 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-from .transaction_types import TRANSACTION_TYPES
+from .transaction_types import TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE
 
 
 class Bank(models.Model):
@@ -110,6 +110,14 @@ class AccountJournal(models.Model):
         "The value depends on the bank and the location of your company."
     )
 
+    eft_enabled = fields.Boolean(compute='_compute_eft_enabled')
+
+    @api.depends('outbound_payment_method_ids')
+    def _compute_eft_enabled(self):
+        eft_method = self.env.ref('canada_bank_transfer.payment_method_eft')
+        for journal in self:
+            journal.eft_enabled = (eft_method in journal.outbound_payment_method_ids)
+
 
 class AccountPayment(models.Model):
 
@@ -118,4 +126,25 @@ class AccountPayment(models.Model):
     eft_transaction_type = fields.Selection(
         TRANSACTION_TYPES,
         'EFT Transaction Type',
+        default=DEFAULT_TRANSACTION_TYPE,
     )
+
+
+class AccountPaymentWithEFTSmartButton(models.Model):
+    """Add fields required on payments to display the EFT smart button."""
+
+    _inherit = 'account.payment'
+
+    eft_ids = fields.Many2many(
+        'account.eft',
+        relation='account_eft_payment_rel',
+        column1='payment_id',
+        column2='eft_id',
+        string='EFT',
+    )
+
+    eft_count = fields.Integer(compute='_compute_eft_count')
+
+    def _compute_eft_count(self):
+        for payment in self:
+            payment.eft_count = len(payment.eft_ids)

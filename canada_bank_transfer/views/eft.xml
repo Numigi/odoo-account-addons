@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="eft_form" model="ir.ui.view">
+            <field name="name">account.eft.form</field>
+            <field name="model">account.eft</field>
+            <field name="arch" type="xml">
+                <form string="EFT File"> 
+                    <header>
+                        <button name="validate_payments" type="object" string="Validate" states="draft" class="oe_highlight"/>
+                        <button name="action_approve" type="object" string="Approve" states="ready" groups="canada_bank_transfer.group_approve_eft" class="oe_highlight"/>
+                        <button name="action_done" type="object" string="Confirm Sending" states="approved"
+                                attrs="{'invisible': [('content_binary', '=', False)]}" class="oe_highlight"/>
+                        <button name="generate_eft_file" type="object" string="Generate File" states="approved"/>
+                        <button name="action_cancel" type="object" string="Cancel" states="draft,approved,done"/>
+                        <button name="action_draft" type="object" string="Set To Draft" states="cancelled,ready"/>
+                        <button name="open_payment_notice_wizard" type="object" string="Send Payment Notices" states="done"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,ready,approved,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="journal_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="payment_date" attrs="{'readonly': [('state', 'not in', ('draft', 'ready', 'approved'))]}"/>
+                            <field name="total"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="filename" invisible="1"/>
+                            <field name="content_binary" filename="filename"  attrs="{'invisible': [('filename', '=', False)]}"/>
+                        </group>
+                        <separator string="Payments"/>
+                        <field name="payment_ids" attrs="{'readonly': [('state', '!=', 'draft')]}"
+                               domain="[('journal_id', '=', journal_id), ('state', '=', 'posted')]">
+                            <tree editable="bottom">
+                                <field name="payment_date" readonly="True"/>
+                                <field name="name" readonly="True"/>
+                                <field name="partner_id" readonly="True"/>
+                                <field name="partner_bank_account_id" readonly="False"
+                                    context="{'default_partner_id': partner_id}" domain="[('partner_id', '=', partner_id)]"/>
+                                <field name="amount" readonly="True" sum="Total" />
+                                <field name="state" readonly="True"/>
+                            </tree>
+                        </field>
+                        <separator string="Failed Payments" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                        <field name="failed_payment_ids" readonly="1" attrs="{'invisible': [('state', '!=', 'done')]}">
+                            <tree editable="bottom">
+                                <field name="payment_date"/>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="partner_bank_account_id"/>
+                                <field name="amount" sum="Total" />
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_eft_list" model="ir.ui.view">
+            <field name="name">account.eft.list</field>
+            <field name="model">account.eft</field>
+            <field name="arch" type="xml">
+                <tree string="EFT Files" colors="gray:state == 'cancelled'">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="total"/>
+                    <field name="currency_id"/>
+                    <field name="state"/>
+                    <field name="payment_ids" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_eft_filter" model="ir.ui.view">
+            <field name="name">account.eft.filter</field>
+            <field name="model">account.eft</field>
+            <field name="arch" type="xml">
+                <search string="EFTs">
+                    <field name="name"/>
+                    <field name="payment_ids"/>
+                    <field name="journal_id"/>
+                    <field name="currency_id"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_eft" model="ir.actions.act_window">
+            <field name="name">EFTs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.eft</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="view_eft_list"/>
+            <field name="search_view_id" ref="view_eft_filter"/>
+        </record>
+
+        <record id="action_generate_eft" model="ir.actions.server">
+            <field name="name">Generate EFT</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    action = env['account.eft'].create_eft_from_payments(records)
+            </field>
+        </record>
+
+        <menuitem
+            id="menu_action_eft_files"
+            action="action_view_eft"
+            parent="account.menu_finance_payables"
+            sequence="50"
+        />
+
+    </data>
+</odoo>

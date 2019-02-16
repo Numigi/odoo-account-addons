@@ -10,6 +10,7 @@ from odoo.addons.account.models.account import AccountJournal as Journal
 from odoo.addons.account.models.account_payment import account_payment as Payment
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_round
+from .transaction_types import DEFAULT_TRANSACTION_TYPE
 
 AUTHORIZED_ASCII_CHARS = (' ', '.')
 
@@ -94,9 +95,11 @@ def format_header(journal: Journal, file_number: int) -> str:
     """
     context = journal._context
 
+    currency_code = journal.currency_id.name or journal.company_id.currency_id.name
+
     _verify_user_number(journal.eft_user_number, context)
     _verify_file_number(file_number, context)
-    _verify_currency_code(journal.currency_id.name, context)
+    _verify_currency_code(currency_code, context)
     _verify_destination_code(journal.eft_destination, context)
 
     return (
@@ -110,7 +113,7 @@ def format_header(journal: Journal, file_number: int) -> str:
             create_date=_format_julian_date(date.today()),
             destination=journal.eft_destination,
             blank_20=" " * 20,
-            currency_code=journal.currency_id.name,
+            currency_code=currency_code,
             blank_1406=" " * 1406,
         )
     )
@@ -253,7 +256,9 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             .format(payment.display_name)
         )
 
-    _verify_transaction_type(payment.eft_transaction_type, context)
+    transaction_type = payment.eft_transaction_type or DEFAULT_TRANSACTION_TYPE
+
+    _verify_transaction_type(transaction_type, context)
     _verify_user_number(payment.journal_id.eft_user_number, context)
     _verify_user_short_name(payment.journal_id.eft_user_short_name, context)
     _verify_user_long_name(payment.journal_id.company_id.name, context)
@@ -280,7 +285,7 @@ def _format_credit_detail_segment(payment: Payment) -> str:
         "{blank_39}"
         "{zero_11}"
         .format(
-            transaction_type=payment.eft_transaction_type,
+            transaction_type=transaction_type,
             amount=_format_payment_amount(payment.amount),
             payment_date=_format_julian_date(payment.payment_date),
             zero_25="0" * 25,
