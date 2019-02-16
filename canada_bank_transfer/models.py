@@ -110,7 +110,7 @@ class AccountJournal(models.Model):
         "The value depends on the bank and the location of your company."
     )
 
-    eft_enabled = fields.Boolean(compute='_compute_eft_enabled')
+    eft_enabled = fields.Boolean(compute='_compute_eft_enabled', store=True)
 
     @api.depends('outbound_payment_method_ids')
     def _compute_eft_enabled(self):
@@ -129,8 +129,16 @@ class AccountPayment(models.Model):
         default=DEFAULT_TRANSACTION_TYPE,
     )
 
+    is_eft_payment = fields.Boolean(compute='_compute_is_eft_payment', store=True)
 
-class AccountPaymentWithEFTSmartButton(models.Model):
+    @api.depends('payment_method_id')
+    def _compute_is_eft_payment(self):
+        eft_method = self.env.ref('canada_bank_transfer.payment_method_eft')
+        for payment in self:
+            payment.is_eft_payment = (payment.payment_method_id == eft_method)
+
+
+class AccountPaymentWithEFTmartButton(models.Model):
     """Add fields required on payments to display the EFT smart button."""
 
     _inherit = 'account.payment'

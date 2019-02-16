@@ -20,8 +20,10 @@
         'views/bank_account.xml',
         'views/eft.xml',
         'views/journal.xml',
+        'views/payment_search_with_filter.xml',
         'views/payment_with_eft_smart_button.xml',
         'wizard/eft_confirmation.xml',
+        'wizard/payment_notice_email.xml',
     ],
     'external_dependencies': {
         'python': ['unidecode'],

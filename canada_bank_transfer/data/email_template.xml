@@ -13,7 +13,7 @@
 Hello,
 
 <p>
-    a payment of ${object.amount} ${object.currency.name} has been transfered to your bank account.
+    a payment of ${object.amount} ${object.currency_id.name} has been transfered to your bank account.
 </p>
 <p>
     Payment Reference: ${object.payment_reference}

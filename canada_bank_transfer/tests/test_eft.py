@@ -168,27 +168,6 @@ class TestEFTConfirmationWizard(AccountEFTCase):
         assert self.pmt_1.state == 'posted'
         assert self.pmt_2.state == 'sent'
 
-    def _get_payment_attachment(self, payment):
-        return self.env['ir.attachment'].search([
-            ('res_model', '=', 'account.payment'),
-            ('res_id', '=', payment.id),
-            ('name', '=', self.eft.filename),
-        ])
-
-    def test_on_eft_confirmation__eft_file_is_attached_to_payments(self):
-        wizard = self._open_confirmation_wizard()
-        wizard.action_validate()
-        attachment = self._get_payment_attachment(self.pmt_1)
-        attachment_content = base64.decodestring(attachment.datas).decode('utf-8')
-        assert attachment_content == self.eft.content
-
-    def test_on_eft_confirmation__eft_file_is_not_attached_to_failed_payments(self):
-        wizard = self._open_confirmation_wizard()
-        wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
-        wizard.action_validate()
-        assert not self._get_payment_attachment(self.pmt_1)
-        assert self._get_payment_attachment(self.pmt_2)
-
     def test_on_eft_confirmation__payment_date_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()

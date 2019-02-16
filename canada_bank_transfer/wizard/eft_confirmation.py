@@ -14,19 +14,6 @@ class EFTConfirmationWizard(models.TransientModel):
     eft_id = fields.Many2one('account.eft')
     line_ids = fields.One2many('account.eft.confirmation.line', 'wizard_id')
 
-    def _attach_eft_file_to_payment(self, payment):
-        """Attach the EFT text file to the given payment.
-
-        :ptype payments: account.payment
-        """
-        self.env['ir.attachment'].create({
-            'name': self.eft_id.filename,
-            'datas': self.eft_id.content_binary,
-            'datas_fname': self.eft_id.filename,
-            'res_model': 'account.payment',
-            'res_id': payment.id,
-        })
-
     @api.multi
     def action_validate(self):
         """Validate the EFT.
@@ -44,9 +31,6 @@ class EFTConfirmationWizard(models.TransientModel):
             change_payment_date(payment, self.eft_id.payment_date)
 
         completed_payments.write({'state': 'sent'})
-
-        for payment in completed_payments:
-            self._attach_eft_file_to_payment(payment)
 
         failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped('payment_id')
 

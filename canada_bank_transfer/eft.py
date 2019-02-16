@@ -84,6 +84,8 @@ class EFT(models.Model):
         ('cancelled', 'Cancelled'),
     ], readonly=True, default='draft', required=True, track_visibility='onchange')
 
+    payment_notices_sent = fields.Boolean()
+
     def _compute_name(self):
         for eft in self:
             eft.name = "EFT{0:0>4}".format(eft.id) if eft.id else _("New EFT")
@@ -206,5 +208,7 @@ class EFT(models.Model):
                 'default_composition_mode': 'mass_mail',
                 'default_template_id': template.id,
                 'default_use_template': True,
+                'default_is_eft_payment_notice': True,
+                'default_eft_id': self.id,
             }
         }

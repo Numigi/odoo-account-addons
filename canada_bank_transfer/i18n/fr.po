@@ -35,7 +35,7 @@ msgstr "Approuver"
 
 #. module: canada_bank_transfer
 #: model:res.groups,name:canada_bank_transfer.group_approve_eft_transfers
-msgid "Approve EFTs"
+msgid "Approve EFT"
 msgstr "Approuver les transferts EFT"
 
 #. module: canada_bank_transfer
@@ -52,7 +52,7 @@ msgstr "Transfert EFT"
 #: model:ir.ui.view,arch_db:canada_bank_transfer.view_account_payment_form
 #: code:addons/canada_bank_transfer/models/account_payment.py:0
 #, python-format
-msgid "EFTs"
+msgid "EFT"
 msgstr "Transferts EFT"
 
 #. module: canada_bank_transfer
@@ -69,7 +69,7 @@ msgstr "Fichiers de transfert EFT"
 #: model:ir.actions.act_window,name:canada_bank_transfer.action_view_account_eft_transfer
 #: model:ir.ui.menu,name:canada_bank_transfer.menu_action_eft_files
 #: model:ir.ui.view,arch_db:canada_bank_transfer.view_account_eft_transfer_filter
-msgid "EFTs"
+msgid "EFT"
 msgstr "Transfert EFT"
 
 #. module: canada_bank_transfer

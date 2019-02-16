@@ -10,26 +10,35 @@
                     <header>
                         <button name="validate_payments" type="object" string="Validate" states="draft" class="oe_highlight"/>
                         <button name="action_approve" type="object" string="Approve" states="ready" groups="canada_bank_transfer.group_approve_eft" class="oe_highlight"/>
-                        <button name="action_done" type="object" string="Confirm Sending" states="approved"
-                                attrs="{'invisible': [('content_binary', '=', False)]}" class="oe_highlight"/>
+                        <button name="action_done" type="object" string="Confirm Sending"
+                                attrs="{'invisible': ['|', ('content_binary', '=', False), ('state', '!=', 'approved')]}" class="oe_highlight"/>
                         <button name="generate_eft_file" type="object" string="Generate File" states="approved"/>
-                        <button name="action_cancel" type="object" string="Cancel" states="draft,approved,done"/>
+                        <button name="open_payment_notice_wizard" type="object" string="Send Payment Notices"
+                                attrs="{'invisible': ['|', ('payment_notices_sent', '=', True), ('state', '!=', 'done')]}"/>
                         <button name="action_draft" type="object" string="Set To Draft" states="cancelled,ready"/>
-                        <button name="open_payment_notice_wizard" type="object" string="Send Payment Notices" states="done"/>
+                        <button name="action_cancel" type="object" string="Cancel"
+                                attrs="{'invisible': ['|', ('payment_notices_sent', '=', True), ('state', 'not in', ('draft', 'approved', 'done'))]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,ready,approved,done"/>
                     </header>
                     <sheet>
                         <group>
-                            <field name="journal_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="journal_id"
+                                   domain="[('eft_enabled', '=', True)]"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="payment_date" attrs="{'readonly': [('state', 'not in', ('draft', 'ready', 'approved'))]}"/>
                             <field name="total"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="filename" invisible="1"/>
                             <field name="content_binary" filename="filename"  attrs="{'invisible': [('filename', '=', False)]}"/>
+                            <field name="payment_notices_sent" invisible="1"/>
                         </group>
                         <separator string="Payments"/>
                         <field name="payment_ids" attrs="{'readonly': [('state', '!=', 'draft')]}"
-                               domain="[('journal_id', '=', journal_id), ('state', '=', 'posted')]">
+                               domain="[('journal_id', '=', journal_id),
+                                        ('state', '=', 'posted'),
+                                        ('eft_ids', '=', False),
+                                        ('is_eft_payment', '=', True),
+                                        ]">
                             <tree editable="bottom">
                                 <field name="payment_date" readonly="True"/>
                                 <field name="name" readonly="True"/>
@@ -79,7 +88,7 @@
             <field name="name">account.eft.filter</field>
             <field name="model">account.eft</field>
             <field name="arch" type="xml">
-                <search string="EFTs">
+                <search string="EFT">
                     <field name="name"/>
                     <field name="payment_ids"/>
                     <field name="journal_id"/>
@@ -90,7 +99,7 @@
         </record>
 
         <record id="action_view_eft" model="ir.actions.act_window">
-            <field name="name">EFTs</field>
+            <field name="name">EFT</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.eft</field>
             <field name="view_type">form</field>
