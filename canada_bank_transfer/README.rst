@@ -40,7 +40,11 @@ The value depends on the bank and the location of your company.
 
 .. image:: static/description/journal_form_eft_fields_filled.png
 
+Bank Account Configuration
+--------------------------
 Next, I go to the `Bank Account` tab.
+
+This tab contains the information related to my company's bank account.
 
 .. image:: static/description/journal_form_bank_account_tab.png
 
@@ -91,11 +95,62 @@ Preparing the EFT
 -----------------
 Once I have multiple EFT payments posted, I go back to the list of vendor payments.
 
-I select only the posted payments.
+I check both the `Posted` and `EFT` filters.
 
-.. image:: static/description/vendor_payment_list_posted.png
+.. image:: static/description/vendor_payment_list_filtered.png
 
-In the search bar, I filter to have only payments with the `EFT` payment method.
+I select my payments and click on `Generate EFT` in the action menu.
+
+.. image:: static/description/vendor_payment_list_generate_eft.png
+
+A draft EFT is created.
+
+.. image:: static/description/eft_draft.png
+
+For each payment, I select the recipient bank account.
+
+If the bank account is not already defined for a given partner, I may create and edit a new one.
+
+.. image:: static/description/eft_bank_account_field.png
+
+A recipient bank account required the same fields as my company's bank account.
+
+* The account number (7 to 12 digits)
+* The bank
+* The transit/branch number (5 digits)
+
+.. image:: static/description/partner_bank_account_form.png
+
+The bank must have an institution number (3 digits).
+
+.. image:: static/description/partner_bank_form.png
+
+Once all the destination bank accounts are selected, I click on `Validate`.
+
+.. image:: static/description/eft_validate.png
+
+An error message appears. One of my bank accounts is not properly filled.
+
+.. image:: static/description/eft_validate_error.png
+
+I fix the account number, then I click again on `Validate`.
+
+.. image:: static/description/eft_fixed_validate.png
+
+The EFT is now `Ready`.
+
+.. image:: static/description/eft_ready.png
+
+EFT Approval
+------------
+The group `Approve EFT` allows to approve the EFT.
+This group is intended for the financial director or controller of your company.
+
+.. image:: static/description/eft_approval_group.png
+
+As member of `Approve EFT`
+
+.. image:: static/description/eft_approve.png
 
 Contributors
 ------------

@@ -37,7 +37,7 @@ def auto_assign_bank_account_to_payments(payments: Payment) -> None:
 class EFT(models.Model):
 
     _name = 'account.eft'
-    _description = 'EFT Transfer File'
+    _description = 'EFT'
     _inherit = 'mail.thread'
     _order = 'name desc'
 
