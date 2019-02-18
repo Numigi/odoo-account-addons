@@ -213,7 +213,7 @@ def _verify_transaction_type(transaction_type: str, context: dict) -> None:
         )
     if len(transaction_type) != 3:
         raise ValidationError(
-            _('Expected a transaction reference with 3 caracters. Got `{}`.')
+            _('Expected a transaction type with 3 caracters. Got `{}`.')
             .format(transaction_type)
         )
 

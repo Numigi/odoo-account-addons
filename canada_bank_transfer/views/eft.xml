@@ -36,7 +36,6 @@
                         <field name="payment_ids" attrs="{'readonly': [('state', '!=', 'draft')]}"
                                domain="[('journal_id', '=', journal_id),
                                         ('state', '=', 'posted'),
-                                        ('eft_ids', '=', False),
                                         ('is_eft_payment', '=', True),
                                         ]">
                             <tree editable="bottom">
