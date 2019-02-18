@@ -1,10 +1,11 @@
+# © 2017 Savoir-faire Linux
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
     'name': 'Canada Bank Transfer',
     'version': '1.0.1',
-    'author': 'Numigi',
+    'author': 'Savoir-faire Linux,Numigi',
     'maintainer': 'Numigi',
     'website': 'https://bit.ly/numigi-com',
     'license': 'LGPL-3',

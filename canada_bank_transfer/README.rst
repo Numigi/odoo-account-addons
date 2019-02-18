@@ -148,10 +148,91 @@ This group is intended for the financial director or controller of your company.
 
 .. image:: static/description/eft_approval_group.png
 
-As member of `Approve EFT`
+As member of `Approve EFT`, I go to the EFT form view.
+
+.. image:: static/description/eft_list.png
+
+I verify that the payments are accurate.
+If any payment seems odd, I can click on the line and dilldown to the invoices.
+
+Then I click on `Approve`.
 
 .. image:: static/description/eft_approve.png
 
+The `EFT` is now approved.
+
+.. image:: static/description/eft_approved.png
+
+Generating The File
+-------------------
+The current step can be done by a member of the group `Accounting / Billing`.
+
+.. image:: static/description/eft_generate_file_button.png
+
+A new field `File` appears.
+
+.. image:: static/description/eft_file_generated.png
+
+I click on the file name to download the file to my computer.
+
+.. image:: static/description/eft_file_open.png
+
+Using The EFT File
+------------------
+Now, I go to my bank's web portal to upload the file.
+
+Check with your bank's documentation on how to proceed for this step.
+
+Confirm The EFT
+---------------
+Once the file is processed by your bank, you will get a confirmation whether the payments were transfered properly.
+The whole file could be rejected by your bank for some reason.
+
+Otherwise, even if the file was accepted by your bank, some payments may be rejected by the recipient bank and bounce back.
+In such case, the module allows you to identify which payments were successfully transmitted to the recipient account
+and which were not.
+
+As member of the group `Accounting / Billing`, I click on `Confirm Sending`.
+
+.. image:: static/description/eft_confirm_sending.png
+
+Let's suppose the payment of 1000.00$CAD to `Ready Mat` bounced back.
+
+I uncheck the `Completed` box under `Ready Mat`. Then I click on `Validate`.
+
+.. image:: static/description/eft_confirmation.png
+
+Multiple changes were applied to the `EFT`.
+
+.. image:: static/description/eft_done.png
+
+(1) The EFT is now `Done`.
+
+(2) The 2 succeeding payments are at the status `Sent`.
+    The payment dates were updated to match the EFT date.
+
+(3) The failed payment is still at the status `Posted`.
+    This payment can be corrected later and selected into another EFT batch.
+
+(4) A new button `Send Payment Notices` appears.
+    This button allows to notice the recipients by email.
+
+Payment Notices
+---------------
+This is the last step in the workflow of an `EFT`.
+It is optional because you may or may not want to notice your suppliers by email.
+
+I click on `Send Payment Notices`.
+
+.. image:: static/description/eft_send_payment_notices.png
+
+I verify that the email message is properly set. Then, I click on `Send`.
+
+.. image:: static/description/eft_payment_notices_sent.png
+
+The payment notices are now sent.
+
 Contributors
 ------------
+* Savoir-faire Linux
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)

@@ -73,7 +73,7 @@
             <field name="name">account.eft.list</field>
             <field name="model">account.eft</field>
             <field name="arch" type="xml">
-                <tree string="EFT Files" colors="gray:state == 'cancelled'">
+                <tree string="EFT Files" decoration-muted="state == 'cancelled'">
                     <field name="name"/>
                     <field name="journal_id"/>
                     <field name="total"/>
