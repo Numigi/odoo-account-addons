@@ -114,9 +114,15 @@ class AccountJournal(models.Model):
 
     @api.depends('outbound_payment_method_ids')
     def _compute_eft_enabled(self):
-        eft_method = self.env.ref('canada_bank_transfer.payment_method_eft')
+        """Compute the field eft_enabled.
+
+        raise_if_not_found=False is used because the field may be evaluated
+        before the xml ID was loaded in the system.
+        """
+        eft_method = self.env.ref(
+            'canada_bank_transfer.payment_method_eft', raise_if_not_found=False)
         for journal in self:
-            journal.eft_enabled = (eft_method in journal.outbound_payment_method_ids)
+            journal.eft_enabled = (eft_method and eft_method in journal.outbound_payment_method_ids)
 
 
 class AccountPayment(models.Model):
@@ -133,9 +139,15 @@ class AccountPayment(models.Model):
 
     @api.depends('payment_method_id')
     def _compute_is_eft_payment(self):
-        eft_method = self.env.ref('canada_bank_transfer.payment_method_eft')
+        """Compute the field is_eft_payment.
+
+        raise_if_not_found=False is used because the field may be evaluated
+        before the xml ID was loaded in the system.
+        """
+        eft_method = self.env.ref(
+            'canada_bank_transfer.payment_method_eft', raise_if_not_found=False)
         for payment in self:
-            payment.is_eft_payment = (payment.payment_method_id == eft_method)
+            payment.is_eft_payment = (eft_method and payment.payment_method_id == eft_method)
 
 
 class AccountPaymentWithEFTmartButton(models.Model):
