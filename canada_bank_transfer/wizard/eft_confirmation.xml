@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="transfer_confirmation_wizard_form" model="ir.ui.view">
+        <field name="name">account.eft.confirmation.wizard.form</field>
+        <field name="model">account.eft.confirmation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="EFT Confirmation">
+                <sheet>
+                    <div>Uncheck payments that did not complete successfully, then click on Validate.</div>
+                    <field name="line_ids">
+                        <tree create="0" delete="0" editable="bottom">
+                            <field name="payment_date" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="partner_bank_account_id" readonly="1"/>
+                            <field name="amount" readonly="1"/>
+                            <field name="completed"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_validate" type="object" string="Validate" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

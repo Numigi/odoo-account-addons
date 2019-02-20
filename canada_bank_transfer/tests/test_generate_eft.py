@@ -106,6 +106,11 @@ class TestFormatEFTHeader(EFTCase):
         header = format_header(self.journal, 1)
         assert header[55:58] == "CAD"
 
+    def test_if_no_journal_currency_then_company_currency_is_used(self):
+        journal = self.journal.copy({'currency_id': False})
+        header = format_header(journal, 1)
+        assert header[55:58] == journal.company_id.currency_id.name
+
     def test_currency_code_with_usd(self):
         self.journal.currency_id = self.env.ref('base.USD')
         header = format_header(self.journal, 1)
@@ -152,6 +157,11 @@ class TestEFTCreditDetails(EFTCase):
         assert record[20:24] == '0999'
 
     def test_operation_code(self):
+        record = format_credit_details_group(self.journal, self.payments, 1, 2)
+        assert record[24:27] == '450'
+
+    def test_operation_code_is_450_by_default(self):
+        self.payments[0].write({'eft_transaction_type': None})
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[24:27] == '450'
 
