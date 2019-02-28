@@ -201,6 +201,8 @@ def _format_destinator_name(destinator_name: str) -> str:
 
 
 def _format_transaction_reference(reference: str) -> str:
+    if len(reference) > 19:
+        reference = reference[-19:]
     reference_sanitized = _remove_accents_and_special_caracters(reference)
     return _justify_left_with_blanks(reference_sanitized.upper(), 19)
 
@@ -296,7 +298,7 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             destinator_name=_format_destinator_name(payment.partner_id.name),
             user_long_name=_format_user_long_name(payment.journal_id.company_id.name),
             user_number=payment.journal_id.eft_user_number,
-            transaction_reference=_format_transaction_reference(str(payment.id)),
+            transaction_reference=_format_transaction_reference(payment.name),
             origin_institution=origin_account.bank_id.canada_institution,
             origin_transit=origin_account.canada_transit,
             origin_account=_format_account_number(origin_account.acc_number),
