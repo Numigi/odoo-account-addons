@@ -242,11 +242,17 @@ class TestEFTCreditDetails(EFTCase):
 
     def test_transaction_reference_number(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        reference = record[174:193]
-        assert int(reference) == self.pmt_1.id
+        reference = record[174:192]
+        assert reference == self.pmt_1.name.replace('/', '_')
 
-        reference_2 = record[174 + 240:193 + 240]
-        assert int(reference_2) == self.pmt_2.id
+        reference_2 = record[174 + 240:192 + 240]
+        assert reference_2 == self.pmt_2.name.replace('/', '_')
+
+    def test_transaction_reference_number_with_long_payment_name(self):
+        self.pmt_1.name = 'SUPP.OUT/2019/1234567'
+        record = format_credit_details_group(self.journal, self.payments, 1, 2)
+        reference = record[174:193]
+        assert reference == 'PP.OUT_2019_1234567'
 
     def test_origin_institution(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
