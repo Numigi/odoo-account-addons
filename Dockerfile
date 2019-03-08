@@ -11,6 +11,7 @@ RUN pip3 install -r requirements.txt
 
 USER odoo
 
+COPY account_analytic_required_forbidden /mnt/extra-addons/account_analytic_required_forbidden
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
 COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment

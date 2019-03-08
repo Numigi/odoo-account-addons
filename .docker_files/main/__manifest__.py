@@ -13,6 +13,7 @@
     'depends': [
         'l10n_generic_coa',  # Used for testing addons
 
+        'account_analytic_required_forbidden',
         'account_negative_debit_credit',
         'canada_bank_transfer',
         'hr_expense_tax_adjustment',
