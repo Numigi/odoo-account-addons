@@ -18,6 +18,7 @@
         'hr_expense_tax_adjustment',
         'invoice_currency_validation',
         'invoice_fiscal_position_required',
+        'account_move_chatter',
     ],
     'installable': True,
 }
