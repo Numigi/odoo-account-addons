@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="account_form_with_analytic_required_forbidden" model="ir.ui.view">
+        <field name="name">Account Form: add Analytic Account Required / Forbidden</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <field name="deprecated" position="after">
+                <field name="analytic_account_required"/>
+                <field name="analytic_account_forbidden"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
