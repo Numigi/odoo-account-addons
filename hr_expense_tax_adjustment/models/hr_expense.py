@@ -16,6 +16,7 @@ class HrExpenseWithAdjustableTaxes(models.Model):
             'draft': [('readonly', False)],
             'reported': [('readonly', False)],
             'refused': [('readonly', False)],
+            'approved': [('readonly', False)],
         })
 
     @api.onchange(
