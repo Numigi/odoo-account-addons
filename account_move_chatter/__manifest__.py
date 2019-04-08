@@ -7,7 +7,6 @@
     'summary': 'Add chatter and tracking of activity on account moves.',
     'author': 'Numigi',
     'depends': [
-        'account_accountant',
         'account',
     ],
     'data': [
