@@ -1,9 +1,7 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import _
 from odoo.tests import common
-from ..log_account_move_reversal import MOVE_REVERSAL_MESSAGE
 
 
 class TestAccountMove(common.SavepointCase):
