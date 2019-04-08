@@ -30,6 +30,24 @@ The constraint will be raised only when validating the refund.
 
 .. image:: static/description/credit_note_validate_error_message.png
 
+Journal Entries
+---------------
+The equivalent constraint is also added when reversing a journal entry.
+
+As member of the group `Accounting / Billing`, I go to the form view of a journal entry.
+
+I click on the `Reverse Entry` button.
+
+.. image:: static/description/journal_entry_reverse_button.png
+
+I select a date prior to the original move date. Then, I click on `Reverse Moves`.
+
+.. image:: static/description/journal_entry_reverse_reverse_wizard.png
+
+A blocking message appears.
+
+.. image:: static/description/reversal_validate_error_message.png
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
