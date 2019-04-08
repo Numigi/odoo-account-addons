@@ -1,16 +1,25 @@
 Account Move Chatter
 ====================
+This module adds the chatter on journal entries.
 
-This module adds the chatter on account moves.
-It also add the tracking of the following fields:
+It also adds the tracking of the following fields:
 
-* name
-* journal
-* state
-* partner
+* Date
+* Reference
+* Journal
+* State
+* Partner
+* Total Amount (debit / credit)
 
-.. image:: static/description/form.png
+.. image:: static/description/account_move_form.png
 
+Journal Entry Reversal
+----------------------
+When reversing a journal entry, an internal note is logged in the chatter of the origin journal entry.
+
+.. image:: static/description/account_move_reverse_button.png
+
+.. image:: static/description/account_move_reversed.png
 
 Contributors
 ------------
