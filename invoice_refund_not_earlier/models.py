@@ -46,10 +46,11 @@ class JournalEntry(models.Model):
     _inherit = 'account.move'
 
     @api.multi
-    def _reverse_move(self, date=None, *args, **kwargs):
-        if date and date < self.date:
-            raise ValidationError(_(
-                "The date of the reversal entry ({reversal_date}) "
-                "can not be prior to the original move date ({move_date})."
-            ).format(reversal_date=date, move_date=self.date))
-        return super()._reverse_move(date=date, *args, **kwargs)
+    def reverse_moves(self, date=None, journal_id=None, auto=False):
+        for move in self:
+            if date and date < move.date:
+                raise ValidationError(_(
+                    "The date of the reversal entry ({reversal_date}) "
+                    "can not be prior to the original move date ({move_date})."
+                ).format(reversal_date=date, move_date=move.date))
+        return super().reverse_moves(date=date, journal_id=journal_id, auto=auto)
