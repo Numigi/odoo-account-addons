@@ -13,5 +13,5 @@ class AccountMoveWithLogReversal(models.Model):
     @api.multi
     def _reverse_move(self, *args, **kwargs):
         result = super()._reverse_move(*args, **kwargs)
-        self.message_post(_(MOVE_REVERSAL_MESSAGE))
+        self.message_post(body=_(MOVE_REVERSAL_MESSAGE))
         return result
