@@ -194,6 +194,16 @@ class EFT(models.Model):
 
     @api.multi
     def open_payment_notice_wizard(self):
+        """Open the payment notice wizard.
+
+        This wizard sends a notice to each payment recipient.
+
+        Technical Note
+        --------------
+        The context variable {'active_id': False} is important.
+        Otherwise, the ID of the EFT is passed to the wizard and causes an
+        error related to multi-company rules of account.payment.
+        """
         self.ensure_one()
         template = self.env.ref('canada_bank_transfer.payment_notice_email_template')
         return {
@@ -205,6 +215,7 @@ class EFT(models.Model):
             'context': {
                 'active_model': 'account.payment',
                 'active_ids': self.payment_ids.ids,
+                'active_id': False,  # See technical note in docstring
                 'default_composition_mode': 'mass_mail',
                 'default_template_id': template.id,
                 'default_use_template': True,
