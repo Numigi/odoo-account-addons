@@ -161,6 +161,7 @@ class AccountPaymentWithEFTmartButton(models.Model):
         column1='payment_id',
         column2='eft_id',
         string='EFT',
+        copy=False,
     )
 
     eft_count = fields.Integer(compute='_compute_eft_count')
