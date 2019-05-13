@@ -21,6 +21,7 @@
         'invoice_fiscal_position_required',
         'account_move_chatter',
         'invoice_refund_not_earlier',
+        'vendor_invoice_full_list',
     ],
     'installable': True,
 }
