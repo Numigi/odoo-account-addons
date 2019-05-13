@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <act_window
+        id="report_line_action"
+        name="Financial Report Lines"
+        view_mode="tree,form"
+        res_model="account.financial.html.report.line"
+        />
+
+    <menuitem
+        id="report_line_menu"
+        name="Financial Report Lines"
+        action="report_line_action"
+        parent="account.account_management_menu"
+        groups="account.group_account_manager"
+        />
+
+</odoo>
