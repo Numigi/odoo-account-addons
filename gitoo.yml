@@ -1,0 +1,2 @@
+- url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-enterprise
+  branch: "12.0"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem
+        id="bank_account_menu"
+        name="Partner Bank Accounts"
+        action="base.action_res_partner_bank_account_form"
+        parent="account.account_account_menu"
+        />
+
+    <menuitem
+        id="bank_menu"
+        name="Partner Banks"
+        action="base.action_res_bank_form"
+        parent="account.account_account_menu"
+        />
+
+</odoo>

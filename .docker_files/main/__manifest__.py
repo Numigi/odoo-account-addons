@@ -14,12 +14,14 @@
         'l10n_generic_coa',  # Used for testing addons
 
         'account_analytic_required_forbidden',
+        'account_bank_menu',
+        'account_move_chatter',
         'account_negative_debit_credit',
+        'account_report_line_menu',
         'canada_bank_transfer',
         'hr_expense_tax_adjustment',
         'invoice_currency_validation',
         'invoice_fiscal_position_required',
-        'account_move_chatter',
         'invoice_refund_not_earlier',
         'vendor_invoice_full_list',
     ],
