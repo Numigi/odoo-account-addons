@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="purchase.act_res_partner_2_supplier_invoices" model="ir.actions.act_window">
+        <field name="domain">[('type', 'in', ('in_invoice', 'in_refund'))]</field>
+    </record>
+
+</odoo>
