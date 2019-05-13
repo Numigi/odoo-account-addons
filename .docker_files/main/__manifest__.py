@@ -23,6 +23,7 @@
         'invoice_currency_validation',
         'invoice_fiscal_position_required',
         'invoice_refund_not_earlier',
+        'vendor_invoice_full_list',
     ],
     'installable': True,
 }

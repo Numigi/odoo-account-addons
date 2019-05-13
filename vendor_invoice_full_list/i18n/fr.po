@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* vendor_invoice_full_list
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-13 17:17+0000\n"
+"PO-Revision-Date: 2019-05-13 17:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vendor_invoice_full_list
+#: model:ir.model,name:vendor_invoice_full_list.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: vendor_invoice_full_list
+#: model:ir.model.fields,field_description:vendor_invoice_full_list.field_account_invoice__amount_tax_signed
+msgid "Tax Amount Signed"
+msgstr "Montant de taxes signé"
+
+#. module: vendor_invoice_full_list
+#: model_terms:ir.ui.view,arch_db:vendor_invoice_full_list.invoice_supplier_tree
+msgid "Tax Excluded"
+msgstr "Taxes exclues"
+
+#. module: vendor_invoice_full_list
+#: model_terms:ir.ui.view,arch_db:vendor_invoice_full_list.invoice_supplier_tree
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: vendor_invoice_full_list
+#: model_terms:ir.ui.view,arch_db:vendor_invoice_full_list.invoice_supplier_tree
+msgid "Total"
+msgstr "Total"

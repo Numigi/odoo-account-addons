@@ -29,6 +29,7 @@ COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
 COPY invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
+COPY vendor_invoice_full_list /mnt/extra-addons/vendor_invoice_full_list
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo
