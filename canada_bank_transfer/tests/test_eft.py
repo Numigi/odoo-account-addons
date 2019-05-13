@@ -32,9 +32,13 @@ class TestCreateEFTFromPayments(AccountEFTCase):
         eft = self._create_eft_from_payments()
         assert eft.state == 'draft'
 
+    def test_eft_sequence_is_filled_automatically(self):
+        eft = self._create_eft_from_payments()
+        assert eft.sequence
+
     def test_eft_name_is_computed(self):
         eft = self._create_eft_from_payments()
-        assert eft.name == "EFT{0:0>4}".format(eft.id)
+        assert eft.name == "EFT{0:0>4}".format(eft.sequence)
 
     def test_raise_error_if_payments_have_different_journals(self):
         self.pmt_2.journal_id = self.journal.copy()
@@ -123,9 +127,14 @@ class TestGenerateEFTFile(AccountEFTCase):
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
-    def test_file_number_of_eft_is_the_odoo_is(self):
+    def test_raise_error_if_sequence_number_empty(self):
+        self.eft.sequence = False
+        with pytest.raises(ValidationError):
+            self.eft.generate_eft_file()
+
+    def test_file_number_of_eft_is_the_sequence_number(self):
         self.eft.generate_eft_file()
-        assert self.eft.content[20:24] == "{0:0>4}".format(self.eft.id)
+        assert self.eft.content[20:24] == "{0:0>4}".format(self.eft.sequence)
 
 
 class TestEFTConfirmationWizard(AccountEFTCase):

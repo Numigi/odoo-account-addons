@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-18 02:33+0000\n"
-"PO-Revision-Date: 2019-02-17 22:17-0500\n"
+"POT-Creation-Date: 2019-05-13 15:14+0000\n"
+"PO-Revision-Date: 2019-05-13 11:18-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -252,8 +252,7 @@ msgid "EFT User Short Name"
 msgstr "EFT Nom court de l'usager"
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:221
-#: code:addons/canada_bank_transfer/generate_eft.py:224
+#: code:addons/canada_bank_transfer/generate_eft.py:226
 #, python-format
 msgid "EFT transfers support only payments below ten millions."
 msgstr "L'EFT ne supporte que les paiements en dessous de 10 millions."
@@ -279,7 +278,6 @@ msgid "Email composition wizard"
 msgstr ""
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:64
 #: code:addons/canada_bank_transfer/generate_eft.py:65
 #, python-format
 msgid "Expected a bank user number with 10 caracters. Got `{}`."
@@ -287,7 +285,6 @@ msgstr ""
 "Un numéro d'usager de 10 caractères est attendu. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:80
 #: code:addons/canada_bank_transfer/generate_eft.py:81
 #, python-format
 msgid "Expected a currency name with 3 caracters. Got `{}`."
@@ -295,7 +292,6 @@ msgstr ""
 "Un code de devise de 3 caractères est attendu. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:72
 #: code:addons/canada_bank_transfer/generate_eft.py:73
 #, python-format
 msgid "Expected a destination code with 5 digits. Got `{}`."
@@ -303,8 +299,7 @@ msgstr ""
 "Un code de destination de 5 digits est attendu. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:213
-#: code:addons/canada_bank_transfer/generate_eft.py:216
+#: code:addons/canada_bank_transfer/generate_eft.py:218
 #, python-format
 msgid "Expected a transaction type with 3 caracters. Got `{}`."
 msgstr ""
@@ -312,7 +307,6 @@ msgstr ""
 "est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:140
 #: code:addons/canada_bank_transfer/generate_eft.py:143
 #, python-format
 msgid "Expected a transit number with 5 caracters. Got `{}`."
@@ -320,7 +314,6 @@ msgstr ""
 "Le numéro de transit doit avoir 5 caractères. La valeur donnée est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:185
 #: code:addons/canada_bank_transfer/generate_eft.py:188
 #, python-format
 msgid "Expected a user long name between 1 and 30 caracters. Got `{}`."
@@ -329,7 +322,6 @@ msgstr ""
 "donnée est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:172
 #: code:addons/canada_bank_transfer/generate_eft.py:175
 #, python-format
 msgid "Expected a user short name between 1 and 15 caracters. Got `{}`."
@@ -338,7 +330,6 @@ msgstr ""
 "donnée est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:52
 #: code:addons/canada_bank_transfer/generate_eft.py:53
 #, python-format
 msgid "Expected an EFT file number between 1 and 9999. Got `{}`."
@@ -347,7 +338,6 @@ msgstr ""
 "`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:126
 #: code:addons/canada_bank_transfer/generate_eft.py:129
 #, python-format
 msgid "Expected an institution name with 3 caracters. Got `{}`."
@@ -537,7 +527,7 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/eft.py:91
+#: code:addons/canada_bank_transfer/eft.py:93
 #, python-format
 msgid "New EFT"
 msgstr "Nouvel EFT"
@@ -595,10 +585,8 @@ msgstr "Date de règlement"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__payment_notices_sent
-#, fuzzy
-#| msgid "Send Payments Notices"
 msgid "Payment Notices Sent"
-msgstr "Envoyer les avis de paiement"
+msgstr "Avis de paiement envoyés"
 
 #. module: canada_bank_transfer
 #: model:mail.template,subject:canada_bank_transfer.payment_notice_email_template
@@ -677,6 +665,11 @@ msgstr "Fonds de revenu de retraite"
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
 msgid "Send Payment Notices"
 msgstr "Envoyer les avis de paiement"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__sequence
+msgid "Sequence"
+msgstr "Séquence"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
@@ -813,29 +806,25 @@ msgstr ""
 "{}"
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:160
 #: code:addons/canada_bank_transfer/generate_eft.py:163
 #, python-format
 msgid "The account number `{}` must contain between 7 and 12 digits."
 msgstr "Le numéro de compte `{}` doit contenir entre 7 et 12 digits."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:154
 #: code:addons/canada_bank_transfer/generate_eft.py:157
 #, python-format
 msgid "The account number `{}` must contain only digits."
 msgstr "Le numéro de compte `{}` doit contenir seulement des digits."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:246
-#: code:addons/canada_bank_transfer/generate_eft.py:249
+#: code:addons/canada_bank_transfer/generate_eft.py:251
 #, python-format
 msgid "The bank account is missing on the journal {}."
 msgstr "Le compte bancaire est manquant sur le journal {}."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:252
-#: code:addons/canada_bank_transfer/generate_eft.py:255
+#: code:addons/canada_bank_transfer/generate_eft.py:257
 #, python-format
 msgid "The destination bank account is missing on the payment {}."
 msgstr "Le compte bancaire de destination est manquant sur le payment {}."
@@ -869,7 +858,6 @@ msgstr ""
 "{}"
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:132
 #: code:addons/canada_bank_transfer/generate_eft.py:135
 #, python-format
 msgid "The institution number `{}` must contain only digits."
@@ -883,15 +871,31 @@ msgstr ""
 "Le numéro d'institution doit contenir 3 digits. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:208
-#: code:addons/canada_bank_transfer/generate_eft.py:211
+#: code:addons/canada_bank_transfer/eft.py:113
+#, python-format
+msgid "The sequence number of an EFT must strictly be an integer. Got {value}."
+msgstr ""
+"Le numéro de séquence d'un EFT doit strictement être un entier. La valeur "
+"suivante a été obtenue: {value}."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/eft.py:198
+#, python-format
+msgid ""
+"The sequence number of the EFT must be filled before generating the transfer "
+"file."
+msgstr ""
+"Le numéro de séquence d'un EFT doit être rempli avant de générer le fichier "
+"de transfert."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/generate_eft.py:213
 #, python-format
 msgid "The transaction type must have 3 digits. Got `{}`."
 msgstr ""
 "Le type de transaction doit contenir 3 digits. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/generate_eft.py:146
 #: code:addons/canada_bank_transfer/generate_eft.py:149
 #, python-format
 msgid "The transit number `{}` must contain only digits."
@@ -980,7 +984,7 @@ msgid "Wizard"
 msgstr ""
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/eft.py:118
+#: code:addons/canada_bank_transfer/eft.py:130
 #, python-format
 msgid "You may not delete an EFT that is not draft."
 msgstr ""
