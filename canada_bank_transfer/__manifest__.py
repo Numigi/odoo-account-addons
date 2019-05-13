@@ -18,6 +18,7 @@
         'security/res_groups.xml',
         'data/email_template.xml',
         'data/payment_method.xml',
+        'data/sequence.xml',
         'views/bank_account.xml',
         'views/eft.xml',
         'views/journal.xml',

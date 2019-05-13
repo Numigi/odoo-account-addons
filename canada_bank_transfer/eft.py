@@ -42,6 +42,7 @@ class EFT(models.Model):
     _order = 'name desc'
 
     name = fields.Char('Name', compute='_compute_name', store=True)
+    sequence = fields.Integer(track_visibility='onchange')
 
     payment_date = fields.Date(
         'Payment Date', required=True,
@@ -59,7 +60,8 @@ class EFT(models.Model):
         column1='eft_id',
         column2='payment_id',
         string='Payments',
-        track_visibility='onchange')
+        track_visibility='onchange',
+        copy=False)
 
     failed_payment_ids = fields.Many2many(
         comodel_name='account.payment',
@@ -67,7 +69,8 @@ class EFT(models.Model):
         column1='eft_id',
         column2='payment_id',
         string='Failed Payments',
-        track_visibility='onchange')
+        track_visibility='onchange',
+        copy=False)
 
     total = fields.Monetary('Total', compute='_compute_total')
 
@@ -86,9 +89,10 @@ class EFT(models.Model):
 
     payment_notices_sent = fields.Boolean()
 
+    @api.depends('sequence')
     def _compute_name(self):
         for eft in self:
-            eft.name = "EFT{0:0>4}".format(eft.id) if eft.id else _("New EFT")
+            eft.name = "EFT{0:0>4}".format(eft.sequence) if eft.sequence else _("New EFT")
 
     @api.depends('payment_ids')
     def _compute_total(self):
@@ -105,11 +109,20 @@ class EFT(models.Model):
         for eft in self:
             eft.currency_id = eft.journal_id.currency_id or eft.journal_id.company_id.currency_id
 
+    def _get_next_eft_sequence(self):
+        number = self.env['ir.sequence'].next_by_code('EFT')
+        if not number.isdigit():
+            raise ValidationError(_(
+                'The sequence number of an EFT must strictly be an integer. '
+                'Got {value}.'
+            ).format(value=number))
+        return int(number)
+
     @api.model
-    def create(self, vals):
-        eft = super().create(vals)
-        eft._compute_name()
-        return eft
+    def default_get(self, fields):
+        vals = super().default_get(fields)
+        vals['sequence'] = self._get_next_eft_sequence()
+        return vals
 
     @api.multi
     def unlink(self):
@@ -172,6 +185,7 @@ class EFT(models.Model):
             'state': 'draft',
             'journal_id': payments[0].journal_id.id,
             'payment_ids': [(6, 0, payments.ids)],
+            'sequence': self._get_next_eft_sequence(),
         })
         return {
             'type': 'ir.actions.act_window',
@@ -181,10 +195,18 @@ class EFT(models.Model):
             'res_id': eft.id,
         }
 
+    def _check_sequence_number_is_filled(self):
+        if not self.sequence:
+            raise ValidationError(_(
+                'The sequence number of the EFT must be filled before generating '
+                'the transfer file.'
+            ))
+
     @api.multi
     def generate_eft_file(self):
         self._check_payment_and_bank_accounts()
-        content = generate_eft(self.journal_id, self.payment_ids, self.id)
+        self._check_sequence_number_is_filled()
+        content = generate_eft(self.journal_id, self.payment_ids, self.sequence)
         self.write({
             'filename': "%s.txt" % self.name,
             'content': content,
