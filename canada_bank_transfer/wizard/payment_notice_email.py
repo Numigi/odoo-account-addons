@@ -15,6 +15,6 @@ class MailComposeWizard(models.TransientModel):
     def action_send_mail(self):
         result = super().action_send_mail()
         if self.is_eft_payment_notice:
-            self.eft_id.message_post(_('Payment notices sent.'))
+            self.eft_id.message_post(body=_('Payment notices sent.'))
             self.eft_id.payment_notices_sent = True
         return result
