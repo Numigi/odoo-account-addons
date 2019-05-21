@@ -26,7 +26,6 @@
                                    domain="[('eft_enabled', '=', True)]"
                                    attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="payment_date" attrs="{'readonly': [('state', 'not in', ('draft', 'ready', 'approved'))]}"/>
-                            <field name="sequence"/>
                             <field name="total"/>
                             <field name="currency_id" invisible="1"/>
                             <field name="filename" invisible="1"/>
