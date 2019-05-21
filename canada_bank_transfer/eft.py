@@ -118,12 +118,6 @@ class EFT(models.Model):
             ).format(value=number))
         return int(number)
 
-    @api.model
-    def default_get(self, fields):
-        vals = super().default_get(fields)
-        vals['sequence'] = self._get_next_eft_sequence()
-        return vals
-
     @api.multi
     def unlink(self):
         validated_eft = self.filtered(lambda r: r.state != 'draft')
@@ -151,7 +145,11 @@ class EFT(models.Model):
 
     @api.multi
     def action_approve(self):
-        self.write({'state': 'approved'})
+        for eft in self:
+            eft.write({
+                'state': 'approved',
+                'sequence': eft._get_next_eft_sequence(),
+            })
 
     @api.multi
     def action_cancel(self):
@@ -185,7 +183,6 @@ class EFT(models.Model):
             'state': 'draft',
             'journal_id': payments[0].journal_id.id,
             'payment_ids': [(6, 0, payments.ids)],
-            'sequence': self._get_next_eft_sequence(),
         })
         return {
             'type': 'ir.actions.act_window',

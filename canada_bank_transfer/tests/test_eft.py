@@ -32,12 +32,9 @@ class TestCreateEFTFromPayments(AccountEFTCase):
         eft = self._create_eft_from_payments()
         assert eft.state == 'draft'
 
-    def test_eft_sequence_is_filled_automatically(self):
+    def test_eft_name_is_computed_on_approve(self):
         eft = self._create_eft_from_payments()
-        assert eft.sequence
-
-    def test_eft_name_is_computed(self):
-        eft = self._create_eft_from_payments()
+        eft.action_approve()
         assert eft.name == "EFT{0:0>4}".format(eft.sequence)
 
     def test_raise_error_if_payments_have_different_journals(self):
@@ -86,6 +83,7 @@ class TestGenerateEFTFile(AccountEFTCase):
             'payment_ids': [(6, 0, cls.payments.ids)],
             'journal_id': cls.journal.id,
         })
+        cls.eft.action_approve()
 
     def test_content_binary_is_filled(self):
         assert not self.eft.content_binary
@@ -146,6 +144,7 @@ class TestEFTConfirmationWizard(AccountEFTCase):
             'payment_ids': [(6, 0, cls.payments.ids)],
             'journal_id': cls.journal.id,
         })
+        cls.eft.validate_payments()
         cls.eft.action_approve()
         cls.eft.generate_eft_file()
         cls.eft_date = datetime.now().date() + timedelta(30)
