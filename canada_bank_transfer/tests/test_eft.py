@@ -32,9 +32,9 @@ class TestCreateEFTFromPayments(AccountEFTCase):
         eft = self._create_eft_from_payments()
         assert eft.state == 'draft'
 
-    def test_eft_name_is_computed_on_approve(self):
+    def test_eft_name_is_computed_when_file_is_generated(self):
         eft = self._create_eft_from_payments()
-        eft.action_approve()
+        eft.generate_eft_file()
         assert eft.name == "EFT{0:0>4}".format(eft.sequence)
 
     def test_raise_error_if_payments_have_different_journals(self):
@@ -122,11 +122,6 @@ class TestGenerateEFTFile(AccountEFTCase):
 
     def test_raise_error_if_account_number_is_not_digit(self):
         self.pmt_1.partner_bank_account_id.acc_number = '123456a'
-        with pytest.raises(ValidationError):
-            self.eft.generate_eft_file()
-
-    def test_raise_error_if_sequence_number_empty(self):
-        self.eft.sequence = False
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 

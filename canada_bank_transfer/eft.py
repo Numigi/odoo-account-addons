@@ -145,11 +145,7 @@ class EFT(models.Model):
 
     @api.multi
     def action_approve(self):
-        for eft in self:
-            eft.write({
-                'state': 'approved',
-                'sequence': eft._get_next_eft_sequence(),
-            })
+        self.write({'state': 'approved'})
 
     @api.multi
     def action_cancel(self):
@@ -192,17 +188,13 @@ class EFT(models.Model):
             'res_id': eft.id,
         }
 
-    def _check_sequence_number_is_filled(self):
-        if not self.sequence:
-            raise ValidationError(_(
-                'The sequence number of the EFT must be filled before generating '
-                'the transfer file.'
-            ))
-
     @api.multi
     def generate_eft_file(self):
         self._check_payment_and_bank_accounts()
-        self._check_sequence_number_is_filled()
+
+        if not self.sequence:
+            self.sequence = self._get_next_eft_sequence()
+
         content = generate_eft(self.journal_id, self.payment_ids, self.sequence)
         self.write({
             'filename': "%s.txt" % self.name,
