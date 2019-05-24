@@ -41,18 +41,18 @@ class EFT(models.Model):
     _inherit = 'mail.thread'
     _order = 'name desc'
 
-    name = fields.Char('Name', compute='_compute_name', store=True)
-    sequence = fields.Integer(track_visibility='onchange')
+    name = fields.Char('Name', compute='_compute_name', store=True, copy=False)
+    sequence = fields.Integer(track_visibility='onchange', copy=False)
 
     payment_date = fields.Date(
         'Payment Date', required=True,
         default=fields.Date.context_today,
         track_visibility='onchange')
 
-    filename = fields.Char('File Name', readonly=True)
+    filename = fields.Char('File Name', readonly=True, copy=False)
 
-    content = fields.Text()
-    content_binary = fields.Binary('File', readonly=True)
+    content = fields.Text(copy=False)
+    content_binary = fields.Binary('File', readonly=True, copy=False)
 
     payment_ids = fields.Many2many(
         comodel_name='account.payment',
@@ -85,14 +85,13 @@ class EFT(models.Model):
         ('approved', 'Approved'),
         ('done', 'Done'),
         ('cancelled', 'Cancelled'),
-    ], readonly=True, default='draft', required=True, track_visibility='onchange')
+    ], readonly=True, default='draft', required=True, track_visibility='onchange', copy=False)
 
-    payment_notices_sent = fields.Boolean()
+    payment_notices_sent = fields.Boolean(copy=False)
 
-    @api.depends('sequence')
     def _compute_name(self):
         for eft in self:
-            eft.name = "EFT{0:0>4}".format(eft.sequence) if eft.sequence else _("New EFT")
+            eft.name = "EFT{0:0>4}".format(eft.id) if eft.id else _("New EFT")
 
     @api.depends('payment_ids')
     def _compute_total(self):
@@ -117,6 +116,12 @@ class EFT(models.Model):
                 'Got {value}.'
             ).format(value=number))
         return int(number)
+
+    @api.model
+    def create(self, vals):
+        eft = super().create(vals)
+        eft._compute_name()
+        return eft
 
     @api.multi
     def unlink(self):
@@ -197,7 +202,7 @@ class EFT(models.Model):
 
         content = generate_eft(self.journal_id, self.payment_ids, self.sequence)
         self.write({
-            'filename': "%s.txt" % self.name,
+            'filename': "{}-{}.txt".format(self.name, self.sequence),
             'content': content,
             'content_binary': base64.encodestring(content.encode('utf-8')),
         })
