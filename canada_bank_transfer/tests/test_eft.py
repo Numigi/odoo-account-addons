@@ -32,10 +32,9 @@ class TestCreateEFTFromPayments(AccountEFTCase):
         eft = self._create_eft_from_payments()
         assert eft.state == 'draft'
 
-    def test_eft_name_is_computed_when_file_is_generated(self):
+    def test_eft_name_is_computed_on_create(self):
         eft = self._create_eft_from_payments()
-        eft.generate_eft_file()
-        assert eft.name == "EFT{0:0>4}".format(eft.sequence)
+        assert eft.name == "EFT{0:0>4}".format(eft.id)
 
     def test_raise_error_if_payments_have_different_journals(self):
         self.pmt_2.journal_id = self.journal.copy()
@@ -98,7 +97,7 @@ class TestGenerateEFTFile(AccountEFTCase):
     def test_filename_is_filled(self):
         assert not self.eft.filename
         self.eft.generate_eft_file()
-        assert self.eft.filename == "{}.txt".format(self.eft.name)
+        assert self.eft.filename == "{}-{}.txt".format(self.eft.name, self.eft.sequence)
 
     def test_raise_error_if_bank_account_is_not_selected(self):
         self.pmt_1.partner_bank_account_id = False
