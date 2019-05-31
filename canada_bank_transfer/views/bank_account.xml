@@ -24,5 +24,16 @@
             </field>
         </record>
 
+        <record id="partner_form_with_transit" model="ir.ui.view">
+            <field name="name">Partner Form: Add transit to bank accounts</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="acc_number" position="after">
+                    <field name="canada_transit"/>
+                </field>
+            </field>
+        </record>
+
     </data>
 </odoo>
