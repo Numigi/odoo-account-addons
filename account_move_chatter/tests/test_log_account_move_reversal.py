@@ -44,6 +44,6 @@ class TestAccountMove(common.SavepointCase):
         })
 
     def test_message_logged_on_move_reversal(self):
-        self.move.reverse_moves()
-        message = self.move.message_ids.filtered(lambda m: _(MOVE_REVERSAL_MESSAGE) in m.body)
+        self.move.with_context(lang='en_US').reverse_moves()
+        message = self.move.message_ids.filtered(lambda m: MOVE_REVERSAL_MESSAGE in m.body)
         assert len(message) == 1
