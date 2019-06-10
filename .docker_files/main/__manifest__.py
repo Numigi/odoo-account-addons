@@ -15,6 +15,7 @@
 
         'account_analytic_required_forbidden',
         'account_bank_menu',
+        'account_fr_ca_labels',
         'account_move_chatter',
         'account_negative_debit_credit',
         'account_report_line_menu',
