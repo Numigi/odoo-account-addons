@@ -7,7 +7,7 @@ Context
 -------
 In vanilla Odoo, a user with basic access may create and post journal entries manually.
 
-As accountant / controller, you might want to keep controle over some specific accounts.
+As accountant / controller, you might want to keep control over some specific accounts.
 You do not want people to accidentaly write in these accounts.
 
 Summary
