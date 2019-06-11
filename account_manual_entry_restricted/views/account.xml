@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="account_form_with_entry_restriction" model="ir.ui.view">
+        <field name="name">Account Form: add Entry Restriction</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <field name="deprecated" position="after">
+                <field name="manual_entry_group_ids" widget="many2many_tags"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
