@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="budget_form_with_balance" model="ir.ui.view">
+        <field name="name">Budget Form: add balance amount</field>
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+        <field name="arch" type="xml">
+            <field name="theoritical_amount" position="after">
+                <field name="balance" sum="Balance"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
