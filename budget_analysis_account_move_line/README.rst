@@ -1,25 +1,22 @@
 Budget Analysis Account Move Lines
 ==================================
+This module allows to open the list of journal entries from a budget line.
 
-.. contents:: Table of Contents
+Usage
+-----
+As member of the group ``Accounting & Finance / Accountant``, I go to ``Accounting / Reporting / Budget Analysis``.
 
-Context
--------
-In vanilla Odoo, in the budget analysis pivot, when clicking on the `Practical Amount`,
-the list of budget lines is displayed.
+.. image:: static/description/budget_analysis_menu.png
 
-.. image:: static/description/budget_analytic_pivot_before.png
+I notice that the amounts in the column ``Practical Amount`` are clickable.
 
 .. image:: static/description/budget_line_list.png
 
-Summary
--------
-After installing this module, when clicking on the practical amount, the list
-of journal entries is displayed.
+If I click on one of these amounts, the list of journal items related to this budget line is displayed.
 
-.. image:: static/description/budget_analytic_pivot.png
+.. image:: static/description/budget_line_click.png
 
-.. image:: static/description/journal_entry_list.png
+.. image:: static/description/journal_item_list.png
 
 Contributors
 ------------

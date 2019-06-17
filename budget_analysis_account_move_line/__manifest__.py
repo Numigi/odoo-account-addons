@@ -10,9 +10,10 @@
     'license': 'LGPL-3',
     'category': 'Accounting',
     'summary': 'Display the journal entries from the budget analysis report.',
-    'depends': ['account'],
+    'depends': ['account_budget'],
     'data': [
         'views/assets.xml',
+        'views/crossovered_budget_lines.xml',
     ],
     'installable': True,
 }

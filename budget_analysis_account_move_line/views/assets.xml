@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="assets_backend" name="assets_backend" inherit_id="web.assets_common">
+    <template id="assets_backend" inherit_id="web.assets_backend" name="assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/budget_analysis_account_move_line/static/src/js/pivot.js"></script>
+            <script type="text/javascript" src="/budget_analysis_account_move_line/static/src/js/widget.js"></script>
         </xpath>
     </template>
 
