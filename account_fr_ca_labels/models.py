@@ -77,6 +77,8 @@ def _update_credit_note_translations(env: Environment):
     with `credit note` (or a derivative) in the source term.
     """
     mapping = [
+        ("Facture de l'avoir", "Note de crédit"),
+
         ("l'avoir", "la note de crédit"),
         ("L'avoir", "La note de crédit"),
         ("d'avoirs", "de notes de crédit"),
@@ -120,11 +122,14 @@ def _update_reconciliation_translations(env: Environment):
     u"""Update the term `Lettrage` to `Conciliation`."""
     mapping = [
         ("Modèles de lettrage", "Modèles de conciliation bancaire"),
-        ("Annuler le lettrage", "Annuler la conciliation"),
-        ("annuler le lettrage", "annuler la conciliation"),
+
+        ("de lettrage", "de conciliation"),
+        ("du lettrage", "de la conciliation"),
+        ("le lettrage", "la conciliation"),
         ("Non lettré", "Non réconcilié"),
         ("Lettrer", "Réconcilier"),
         ("lettrer", "réconcilier"),
+        ("Lettrage", "Conciliation"),
 
         # Grammatical errors
         ("annuler le lettrage l'entrée", "annuler la conciliation")

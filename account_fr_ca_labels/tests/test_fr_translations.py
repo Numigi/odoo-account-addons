@@ -20,6 +20,7 @@ class TestCreditNote(TranslationCase):
     @data(
         ('Add Credit Note', 'Ajouter un avoir'),
         ('Dedicated Credit Note Sequence', 'Séquence dédiée aux avoirs'),
+        ('Credit Note Bill', "Facture de l'avoir"),
     )
     def test_no_translation_found_with_wrong_term(self, data):
         assert not self._find_translation(data[0], data[1])
@@ -27,6 +28,7 @@ class TestCreditNote(TranslationCase):
     @data(
         ('Add Credit Note', 'Ajouter une note de crédit'),
         ('Dedicated Credit Note Sequence', 'Séquence dédiée aux notes de crédit'),
+        ('Credit Note Bill', 'Note de crédit'),
     )
     def test_translations_found_with_correct_term(self, data):
         assert self._find_translation(data[0], data[1])
@@ -59,6 +61,7 @@ class TestReconciliation(TranslationCase):
         ('Reconcile', 'Lettrer'),
         ('Unreconcile', 'Annuler le lettrage'),
         ('Reconciliation Models', 'Modèles de lettrage'),
+        ('Reconciliation', 'Lettrage'),
     )
     def test_no_translation_found_with_wrong_term(self, data):
         assert not self._find_translation(data[0], data[1])
@@ -67,6 +70,7 @@ class TestReconciliation(TranslationCase):
         ('Reconcile', 'Réconcilier'),
         ('Unreconcile', 'Annuler la conciliation'),
         ('Reconciliation Models', 'Modèles de conciliation bancaire'),
+        ('Reconciliation', 'Conciliation'),
     )
     def test_translations_found_with_correct_term(self, data):
         assert self._find_translation(data[0], data[1])
