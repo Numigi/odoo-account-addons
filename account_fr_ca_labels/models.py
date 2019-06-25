@@ -77,6 +77,8 @@ def _update_credit_note_translations(env: Environment):
     with `credit note` (or a derivative) in the source term.
     """
     mapping = [
+        ("Facture de l'avoir", "Note de crédit"),
+
         ("l'avoir", "la note de crédit"),
         ("L'avoir", "La note de crédit"),
         ("d'avoirs", "de notes de crédit"),
