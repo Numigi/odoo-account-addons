@@ -20,6 +20,15 @@ Translations to update can be as specific as the following:
 
 	Compte utilisé sur les lignes de taxes des `avoirs`. Laissez vide pour utiliser le compte de dépenses.
 
+Menu Items Adjustments
+----------------------
+The missing `s` is added to the menu item `Accounting / Vendors / Refund`.
+
+.. image:: static/description/supplier_refund_menu_item_en.png
+
+.. image:: static/description/supplier_refund_menu_item_fr.png
+
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
