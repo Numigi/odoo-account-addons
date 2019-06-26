@@ -19,6 +19,7 @@
         'account_fr_ca_labels',
         'account_move_chatter',
         'account_negative_debit_credit',
+        'account_payment_cancel_group',
         'account_report_line_menu',
         'budget_analysis_account_move_line',
         'canada_bank_transfer',
