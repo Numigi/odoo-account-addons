@@ -11,6 +11,17 @@ class AccountPayment(models.Model):
 
     @api.multi
     def cancel(self):
+        """Restrict the payment cancellation to a specific group.
+
+        If the user is member of the given group, call the super
+        method with sudo. This allows to bypass access rules on
+        account move lines.
+
+        The `Payment cancelled` message is posted to the chatter.
+        track_visibility is not used because the super method is
+        called with sudo (odoobot would appear in the chatter
+        instead of the real user).
+        """
         is_user_authorized = self.env.user.has_group(
             'account_payment_cancel_group.group_cancel_payments')
 
