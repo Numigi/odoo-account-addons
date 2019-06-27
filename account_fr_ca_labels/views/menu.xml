@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<!-- Add the missing `s` to the menu item `Accounting / Vendors / Refund` -->
+    <function name="rename" model="ir.ui.menu">
+        <value type="char">account.menu_action_invoice_in_refund</value>
+        <value type="char">en_US</value>
+        <value type="char">Refunds</value>
+    </function>
+
+    <function name="rename" model="ir.ui.menu">
+        <value type="char">account.menu_action_invoice_in_refund</value>
+        <value type="char">fr_FR</value>
+        <value type="char">Notes de crédit</value>
+    </function>
+
+</odoo>

@@ -12,9 +12,11 @@
     'summary': 'Sanitize the accounting terms for Canada French',
     'depends': [
         'account',
+        'menu_item_rename',
     ],
     'data': [
         'views/journal.xml',
+        'views/menu.xml',
     ],
     'installable': True,
 }
