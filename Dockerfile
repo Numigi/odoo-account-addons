@@ -25,6 +25,7 @@ COPY account_budget_balance /mnt/extra-addons/account_budget_balance
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_move_chatter /mnt/extra-addons/account_move_chatter
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
+COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
 COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY budget_analysis_account_move_line /mnt/extra-addons/budget_analysis_account_move_line
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
