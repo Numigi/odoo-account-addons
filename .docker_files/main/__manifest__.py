@@ -17,6 +17,8 @@
         'account_bank_menu',
         'account_budget_balance',
         'account_fr_ca_labels',
+        'account_manual_entry_restricted',
+        'account_move_access',
         'account_move_chatter',
         'account_negative_debit_credit',
         'account_payment_cancel_group',
