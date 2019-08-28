@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+  <record id="account_form_with_old_accounts" model="ir.ui.view">
+    <field name="name">Account Form: add field old_accounts</field>
+    <field name="model">account.account</field>
+    <field name="inherit_id" ref="account.view_account_form"/>
+    <field type="xml" name="arch">
+      <field name="deprecated" position="after">
+        <field name="old_accounts"/>
+      </field>
+    </field>
+  </record>
+
+</odoo>
