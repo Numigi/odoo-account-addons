@@ -32,6 +32,7 @@
         'invoice_write_access',
         'invoice_write_access_purchase',
         'invoice_write_access_sale',
+        'old_accounts',
         'vendor_invoice_full_list',
     ],
     'installable': True,
