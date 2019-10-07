@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="action_open_payment_wizard" model="ir.actions.server">
+        <field name="name">Register Payment</field>
+        <field name="model_id" ref="account.model_account_move_line"/>
+        <field name="binding_model_id" ref="account.model_account_move_line"/>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+action = records.open_payment_from_move_line_wizard()
+        </field>
+    </record>
+
+</odoo>
