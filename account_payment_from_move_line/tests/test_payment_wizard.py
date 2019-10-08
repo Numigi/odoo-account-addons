@@ -119,7 +119,8 @@ class PaymentWizardCase(SavepointCase):
         action = wizard.validate()
         return self.env['account.payment'].browse(action['res_id'])
 
-    def _is_reconciled(self, move_line):
+    @staticmethod
+    def _is_reconciled(move_line):
         return bool(move_line.full_reconcile_id)
 
 
