@@ -221,6 +221,11 @@ class TestEFTCreditDetails(EFTCase):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[104:134] == 'SUPPLIER 1                    '  # 30 caracters
 
+    def test_destinator_short_name__uses_acc_holder_name_if_available(self):
+        self.payments[0].partner_bank_account_id.acc_holder_name = "Custom Account Holder Name"
+        record = format_credit_details_group(self.journal, self.payments, 1, 2)
+        assert record[104:134] == 'CUSTOM ACCOUNT HOLDER NAME    '  # 30 caracters
+
     def test_accents_are_removed_from_destinator_name(self):
         self.td_account.partner_id.name = '12345 Québec Inc. *test*'
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
