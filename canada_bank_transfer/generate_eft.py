@@ -258,6 +258,8 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             .format(payment.display_name)
         )
 
+    destinator_name = (destination_account.acc_holder_name or '').strip() or payment.partner_id.name
+
     transaction_type = payment.eft_transaction_type or DEFAULT_TRANSACTION_TYPE
 
     _verify_transaction_type(transaction_type, context)
@@ -295,7 +297,7 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             destination_transit=destination_account.canada_transit,
             destination_account=_format_account_number(destination_account.acc_number),
             user_short_name=_format_user_short_name(payment.journal_id.eft_user_short_name),
-            destinator_name=_format_destinator_name(payment.partner_id.name),
+            destinator_name=_format_destinator_name(destinator_name),
             user_long_name=_format_user_long_name(payment.journal_id.company_id.name),
             user_number=payment.journal_id.eft_user_number,
             transaction_reference=_format_transaction_reference(payment.name),
