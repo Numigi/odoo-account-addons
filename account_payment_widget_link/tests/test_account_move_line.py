@@ -1,10 +1,8 @@
 # © 2019 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/LGPL.html).
 
-import pytest
-from datetime import datetime, timedelta
+from datetime import datetime
 from odoo.tests.common import SavepointCase
-from odoo.exceptions import ValidationError
 
 
 class TestAccountInvoice(SavepointCase):

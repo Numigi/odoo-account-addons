@@ -9,26 +9,25 @@ var ShowPaymentLineWidget = require("account.payment").ShowPaymentLineWidget;
 
 ShowPaymentLineWidget.include({
     events: _.extend({
-        'click .o_account_payment_widget_link': '_onPaymentItemClicked',
+        "click .o_account_payment_widget_link": "_onPaymentItemClicked",
     }, ShowPaymentLineWidget.prototype.events),
     _getOriginRecordFormViewAction(moveLineId){
         return this._rpc({
-            model: 'account.move.line',
-            method: 'get_payment_widget_link_action',
+            model: "account.move.line",
+            method: "get_payment_widget_link_action",
             args: [moveLineId],
-        })
+        });
     },
     async _onPaymentItemClicked(event){
         event.preventDefault();
         event.stopPropagation();
-        var moveLineId = parseInt($(event.target).attr('data-id'));
+        var moveLineId = parseInt($(event.target).attr("data-id"));
         var action = await this._getOriginRecordFormViewAction(moveLineId);
         this.trigger_up("do_action", {action});
     },
-
     _render() {
         this._super.apply(this, arguments);
-        this.$el.addClass('o_outstanding_credits_debits_widget');
+        this.$el.addClass("o_outstanding_credits_debits_widget");
     }
 });
 
