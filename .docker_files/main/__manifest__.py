@@ -21,6 +21,7 @@
         'account_negative_debit_credit',
         'account_payment_cancel_group',
         'account_payment_from_move_line',
+        'account_payment_widget_link',
         'account_report_line_menu',
         'budget_analysis_account_move_line',
         'canada_bank_transfer',
