@@ -23,6 +23,7 @@
         'account_payment_from_move_line',
         'account_payment_widget_link',
         'account_report_line_menu',
+        'account_show_full_features',
         'budget_analysis_account_move_line',
         'canada_bank_transfer',
         'hr_expense_tax_adjustment',

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+    <function name="rename" model="ir.ui.menu">
+        <value type="char">account.menu_finance</value>
+        <value type="char">fr_FR</value>
+        <value type="char">Comptabilité</value>
+    </function>
+
+    <function name="rename" model="ir.ui.menu">
+        <value type="char">account.menu_finance</value>
+        <value type="char">en_US</value>
+        <value type="char">Accounting</value>
+    </function>
+
+</data>
