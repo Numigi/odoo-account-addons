@@ -16,7 +16,6 @@
     ],
     'data': [
         'views/partner_smart_button.xml',
-        'views/vendor_bill_amounts_signed.xml',
     ],
     'installable': True,
 }
