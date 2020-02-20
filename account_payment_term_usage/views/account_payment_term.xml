@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="payment_term_form" model="ir.ui.view">
+        <field name="name">Payment Term Form: add usage</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="usage"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
