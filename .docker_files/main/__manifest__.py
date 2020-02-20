@@ -21,6 +21,7 @@
         'account_negative_debit_credit',
         'account_payment_cancel_group',
         'account_payment_from_move_line',
+        'account_payment_term_usage',
         'account_payment_widget_link',
         'account_report_line_menu',
         'account_show_full_features',

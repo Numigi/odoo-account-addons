@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_analytic_required_forbidden
+#	* account_payment_term_usage
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 14:35+0000\n"
-"PO-Revision-Date: 2019-03-12 14:35+0000\n"
+"POT-Creation-Date: 2020-02-20 21:03+0000\n"
+"PO-Revision-Date: 2020-02-20 21:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,43 +15,29 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: account_analytic_required_forbidden
-#: model:ir.model,name:account_analytic_required_forbidden.model_account_account
-msgid "Account"
+#. module: account_payment_term_usage
+#: model:ir.model,name:account_payment_term_usage.model_account_payment_term
+msgid "Payment Terms"
 msgstr ""
 
-#. module: account_analytic_required_forbidden
-#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_account__analytic_account_forbidden
-msgid "Analytic Account Forbidden"
-msgstr "Compte analytique interdit"
+#. module: account_payment_term_usage
+#: selection:account.payment.term,usage:0
+#: model_terms:ir.ui.view,arch_db:account_payment_term_usage.view_payment_term_search
+msgid "Purchases"
+msgstr "Achats"
 
-#. module: account_analytic_required_forbidden
-#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_account__analytic_account_required
-msgid "Analytic Account Required"
-msgstr "Compte analytique obligatoire"
+#. module: account_payment_term_usage
+#: selection:account.payment.term,usage:0
+#: model_terms:ir.ui.view,arch_db:account_payment_term_usage.view_payment_term_search
+msgid "Sales"
+msgstr "Ventes"
 
-#. module: account_analytic_required_forbidden
-#: model:ir.model,name:account_analytic_required_forbidden.model_account_move
-msgid "Journal Entries"
-msgstr ""
+#. module: account_payment_term_usage
+#: selection:account.payment.term,usage:0
+msgid "Sales & Purchases"
+msgstr "Ventes & Achats"
 
-#. module: account_analytic_required_forbidden
-#: model:ir.model,name:account_analytic_required_forbidden.model_account_move_line
-msgid "Journal Item"
-msgstr ""
-
-#. module: account_analytic_required_forbidden
-#: code:addons/account_analytic_required_forbidden/models.py:36
-#, python-format
-msgid "The journal entry can not be posted because the line {line} "
-"has an analytic account ({analytic_account}). "
-"The account {account} forbids an analytic account."
-msgstr "La pièce comptable ne peut pas être validée, car la ligne {line} a un compte analytique ({analytic_account}). "
-"Le compte {account} ne permet pas d’inscrire un compte analytique."
-
-#. module: account_analytic_required_forbidden
-#: code:addons/account_analytic_required_forbidden/models.py:27
-#, python-format
-msgid "The journal entry can not be posted because the line {line} has no analytic account. The account {account} requires an analytic account."
-msgstr "La pièce comptable ne peut pas être validée, car la ligne {line} "
-"n’a pas de compte analytique. Le compte {account} oblige de renseigner le compte analytique."
+#. module: account_payment_term_usage
+#: model:ir.model.fields,field_description:account_payment_term_usage.field_account_payment_term__usage
+msgid "Usage"
+msgstr "Usage"

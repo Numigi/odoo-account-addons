@@ -1,24 +1,21 @@
-Account Analytic Required / Forbidden
-=====================================
-This module allows to make the analytic account required or forbidden when posting entries in a given GL account.
+Account Payment Term Usage
+==========================
+This module allows to define whether a payment term can be used for sales or purchases.
 
-Usage
------
-As member of the group `Accounting / Adviser`, I go to the form view of a journal account.
+.. image:: static/description/payment_term_form.png
 
-I notice 2 new fields `Analytic Account Required` and `Analytic Account Forbidden`.
+In the form view of a customer invoice, payment terms allowed for sales are shown.
 
-.. image:: static/description/account_form.png
+.. image:: static/description/customer_invoice.png
 
-When checking `Analytic Account Required`, if the analytic account is absent
-on an entry line with this account, a blocking message appears when posting the entry:
+In the form view of a supplier invoice, payment terms allowed for purchases are shown.
 
-.. image:: static/description/analytic_required_message.png
+.. image:: static/description/supplier_invoice.png
 
-When checking `Analytic Account Forbidden`, if an analytic account is combined with this account on
-a journal entry line, a blocking message appears when posting the entry:
-
-.. image:: static/description/analytic_forbidden_message.png
+Empty Payment Terms
+-------------------
+If the usage is empty on the payment term, then it will appear on both supplier and customer invoices.
+The behavior is the same as the option ``Sales & Purchases``.
 
 Contributors
 ------------
