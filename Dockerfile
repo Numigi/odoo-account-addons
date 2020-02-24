@@ -27,6 +27,7 @@ COPY account_move_chatter /mnt/extra-addons/account_move_chatter
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
 COPY account_payment_from_move_line /mnt/extra-addons/account_payment_from_move_line
+COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
 COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
