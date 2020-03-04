@@ -16,6 +16,7 @@
     'data': [
         'views/account_invoice.xml',
         'views/account_payment_term.xml',
+        'views/res_partner.xml',
     ],
     'installable': True,
 }
