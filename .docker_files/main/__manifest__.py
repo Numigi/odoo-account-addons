@@ -28,6 +28,7 @@
         'account_report_line_menu',
         'account_show_full_features',
         'budget_analysis_account_move_line',
+        'canada_account_types',
         'canada_bank_transfer',
         'hr_expense_tax_adjustment',
         'invoice_currency_validation',
