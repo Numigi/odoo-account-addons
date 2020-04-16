@@ -34,6 +34,7 @@ COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
 COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_type_archive /mnt/extra-addons/account_type_archive
+COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
 COPY budget_analysis_account_move_line /mnt/extra-addons/budget_analysis_account_move_line
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer

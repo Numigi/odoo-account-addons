@@ -27,6 +27,7 @@
         "account_report_line_menu",
         "account_show_full_features",
         "account_type_archive",
+        "account_unaffected_earnings_disabled",
         "budget_analysis_account_move_line",
         "canada_account_types",
         "canada_bank_transfer",
