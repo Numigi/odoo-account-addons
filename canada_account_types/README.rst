@@ -40,7 +40,6 @@ Liabilities and Equity
 * Other Current Liabilities
 * Non-current Liabilities
 * Equity
-* Current Year Earnings
 
 Income Statement
 ~~~~~~~~~~~~~~~~
