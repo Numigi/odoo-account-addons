@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_closing_journal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-20 20:31+0000\n"
+"PO-Revision-Date: 2020-04-20 20:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_closing_journal
+#: model_terms:ir.ui.view,arch_db:account_closing_journal.account_journal_form
+#: model_terms:ir.ui.view,arch_db:account_closing_journal.account_move__line_search
+#: model_terms:ir.ui.view,arch_db:account_closing_journal.account_move_search
+msgid "Fiscal Year Closing"
+msgstr "Fermeture d'exercice"
+
+#. module: account_closing_journal
+#: model:ir.model.fields,field_description:account_closing_journal.field_account_move__is_closing
+msgid "Is Closing Entry"
+msgstr "Est une pièce de fermeture"
+
+#. module: account_closing_journal
+#: model:ir.model.fields,field_description:account_closing_journal.field_account_move_line__is_closing
+msgid "Is Closing Item"
+msgstr "Est une écriture de fermeture"
+
+#. module: account_closing_journal
+#: model:ir.model.fields,field_description:account_closing_journal.field_account_journal__is_closing
+msgid "Is Closing Journal"
+msgstr "Est un journal de fermeture"
+
+#. module: account_closing_journal
+#: model:ir.model,name:account_closing_journal.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_closing_journal
+#: model:ir.model,name:account_closing_journal.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_closing_journal
+#: model:ir.model,name:account_closing_journal.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
