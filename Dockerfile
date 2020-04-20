@@ -22,6 +22,7 @@ USER odoo
 COPY account_analytic_required_forbidden /mnt/extra-addons/account_analytic_required_forbidden
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_budget_balance /mnt/extra-addons/account_budget_balance
+COPY account_closing_journal /mnt/extra-addons/account_closing_journal
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_move_chatter /mnt/extra-addons/account_move_chatter
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
