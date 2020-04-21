@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="account.data_unaffected_earnings" model="account.account.type">
-      <field name="active" eval="False"/>
+        <field name="active" eval="False"/>
     </record>
 
 </odoo>
