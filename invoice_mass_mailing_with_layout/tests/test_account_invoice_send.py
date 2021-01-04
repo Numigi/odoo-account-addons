@@ -12,6 +12,8 @@ class TestAccountInvoice(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.invoices = cls.env["account.invoice"].search([("type", "=", "out_invoice")])
+        cls.template = cls.env.ref("account.email_template_edi_invoice")
+        cls.template.auto_delete = False
 
     def test_send_multiple_invoices(self):
         wizard = self._create_wizard(self.invoices)
@@ -23,16 +25,8 @@ class TestAccountInvoice(SavepointCase):
         email_2 = self._find_last_email(self.invoices[1])
         self._check_email_has_layout(email_2)
 
-    def test_send_single_invoice(self):
-        invoice = self.invoices[0]
-        wizard = self._create_wizard(invoice)
-        wizard.onchange_template_id()
-        wizard.send_and_print_action()
-
-        email = self._find_last_email(invoice)
-        self._check_email_has_layout(email)
-
     def _check_email_has_layout(self, email):
+        assert email
         assert "<table" in email.body_html
 
     def _create_wizard(self, invoices):
@@ -42,6 +36,7 @@ class TestAccountInvoice(SavepointCase):
         )
         defaults = wizard_obj.default_get(list(wizard_obj._fields))
         wizard = wizard_obj.create(defaults)
+        wizard.template_id = self.template
         wizard.invoice_ids = invoices
         wizard.is_email = True
         wizard._compute_composition_mode()
