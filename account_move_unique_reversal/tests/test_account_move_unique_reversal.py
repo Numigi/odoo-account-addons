@@ -7,45 +7,42 @@ from odoo.tests import common
 
 
 class TestAccountMoveUniqueReversal(common.SavepointCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.journal = cls.env["account.journal"].create({
-            "name": "Test",
-            "code": "TEST",
-            "type": "general",
-        })
-        cls.account_1 = cls.env['account.account'].create({
-            'name': 'Account 1',
-            'code': '501001',
-            'user_type_id': cls.env.ref('account.data_account_type_expenses').id,
-        })
-        cls.account_2 = cls.env['account.account'].create({
-            'name': 'Account 2',
-            'code': '101001',
-            'user_type_id': cls.env.ref('account.data_account_type_fixed_assets').id,
-        })
-        cls.move = cls.env["account.move"].create({
-            "journal_id": cls.journal.id,
-            "line_ids": [
-                (0, 0, {
-                    'account_id': cls.account_1.id,
-                    'name': '/',
-                    'debit': 75,
-                }),
-                (0, 0, {
-                    'account_id': cls.account_1.id,
-                    'name': '/',
-                    'debit': 25,
-                }),
-                (0, 0, {
-                    'account_id': cls.account_2.id,
-                    'name': '/',
-                    'credit': 100,
-                })
-            ]
-        })
+        cls.journal = cls.env["account.journal"].create(
+            {"name": "Test", "code": "TEST", "type": "general"}
+        )
+        cls.account_1 = cls.env["account.account"].create(
+            {
+                "name": "Account 1",
+                "code": "501001",
+                "user_type_id": cls.env.ref("account.data_account_type_expenses").id,
+            }
+        )
+        cls.account_2 = cls.env["account.account"].create(
+            {
+                "name": "Account 2",
+                "code": "101001",
+                "user_type_id": cls.env.ref(
+                    "account.data_account_type_fixed_assets"
+                ).id,
+            }
+        )
+        cls.move = cls.env["account.move"].create(
+            {
+                "journal_id": cls.journal.id,
+                "line_ids": [
+                    (0, 0, {"account_id": cls.account_1.id, "name": "/", "debit": 75}),
+                    (0, 0, {"account_id": cls.account_1.id, "name": "/", "debit": 25}),
+                    (
+                        0,
+                        0,
+                        {"account_id": cls.account_2.id, "name": "/", "credit": 100},
+                    ),
+                ],
+            }
+        )
         cls.today = fields.date.today()
 
     def test_reverse_new_entry_pass(self):
