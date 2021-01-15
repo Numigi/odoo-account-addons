@@ -1,8 +1,8 @@
 Account Move Unique Reversal
 ============================
 
-This module blocks the users to reverse the Journal Entries while they have already
-reversed or they are the reversal of the other Entries
+This module blocks the users from reversing the Journal Entries if they have already
+been reversed or they are the reversal of the other Entries
 
 - Reversed Entry:
 
