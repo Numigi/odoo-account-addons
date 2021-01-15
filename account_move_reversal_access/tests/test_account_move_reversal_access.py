@@ -63,52 +63,45 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         )
 
     @data(
-        # reversal
-        ("move_is_reversal", "journal_general", True),
-        # auto_reverse
-        ("move_is_auto_reverse", "journal_general", True),
-        # normal
-        ("move_normal", "journal_general", True),
-        ("move_normal", "journal_bank", True),
-        ("move_normal", "journal_cash", True),
-        ("move_normal", "journal_general", False),
-        ("move_normal", "journal_bank", False),
-        ("move_normal", "journal_cash", False),
+        ("move_is_auto_reverse", "journal_general", "has_group"),
+        ("move_is_reversal", "journal_general", "has_group"),
+        ("move_normal", "journal_general", "has_group"),
+        ("move_normal", "journal_bank", "has_group"),
+        ("move_normal", "journal_cash", "has_group"),
+        ("move_normal", "journal_general", "no_group"),
+        ("move_normal", "journal_bank", "no_group"),
+        ("move_normal", "journal_cash", "no_group"),
     )
     @unpack
-    def test_can_post(self, move_type, journal_type, has_group):
-        if has_group:
+    def test_can_post(self, move_type, journal_type, user_group):
+        if user_group == "has_group":
             user = self.user_with_group_reverse_account_moves
         else:
             user = self.user_without_group_reverse_account_moves
-        move = self._create_move(move_type, journal_type, user)
-        self._post_move_with_user(move, user)
+        self._create_and_post_move(move_type, journal_type, user)
 
     @data(
-        # reversal
-        ("move_is_reversal", "journal_bank", True),
-        ("move_is_reversal", "journal_cash", True),
-        ("move_is_reversal", "journal_general", False),
-        ("move_is_reversal", "journal_bank", False),
-        ("move_is_reversal", "journal_cash", False),
-        # auto_reverse
-        ("move_is_auto_reverse", "journal_bank", True),
-        ("move_is_auto_reverse", "journal_cash", True),
-        ("move_is_auto_reverse", "journal_general", False),
-        ("move_is_auto_reverse", "journal_bank", False),
-        ("move_is_auto_reverse", "journal_cash", False),
+        ("move_is_reversal", "journal_bank", "has_group"),
+        ("move_is_reversal", "journal_cash", "has_group"),
+        ("move_is_reversal", "journal_general", "no_group"),
+        ("move_is_reversal", "journal_bank", "no_group"),
+        ("move_is_reversal", "journal_cash", "no_group"),
+        ("move_is_auto_reverse", "journal_bank", "has_group"),
+        ("move_is_auto_reverse", "journal_cash", "has_group"),
+        ("move_is_auto_reverse", "journal_general", "no_group"),
+        ("move_is_auto_reverse", "journal_bank", "no_group"),
+        ("move_is_auto_reverse", "journal_cash", "no_group"),
     )
     @unpack
-    def test_cannot_post(self, move_type, journal_type, has_group):
-        if has_group:
+    def test_cannot_post(self, move_type, journal_type, user_group):
+        if user_group == "has_group":
             user = self.user_with_group_reverse_account_moves
         else:
             user = self.user_without_group_reverse_account_moves
         with self.assertRaises(ValidationError):
-            move = self._create_move(move_type, journal_type, user)
-            self._post_move_with_user(move, user)
+            self._create_and_post_move(move_type, journal_type, user)
 
-    def _create_move(self, move_type, journal_type, user):
+    def _create_and_post_move(self, move_type, journal_type, user):
         if move_type == "move_is_reversal":
             create_move = self.__create_reversal_move
         elif move_type == "move_is_auto_reverse":
@@ -136,7 +129,7 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
 
     def __create_move(self, journal_type, is_auto_reverse, user):
         journal = getattr(self, journal_type)
-        return (
+        move = (
             self.env["account.move"]
             .sudo(user)
             .create(
@@ -175,7 +168,5 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
                 }
             )
         )
-
-    @staticmethod
-    def _post_move_with_user(move, user):
-        move.sudo(user).post()
+        move.post()
+        return move
