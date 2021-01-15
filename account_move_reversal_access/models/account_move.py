@@ -12,7 +12,7 @@ class AccountMove(models.Model):
     def post(self, invoice=False):
         user = self.env.user
         for record in self:
-            is_reversal_move = bool(self.search([("reverse_entry_id", "=", record.id)]))
+            is_reversal_move = bool(self.search_count([("reverse_entry_id", "=", record.id)]))
             is_auto_reverse_move = record.auto_reverse
             user_has_group_reverse_account_moves = user.has_group(
                 "account_move_reversal_access.group_reverse_account_moves"

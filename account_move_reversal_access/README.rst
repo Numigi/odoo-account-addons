@@ -1,7 +1,7 @@
 Account Move Reversal Access
 ============================
 
-This modules restricts access to the function of reversing Journal Entries
+This modules restricts access to the function of reversing Journal Entries based on the security groups of the user and the type of journal.
 
 - A new group is created Reverse Account Moves
 - In case of reversal Journal Entries or auto reverse Journal Entries:
