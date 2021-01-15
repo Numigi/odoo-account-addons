@@ -85,22 +85,13 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         self._post_move_with_user(move, user)
 
     @data(
+        # reversal
         ("move_is_reversal", "journal_bank", True),
         ("move_is_reversal", "journal_cash", True),
         ("move_is_reversal", "journal_general", False),
         ("move_is_reversal", "journal_bank", False),
         ("move_is_reversal", "journal_cash", False),
-    )
-    @unpack
-    def test_cannot_create_reversal_move(self, move_type, journal_type, has_group):
-        if has_group:
-            user = self.user_with_group_reverse_account_moves
-        else:
-            user = self.user_without_group_reverse_account_moves
-        with self.assertRaises(ValidationError):
-            self._create_move(move_type, journal_type, user)
-
-    @data(
+        # auto_reverse
         ("move_is_auto_reverse", "journal_bank", True),
         ("move_is_auto_reverse", "journal_cash", True),
         ("move_is_auto_reverse", "journal_general", False),
@@ -108,13 +99,13 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         ("move_is_auto_reverse", "journal_cash", False),
     )
     @unpack
-    def test_cannot_post_auto_reverse_move(self, move_type, journal_type, has_group):
+    def test_cannot_post(self, move_type, journal_type, has_group):
         if has_group:
             user = self.user_with_group_reverse_account_moves
         else:
             user = self.user_without_group_reverse_account_moves
-        move = self._create_move(move_type, journal_type, user)
         with self.assertRaises(ValidationError):
+            move = self._create_move(move_type, journal_type, user)
             self._post_move_with_user(move, user)
 
     def _create_move(self, move_type, journal_type, user):
@@ -127,23 +118,24 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         move = create_move(journal_type, user)
         return move
 
-    def __create_reversal_move(self, journal, user):
-        move = self.__create_move(journal=journal, is_auto_reverse=False, user=user)
+    def __create_reversal_move(self, journal_type, user):
+        move = self.__create_move(journal_type, False, user)
         today = fields.date.today()
-        move.reverse_moves(today, False)
+        wizard = self.env["account.move.reversal"].with_context(active_ids=[move.id])
+        wizard.sudo(user).create({"date": today}).sudo(user).reverse_moves()
         reversal_move = move.reverse_entry_id
         return reversal_move
 
-    def __create_auto_reverse_move(self, journal, user):
-        move = self.__create_move(journal=journal, is_auto_reverse=True, user=user)
+    def __create_auto_reverse_move(self, journal_type, user):
+        move = self.__create_move(journal_type, True, user)
         return move
 
-    def __create_normal_move(self, journal, user):
-        move = self.__create_move(journal=journal, is_auto_reverse=False, user=user)
+    def __create_normal_move(self, journal_type, user):
+        move = self.__create_move(journal_type, False, user)
         return move
 
-    def __create_move(self, journal, is_auto_reverse, user):
-        journal = getattr(self, journal)
+    def __create_move(self, journal_type, is_auto_reverse, user):
+        journal = getattr(self, journal_type)
         return (
             self.env["account.move"]
             .sudo(user)
