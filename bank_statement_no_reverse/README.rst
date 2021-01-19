@@ -1,7 +1,9 @@
 Bank Statement No Reverse
 =========================
 
-.. image:: static/description/.png
+This module blocks the users from reconcile the bank statement with reversed or reversal journal items
+
+.. image:: static/description/bank_statement_no_reverse.png
 
 Configuration
 -------------

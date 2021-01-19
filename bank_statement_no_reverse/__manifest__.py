@@ -3,7 +3,8 @@
 
 {
     "name": "Bank Statement No Reverse",
-    "summary": "",
+    "summary": "Blocks the users from reconcile the bank statement with reversed or "
+    "reversal journal items",
     "version": "12.0.1.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",

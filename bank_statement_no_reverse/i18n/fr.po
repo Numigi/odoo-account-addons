@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bank_statement_no_reverse
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-19 15:30+0000\n"
+"PO-Revision-Date: 2021-01-19 15:30+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bank_statement_no_reverse
+#: model:ir.model,name:bank_statement_no_reverse.model_account_move
+msgid "Journal Entries"
+msgstr "Pièces comptables"
+
+#. module: bank_statement_no_reverse
+#: model:ir.model,name:bank_statement_no_reverse.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: bank_statement_no_reverse
+#: code:addons/bank_statement_no_reverse/models/account_move_line.py:29
+#, python-format
+msgid "The selected accounting entry is already reversed or is the reversal of another entry. You must select another line."
+msgstr "La pièce comptable de l’écriture sélectionnée a été renversée ou est le résultat d’un renversement. Veuillez sélectionner une autre ligne."
+
