@@ -18,7 +18,6 @@ class AccountMoveLine(models.Model):
     def check_bank_statement_no_reverse(self):
         to_check_moves = self.env["account.move"]
         for line in self.filtered(lambda r: r.statement_line_id):
-            to_check_moves |= line.move_id
             if line.full_reconcile_id:
                 reconciled_lines = line.full_reconcile_id.reconciled_line_ids
                 for reconcile_move in reconciled_lines.mapped("move_id"):
