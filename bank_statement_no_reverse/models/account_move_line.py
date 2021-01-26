@@ -11,19 +11,13 @@ class AccountMoveLine(models.Model):
     @api.multi
     def write(self, vals):
         res = super().write(vals)
-        self.check_bank_statement_no_reverse()
-        return res
-
-    @api.multi
-    def check_bank_statement_no_reverse(self):
-        to_check_moves = self.env["account.move"]
-        for line in self.filtered(lambda r: r.statement_line_id):
-            if line.full_reconcile_id:
-                reconciled_lines = line.full_reconcile_id.reconciled_line_ids
-                for reconcile_move in reconciled_lines.mapped("move_id"):
-                    to_check_moves |= reconcile_move
-            for to_check_move in to_check_moves:
-                if to_check_move.is_reversal_move() or to_check_move.is_reversed_move():
+        if not (vals.get("statement_line_id") or vals.get("full_reconcile_id")):
+            return res
+        for line in self.filtered(
+            lambda r: r.statement_line_id and r.full_reconcile_id
+        ):
+            for move in line.full_reconcile_id.reconciled_line_ids.mapped("move_id"):
+                if move.is_reversal_move() or move.is_reversed_move():
                     raise UserError(
                         _(
                             "The selected accounting entry is already reversed or is "
@@ -31,3 +25,4 @@ class AccountMoveLine(models.Model):
                             "line."
                         )
                     )
+        return res

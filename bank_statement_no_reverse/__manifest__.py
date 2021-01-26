@@ -3,13 +3,13 @@
 
 {
     "name": "Bank Statement No Reverse",
-    "summary": "Blocks the users from reconciling a bank statement line with reversed or "
-    "reversal journal items",
+    "summary": "Blocks the users from reconciling a bank statement line with reversed "
+    "or reversal journal items",
     "version": "12.0.1.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",
-    "depends": ["account_move_unique_reversal"],
+    "depends": ["account"],
     "installable": True,
 }

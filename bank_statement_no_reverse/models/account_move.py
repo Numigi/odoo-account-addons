@@ -8,6 +8,11 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     @api.multi
+    def is_reversed_move(self):
+        self.ensure_one()
+        return bool(self.reverse_entry_id)
+
+    @api.multi
     def is_reversal_move(self):
         self.ensure_one()
-        return bool(self.get_reversed_move())
+        return bool(self.search_count([("reverse_entry_id", "=", self.id)]))
