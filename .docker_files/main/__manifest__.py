@@ -27,6 +27,7 @@
         "account_payment_term_usage_sale",
         "account_payment_widget_link",
         "account_report_line_menu",
+        "account_report_trial_balance",
         "account_show_full_features",
         "account_type_archive",
         "account_unaffected_earnings_disabled",
