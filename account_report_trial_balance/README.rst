@@ -20,6 +20,7 @@ I select a date range for the report.
 .. image:: static/description/wizard.png
 
 Then, I click on ``View``.
+It selects only posted account move lines.
 
 .. image:: static/description/wizard_filled.png
 
