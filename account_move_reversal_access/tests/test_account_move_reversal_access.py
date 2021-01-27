@@ -1,7 +1,7 @@
 # © 2021 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from ddt import data, ddt, unpack
+from ddt import data, ddt
 
 from odoo import fields
 from odoo.exceptions import ValidationError
@@ -42,7 +42,7 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
             "account_move_reversal_access.group_reverse_account_moves"
         )
         group_account_finance_billing = cls.env.ref("account.group_account_invoice")
-        cls.user_with_group_reverse_account_moves = cls.env["res.users"].create(
+        cls.user_with_group = cls.env["res.users"].create(
             {
                 "name": "has_group",
                 "login": "has_group",
@@ -53,7 +53,7 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
                 ],
             }
         )
-        cls.user_without_group_reverse_account_moves = cls.env["res.users"].create(
+        cls.user_without_group = cls.env["res.users"].create(
             {
                 "name": "no_group",
                 "login": "no_group",
@@ -62,54 +62,41 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
             }
         )
 
-    @data(
-        ("move_is_auto_reverse", "journal_general", "has_group"),
-        ("move_is_reversal", "journal_general", "has_group"),
-        ("move_normal", "journal_general", "has_group"),
-        ("move_normal", "journal_bank", "has_group"),
-        ("move_normal", "journal_cash", "has_group"),
-        ("move_normal", "journal_general", "no_group"),
-        ("move_normal", "journal_bank", "no_group"),
-        ("move_normal", "journal_cash", "no_group"),
-    )
-    @unpack
-    def test_can_post(self, move_type, journal_type, user_group):
-        if user_group == "has_group":
-            user = self.user_with_group_reverse_account_moves
-        else:
-            user = self.user_without_group_reverse_account_moves
-        self._create_and_post_move(move_type, journal_type, user)
+    @data("journal_general")
+    def test_can_post_move_is_auto_reverse_has_group(self, journal_type):
+        self.__create_auto_reverse_move(journal_type, self.user_with_group)
 
-    @data(
-        ("move_is_reversal", "journal_bank", "has_group"),
-        ("move_is_reversal", "journal_cash", "has_group"),
-        ("move_is_reversal", "journal_general", "no_group"),
-        ("move_is_reversal", "journal_bank", "no_group"),
-        ("move_is_reversal", "journal_cash", "no_group"),
-        ("move_is_auto_reverse", "journal_bank", "has_group"),
-        ("move_is_auto_reverse", "journal_cash", "has_group"),
-        ("move_is_auto_reverse", "journal_general", "no_group"),
-        ("move_is_auto_reverse", "journal_bank", "no_group"),
-        ("move_is_auto_reverse", "journal_cash", "no_group"),
-    )
-    @unpack
-    def test_cannot_post(self, move_type, journal_type, user_group):
-        if user_group == "has_group":
-            user = self.user_with_group_reverse_account_moves
-        else:
-            user = self.user_without_group_reverse_account_moves
+    @data("journal_general")
+    def test_can_post_move_is_reversal_has_group(self, journal_type):
+        self.__create_reversal_move(journal_type, self.user_with_group)
+
+    @data("journal_general", "journal_bank", "journal_cash")
+    def test_can_post_move_normal_has_group(self, journal_type):
+        self.__create_normal_move(journal_type, self.user_with_group)
+
+    @data("journal_general", "journal_bank", "journal_cash")
+    def test_can_post_move_normal_no_group(self, journal_type):
+        self.__create_normal_move(journal_type, self.user_without_group)
+
+    @data("journal_bank", "journal_cash")
+    def test_cannot_post_move_is_reversal_has_group(self, journal_type):
         with self.assertRaises(ValidationError):
-            self._create_and_post_move(move_type, journal_type, user)
+            self.__create_reversal_move(journal_type, self.user_with_group)
 
-    def _create_and_post_move(self, move_type, journal_type, user):
-        if move_type == "move_is_reversal":
-            create_move = self.__create_reversal_move
-        elif move_type == "move_is_auto_reverse":
-            create_move = self.__create_auto_reverse_move
-        else:  # move_type == "move_normal"
-            create_move = self.__create_normal_move
-        move = create_move(journal_type, user)
-        return move
+    @data("journal_general", "journal_bank", "journal_cash")
+    def test_cannot_post_move_is_reversal_no_group(self, journal_type):
+        with self.assertRaises(ValidationError):
+            self.__create_reversal_move(journal_type, self.user_without_group)
+
+    @data("journal_bank", "journal_cash")
+    def test_cannot_post_move_is_auto_reverse_has_group(self, journal_type):
+        with self.assertRaises(ValidationError):
+            self.__create_auto_reverse_move(journal_type, self.user_with_group)
+
+    @data("journal_general", "journal_bank", "journal_cash")
+    def test_cannot_post_move_is_auto_reverse_no_group(self, journal_type):
+        with self.assertRaises(ValidationError):
+            self.__create_auto_reverse_move(journal_type, self.user_without_group)
 
     def __create_reversal_move(self, journal_type, user):
         move = self.__create_move(journal_type, False, user)
