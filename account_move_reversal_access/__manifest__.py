@@ -9,7 +9,7 @@
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",
-    "depends": ["account", "account_cancel"],
+    "depends": ["account"],
     "data": ["security/res_groups.xml"],
     "installable": True,
 }
