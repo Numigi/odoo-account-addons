@@ -18,19 +18,25 @@ class AccountMove(models.Model):
 
     @api.multi
     def post(self, invoice=False):
+        self._check_reversal_move()
+        self._check_auto_reverse_move()
+        return super().post(invoice)
+
+    @api.multi
+    def _check_reversal_move(self):
         for move in self:
             being_reversed_move = self.search([("reverse_entry_id", "=", move.id)])
             is_reversal_move = bool(being_reversed_move)
-            is_auto_reverse_move = move.auto_reverse
-            if is_reversal_move or is_auto_reverse_move:
-                self._check_group_reverse_account_moves()
-                journal = (
-                    is_reversal_move
-                    and being_reversed_move.journal_id
-                    or move.journal_id
-                )
-                self._check_reversal_journal_type_access(journal)
-        return super().post(invoice)
+            if is_reversal_move:
+                move._check_group_reverse_account_moves()
+                journal = being_reversed_move.journal_id
+                move._check_reversal_journal_type_access(journal)
+
+    @api.multi
+    def _check_auto_reverse_move(self):
+        for move in self.filtered(lambda m: m.auto_reverse):
+            move._check_group_reverse_account_moves()
+            move._check_reversal_journal_type_access(move.journal_id)
 
     @api.model
     def _check_reversal_journal_type_access(self, journal):
