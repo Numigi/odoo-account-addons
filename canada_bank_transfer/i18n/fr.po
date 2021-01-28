@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-13 15:14+0000\n"
-"PO-Revision-Date: 2019-05-13 11:18-0400\n"
+"POT-Creation-Date: 2021-01-28 19:57+0000\n"
+"PO-Revision-Date: 2021-01-28 14:59-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -44,6 +44,17 @@ msgstr ""
 "</p>"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,help:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_user_long_name
+#: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_user_long_name
+msgid ""
+"A long version of your company name. Must be composed of maximum 30 "
+"alphanumeric caracters."
+msgstr ""
+"Une longue version du nom de votre compagnie. Doit être composé d'au plus 30 "
+"caractères alphanumériques."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,help:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_user_short_name
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_user_short_name
 msgid ""
 "A short version of your company name. Must be composed of maximum 15 "
@@ -222,6 +233,7 @@ msgid "EFT Confirmation Wizard"
 msgstr "Wizard de confirmation de l'EFT"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_destination
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__eft_destination
 msgid "EFT Destination"
 msgstr "EFT Destination"
@@ -242,11 +254,19 @@ msgid "EFT Transaction Type"
 msgstr "EFT Type de transaction"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_user_long_name
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__eft_user_long_name
+msgid "EFT User Long Name"
+msgstr "EFT Nom long de l'usager"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_user_number
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__eft_user_number
 msgid "EFT User Number"
 msgstr "EFT Numéro d'usager"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_user_short_name
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__eft_user_short_name
 msgid "EFT User Short Name"
 msgstr "EFT Nom court de l'usager"
@@ -268,6 +288,7 @@ msgid "Eft Count"
 msgstr "Nombre d'EFT"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_enabled
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__eft_enabled
 msgid "Eft Enabled"
 msgstr "EFT activé"
@@ -527,7 +548,7 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/eft.py:93
+#: code:addons/canada_bank_transfer/eft.py:94
 #, python-format
 msgid "New EFT"
 msgstr "Nouvel EFT"
@@ -697,6 +718,7 @@ msgid "Tax-Free Savings Account"
 msgstr "Compte d’épargne libre d’impôt"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,help:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_destination
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_destination
 msgid ""
 "Technical value of 5 digits used in the EFT file. It indicates the data "
@@ -871,22 +893,12 @@ msgstr ""
 "Le numéro d'institution doit contenir 3 digits. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/eft.py:113
+#: code:addons/canada_bank_transfer/eft.py:114
 #, python-format
 msgid "The sequence number of an EFT must strictly be an integer. Got {value}."
 msgstr ""
 "Le numéro de séquence d'un EFT doit strictement être un entier. La valeur "
 "suivante a été obtenue: {value}."
-
-#. module: canada_bank_transfer
-#: code:addons/canada_bank_transfer/eft.py:198
-#, python-format
-msgid ""
-"The sequence number of the EFT must be filled before generating the transfer "
-"file."
-msgstr ""
-"Le numéro de séquence d'un EFT doit être rempli avant de générer le fichier "
-"de transfert."
 
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/generate_eft.py:213
@@ -909,6 +921,7 @@ msgstr ""
 "Le numéro de transit doit contenir 5 digits. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,help:canada_bank_transfer.field_account_bank_statement_import_journal_creation__eft_user_number
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_user_number
 msgid ""
 "This number is attributed by your bank to identify your company. It is "
@@ -924,6 +937,7 @@ msgid "Total"
 msgstr "Total"
 
 #. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_bank_statement_import_journal_creation__canada_transit
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__canada_transit
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_setup_bank_manual_config__canada_transit
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_res_partner_bank__canada_transit
@@ -946,6 +960,11 @@ msgstr "Messages non lus"
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "Nombre de messages non lus"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.view_account_journal_form
+msgid "User Long Name"
+msgstr "Nom long de l'usager"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.view_account_journal_form
@@ -990,3 +1009,10 @@ msgid "You may not delete an EFT that is not draft."
 msgstr ""
 "Vous ne pouvez pas supprimer un transfert EFT qui n'est pas à l'état "
 "Brouillon."
+
+#~ msgid ""
+#~ "The sequence number of the EFT must be filled before generating the "
+#~ "transfer file."
+#~ msgstr ""
+#~ "Le numéro de séquence d'un EFT doit être rempli avant de générer le "
+#~ "fichier de transfert."

@@ -262,10 +262,12 @@ def _format_credit_detail_segment(payment: Payment) -> str:
 
     transaction_type = payment.eft_transaction_type or DEFAULT_TRANSACTION_TYPE
 
+    user_long_name = (payment.journal_id.eft_user_long_name or payment.journal_id.company_id.name)
+
     _verify_transaction_type(transaction_type, context)
     _verify_user_number(payment.journal_id.eft_user_number, context)
     _verify_user_short_name(payment.journal_id.eft_user_short_name, context)
-    _verify_user_long_name(payment.journal_id.company_id.name, context)
+    _verify_user_long_name(user_long_name, context)
     _verify_payment_amount(payment.amount, context)
     _verify_institution_number(destination_account.bank_id.canada_institution, context)
     _verify_institution_number(origin_account.bank_id.canada_institution, context)
@@ -298,7 +300,7 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             destination_account=_format_account_number(destination_account.acc_number),
             user_short_name=_format_user_short_name(payment.journal_id.eft_user_short_name),
             destinator_name=_format_destinator_name(destinator_name),
-            user_long_name=_format_user_long_name(payment.journal_id.company_id.name),
+            user_long_name=_format_user_long_name(user_long_name),
             user_number=payment.journal_id.eft_user_number,
             transaction_reference=_format_transaction_reference(payment.name),
             origin_institution=origin_account.bank_id.canada_institution,
