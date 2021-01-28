@@ -20,9 +20,10 @@ class AccountMoveLine(models.Model):
                 if move.is_reversal_move() or move.is_reversed_move():
                     raise UserError(
                         _(
-                            "The selected accounting entry is already reversed or is "
-                            "the reversal of another entry. You must select another "
+                            "The selected accounting entry %s is already reversed or "
+                            "is the reversal of another entry. You must select another "
                             "line."
                         )
+                        % move.display_name
                     )
         return res
