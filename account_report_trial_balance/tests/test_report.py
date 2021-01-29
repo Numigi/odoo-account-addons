@@ -76,7 +76,7 @@ class TestReport(common.SavepointCase):
 
     def test_one_line_per_account(self):
         lines = self._get_lines()
-        assert len(lines) == 4
+        assert len(lines) == 5
         assert lines[0]["account"] == self.account_1
         assert lines[1]["account"] == self.account_2
         assert lines[2]["account"] == self.account_3
