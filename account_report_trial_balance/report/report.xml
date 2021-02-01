@@ -5,6 +5,14 @@
         <div class="container">
             <table class="o_trial_balance__parameters">
                 <tbody>
+                    <tr t-if="report.date_range_id">
+                        <td>
+                            Date Range
+                        </td>
+                        <td>
+                            <span t-field="report.date_range_id.display_name"/>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             Date From
@@ -44,31 +52,59 @@
                             class="text-right o_trial_balance__amount o_trial_balance__initialBalance"
                             t-att-account-id="account.id"
                             >
-                            <span t-raw="line['initial_balance']" t-options="{'widget': 'float', 'precision': 2}"/>
+                            <span t-raw="line['initial_balance']"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
                         </td>
                         <td 
                             class="text-right o_trial_balance__amount o_trial_balance__debit"
                             t-att-account-id="account.id"
                             >
-                            <span t-raw="line['debit']" t-options="{'widget': 'float', 'precision': 2}"/>
+                            <span t-raw="line['debit']"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
                         </td>
                         <td 
                             class="text-right o_trial_balance__amount o_trial_balance__credit"
                             t-att-account-id="account.id"
                             >
-                            <span t-raw="line['credit']" t-options="{'widget': 'float', 'precision': 2}"/>
+                            <span t-raw="line['credit']"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
                         </td>
                         <td 
                             class="text-right o_trial_balance__amount o_trial_balance__balance"
                             t-att-account-id="account.id"
                             >
-                            <span t-raw="line['balance']" t-options="{'widget': 'float', 'precision': 2}"/>
+                            <span t-raw="line['balance']"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
                         </td>
                         <td 
                             class="text-right o_trial_balance__amount o_trial_balance__closingBalance"
                             t-att-account-id="account.id"
                             >
-                            <span t-raw="line['closing_balance']" t-options="{'widget': 'float', 'precision': 2}"/>
+                            <span t-raw="line['closing_balance']"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-right o_trial_balance__total">
+                            <span t-raw="sum(l['initial_balance'] for l in lines)"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
+                        </td>
+                        <td class="text-right o_trial_balance__total">
+                            <span t-raw="sum(l['debit'] for l in lines)"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
+                        </td>
+                        <td class="text-right o_trial_balance__total">
+                            <span t-raw="sum(l['credit'] for l in lines)"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
+                        </td>
+                        <td class="text-right o_trial_balance__total">
+                            <span t-raw="sum(l['balance'] for l in lines)"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
+                        </td>
+                        <td class="text-right o_trial_balance__total">
+                            <span t-raw="sum(l['closing_balance'] for l in lines)"
+                                t-options="{'widget': 'float', 'precision': 2}"/>
                         </td>
                     </tr>
                 </tbody>

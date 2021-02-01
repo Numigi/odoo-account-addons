@@ -15,10 +15,20 @@
                     <group>
                         <field name="company_id" invisible="1"/>
                         <group>
-                            <field name="date_from"/>
+                            <field name="date_range_id"/>
+                        </group>
+                        <newline/>
+                        <group>
+                            <field name="date_from"
+                                attrs="{'readonly': [('date_range_id', '!=', False)]}"
+                                force_save="1"
+                                />
                         </group>
                         <group>
-                            <field name="date_to"/>
+                            <field name="date_to"
+                                attrs="{'readonly': [('date_range_id', '!=', False)]}"
+                                force_save="1"
+                                />
                         </group>
                     </group>
                 </sheet>

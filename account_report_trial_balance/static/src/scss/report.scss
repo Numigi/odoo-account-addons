@@ -14,6 +14,7 @@ table.o_trial_balance__content {
 
     th {
         padding: 8px 0px;
+        min-width: 110px;
     }
 
     th:not(:first-child) {
@@ -24,4 +25,9 @@ table.o_trial_balance__content {
 .o_trial_balance__amount {
     cursor: pointer;
     color: $o-brand-primary;
+}
+
+.o_trial_balance__total {
+    font-weight: bold;
+    border-top-style: double;
 }

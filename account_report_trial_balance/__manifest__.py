@@ -12,6 +12,7 @@
     "summary": "Add a dynamic general ledger report",
     "depends": [
         "account",
+        "date_range",
     ],
     "data": [
         "report/report.xml",

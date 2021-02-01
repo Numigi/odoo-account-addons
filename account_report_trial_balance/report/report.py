@@ -13,8 +13,17 @@ class TrialBalanceReport(models.TransientModel):
     company_id = fields.Many2one(
         "res.company", required=True, default=lambda self: self.env.user.company_id
     )
+
+    date_range_id = fields.Many2one("date.range", "Date Range")
+
     date_from = fields.Date(required=True)
     date_to = fields.Date(required=True)
+
+    @api.onchange("date_range_id")
+    def _onchange_date_range(self):
+        if self.date_range_id:
+            self.date_from = self.date_range_id.date_start
+            self.date_to = self.date_range_id.date_end
 
     def get_html(self):
         rendering_variables = self.get_rendering_variables()
