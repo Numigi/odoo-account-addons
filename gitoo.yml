@@ -3,3 +3,23 @@
 
 - url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-base-addons
   branch: "12.0"
+
+- url: https://{{GIT_TOKEN}}@github.com/OCA/mis-builder
+  branch: "12.0"
+  includes:
+    mis_builder
+
+- url: https://{{GIT_TOKEN}}@github.com/OCA/reporting-engine
+  branch: "12.0"
+  includes:
+    report_xlsx
+
+- url: https://{{GIT_TOKEN}}@github.com/OCA/server-ux
+  branch: "12.0"
+  includes:
+    date_range
+
+- url: https://{{GIT_TOKEN}}@github.com/OCA/web
+  branch: "12.0"
+  includes:
+    web_widget_color

@@ -1,4 +1,4 @@
-FROM quay.io/numigi/odoo-public:12.0
+FROM quay.io/numigi/odoo-public:12.latest
 MAINTAINER numigi <contact@numigi.com>
 
 USER root
@@ -23,6 +23,7 @@ COPY account_analytic_required_forbidden /mnt/extra-addons/account_analytic_requ
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_budget_balance /mnt/extra-addons/account_budget_balance
 COPY account_closing_journal /mnt/extra-addons/account_closing_journal
+COPY account_closing_journal_mis_builder /mnt/extra-addons/account_closing_journal_mis_builder
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_move_chatter /mnt/extra-addons/account_move_chatter
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
@@ -33,6 +34,7 @@ COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_
 COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usage_sale
 COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
 COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
+COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
