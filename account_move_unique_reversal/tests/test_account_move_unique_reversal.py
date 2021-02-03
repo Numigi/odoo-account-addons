@@ -45,23 +45,18 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
         )
         cls.today = fields.date.today()
 
-    def test_reverse_new_entry_pass(self):
-        wizard_env = self.env["account.move.reversal"]
-        wizard_env = wizard_env.with_context(active_ids=[self.move.id])
-        wizard_env.create({"date": self.today}).reverse_moves()
-
     def test_reverse_reversed_entry_fail(self):
-        wizard_env = self.env["account.move.reversal"]
-        wizard_env = wizard_env.with_context(active_ids=[self.move.id])
-        wizard_env.create({"date": self.today}).reverse_moves()
+        self._reverse_move(self.move)
         with self.assertRaises(UserError):
-            wizard_env = wizard_env.with_context(active_ids=[self.move.id])
-            wizard_env.create({"date": self.today}).reverse_moves()
+            self._reverse_move(self.move)
 
     def test_reverse_reversal_entry_fail(self):
-        wizard_env = self.env["account.move.reversal"]
-        wizard_env = wizard_env.with_context(active_ids=[self.move.id])
+        self._reverse_move(self.move)
         reversal_move = self.move.reverse_entry_id
         with self.assertRaises(UserError):
-            wizard_env = wizard_env.with_context(active_ids=[reversal_move.id])
-            wizard_env.create({"date": self.today}).reverse_moves()
+            self._reverse_move(reversal_move)
+
+    def _reverse_move(self, move):
+        wizard_env = self.env["account.move.reversal"]
+        wizard_env = wizard_env.with_context(active_ids=[move.id])
+        wizard_env.create({"date": self.today}).reverse_moves()
