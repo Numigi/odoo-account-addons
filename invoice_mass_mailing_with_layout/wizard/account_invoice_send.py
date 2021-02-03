@@ -33,5 +33,8 @@ class AccountInvoiceSend(models.TransientModel):
         self.send_and_print_action()
 
     def _send_email(self):
-        self = self.with_context(custom_layout="mail.mail_notification_paynow")
+        self = self.with_context(
+            custom_layout="mail.mail_notification_paynow",
+            lang=self.invoice_ids[:1].partner_id.lang,
+        )
         return super(AccountInvoiceSend, self)._send_email()

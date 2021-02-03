@@ -236,6 +236,11 @@ class TestEFTCreditDetails(EFTCase):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[134:164] == 'YOUR COMPANY INC.             '  # 30 caracters
 
+    def test_specific_user_long_name(self):
+        self.journal.eft_user_long_name = 'Specific User Long Name'
+        record = format_credit_details_group(self.journal, self.payments, 1, 2)
+        assert record[134:164] == 'SPECIFIC USER LONG NAME       '
+
     def test_accents_are_removed_from_user_long_name(self):
         self.journal.company_id.name = 'Your Company Inc. *test*'
         record = format_credit_details_group(self.journal, self.payments, 1, 2)

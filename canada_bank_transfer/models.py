@@ -95,6 +95,13 @@ class AccountJournal(models.Model):
         "Must be composed of maximum 15 alphanumeric caracters."
     )
 
+    eft_user_long_name = fields.Char(
+        "EFT User Long Name",
+        size=30,
+        help="A long version of your company name. "
+        "Must be composed of maximum 30 alphanumeric caracters."
+    )
+
     eft_user_number = fields.Char(
         "EFT User Number",
         size=10,

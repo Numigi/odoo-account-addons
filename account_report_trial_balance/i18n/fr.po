@@ -1,0 +1,166 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_report_trial_balance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-29 21:15+0000\n"
+"PO-Revision-Date: 2021-01-29 16:16-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: account_report_trial_balance
+#: code:addons/account_report_trial_balance/report/report.py:94
+#, python-format
+msgid "({account}) - Balance"
+msgstr "({account}) - Solde de la période"
+
+#. module: account_report_trial_balance
+#: code:addons/account_report_trial_balance/report/report.py:101
+#, python-format
+msgid "({account}) - Closing Balance"
+msgstr "({account}) - Solde de clôture"
+
+#. module: account_report_trial_balance
+#: code:addons/account_report_trial_balance/report/report.py:87
+#, python-format
+msgid "({account}) - Credit"
+msgstr "({account}) - Crédit"
+
+#. module: account_report_trial_balance
+#: code:addons/account_report_trial_balance/report/report.py:80
+#, python-format
+msgid "({account}) - Debit"
+msgstr "({account}) - Débit"
+
+#. module: account_report_trial_balance
+#: code:addons/account_report_trial_balance/report/report.py:73
+#, python-format
+msgid "({account}) - Initial Balance"
+msgstr "({account}) - Solde initial"
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Account"
+msgstr "Compte"
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.account_report_trial_balance_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Closing Balance"
+msgstr "Solde de clôture"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Credit"
+msgstr "Crédit"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__date_from
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Date From"
+msgstr "Date de début"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__date_range_id
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Date Range"
+msgstr "Période"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__date_to
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Date To"
+msgstr "Date de fin"
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Debit"
+msgstr "Débit"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__id
+msgid "ID"
+msgstr ""
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Initial Balance"
+msgstr "Solde initial"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_report_trial_balance
+#. openerp-web
+#: code:addons/account_report_trial_balance/static/src/xml/templates.xml:8
+#, python-format
+msgid "PRINT"
+msgstr "Imprimer"
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
+msgid "Period Balance"
+msgstr "Solde de la période"
+
+#. module: account_report_trial_balance
+#: model:ir.actions.act_window,name:account_report_trial_balance.account_report_trial_balance_action
+#: model:ir.actions.client,name:account_report_trial_balance.report_action
+#: model:ir.ui.menu,name:account_report_trial_balance.report_menu
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.account_report_trial_balance_form
+msgid "Trial Balance"
+msgstr "Balance de vérification"
+
+#. module: account_report_trial_balance
+#: model:ir.model,name:account_report_trial_balance.model_account_report_trial_balance
+msgid "Trial Balance Report"
+msgstr "Rapport de balance de vérification"
+
+#. module: account_report_trial_balance
+#: model_terms:ir.ui.view,arch_db:account_report_trial_balance.account_report_trial_balance_form
+msgid "View"
+msgstr "Voir"
