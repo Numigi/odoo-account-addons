@@ -16,6 +16,7 @@
         "account_budget_balance",
         "account_closing_journal",
         "account_closing_journal_mis_builder",
+        "account_closing_wizard",
         "account_fr_ca_labels",
         "account_move_chatter",
         "account_move_unique_reversal",
