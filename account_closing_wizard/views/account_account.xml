@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="view_account_form" model="ir.ui.view">
+        <field name="name">Account Form: add default retained earnings account</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field type="xml" name="arch">
+            <field name="deprecated" position="after">
+                <field name="is_default_earnings_account"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

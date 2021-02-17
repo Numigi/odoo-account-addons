@@ -4,7 +4,7 @@
 
 {
     'name': 'Canada Bank Transfer',
-    'version': '1.0.1',
+    'version': '1.1.0',
     'author': 'Savoir-faire Linux,Numigi',
     'maintainer': 'Numigi',
     'website': 'https://bit.ly/numigi-com',

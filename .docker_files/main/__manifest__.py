@@ -11,15 +11,16 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
-        "l10n_generic_coa",  # Used for testing addons
         "account_analytic_required_forbidden",
         "account_bank_menu",
         "account_budget_balance",
         "account_closing_journal",
         "account_closing_journal_mis_builder",
+        "account_closing_wizard",
         "account_fr_ca_labels",
         "account_move_chatter",
         "account_move_reversal_access",
+        "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
         "account_payment_from_move_line",
@@ -43,6 +44,7 @@
         "invoice_write_access",
         "invoice_write_access_purchase",
         "invoice_write_access_sale",
+        "l10n_generic_coa",  # Used for testing addons
         "old_accounts",
         "vendor_invoice_full_list",
     ],
