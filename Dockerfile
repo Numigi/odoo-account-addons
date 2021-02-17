@@ -27,6 +27,7 @@ COPY account_closing_journal_mis_builder /mnt/extra-addons/account_closing_journ
 COPY account_closing_wizard /mnt/extra-addons/account_closing_wizard
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_move_chatter /mnt/extra-addons/account_move_chatter
+COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
