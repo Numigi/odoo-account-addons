@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_closing_journal_mis_builder
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-29 20:34+0000\n"
+"PO-Revision-Date: 2021-01-29 20:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_closing_journal_mis_builder
+#: model:ir.model.fields,field_description:account_closing_journal_mis_builder.field_mis_report__exclude_closing_entries
+msgid "Exclude Closing Entries"
+msgstr "Exclure les écritures de clôture"
+
+#. module: account_closing_journal_mis_builder
+#: model:ir.model,name:account_closing_journal_mis_builder.model_mis_report_instance_period
+msgid "MIS Report Instance Period"
+msgstr ""
+
+#. module: account_closing_journal_mis_builder
+#: model:ir.model,name:account_closing_journal_mis_builder.model_mis_report
+msgid "MIS Report Template"
+msgstr ""
+
+#. module: account_closing_journal_mis_builder
+#: model:ir.model.fields,field_description:account_closing_journal_mis_builder.field_mis_report__move_lines_source_model
+msgid "Model"
+msgstr ""
+

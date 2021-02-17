@@ -15,6 +15,7 @@
                     <field name="eft_enabled" invisible="1"/>
                     <group string="EFT" attrs="{'invisible': [('eft_enabled', '=', False)]}">
                         <field name="eft_user_short_name" string="User Short Name"/>
+                        <field name="eft_user_long_name" string="User Long Name"/>
                         <field name="eft_user_number" string="User Number"/>
                         <field name="eft_destination" string="Destination"/>
                     </group>
