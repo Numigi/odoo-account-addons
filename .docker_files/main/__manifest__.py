@@ -19,6 +19,7 @@
         "account_closing_journal_mis_builder",
         "account_fr_ca_labels",
         "account_move_chatter",
+        "account_move_reversal_access",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
         "account_payment_from_move_line",
