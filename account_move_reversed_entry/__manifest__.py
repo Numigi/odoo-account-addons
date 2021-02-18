@@ -2,14 +2,14 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Account Move Reversal Access",
-    "summary": "Restricting access to the function of reversing Journal Entries.",
-    "version": "12.0.1.0.0",
+    "name": "Account Move Reversed Entry",
+    "version": "1.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
+    "summary": "Add the field Reversed Entry on journal entries",
     "license": "AGPL-3",
-    "depends": ["account_move_reversed_entry"],
-    "data": ["security/res_groups.xml"],
+    "data": ["views/account_move.xml"],
+    "depends": ["account"],
     "installable": True,
 }
