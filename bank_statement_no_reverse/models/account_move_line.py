@@ -2,28 +2,34 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, models
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 
 class AccountMoveLine(models.Model):
+
     _inherit = "account.move.line"
 
-    @api.multi
-    def write(self, vals):
-        res = super().write(vals)
-        if not (vals.get("statement_line_id") or vals.get("full_reconcile_id")):
-            return res
-        for line in self.filtered(
-            lambda r: r.statement_line_id and r.full_reconcile_id
-        ):
-            for move in line.full_reconcile_id.reconciled_line_ids.mapped("move_id"):
-                if move.is_reversal_move() or move.is_reversed_move():
-                    raise UserError(
-                        _(
-                            "The selected accounting entry %s is already reversed or "
-                            "is the reversal of another entry. You must select another "
-                            "line."
-                        )
-                        % move.display_name
+    @api.constrains("statement_line_id")
+    def _check_statement_line_id__no_reverse(self):
+        for line in self:
+            if line.statement_line_id and line.move_id.reverse_entry_id:
+                raise ValidationError(
+                    _(
+                        "The journal item {item} can not be reconciled in a bank statement. "
+                        "It is reversed by {reversal_entry}."
+                    ).format(
+                        item=line.display_name,
+                        reversal_entry=line.move_id.reverse_entry_id.display_name,
                     )
-        return res
+                )
+
+            if line.statement_line_id and line.move_id.reversed_entry_id:
+                raise ValidationError(
+                    _(
+                        "The journal item {item} can not be reconciled in a bank statement. "
+                        "It is the reversal of {reversed_entry}."
+                    ).format(
+                        item=line.display_name,
+                        reversed_entry=line.move_id.reversed_entry_id.display_name,
+                    )
+                )

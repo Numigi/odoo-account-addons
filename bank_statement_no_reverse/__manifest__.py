@@ -10,6 +10,6 @@
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",
-    "depends": ["account"],
+    "depends": ["account_move_reversed_entry"],
     "installable": True,
 }

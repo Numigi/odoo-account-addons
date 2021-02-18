@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <record id="view_move_form_inherit" model="ir.ui.view">
-        <field name="name">account.move.form.inherit</field>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">Account Move: hide auto_reverse if entry is a reversal or is reversed</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="inherit_id" ref="account_move_reversed_entry.view_move_form" />
         <field name="arch" type="xml">
-            <field name="auto_reverse" position="after">
-                <field name="is_reversal_move" invisible="1" />
-            </field>
             <field name="auto_reverse" position="attributes">
                 <attribute name="attrs">
-                    {'readonly':['|', ('reverse_entry_id', '!=', False), ('is_reversal_move', '!=', False)]}
+                    {'readonly': ['|', ('reverse_entry_id', '!=', False), ('reversed_entry_id', '!=', False)]}
                 </attribute>
             </field>
         </field>
