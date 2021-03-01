@@ -42,6 +42,7 @@
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
         "invoice_fiscal_position_required",
+        "invoice_list_email",
         "invoice_mass_mailing_with_layout",
         "invoice_refund_not_earlier",
         "invoice_write_access",
