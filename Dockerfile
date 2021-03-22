@@ -19,6 +19,7 @@ RUN gitoo install-all --conf_file /gitoo.yml --destination "${THIRD_PARTY_ADDONS
 
 USER odoo
 
+COPY account_additional_group /mnt/extra-addons/account_additional_group
 COPY account_analytic_required_forbidden /mnt/extra-addons/account_analytic_required_forbidden
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_budget_balance /mnt/extra-addons/account_budget_balance
