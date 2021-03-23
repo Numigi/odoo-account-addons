@@ -11,6 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
+        "account_additional_group",
         "account_analytic_required_forbidden",
         "account_bank_menu",
         "account_budget_balance",
