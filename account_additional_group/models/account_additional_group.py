@@ -27,12 +27,17 @@ class AccountAdditionalGroup(models.Model):
         return [(r.id, "{} - {}".format(r.code, r.name)) for r in self]
 
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
         res = super().name_search(name, args, operator, limit)
 
-        if operator in ('=', 'ilike', '=ilike', 'like', '=like'):
+        if operator in ("=", "ilike", "=ilike", "like", "=like"):
+            found_ids = [r[0] for r in res]
             groups_matching_code = self.search([("code", operator, name)])
-            res = res + [(g.id, g.display_name) for g in groups_matching_code]
+            res = res + [
+                (g.id, g.display_name)
+                for g in groups_matching_code
+                if g.id not in found_ids
+            ]
 
             if isinstance(limit, int):
                 res = res[:limit]
@@ -41,8 +46,10 @@ class AccountAdditionalGroup(models.Model):
 
     def _compute_accounts(self):
         for group in self:
-            group.account_ids = self.env["account.account"].sudo().search(
-                [("additional_group_id", "child_of", group.id)],
+            group.account_ids = (
+                self.env["account.account"]
+                .sudo()
+                .search([("additional_group_id", "child_of", group.id)],)
             )
 
     @api.depends("account_ids")
