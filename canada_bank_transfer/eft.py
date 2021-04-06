@@ -123,14 +123,12 @@ class EFT(models.Model):
         eft._compute_name()
         return eft
 
-    @api.multi
     def unlink(self):
         validated_eft = self.filtered(lambda r: r.state != 'draft')
         if validated_eft:
             raise ValidationError(_('You may not delete an EFT that is not draft.'))
         return super().unlink()
 
-    @api.multi
     def action_draft(self):
         self.write({'state': 'draft'})
 
@@ -143,23 +141,19 @@ class EFT(models.Model):
         check_institution_number_is_set_on_banks(self.payment_ids, self._context)
         check_account_number_between_7_and_12_digits(self.payment_ids, self._context)
 
-    @api.multi
     def validate_payments(self):
         self._check_payment_and_bank_accounts()
         self.write({'state': 'ready'})
 
-    @api.multi
     def action_approve(self):
         self.write({'state': 'approved'})
 
-    @api.multi
     def action_cancel(self):
         for rec in self:
             if rec.state == 'done':
                 rec.payment_ids.write({'state': 'posted'})
         self.write({'state': 'cancelled'})
 
-    @api.multi
     def action_done(self):
         wizard = self.env['account.eft.confirmation.wizard'].create({
             'eft_id': self.id,
@@ -193,7 +187,6 @@ class EFT(models.Model):
             'res_id': eft.id,
         }
 
-    @api.multi
     def generate_eft_file(self):
         self._check_payment_and_bank_accounts()
 
@@ -208,7 +201,6 @@ class EFT(models.Model):
         })
         return True
 
-    @api.multi
     def open_payment_notice_wizard(self):
         """Open the payment notice wizard.
 

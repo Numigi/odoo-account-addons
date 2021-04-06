@@ -13,7 +13,6 @@ class AccountMoveLine(models.Model):
         _update_vals_debit_credit(vals)
         return super().create(vals)
 
-    @api.multi
     def write(self, vals):
         _update_vals_debit_credit(vals)
         return super().write(vals)

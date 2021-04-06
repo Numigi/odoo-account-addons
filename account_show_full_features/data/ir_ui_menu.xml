@@ -13,4 +13,9 @@
         <value type="char">Accounting</value>
     </function>
 
+    <!-- Make the list of account.move.line available without debug mode -->
+    <record id="account.menu_action_account_moves_all" model="ir.ui.menu">
+        <field name="groups_id" eval="[(5, 0)]"/>
+    </record>
+
 </data>

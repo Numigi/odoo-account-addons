@@ -59,7 +59,6 @@ class HrExpenseWithAccountMovesBasedOnTaxLines(models.Model):
 
     _inherit = 'hr.expense'
 
-    @api.multi
     def _move_line_get(self):
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_line_ids)

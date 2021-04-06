@@ -21,7 +21,6 @@ class Invoice(models.Model):
              self.date and self.date < self.refund_invoice_id.date_invoice)
         )
 
-    @api.multi
     def action_invoice_open(self):
         invalid_refunds = self.filtered(lambda inv: inv._is_refund_prior_to_invoice())
         if invalid_refunds:
@@ -45,7 +44,6 @@ class JournalEntry(models.Model):
 
     _inherit = 'account.move'
 
-    @api.multi
     def reverse_moves(self, date=None, journal_id=None, auto=False):
         for move in self:
             if date and date < move.date:

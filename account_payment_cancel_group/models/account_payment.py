@@ -9,7 +9,6 @@ class AccountPayment(models.Model):
 
     _inherit = 'account.payment'
 
-    @api.multi
     def cancel(self):
         """Restrict the payment cancellation to a specific group.
 

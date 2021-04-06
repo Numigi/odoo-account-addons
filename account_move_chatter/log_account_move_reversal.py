@@ -10,7 +10,6 @@ class AccountMoveWithLogReversal(models.Model):
 
     _inherit = 'account.move'
 
-    @api.multi
     def _reverse_move(self, *args, **kwargs):
         result = super()._reverse_move(*args, **kwargs)
         self.message_post(body=_(MOVE_REVERSAL_MESSAGE))

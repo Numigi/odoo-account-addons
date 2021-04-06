@@ -11,7 +11,7 @@ class TranslationCase(common.TransactionCase):
         return self.env['ir.translation'].search([
             ('src', '=', source),
             ('value', '=', value),
-        ], limit=1)
+        ])
 
 
 @ddt
@@ -20,7 +20,7 @@ class TestCreditNote(TranslationCase):
     @data(
         ('Add Credit Note', 'Ajouter un avoir'),
         ('Dedicated Credit Note Sequence', 'Séquence dédiée aux avoirs'),
-        ('Credit Note Bill', "Facture de l'avoir"),
+        ('Refund Date', "Date de l'avoir"),
     )
     def test_no_translation_found_with_wrong_term(self, data):
         assert not self._find_translation(data[0], data[1])
@@ -28,7 +28,7 @@ class TestCreditNote(TranslationCase):
     @data(
         ('Add Credit Note', 'Ajouter une note de crédit'),
         ('Dedicated Credit Note Sequence', 'Séquence dédiée aux notes de crédit'),
-        ('Credit Note Bill', 'Note de crédit'),
+        ('Refund Date', "Date de la note de crédit"),
     )
     def test_translations_found_with_correct_term(self, data):
         assert self._find_translation(data[0], data[1])

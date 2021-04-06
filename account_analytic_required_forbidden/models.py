@@ -52,7 +52,6 @@ class AccountMove(models.Model):
         for line in self.mapped('line_ids'):
             line._check_analytic_account_required_or_forbidden()
 
-    @api.multi
     def post(self, *args, **kwargs):
         self._check_analytic_account_required_or_forbidden()
         return super().post(*args, **kwargs)

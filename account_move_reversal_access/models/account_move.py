@@ -9,7 +9,6 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    @api.multi
     def write(self, vals):
         for move in self:
             if move.state == "posted" and vals.get("auto_reverse"):
@@ -17,20 +16,17 @@ class AccountMove(models.Model):
                 move._check_reversal_journal_type_access()
         return super().write(vals)
 
-    @api.multi
     def post(self, invoice=False):
         self._check_reversal_move()
         self._check_auto_reverse_move()
         return super().post(invoice)
 
-    @api.multi
     def _check_reversal_move(self):
         for move in self:
             if move.reversed_entry_id:
                 move._check_group_reverse_account_moves()
                 move.reversed_entry_id._check_reversal_journal_type_access()
 
-    @api.multi
     def _check_auto_reverse_move(self):
         for move in self.filtered(lambda m: m.auto_reverse):
             move._check_group_reverse_account_moves()

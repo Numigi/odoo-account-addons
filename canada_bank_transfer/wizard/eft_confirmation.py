@@ -14,7 +14,6 @@ class EFTConfirmationWizard(models.TransientModel):
     eft_id = fields.Many2one('account.eft')
     line_ids = fields.One2many('account.eft.confirmation.line', 'wizard_id')
 
-    @api.multi
     def action_validate(self):
         """Validate the EFT.
 

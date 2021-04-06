@@ -9,6 +9,15 @@ services:
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./.log:/var/log/odoo
+      - ./account_additional_group:/mnt/extra-addons/account_additional_group
+      - ./account_analytic_required_forbidden:/mnt/extra-addons/account_analytic_required_forbidden
+      - ./account_bank_menu:/mnt/extra-addons/account_bank_menu
+      - ./account_closing_journal:/mnt/extra-addons/account_closing_journal
+      - ./account_closing_journal_mis_builder:/mnt/extra-addons/account_closing_journal_mis_builder
+      - ./account_closing_wizard:/mnt/extra-addons/account_closing_wizard
+      - ./account_fr_ca_labels:/mnt/extra-addons/account_fr_ca_labels
+      - ./account_show_full_features:/mnt/extra-addons/account_show_full_features
+      - ../base-addons/lang_fr_activated:/mnt/extra-addons/lang_fr_activated
     ports:
       - "8069:8069"
       - "8071:8071"

@@ -81,7 +81,6 @@ class AccountInvoice(models.Model):
                 account_currency=account_currency.name,
             ))
 
-    @api.multi
     def action_invoice_open(self):
         for invoice in self:
             invoice._check_invoice_currency_versus_journal_currency()

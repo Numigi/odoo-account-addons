@@ -17,5 +17,5 @@
         'views/crossovered_budget.xml',
         'views/crossovered_budget_lines.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

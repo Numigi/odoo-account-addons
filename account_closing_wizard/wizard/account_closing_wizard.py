@@ -64,7 +64,7 @@ class AccountClosingWizard(models.TransientModel):
                 "ref": self._get_account_move_ref(),
                 "journal_id": self.journal_id.id,
                 "company_id": self.company_id.id,
-                "line_ids": [(0, 0, vals) for vals in reversed(lines)],
+                "line_ids": [(0, 0, vals) for vals in lines],
             }
         )
 

@@ -9,7 +9,6 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    @api.multi
     def _reverse_move(self, *args, **kwargs):
         for move in self:
             if move.reverse_entry_id:

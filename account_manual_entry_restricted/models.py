@@ -42,7 +42,6 @@ class JournalEntry(models.Model):
                     groups='\n'.join(['- {}'.format(g.display_name) for g in allowed_groups])
                 ))
 
-    @api.multi
     def action_post(self):
         """Verify the contrains on manual journal entries.
 
