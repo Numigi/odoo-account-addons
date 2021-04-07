@@ -10,7 +10,6 @@
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",
-    "data": ["views/account_move.xml"],
     "depends": ["account"],
     "installable": True,
 }
