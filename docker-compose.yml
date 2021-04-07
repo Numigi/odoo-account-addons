@@ -16,6 +16,7 @@ services:
       - ./account_closing_journal_mis_builder:/mnt/extra-addons/account_closing_journal_mis_builder
       - ./account_closing_wizard:/mnt/extra-addons/account_closing_wizard
       - ./account_fr_ca_labels:/mnt/extra-addons/account_fr_ca_labels
+      - ./account_manual_entry_restricted:/mnt/extra-addons/account_manual_entry_restricted
       - ./account_show_full_features:/mnt/extra-addons/account_show_full_features
       - ../base-addons/lang_fr_activated:/mnt/extra-addons/lang_fr_activated
     ports:

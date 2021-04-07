@@ -22,13 +22,10 @@ USER odoo
 COPY account_additional_group /mnt/extra-addons/account_additional_group
 COPY account_analytic_required_forbidden /mnt/extra-addons/account_analytic_required_forbidden
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
-COPY account_budget_balance /mnt/extra-addons/account_budget_balance
 COPY account_closing_journal /mnt/extra-addons/account_closing_journal
 COPY account_closing_journal_mis_builder /mnt/extra-addons/account_closing_journal_mis_builder
 COPY account_closing_wizard /mnt/extra-addons/account_closing_wizard
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
-COPY account_manual_entry_restricted /mnt/extra-addons/account_manual_entry_restricted
-COPY account_move_chatter /mnt/extra-addons/account_move_chatter
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
