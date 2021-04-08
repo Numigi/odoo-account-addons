@@ -36,6 +36,7 @@
         "account_show_full_features",
         "account_type_archive",
         "account_unaffected_earnings_disabled",
+        "bank_statement_extra_columns",
         "bank_statement_no_reverse",
         "budget_analysis_account_move_line",
         "canada_account_types",
