@@ -42,12 +42,12 @@ class EFT(models.Model):
     _order = 'name desc'
 
     name = fields.Char('Name', compute='_compute_name', store=True, copy=False)
-    sequence = fields.Integer(track_visibility='onchange', copy=False)
+    sequence = fields.Integer(tracking=True, copy=False)
 
     payment_date = fields.Date(
         'Payment Date', required=True,
         default=fields.Date.context_today,
-        track_visibility='onchange')
+        tracking=True)
 
     filename = fields.Char('File Name', readonly=True, copy=False)
 
@@ -60,7 +60,7 @@ class EFT(models.Model):
         column1='eft_id',
         column2='payment_id',
         string='Payments',
-        track_visibility='onchange',
+        tracking=True,
         copy=False)
 
     failed_payment_ids = fields.Many2many(
@@ -69,14 +69,14 @@ class EFT(models.Model):
         column1='eft_id',
         column2='payment_id',
         string='Failed Payments',
-        track_visibility='onchange',
+        tracking=True,
         copy=False)
 
     total = fields.Monetary('Total', compute='_compute_total')
 
     journal_id = fields.Many2one(
         'account.journal', 'Journal', required=True,
-        track_visibility='onchange')
+        tracking=True)
     currency_id = fields.Many2one('res.currency', 'Currency', compute='_compute_currency_id')
 
     state = fields.Selection([
@@ -85,7 +85,7 @@ class EFT(models.Model):
         ('approved', 'Approved'),
         ('done', 'Done'),
         ('cancelled', 'Cancelled'),
-    ], readonly=True, default='draft', required=True, track_visibility='onchange', copy=False)
+    ], readonly=True, default='draft', required=True, tracking=True, copy=False)
 
     payment_notices_sent = fields.Boolean(copy=False)
 

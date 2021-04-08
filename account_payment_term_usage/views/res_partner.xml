@@ -7,33 +7,14 @@
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
             <field name="property_supplier_payment_term_id" position="attributes">
-                <attribute name="domain">[
-                    '|',
-                    ('usage', '=', False),
-                    ('usage', 'in', ('purchase', 'sale_and_purchase')),
-                ]</attribute>
+                <attribute name="context">{
+                    "enabled_payment_term_usage": "purchase",
+                }</attribute>
             </field>
             <field name="property_payment_term_id" position="attributes">
-                <attribute name="domain">[
-                    '|',
-                    ('usage', '=', False),
-                    ('usage', 'in', ('sale', 'sale_and_purchase')),
-                ]</attribute>
-            </field>
-        </field>
-    </record>
-
-    <record id="partner_short_form" model="ir.ui.view">
-        <field name="name">Partner Short Form: filter payment terms per usage</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.partner_view_short_extra"/>
-        <field name="arch" type="xml">
-            <field name="property_payment_term_id" position="attributes">
-                <attribute name="domain">[
-                    '|',
-                    ('usage', '=', False),
-                    ('usage', 'in', ('sale', 'sale_and_purchase')),
-                ]</attribute>
+                <attribute name="context">{
+                    "enabled_payment_term_usage": "sale",
+                }</attribute>
             </field>
         </field>
     </record>
