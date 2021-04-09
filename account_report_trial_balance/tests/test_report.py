@@ -74,6 +74,12 @@ class TestReport(common.SavepointCase):
             "line_ids": [(0, 0, debit_vals), (0, 0, credit_vals)],
         })
 
+    def test_render_html(self):
+        self.report.get_html()
+
+    def test_render_pdf(self):
+        self.report.get_pdf()
+
     def test_one_line_per_account(self):
         lines = self._get_lines()
         assert len(lines) == 4

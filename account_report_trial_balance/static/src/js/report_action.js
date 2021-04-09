@@ -5,19 +5,15 @@
 odoo.define("account_report_trial_balance", function (require) {
 "use strict";
 
-var ControlPanelMixin = require("web.ControlPanelMixin");
 var core = require("web.core");
-var crashManager = require("web.crash_manager");
 var framework = require("web.framework");
 var rpc = require("web.rpc");
-var session = require("web.session");
-var Widget = require("web.Widget");
 var AbstractAction = require("web.AbstractAction");
 
 var QWeb = core.qweb;
-var _t = core._t;
 
-var ReportAction = AbstractAction.extend(ControlPanelMixin, {
+var ReportAction = AbstractAction.extend({
+    hasControlPanel: true,
     events: {
         "click .o_trial_balance__initialBalance": "initialBalanceClicked",
         "click .o_trial_balance__debit": "debitClicked",
@@ -29,55 +25,29 @@ var ReportAction = AbstractAction.extend(ControlPanelMixin, {
         this._super.apply(this, arguments);
         this.controllerURL = action.context.url;
         this.reportId = action.context.active_id;
-    },
-    start(){
-        var result = this._super();
-        this.updateControlPanel();
-        this.updateHtml();
-        return result;
-    },
-    do_show(){
-        this._super();
-        this.updateControlPanel();
-    },
-    async refresh(){
-        this.updateHtml();
-    },
-    updateControlPanel(){
-        this.update_control_panel({
-            breadcrumbs: this.getParent()._getBreadcrumbs(),
-            cp_content: {$buttons: this.getControlPanelButtons()},
-        });
-    },
-    getControlPanelButtons(){
-        if(!this.controlPanelButtons){
-            this.printButton = this.renderPrintButton();
-            this.controlPanelButtons = [
-                this.printButton,
-            ];
-        }
-        return this.controlPanelButtons;
+        this.controlPanelProps.cp_content = {$buttons: this.renderPrintButton()};
     },
     renderPrintButton(){
-        var button = $(QWeb.render("accountReportGeneralLedger.printButton", {}));
+        var button = $(QWeb.render("accountReportTrialBalance.printButton", {}));
         button.bind("click", () => this.downloadPDF());
         return button;
     },
-    async updateHtml(){
+    async renderElement(){
+        this._super(...arguments);
         var html = await this._rpc({
             model: "account.report.trial.balance",
             method: "get_html",
             args: [this.reportId],
             context: this.getSession().user_context,
         });
-        this.$el.html(html);
+        this.$('.o_content').append(html);
     },
     downloadPDF(){
         framework.blockUI();
-        session.get_file({
+        this.getSession().get_file({
             url: "/web/account_report_trial_balance/" + this.reportId,
             complete: framework.unblockUI,
-            error: crashManager.rpc_error.bind(crashManager),
+            error: (error) => this.call('crash_manager', 'rpc_error', error),
         });
     },
     initialBalanceClicked(event){

@@ -15,6 +15,7 @@
         "date_range",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "report/report.xml",
         "views/account_report_trial_balance.xml",
     ],
