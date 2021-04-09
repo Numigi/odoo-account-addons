@@ -10,7 +10,7 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Disable the unaffected earnings feature",
-    "depends": ["account_type_archive"],
+    "depends": ["account_type_sane"],
     "data": ["data/account_account_type.xml", "views/account_account.xml"],
     "installable": True,
 }
