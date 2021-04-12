@@ -172,7 +172,7 @@ class TestEFTCreditDetails(EFTCase):
 
     def test_format_header_create_date(self):
         with freeze_time('2019-06-30'):
-            self.payments[0].payment_date = datetime.now().date()
+            self.payments[0].move_id.date = datetime.now().date()
             record = format_credit_details_group(self.journal, self.payments, 1, 2)
             assert record[37:43] == '019181'
 
@@ -222,7 +222,7 @@ class TestEFTCreditDetails(EFTCase):
         assert record[104:134] == 'SUPPLIER 1                    '  # 30 caracters
 
     def test_destinator_short_name__uses_acc_holder_name_if_available(self):
-        self.payments[0].partner_bank_account_id.acc_holder_name = "Custom Account Holder Name"
+        self.payments[0].partner_bank_id.acc_holder_name = "Custom Account Holder Name"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[104:134] == 'CUSTOM ACCOUNT HOLDER NAME    '  # 30 caracters
 
@@ -253,10 +253,10 @@ class TestEFTCreditDetails(EFTCase):
     def test_transaction_reference_number(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         reference = record[174:192]
-        assert reference == self.pmt_1.name.replace('/', '_')
+        assert reference.strip() == self.pmt_1.name.replace('/', '_')
 
         reference_2 = record[174 + 240:192 + 240]
-        assert reference_2 == self.pmt_2.name.replace('/', '_')
+        assert reference_2.strip() == self.pmt_2.name.replace('/', '_')
 
     def test_transaction_reference_number_with_long_payment_name(self):
         self.pmt_1.name = 'SUPP.OUT/2019/1234567'

@@ -5,7 +5,6 @@
 import base64
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.addons.account.models.account_payment import account_payment as Payment
 from .generate_eft import generate_eft
 from .payment_validation import (
     check_account_number_between_7_and_12_digits,
@@ -19,7 +18,7 @@ from .payment_validation import (
 )
 
 
-def auto_assign_bank_account_to_payments(payments: Payment) -> None:
+def auto_assign_bank_account_to_payments(payments):
     """Automatically assign a bank account to the given payments.
 
     If the partner on the payment has one bank account, then
@@ -31,7 +30,7 @@ def auto_assign_bank_account_to_payments(payments: Payment) -> None:
     for payment in payments:
         partner_account = payment.partner_id.bank_ids
         if len(partner_account) == 1:
-            payment.partner_bank_account_id = partner_account
+            payment.partner_bank_id = partner_account
 
 
 class EFT(models.Model):

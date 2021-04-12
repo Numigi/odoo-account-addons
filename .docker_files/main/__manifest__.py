@@ -19,7 +19,6 @@
         "account_closing_wizard",
         "account_fr_ca_labels",
         "account_move_reversal_access",
-        "account_move_reversed_entry",
         "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",

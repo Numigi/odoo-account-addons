@@ -52,13 +52,13 @@ class TestCreateEFTFromPayments(AccountEFTCase):
             self._create_eft_from_payments()
 
     def test_bank_account_is_automatically_assigned(self):
-        self.pmt_1.partner_bank_account_id = False
-        self.pmt_2.partner_bank_account_id = False
+        self.pmt_1.partner_bank_id = False
+        self.pmt_2.partner_bank_id = False
 
         self._create_eft_from_payments()
 
-        assert self.pmt_1.partner_bank_account_id == self.td_account
-        assert self.pmt_2.partner_bank_account_id == self.rbc_account
+        assert self.pmt_1.partner_bank_id == self.td_account
+        assert self.pmt_2.partner_bank_id == self.rbc_account
 
     def test_eft_total_is_total_of_payments(self):
         eft = self._create_eft_from_payments()
@@ -100,27 +100,27 @@ class TestGenerateEFTFile(AccountEFTCase):
         assert self.eft.filename == "{}-{}.txt".format(self.eft.name, self.eft.sequence)
 
     def test_raise_error_if_bank_account_is_not_selected(self):
-        self.pmt_1.partner_bank_account_id = False
+        self.pmt_1.partner_bank_id = False
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
     def test_raise_error_if_bank_is_not_selected(self):
-        self.pmt_1.partner_bank_account_id.bank_id = False
+        self.pmt_1.partner_bank_id.bank_id = False
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
     def test_raise_error_if_institution_is_not_filled(self):
-        self.pmt_1.partner_bank_account_id.bank_id.canada_institution = False
+        self.pmt_1.partner_bank_id.bank_id.canada_institution = False
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
     def test_raise_error_if_transit_is_not_filled(self):
-        self.pmt_1.partner_bank_account_id.canada_transit = False
+        self.pmt_1.partner_bank_id.canada_transit = False
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
     def test_raise_error_if_account_number_is_not_digit(self):
-        self.pmt_1.partner_bank_account_id.acc_number = '123456a'
+        self.pmt_1.partner_bank_id.acc_number = '123456a'
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
@@ -160,41 +160,42 @@ class TestEFTConfirmationWizard(AccountEFTCase):
     def test_on_eft_confirmation__payments_are_sent(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.eft.mapped('payment_ids.state') == ['sent', 'sent']
+        assert self.pmt_1.is_move_sent
+        assert self.pmt_2.is_move_sent
 
     def test_on_eft_confirmation__failed_payments_are_not_sent(self):
         wizard = self._open_confirmation_wizard()
         wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
         wizard.action_validate()
-        assert self.pmt_1.state == 'posted'
-        assert self.pmt_2.state == 'sent'
+        assert not self.pmt_1.is_move_sent
+        assert self.pmt_2.is_move_sent
 
     def test_on_eft_confirmation__payment_date_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.payment_date == self.eft_date
+        assert self.pmt_1.date == self.eft_date
 
     def test_on_eft_confirmation__payment_move_is_posted(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped('move_line_ids.move_id').state == 'posted'
+        assert self.pmt_1.move_id.state == 'posted'
 
     def test_on_eft_confirmation__payment_move_date_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped('move_line_ids.move_id').date == self.eft_date
+        assert self.pmt_1.move_id.date == self.eft_date
 
     def test_on_eft_confirmation__payment_move_line_date_maturity_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped('move_line_ids.date_maturity') == [self.eft_date, self.eft_date]
+        assert self.pmt_1.mapped('line_ids.date_maturity') == [self.eft_date, self.eft_date]
 
     def test_on_eft_confirmation__failed_payment_date_is_not_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
         wizard.action_validate()
-        assert self.pmt_1.payment_date != self.eft_date
-        assert self.pmt_2.payment_date == self.eft_date
+        assert self.pmt_1.date != self.eft_date
+        assert self.pmt_2.date == self.eft_date
 
 
 class TestEFTWorkflow(AccountEFTCase):

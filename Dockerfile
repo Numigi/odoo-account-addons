@@ -27,11 +27,9 @@ COPY account_closing_journal_mis_builder /mnt/extra-addons/account_closing_journ
 COPY account_closing_wizard /mnt/extra-addons/account_closing_wizard
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
-COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
-COPY account_payment_from_move_line /mnt/extra-addons/account_payment_from_move_line
 COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_usage_purchase
 COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usage_sale
@@ -41,7 +39,6 @@ COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_type_sane /mnt/extra-addons/account_type_sane
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
-COPY budget_analysis_account_move_line /mnt/extra-addons/budget_analysis_account_move_line
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
 COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
