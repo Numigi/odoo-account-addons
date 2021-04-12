@@ -14,13 +14,6 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
         super().setUpClass()
         cls.partner = cls.env.ref("base.res_partner_2")
 
-        cls.journal = cls.env["account.journal"].create(
-            {
-                "name": "Bank US",
-                "code": "BNK68",
-                "type": "general",
-            }
-        )
         cls.bank_account = cls.env["account.account"].create(
             {
                 "code": "11000",
@@ -34,6 +27,15 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
                 "name": "Receivable",
                 "reconcile": True,
                 "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+            }
+        )
+        cls.journal = cls.env["account.journal"].create(
+            {
+                "name": "Bank US",
+                "code": "BNK68",
+                "type": "general",
+                "default_account_id": cls.bank_account.id,
+                "suspense_account_id": cls.receivable_account.id,
             }
         )
         cls.amount = 100
@@ -79,29 +81,14 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
                 "partner_id": cls.partner.id,
                 "amount": cls.amount,
                 "date": datetime.now(),
+                "payment_ref": "/",
             }
         )
         return bank_stmt_line
 
-    def test_reconcile_line(self):
-        self.move_line.statement_line_id = self.statement_line
-
-    def test_reconcile_reversed_line(self):
-        self.move.reverse_moves()
-        with pytest.raises(ValidationError):
-            self.move_line.statement_line_id = self.statement_line
-
     def test_reverse_move(self):
-        self.move.reverse_moves()
+        self.move._reverse_moves()
 
     def test_reverse_move_reconciled_line(self):
-        self.move_line.statement_line_id = self.statement_line
         with pytest.raises(ValidationError):
-            self.move.reverse_moves()
-
-    def test_reconcile_reversal_line(self):
-        self.move.reverse_moves()
-        reversal_line = self.move.reverse_entry_id.line_ids.filtered("debit")
-
-        with pytest.raises(ValidationError):
-            reversal_line.statement_line_id = self.statement_line
+            self.statement_line.move_id._reverse_moves()
