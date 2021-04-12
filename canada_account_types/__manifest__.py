@@ -10,7 +10,10 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Add account types for Canada.",
-    "depends": ["account", "base_xml_rename"],
-    "data": ["data/account_account_type.xml", "data/account_account_type_sequence.xml",],
+    "depends": ["account_type_sane", "base_xml_rename"],
+    "data": [
+        "data/account_account_type.xml",
+        "data/account_account_type_sequence.xml",
+    ],
     "installable": True,
 }
