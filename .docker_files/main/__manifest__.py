@@ -46,6 +46,7 @@
         "invoice_write_access_sale",
         "l10n_generic_coa",  # Used for testing addons
         "old_accounts",
+        "payment_list_not_sent",
         "payment_stripe_not_silenced",
         "vendor_invoice_full_list",
     ],
