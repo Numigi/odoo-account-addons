@@ -91,7 +91,7 @@
     </record>
 
     <menuitem
-        id="menu_config_recording_subgenre"
+        id="menu_config_account_additional_group"
         name="Additional Account Groups"
         parent="account.account_account_menu"
         action="action_account_additional_group"
