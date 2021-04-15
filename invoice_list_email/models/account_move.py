@@ -4,8 +4,8 @@
 from odoo import fields, models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
 
-    _inherit = "account.invoice"
+    _inherit = "account.move"
 
     partner_email = fields.Char(related="partner_id.email")

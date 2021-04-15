@@ -3,12 +3,12 @@
 
     <record id="invoice_list" model="ir.ui.view">
         <field name="name">Customer Invoice: add customer email</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_tree"/>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
         <field name="arch" type="xml">
-            <field name="partner_id" position="after">
+            <xpath expr="//field[@name='invoice_partner_display_name'][2]" position="after">
                 <field name="partner_email" string="Email"/>
-            </field>
+            </xpath>
         </field>
     </record>
 
