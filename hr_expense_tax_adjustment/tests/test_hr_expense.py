@@ -31,7 +31,8 @@ class TestAccountMoveLine(common.SavepointCase):
             'amount_type': 'percent',
             'type_tax_use': 'purchase',
             'price_include': True,
-            'account_id': cls.tax_account.id,
+            'invoice_repartition_line_ids': cls._make_tax_repartition(cls.tax_account),
+            'refund_repartition_line_ids': cls._make_tax_repartition(cls.tax_account),
         })
         cls.tax_2 = cls.env['account.tax'].create({
             'name': 'Tax 2 (9.9975%)',
@@ -39,7 +40,8 @@ class TestAccountMoveLine(common.SavepointCase):
             'amount_type': 'percent',
             'type_tax_use': 'purchase',
             'price_include': True,
-            'account_id': cls.tax_account_2.id,
+            'invoice_repartition_line_ids': cls._make_tax_repartition(cls.tax_account_2),
+            'refund_repartition_line_ids': cls._make_tax_repartition(cls.tax_account_2),
         })
         cls.parent_tax = cls.env['account.tax'].create({
             'name': 'Parent Tax',
@@ -53,8 +55,7 @@ class TestAccountMoveLine(common.SavepointCase):
         cls.product.supplier_taxes_id = cls.parent_tax
 
         cls.user = cls.env.ref('base.user_demo')
-        cls.employee = cls.env.ref('hr.employee_mit')
-        cls.employee.user_id = cls.user
+        cls.employee = cls.user.employee_ids
 
         cls.payable = cls.env['account.account'].search(
             [('user_type_id.type', '=', 'payable')], limit=1)
@@ -74,6 +75,19 @@ class TestAccountMoveLine(common.SavepointCase):
             'tax_ids': [(6, 0, [cls.parent_tax.id])],
             'sheet_id': cls.sheet.id,
         })
+
+    @staticmethod
+    def _make_tax_repartition(account):
+        return [
+            (0, 0, {
+                "repartition_type": "base",
+                "factor_percent": 0,
+            }),
+            (0, 0, {
+                "account_id": account.id,
+                "factor_percent": 100,
+            })
+        ]
 
     def test_onchangeAmountSetupTaxLines_thenTaxLinesAreComputed(self):
         self.assertFalse(self.expense.tax_line_ids)
@@ -106,12 +120,6 @@ class TestAccountMoveLine(common.SavepointCase):
         self.assertEqual(lines[1].tax_id, self.tax_2)
         self.assertAlmostEqual(lines[0].amount, 700 * 0.05, 2)
         self.assertAlmostEqual(lines[1].amount, 700 * 0.09975, 2)
-
-    def test_onchangeAmountSetupTaxLines_ifNoReceivableAccountDefined_thenRaiseError(self):
-        self.tax_1.account_id = False
-
-        with self.assertRaises(UserError):
-            self.expense._onchange_amount_setup_tax_lines()
 
     def test_whenValidatingExpense_thenTaxesAreCorrectlyAccounted(self):
         self.expense._onchange_amount_setup_tax_lines()

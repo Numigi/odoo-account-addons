@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
-class HrExpenseWithAdjustableTaxes(models.Model):
+class HrExpense(models.Model):
 
     _inherit = 'hr.expense'
 
@@ -37,11 +37,6 @@ class HrExpenseWithAdjustableTaxes(models.Model):
         taxes = self.tax_ids.with_context(round=True).compute_all(
             self.unit_amount, currency, self.quantity, self.product_id)
         for tax in taxes['taxes']:
-            if not tax['account_id']:
-                raise UserError(_(
-                    'The tax {tax} has no receivable account.'
-                ).format(tax=tax['name']))
-
             self.tax_line_ids |= self.env['hr.expense.tax'].new({
                 'amount': tax['amount'],
                 'account_id': tax['account_id'],
@@ -49,22 +44,12 @@ class HrExpenseWithAdjustableTaxes(models.Model):
                 'price_include': tax['price_include'],
             })
 
-
-class HrExpenseWithAccountMovesBasedOnTaxLines(models.Model):
-    """Compute the tax account move lines of the expenses based on the tax lines.
-
-    If the tax line table is not filled, the original method for computing these fields is user.
-    This prevents breaking the computed fields for expenses created before installing this module.
-    """
-
-    _inherit = 'hr.expense'
-
-    def _move_line_get(self):
+    def _get_account_move_line_values(self):
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_line_ids)
 
         account_move_lines = super(
-            HrExpenseWithAccountMovesBasedOnTaxLines, expenses_without_tax_lines)._move_line_get()
+            HrExpense, expenses_without_tax_lines)._get_account_move_line_values()
 
         for expense in expenses_with_tax_lines:
             account_move_lines.extend(expense._move_line_get_using_tax_lines())
@@ -90,16 +75,6 @@ class HrExpenseWithAccountMovesBasedOnTaxLines(models.Model):
 
         return move_lines
 
-
-class HrExpenseWithTotalBasedOnTaxLines(models.Model):
-    """Compute the fields untaxed_amount and total_amount using the amounts on tax lines.
-
-    If the tax line table is not filled, the original method for computing these fields is user.
-    This prevents breaking the computed fields for expenses created before installing this module.
-    """
-
-    _inherit = 'hr.expense'
-
     @api.depends('quantity', 'unit_amount', 'tax_ids', 'currency_id', 'tax_line_ids.amount')
     def _compute_amount(self):
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_ids)
@@ -112,4 +87,4 @@ class HrExpenseWithTotalBasedOnTaxLines(models.Model):
             expense.untaxed_amount = expense.unit_amount * expense.quantity - included_tax_amount
             expense.total_amount = expense.untaxed_amount + tax_amount
 
-        super(HrExpenseWithTotalBasedOnTaxLines, expenses_without_tax_lines)._compute_amount()
+        super(HrExpense, expenses_without_tax_lines)._compute_amount()
