@@ -1,7 +1,7 @@
 Invoice Currency Validation
 ===========================
 This module adds validations on customer and supplier invoices.
-It prevents the use of a payable/receivable account or journal that does not match the selected currency on the invoice.
+It prevents the use of a journal that does not match the selected currency on the invoice.
 
 .. contents:: Table of Contents
 
@@ -35,24 +35,20 @@ The selected journal is the first journal found (in order of sequence) matching 
 
 If no matching journal is found, the ``Journal`` field is emptied on the invoice.
 
-Constraint on Account
-~~~~~~~~~~~~~~~~~~~~~
-I notice that the payable account is not automatically adjusted when I change the currency.
-
-When I validate, I notice a message error, telling me that the account does not match the invoice currency.
-
-.. image:: static/description/invoice_wrong_account_save.png
-
-I manually change the account on the invoice. Then, I am able to validate the invoice.
-
-.. image:: static/description/invoice_validated.png
-
-The module will not decide for you which payable/receivable account to use given a specific currency.
-
 Constraint on Journal
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 If for some reason, a user is able to create an invoice in a journal which does not match the invoice currency,
 a blocking error message will be raised.
+
+Constraint on Account
+---------------------
+Until Odoo version 12.0, this module defined constraint on the payable/receivable account so that
+the currency of this account matched the invoice currency.
+
+Since Odoo version 13.0, the code of Odoo regarding invoices and journal entries has been drastically complexified.
+
+The constraint on accounts made sense in v12 because you could easily select a specific account on the invoice.
+Since version 13.0, you can not.
 
 Contributors
 ------------
