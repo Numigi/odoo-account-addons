@@ -12,6 +12,7 @@ from .payment_validation import (
     check_bank_account_is_selected_on_payments,
     check_bank_is_selected_on_bank_accounts,
     check_institution_number_is_set_on_banks,
+    check_payment_is_not_sent,
     check_payment_method_is_eft,
     check_payment_state_is_posted,
     check_transit_number_is_set_on_bank_accounts,
@@ -134,6 +135,7 @@ class EFT(models.Model):
     def _check_payment_and_bank_accounts(self):
         check_payment_method_is_eft(self.payment_ids, self._context)
         check_payment_state_is_posted(self.payment_ids, self._context)
+        check_payment_is_not_sent(self.payment_ids, self._context)
         check_bank_account_is_selected_on_payments(self.payment_ids, self._context)
         check_bank_is_selected_on_bank_accounts(self.payment_ids, self._context)
         check_transit_number_is_set_on_bank_accounts(self.payment_ids, self._context)
@@ -171,6 +173,7 @@ class EFT(models.Model):
         check_payment_method_is_eft(payments, self._context)
         check_all_payments_have_same_journal(payments, self._context)
         check_payment_state_is_posted(payments, self._context)
+        check_payment_is_not_sent(payments, self._context)
         auto_assign_bank_account_to_payments(payments)
 
         eft = self.create({

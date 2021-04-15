@@ -37,7 +37,8 @@ class TestCreateEFTFromPayments(AccountEFTCase):
         assert eft.name == "EFT{0:0>4}".format(eft.id)
 
     def test_raise_error_if_payments_have_different_journals(self):
-        self.pmt_2.journal_id = self.journal.copy()
+        new_journal = self.journal.copy()
+        self.payments |= self.pmt_1.copy({'journal_id': new_journal.id})
         with pytest.raises(ValidationError):
             self._create_eft_from_payments()
 
@@ -48,6 +49,11 @@ class TestCreateEFTFromPayments(AccountEFTCase):
 
     def test_raise_error_if_payment_is_not_posted(self):
         self.payments |= self.pmt_1.copy({'state': 'draft'})
+        with pytest.raises(ValidationError):
+            self._create_eft_from_payments()
+
+    def test_raise_error_if_payment_is_sent(self):
+        self.pmt_1.is_move_sent = True
         with pytest.raises(ValidationError):
             self._create_eft_from_payments()
 

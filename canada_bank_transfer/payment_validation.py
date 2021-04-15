@@ -36,6 +36,15 @@ def check_payment_state_is_posted(payments, context):
         ).format(', '.join(payments_with_wrong_state.mapped('display_name'))))
 
 
+def check_payment_is_not_sent(payments, context):
+    sent_payments = payments.filtered("is_move_sent")
+    if sent_payments:
+        raise ValidationError(_(
+            "The following payments can not be used to generate an EFT "
+            "because they are already sent:\n\n{}"
+        ).format(', '.join(sent_payments.mapped('display_name'))))
+
+
 def check_bank_account_is_selected_on_payments(payments, context):
     payments_with_no_account = payments.filtered(lambda p: not p.partner_bank_id)
     if payments_with_no_account:
