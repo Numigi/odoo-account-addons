@@ -39,9 +39,6 @@
         "invoice_fiscal_position_required",
         "invoice_list_email",
         "invoice_refund_not_earlier",
-        "invoice_write_access",
-        "invoice_write_access_purchase",
-        "invoice_write_access_sale",
         "l10n_generic_coa",  # Used for testing addons
         "old_accounts",
         "payment_list_not_sent",
