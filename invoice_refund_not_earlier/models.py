@@ -5,50 +5,16 @@ from odoo import api, models, _
 from odoo.exceptions import ValidationError
 
 
-class Invoice(models.Model):
-
-    _inherit = 'account.invoice'
-
-    def _is_refund_prior_to_invoice(self):
-        """Return whether the object is a refund prior to the invoice date.
-
-        :rtype: bool
-        """
-        return (
-            self.type in ('in_refund', 'out_refund') and
-            self.refund_invoice_id and
-            (self.date_invoice and self.date_invoice < self.refund_invoice_id.date_invoice or
-             self.date and self.date < self.refund_invoice_id.date_invoice)
-        )
-
-    def action_invoice_open(self):
-        invalid_refunds = self.filtered(lambda inv: inv._is_refund_prior_to_invoice())
-        if invalid_refunds:
-            refund = invalid_refunds[0]
-            invoice = refund.refund_invoice_id
-            raise ValidationError(_(
-                "The refund date ({refund_date}) or the accounting date ({accounting_date}) "
-                "of the refund ({refund}) can not "
-                "be prior to the date ({invoice_date}) of the invoice ({invoice})."
-            ).format(
-                refund_date=refund.date_invoice or _('empty'),
-                accounting_date=refund.date or _('empty'),
-                refund=refund.display_name,
-                invoice_date=invoice.date_invoice,
-                invoice=invoice.display_name,
-            ))
-        return super().action_invoice_open()
-
-
-class JournalEntry(models.Model):
+class AccountMove(models.Model):
 
     _inherit = 'account.move'
 
-    def reverse_moves(self, date=None, journal_id=None, auto=False):
-        for move in self:
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        for i, move in enumerate(self):
+            date = default_values_list[i].get("date")
             if date and date < move.date:
                 raise ValidationError(_(
                     "The date of the reversal entry ({reversal_date}) "
                     "can not be prior to the original move date ({move_date})."
                 ).format(reversal_date=date, move_date=move.date))
-        return super().reverse_moves(date=date, journal_id=journal_id, auto=auto)
+        return super()._reverse_moves(default_values_list, cancel)
