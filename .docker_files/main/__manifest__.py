@@ -42,7 +42,6 @@
         "l10n_generic_coa",  # Used for testing addons
         "old_accounts",
         "payment_list_not_sent",
-        "payment_stripe_not_silenced",
     ],
     "installable": True,
 }

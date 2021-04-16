@@ -46,7 +46,6 @@ COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_
 COPY invoice_list_email /mnt/extra-addons/invoice_list_email
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
-COPY payment_stripe_not_silenced /mnt/extra-addons/payment_stripe_not_silenced
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo
