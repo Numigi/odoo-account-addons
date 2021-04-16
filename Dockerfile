@@ -41,11 +41,9 @@ COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_e
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
-COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
 COPY invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
 COPY invoice_list_email /mnt/extra-addons/invoice_list_email
-COPY invoice_mass_mailing_with_layout /mnt/extra-addons/invoice_mass_mailing_with_layout
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY invoice_write_access /mnt/extra-addons/invoice_write_access
 COPY invoice_write_access_purchase /mnt/extra-addons/invoice_write_access_purchase

@@ -9,24 +9,6 @@ services:
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./.log:/var/log/odoo
-      - ./account_additional_group:/mnt/extra-addons/account_additional_group
-      - ./account_analytic_required_forbidden:/mnt/extra-addons/account_analytic_required_forbidden
-      - ./account_bank_menu:/mnt/extra-addons/account_bank_menu
-      - ./account_closing_journal:/mnt/extra-addons/account_closing_journal
-      - ./account_closing_journal_mis_builder:/mnt/extra-addons/account_closing_journal_mis_builder
-      - ./account_closing_wizard:/mnt/extra-addons/account_closing_wizard
-      - ./account_fr_ca_labels:/mnt/extra-addons/account_fr_ca_labels
-      - ./account_move_reversal_access:/mnt/extra-addons/account_move_reversal_access
-      - ./account_move_unique_reversal:/mnt/extra-addons/account_move_unique_reversal
-      - ./account_negative_debit_credit:/mnt/extra-addons/account_negative_debit_credit
-      - ./account_payment_cancel_group:/mnt/extra-addons/account_payment_cancel_group
-      - ./account_payment_term_usage:/mnt/extra-addons/account_payment_term_usage
-      - ./account_payment_term_usage_sale:/mnt/extra-addons/account_payment_term_usage_sale
-      - ./account_payment_term_usage_purchase:/mnt/extra-addons/account_payment_term_usage_purchase
-      - ./account_payment_widget_link:/mnt/extra-addons/account_payment_widget_link
-      - ./account_report_trial_balance:/mnt/extra-addons/account_report_trial_balance
-      - ./account_show_full_features:/mnt/extra-addons/account_show_full_features
-      - ../base-addons/lang_fr_activated:/mnt/extra-addons/lang_fr_activated
     ports:
       - "8069:8069"
       - "8071:8071"
