@@ -39,6 +39,7 @@ COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_type_sane /mnt/extra-addons/account_type_sane
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
+COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
