@@ -6,7 +6,7 @@
     <field name="model">account.account</field>
     <field name="inherit_id" ref="account.view_account_form"/>
     <field type="xml" name="arch">
-      <field name="deprecated" position="after">
+      <field name="group_id" position="after">
         <field name="old_accounts"/>
       </field>
     </field>
