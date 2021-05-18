@@ -36,7 +36,6 @@ COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usag
 COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
 COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
-COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_type_sane /mnt/extra-addons/account_type_sane
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
 COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
@@ -47,7 +46,6 @@ COPY invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
 COPY invoice_list_email /mnt/extra-addons/invoice_list_email
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
-COPY lang_fr_activated /mnt/extra-addons/lang_fr_activated
 COPY old_accounts /mnt/extra-addons/old_accounts
 COPY payment_list_not_sent /mnt/extra-addons/payment_list_not_sent
 

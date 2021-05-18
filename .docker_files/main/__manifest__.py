@@ -29,7 +29,6 @@
         "account_payment_widget_link",
         "account_report_trial_balance",
         "account_show_full_features",
-        "account_type_archive",
         "account_type_sane",
         "account_unaffected_earnings_disabled",
         "bank_statement_extra_columns",
