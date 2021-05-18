@@ -10,7 +10,7 @@
     'license': 'LGPL-3',
     'category': 'Accounting',
     'summary': 'Allow adjusting the tax amounts on expenses.',
-    'depends': ['hr_expense'],
+    'depends': ['account_negative_debit_credit', 'hr_expense'],
     'data': [
         'security/ir.model.access.csv',
         'views/hr_expense.xml',
