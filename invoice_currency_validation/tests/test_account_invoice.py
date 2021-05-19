@@ -7,7 +7,7 @@ from odoo.tests.common import SavepointCase
 from odoo.exceptions import UserError
 
 
-class InvoiceCase(SavepointCase):
+class TestInvoiceValidation(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -16,15 +16,22 @@ class InvoiceCase(SavepointCase):
         cls.currency_eur = cls.env.ref("base.EUR")
 
         cls.company = cls.env["res.company"].create(
-            {"name": "New Company", "currency_id": cls.company_currency.id,}
+            {
+                "name": "New Company",
+                "currency_id": cls.company_currency.id,
+            }
         )
 
         cls.env.user.company_ids |= cls.company
         cls.env.user.company_id = cls.company
 
-        cls.product = cls.env["product.product"].create({"name": "Product",})
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Product",
+            }
+        )
 
-        cls.account_1 = cls.env["account.account"].create(
+        cls.payable_account = cls.env["account.account"].create(
             {
                 "name": "Payable Account",
                 "code": "1706",
@@ -34,7 +41,18 @@ class InvoiceCase(SavepointCase):
             }
         )
 
-        cls.account_2 = cls.env["account.account"].create(
+        cls.payable_account_cad = cls.env["account.account"].create(
+            {
+                "name": "Payable Account CAD",
+                "code": "1707",
+                "reconcile": True,
+                "company_id": cls.company.id,
+                "currency_id": cls.currency_cad.id,
+                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+            }
+        )
+
+        cls.expense_account = cls.env["account.account"].create(
             {
                 "name": "Expenses Account",
                 "code": "1708",
@@ -72,14 +90,12 @@ class InvoiceCase(SavepointCase):
         )
 
         cls.supplier = cls.env["res.partner"].create(
-            {"name": "Supplier", "property_account_payable_id": cls.account_2.id,}
+            {
+                "name": "Supplier",
+                "property_account_payable_id": cls.payable_account.id,
+            }
         )
 
-
-class TestInvoiceValidation(InvoiceCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
         cls.invoice = cls.env["account.move"].create(
             {
                 "partner_id": cls.supplier.id,
@@ -93,13 +109,16 @@ class TestInvoiceValidation(InvoiceCase):
                         {
                             "name": "/",
                             "product_id": cls.product.id,
-                            "account_id": cls.account_2.id,
+                            "account_id": cls.expense_account.id,
                             "price_unit": 1000,
                         },
                     )
                 ],
                 "move_type": "in_invoice",
             }
+        )
+        cls.payable_line = cls.invoice.line_ids.filtered(
+            lambda l: l.account_id.internal_type == "payable"
         )
 
     def _validate_invoice(self):
@@ -119,54 +138,13 @@ class TestInvoiceValidation(InvoiceCase):
         with self.assertRaises(UserError):
             self._validate_invoice()
 
-
-@ddt
-class TestOnchange(InvoiceCase):
-
-    def setUp(self):
-        super().setUp()
-        self.invoice = self.env["account.move"].new(
+    def test_account_and_invoice_with_different_currencies(self):
+        self.payable_line.write(
             {
-                "partner_id": self.supplier.id,
-                "journal_id": self.journal.id,
-                "currency_id": self.company_currency.id,
-                "company_id": self.company.id,
-                "move_type": "in_invoice",
+                "currency_id": self.currency_cad.id,
+                "amount_currency": -1500,
+                "account_id": self.payable_account_cad.id,
             }
         )
-
-    def test_onchange_currency_with_foreign_currency(self):
-        self.invoice.currency_id = self.currency_cad
-        self._trigger_onchange()
-        assert self.invoice.journal_id == self.journal_cad
-
-    def test_onchange_currency_with_company_currency(self):
-        self.invoice.currency_id = self.company_currency
-        self.invoice.journal_id = self.journal_cad
-        self._trigger_onchange()
-        assert self.invoice.journal_id == self.journal
-
-    def test_onchange_currency__journal_with_lower_sequence_selected(self):
-        self.journal.sequence = 1
-        other_journal = self.journal.copy(
-            {"name": "Other Journal", "sequence": 0, "code": "PJUSD2",}
-        )
-        self._trigger_onchange()
-        assert self.invoice.journal_id == other_journal
-
-    @data(
-        ("in_invoice", "purchase"),
-        ("in_refund", "purchase"),
-        ("out_invoice", "sale"),
-        ("out_refund", "sale"),
-    )
-    @unpack
-    def test_onchange_currency__correct_journal_type_selected(
-        self, invoice_type, journal_type
-    ):
-        self.invoice.move_type = invoice_type
-        self._trigger_onchange()
-        assert self.invoice.journal_id.type == journal_type
-
-    def _trigger_onchange(self):
-        self.invoice._onchange_currency_set_journal()
+        with self.assertRaises(UserError):
+            self._validate_invoice()
