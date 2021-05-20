@@ -11,6 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
+        "account_accountant", # Used for testing account_fr_ca_labels
         "l10n_generic_coa",  # Used for testing addons
         "account_additional_group",
         "account_analytic_required_forbidden",
