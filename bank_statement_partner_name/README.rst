@@ -1,11 +1,11 @@
-Bank Statement Extra Columns
-============================
-This module adds two extra columns to the bank statement lines.
+Bank Statement Partner Name
+===========================
+This module adds the partner name to the bank statement lines.
 
 .. image:: static/description/bank_statement.png
 
 When importing statements from a payment aquirer (i.e. Paypal),
-these columns are filled with relevant information.
+this column is useful for manually assigning a partner to the statement line.
 
 Contributors
 ------------
