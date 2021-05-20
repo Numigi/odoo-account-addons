@@ -9,15 +9,14 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    @api.multi
-    def _reverse_move(self, *args, **kwargs):
+    def _reverse_moves(self, default_values_list=None, cancel=False):
         for move in self:
-            if move.reverse_entry_id:
+            if move.reversal_move_id:
                 raise UserError(
                     _(
                         "The accounting entry {} is already reversed (by entry {}). "
                         "You can only reverse an accounting entry once."
-                    ).format(move.display_name, move.reverse_entry_id.display_name)
+                    ).format(move.display_name, move.reversal_move_id.display_name)
                 )
             if move.reversed_entry_id:
                 raise UserError(
@@ -26,4 +25,4 @@ class AccountMove(models.Model):
                         "({}). You can not reverse a reversal accounting entry."
                     ).format(move.display_name, move.reversed_entry_id.display_name)
                 )
-        return super()._reverse_move(*args, **kwargs)
+        return super()._reverse_moves(default_values_list, cancel)

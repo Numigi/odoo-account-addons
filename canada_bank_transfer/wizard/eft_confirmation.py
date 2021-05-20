@@ -14,7 +14,6 @@ class EFTConfirmationWizard(models.TransientModel):
     eft_id = fields.Many2one('account.eft')
     line_ids = fields.One2many('account.eft.confirmation.line', 'wizard_id')
 
-    @api.multi
     def action_validate(self):
         """Validate the EFT.
 
@@ -30,7 +29,7 @@ class EFTConfirmationWizard(models.TransientModel):
         for payment in completed_payments:
             change_payment_date(payment, self.eft_id.payment_date)
 
-        completed_payments.write({'state': 'sent'})
+        completed_payments.mark_as_sent()
 
         failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped('payment_id')
 
@@ -48,7 +47,7 @@ class EFTConfirmationLine(models.TransientModel):
     wizard_id = fields.Many2one('account.eft.confirmation.wizard')
     payment_id = fields.Many2one('account.payment')
     payment_date = fields.Date(
-        related='payment_id.payment_date',
+        related='payment_id.date',
         string="Payment Date",
     )
     name = fields.Char(
@@ -60,7 +59,7 @@ class EFTConfirmationLine(models.TransientModel):
         string="Partner",
     )
     partner_bank_account_id = fields.Many2one(
-        related='payment_id.partner_bank_account_id',
+        related='payment_id.partner_bank_id',
         string="Recipient Bank Account",
     )
     amount = fields.Monetary(

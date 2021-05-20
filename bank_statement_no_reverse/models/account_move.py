@@ -9,17 +9,17 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    def _reverse_move(self, *args, **kwargs):
-        for line in self.mapped("line_ids"):
-            if line.statement_line_id:
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        for move in self:
+            if move.statement_line_id:
                 raise ValidationError(
                     _(
                         "The journal item {item} can not be reversed. "
                         "It is bound to a bank statement line ({statement_line})."
                     ).format(
-                        item=line.display_name,
-                        statement_line=line.statement_line_id.display_name,
+                        item=move.display_name,
+                        statement_line=move.statement_line_id.display_name,
                     )
                 )
 
-        return super()._reverse_move(*args, **kwargs)
+        return super()._reverse_moves(default_values_list, cancel)

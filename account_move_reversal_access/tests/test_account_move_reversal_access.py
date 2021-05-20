@@ -63,10 +63,6 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         )
 
     @data("journal_general")
-    def test_can_post_move_is_auto_reverse_has_group(self, journal_type):
-        self.__create_auto_reverse_move(journal_type, self.user_with_group)
-
-    @data("journal_general")
     def test_can_post_move_is_reversal_has_group(self, journal_type):
         self.__create_reversal_move(journal_type, self.user_with_group)
 
@@ -88,33 +84,20 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         with self.assertRaises(ValidationError):
             self.__create_reversal_move(journal_type, self.user_without_group)
 
-    @data("journal_bank", "journal_cash")
-    def test_cannot_post_move_is_auto_reverse_has_group(self, journal_type):
-        with self.assertRaises(ValidationError):
-            self.__create_auto_reverse_move(journal_type, self.user_with_group)
-
-    @data("journal_general", "journal_bank", "journal_cash")
-    def test_cannot_post_move_is_auto_reverse_no_group(self, journal_type):
-        with self.assertRaises(ValidationError):
-            self.__create_auto_reverse_move(journal_type, self.user_without_group)
-
     def __create_reversal_move(self, journal_type, user):
-        move = self.__create_move(journal_type, False, user)
+        move = self.__create_move(journal_type, user)
         today = fields.date.today()
-        wizard = self.env["account.move.reversal"].with_context(active_ids=[move.id])
+        wizard = self.env["account.move.reversal"].with_context(
+            active_ids=[move.id], active_model="account.move"
+        )
         wizard.sudo(user).create({"date": today}).sudo(user).reverse_moves()
-        reversal_move = move.reverse_entry_id
-        return reversal_move
-
-    def __create_auto_reverse_move(self, journal_type, user):
-        move = self.__create_move(journal_type, True, user)
-        return move
+        return move.reversal_move_id
 
     def __create_normal_move(self, journal_type, user):
-        move = self.__create_move(journal_type, False, user)
+        move = self.__create_move(journal_type, user)
         return move
 
-    def __create_move(self, journal_type, is_auto_reverse, user):
+    def __create_move(self, journal_type, user):
         journal = getattr(self, journal_type)
         move = (
             self.env["account.move"]
@@ -122,7 +105,6 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
             .create(
                 {
                     "journal_id": journal.id,
-                    "auto_reverse": is_auto_reverse,
                     "line_ids": [
                         (
                             0,

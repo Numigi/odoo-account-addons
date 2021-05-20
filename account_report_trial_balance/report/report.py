@@ -29,17 +29,17 @@ class TrialBalanceReport(models.TransientModel):
         rendering_variables = self.get_rendering_variables()
         return self.env.ref(
             "account_report_trial_balance.trial_balance_report_html"
-        ).render(rendering_variables)
+        )._render(rendering_variables)
 
     def get_pdf(self):
         base_url = self._get_report_url()
         rendering_variables = self.get_rendering_variables()
         rendering_variables.update({"mode": "print", "base_url": base_url})
-        body = self.env["ir.ui.view"].render_template(
+        body = self.env["ir.ui.view"]._render_template(
             "account_report_trial_balance.trial_balance_report_pdf",
             values=rendering_variables,
         )
-        header = self.env["ir.actions.report"].render_template(
+        header = self.env["ir.actions.report"]._render_template(
             "web.minimal_layout", values=rendering_variables
         )
         return self.env["ir.actions.report"]._run_wkhtmltopdf(

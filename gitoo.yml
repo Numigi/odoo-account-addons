@@ -1,25 +1,24 @@
 - url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-enterprise
-  branch: "12.0"
+  branch: "14.0"
 
-- url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-base-addons
-  branch: "12.0"
-
-- url: https://{{GIT_TOKEN}}@github.com/OCA/mis-builder
-  branch: "12.0"
+- url: https://github.com/Numigi/odoo-base-addons
+  branch: "14.0"
   includes:
-    mis_builder
+    - base_xml_rename
+    - base_extended_security
+    - lang_fr_activated
 
-- url: https://{{GIT_TOKEN}}@github.com/OCA/reporting-engine
-  branch: "12.0"
+- url: https://github.com/OCA/mis-builder
+  branch: "14.0"
   includes:
-    report_xlsx
+    - mis_builder
 
-- url: https://{{GIT_TOKEN}}@github.com/OCA/server-ux
-  branch: "12.0"
+- url: https://github.com/OCA/reporting-engine
+  branch: "14.0"
   includes:
-    date_range
+    - report_xlsx
 
-- url: https://{{GIT_TOKEN}}@github.com/OCA/web
-  branch: "12.0"
+- url: https://github.com/OCA/server-ux
+  branch: "14.0"
   includes:
-    web_widget_color
+    - date_range

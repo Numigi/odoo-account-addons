@@ -13,6 +13,7 @@
     'depends': [
         'account',
         'base_xml_rename',
+        'lang_fr_activated',
     ],
     'data': [
         'views/journal.xml',

@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_account_eft,access_account_eft,model_account_eft,account.group_account_invoice,1,1,1,0
+access_account_eft_confirmation_wizard,access_account_eft_confirmation_wizard,model_account_eft_confirmation_wizard,account.group_account_invoice,1,1,1,1
+access_account_eft_confirmation_line,access_account_eft_confirmation_line,model_account_eft_confirmation_line,account.group_account_invoice,1,1,1,1

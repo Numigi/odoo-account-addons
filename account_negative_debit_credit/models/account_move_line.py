@@ -8,12 +8,13 @@ class AccountMoveLine(models.Model):
 
     _inherit = 'account.move.line'
 
-    @api.model
-    def create(self, vals):
-        _update_vals_debit_credit(vals)
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            _update_vals_debit_credit(vals)
+        print(vals_list)
+        return super().create(vals_list)
 
-    @api.multi
     def write(self, vals):
         _update_vals_debit_credit(vals)
         return super().write(vals)

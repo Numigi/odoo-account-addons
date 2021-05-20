@@ -45,7 +45,6 @@ class BankAccount(models.Model):
             account_number=self.acc_number,
         )
 
-    @api.multi
     def name_get(self):
         """Format the displayed name of canada accounts with the extra fields.
 

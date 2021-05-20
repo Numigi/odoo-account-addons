@@ -31,22 +31,3 @@ msgid ""
 msgstr ""
 "La date de renversement ({reversal_date}) ne peut pas être inférieure à la "
 "date de la pièce comptable d'origine ({move_date})."
-
-#. module: invoice_refund_not_earlier
-#: code:addons/invoice_refund_not_earlier/models.py:30
-#, python-format
-msgid ""
-"The refund date ({refund_date}) or the accounting date ({accounting_date}) "
-"of the refund ({refund}) can not be prior to the date ({invoice_date}) of "
-"the invoice ({invoice})."
-msgstr ""
-"La date de la note de crédit ({refund_date}) ou la date de comptabilisation "
-"({accounting_date}) de celle-ci ne peut pas être inférieure à la date "
-"({invoice_date}) de la facture ({invoice})."
-
-#. module: invoice_refund_not_earlier
-#: code:addons/invoice_refund_not_earlier/models.py:35
-#: code:addons/invoice_refund_not_earlier/models.py:36
-#, python-format
-msgid "empty"
-msgstr "vide"

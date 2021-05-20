@@ -2,11 +2,10 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import _
-from odoo.addons.account.models.account_payment import account_payment as Payment
 from odoo.exceptions import ValidationError
 
 
-def check_payment_method_is_eft(payments: Payment, context: dict) -> None:
+def check_payment_method_is_eft(payments, context):
     """Check that the given payments have the EFT payment method selected."""
     payments_with_wrong_method = payments.filtered(lambda p: p.payment_method_id.code != 'eft')
     if payments_with_wrong_method:
@@ -16,7 +15,7 @@ def check_payment_method_is_eft(payments: Payment, context: dict) -> None:
         ).format(', '.join(payments_with_wrong_method.mapped('display_name'))))
 
 
-def check_all_payments_have_same_journal(payments: Payment, context: dict) -> None:
+def check_all_payments_have_same_journal(payments, context):
     """Check that the given payments have the same accounting journal."""
     journals = payments.mapped('journal_id')
     if len(journals) != 1:
@@ -27,7 +26,7 @@ def check_all_payments_have_same_journal(payments: Payment, context: dict) -> No
         ).format(', '.join(journals.mapped('display_name'))))
 
 
-def check_payment_state_is_posted(payments: Payment, context: dict) -> None:
+def check_payment_state_is_posted(payments, context):
     """Check that the given payments are posted."""
     payments_with_wrong_state = payments.filtered(lambda p: p.state != 'posted')
     if payments_with_wrong_state:
@@ -37,8 +36,17 @@ def check_payment_state_is_posted(payments: Payment, context: dict) -> None:
         ).format(', '.join(payments_with_wrong_state.mapped('display_name'))))
 
 
-def check_bank_account_is_selected_on_payments(payments: Payment, context: dict) -> None:
-    payments_with_no_account = payments.filtered(lambda p: not p.partner_bank_account_id)
+def check_payment_is_not_sent(payments, context):
+    sent_payments = payments.filtered("is_move_sent")
+    if sent_payments:
+        raise ValidationError(_(
+            "The following payments can not be used to generate an EFT "
+            "because they are already sent:\n\n{}"
+        ).format(', '.join(sent_payments.mapped('display_name'))))
+
+
+def check_bank_account_is_selected_on_payments(payments, context):
+    payments_with_no_account = payments.filtered(lambda p: not p.partner_bank_id)
     if payments_with_no_account:
         raise ValidationError(_(
             "The EFT can not be generated because "
@@ -46,9 +54,9 @@ def check_bank_account_is_selected_on_payments(payments: Payment, context: dict)
         ).format(', '.join(payments_with_no_account.mapped('display_name'))))
 
 
-def check_bank_is_selected_on_bank_accounts(payments: Payment, context: dict) -> None:
+def check_bank_is_selected_on_bank_accounts(payments, context):
     accounts_with_no_bank = (
-        payments.mapped('partner_bank_account_id')
+        payments.mapped('partner_bank_id')
         .filtered(lambda a: not a.bank_id)
     )
     if accounts_with_no_bank:
@@ -58,9 +66,9 @@ def check_bank_is_selected_on_bank_accounts(payments: Payment, context: dict) ->
         ).format(', '.join(accounts_with_no_bank.mapped('display_name'))))
 
 
-def check_transit_number_is_set_on_bank_accounts(payments: Payment, context: dict) -> None:
+def check_transit_number_is_set_on_bank_accounts(payments, context):
     accounts_with_no_transit = (
-        payments.mapped('partner_bank_account_id')
+        payments.mapped('partner_bank_id')
         .filtered(lambda a: not a.canada_transit)
     )
     if accounts_with_no_transit:
@@ -70,9 +78,9 @@ def check_transit_number_is_set_on_bank_accounts(payments: Payment, context: dic
         ).format(', '.join(accounts_with_no_transit.mapped('display_name'))))
 
 
-def check_institution_number_is_set_on_banks(payments: Payment, context: dict) -> None:
+def check_institution_number_is_set_on_banks(payments, context):
     banks_with_no_institution = (
-        payments.mapped('partner_bank_account_id.bank_id')
+        payments.mapped('partner_bank_id.bank_id')
         .filtered(lambda b: not b.canada_institution)
     )
     if banks_with_no_institution:
@@ -82,9 +90,9 @@ def check_institution_number_is_set_on_banks(payments: Payment, context: dict) -
         ).format(', '.join(banks_with_no_institution.mapped('display_name'))))
 
 
-def check_account_number_between_7_and_12_digits(payments: Payment, context: dict) -> None:
+def check_account_number_between_7_and_12_digits(payments, context):
     accounts_with_wrong_chars = (
-        payments.mapped('partner_bank_account_id')
+        payments.mapped('partner_bank_id')
         .filtered(lambda a: not (a.acc_number or '').isdigit())
     )
     if accounts_with_wrong_chars:
@@ -94,7 +102,7 @@ def check_account_number_between_7_and_12_digits(payments: Payment, context: dic
         ).format(', '.join(accounts_with_wrong_chars.mapped('display_name'))))
 
     accounts_with_more_12_digits = (
-        payments.mapped('partner_bank_account_id')
+        payments.mapped('partner_bank_id')
         .filtered(lambda a: len(a.acc_number or '') > 12)
     )
     if accounts_with_more_12_digits:
@@ -104,7 +112,7 @@ def check_account_number_between_7_and_12_digits(payments: Payment, context: dic
         ).format(', '.join(accounts_with_more_12_digits.mapped('display_name'))))
 
     accounts_with_less_7_digits = (
-        payments.mapped('partner_bank_account_id')
+        payments.mapped('partner_bank_id')
         .filtered(lambda a: len(a.acc_number or '') < 7)
     )
     if accounts_with_less_7_digits:

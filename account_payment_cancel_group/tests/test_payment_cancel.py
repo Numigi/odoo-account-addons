@@ -26,7 +26,7 @@ class TestPaymentCancel(common.SavepointCase):
             'code': 'TEST',
         })
 
-        cls.supplier = cls.env['res.partner'].create({'name': 'Supplier', 'supplier': True})
+        cls.supplier = cls.env['res.partner'].create({'name': 'Supplier'})
         cls.payment = cls.env['account.payment'].create({
             'journal_id': cls.journal.id,
             'partner_id': cls.supplier.id,
@@ -38,9 +38,9 @@ class TestPaymentCancel(common.SavepointCase):
 
     def test_if_not_member_of_group__user_not_allowed(self):
         with pytest.raises(AccessError):
-            self.payment.sudo(self.user).cancel()
+            self.payment.sudo(self.user).action_cancel()
 
     def test_if_member_of_group__user_allowed(self):
         self.user.groups_id |= self.env.ref('account_payment_cancel_group.group_cancel_payments')
-        self.payment.sudo(self.user).cancel()
-        assert self.payment.state == 'cancelled'
+        self.payment.sudo(self.user).action_cancel()
+        assert self.payment.state == 'cancel'

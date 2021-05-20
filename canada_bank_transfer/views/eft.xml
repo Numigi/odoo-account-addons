@@ -39,10 +39,10 @@
                                         ('is_eft_payment', '=', True),
                                         ]">
                             <tree editable="bottom">
-                                <field name="payment_date" readonly="True"/>
+                                <field name="date" readonly="True"/>
                                 <field name="name" readonly="True"/>
                                 <field name="partner_id" readonly="True"/>
-                                <field name="partner_bank_account_id" readonly="False"
+                                <field name="partner_bank_id" readonly="False"
                                     context="{'default_partner_id': partner_id}" domain="[('partner_id', '=', partner_id)]"/>
                                 <field name="amount" readonly="True" sum="Total" />
                                 <field name="state" readonly="True"/>
@@ -51,10 +51,10 @@
                         <separator string="Failed Payments" attrs="{'invisible': [('state', '!=', 'done')]}"/>
                         <field name="failed_payment_ids" readonly="1" attrs="{'invisible': [('state', '!=', 'done')]}">
                             <tree editable="bottom">
-                                <field name="payment_date"/>
+                                <field name="date"/>
                                 <field name="name"/>
                                 <field name="partner_id"/>
-                                <field name="partner_bank_account_id"/>
+                                <field name="partner_bank_id"/>
                                 <field name="amount" sum="Total" />
                                 <field name="state"/>
                             </tree>
@@ -101,7 +101,6 @@
             <field name="name">EFT</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.eft</field>
-            <field name="view_type">form</field>
             <field name="view_mode">form,tree</field>
             <field name="view_id" ref="view_eft_list"/>
             <field name="search_view_id" ref="view_eft_filter"/>

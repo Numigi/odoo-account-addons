@@ -9,8 +9,7 @@ class AccountPayment(models.Model):
 
     _inherit = 'account.payment'
 
-    @api.multi
-    def cancel(self):
+    def action_cancel(self):
         """Restrict the payment cancellation to a specific group.
 
         If the user is member of the given group, call the super
@@ -30,7 +29,7 @@ class AccountPayment(models.Model):
                 _('You are not authorized to cancel payments.')
             )
 
-        result = super(AccountPayment, self.sudo()).cancel()
+        result = super(AccountPayment, self.sudo()).action_cancel()
 
         for payment in self:
             payment.message_post(body=_('Payment cancelled'))

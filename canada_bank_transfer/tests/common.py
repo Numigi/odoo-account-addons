@@ -13,6 +13,11 @@ class EFTCase(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env["ir.config_parameter"].set_param(
+            "sequence.mixin.constraint_start_date",
+            "9999-01-01",
+        )
+
         cls.rbc = cls.env['res.bank'].create({
             'name': 'Royal Bank of Canada',
             'canada_institution': '003',
@@ -46,7 +51,7 @@ class EFTCase(common.SavepointCase):
             'eft_destination': DESTINATION,
         })
 
-        cls.supplier_1 = cls.env['res.partner'].create({'name': 'Supplier 1', 'supplier': True})
+        cls.supplier_1 = cls.env['res.partner'].create({'name': 'Supplier 1'})
 
         cls.td_account = cls.env['res.partner.bank'].create({
             'bank_id': cls.td.id,
@@ -55,7 +60,7 @@ class EFTCase(common.SavepointCase):
             'partner_id': cls.supplier_1.id,
         })
 
-        cls.supplier_2 = cls.env['res.partner'].create({'name': 'Supplier 2', 'supplier': True})
+        cls.supplier_2 = cls.env['res.partner'].create({'name': 'Supplier 2'})
 
         cls.rbc_account = cls.env['res.partner.bank'].create({
             'bank_id': cls.rbc.id,
@@ -69,7 +74,7 @@ class EFTCase(common.SavepointCase):
         payment = cls.env['account.payment'].create({
             'journal_id': cls.journal.id,
             'partner_id': bank_account.partner_id.id,
-            'partner_bank_account_id': bank_account.id,
+            'partner_bank_id': bank_account.id,
             'amount': amount,
             'payment_type': 'outbound',
             'payment_method_id': cls.env.ref('canada_bank_transfer.payment_method_eft').id,
@@ -77,5 +82,5 @@ class EFTCase(common.SavepointCase):
             'partner_type': 'supplier',
             'eft_transaction_type': '450',
         })
-        payment.post()
+        payment.action_post()
         return payment

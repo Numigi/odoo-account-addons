@@ -51,10 +51,10 @@ class TestAccountMove(SavepointCase):
 
     def test_if_reversed_prior_to_original_move__validation_raised(self):
         with pytest.raises(ValidationError):
-            self.move.reverse_moves(date=self.yesterday)
+            self._reverse_moves(date=self.yesterday)
 
     def test_if_reversed_with_same_date__reversal_move_created(self):
-        assert self.move.reverse_moves(date=self.today)
+        assert self._reverse_moves(date=self.today)
 
-    def test_if_reversed_with_no_date__reversal_move_created(self):
-        assert self.move.reverse_moves(date=False)
+    def _reverse_moves(self, date):
+        return self.move._reverse_moves([{"date": date}])
