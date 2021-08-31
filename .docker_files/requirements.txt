@@ -1,1 +1,2 @@
 unidecode==1.0.23
+stripe==2.60.0
