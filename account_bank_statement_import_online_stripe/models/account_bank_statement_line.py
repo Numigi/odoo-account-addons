@@ -8,4 +8,5 @@ class AccountBankStatementLine(models.Model):
 
     _inherit = "account.bank.statement.line"
 
+    stripe_id = fields.Char(index=True)
     stripe_payload = fields.Text()

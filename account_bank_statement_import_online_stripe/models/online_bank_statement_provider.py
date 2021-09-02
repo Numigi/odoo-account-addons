@@ -49,15 +49,27 @@ class OnlineBankStatementProvider(models.Model):
 
     def _get_stripe_statement_values(self, interface):
         return {
-            'balance_start': interface.get_start_balance(),
-            'balance_end_real': interface.get_end_balance(),
+            "balance_start": interface.get_start_balance(),
+            "balance_end_real": interface.get_end_balance(),
         }
 
     def _iter_statement_lines_from_stripe(self, interface):
         transactions = interface.list_transactions()
-        for tx in transactions:
+        unimported_transactions = self._get_unimported_transactions(
+            transactions
+        )
+
+        for tx in unimported_transactions:
             yield self._map_stripe_transaction(tx)
             yield self._map_stripe_fee(tx)
+
+    def _get_unimported_transactions(self, transactions):
+        tx_ids = [tx["id"] for tx in transactions]
+        statement_lines = self.env["account.bank.statement.line"].search(
+            [("stripe_id", "in", tx_ids)]
+        )
+        imported_tx_ids = set(statement_lines.mapped("stripe_id"))
+        return [tx for tx in transactions if tx["id"] not in imported_tx_ids]
 
     def _map_stripe_transaction(self, tx):
         vals = self._map_stripe_common(tx)
@@ -81,6 +93,7 @@ class OnlineBankStatementProvider(models.Model):
 
     def _map_stripe_common(self, tx):
         return {
+            "stripe_id": tx["id"],
             "stripe_payload": json.dumps(tx, indent=2, sort_keys=True),
             "partner_id": self._get_stripe_partner_id(tx),
             "partner_name": self._get_stripe_partner_display_name(tx),

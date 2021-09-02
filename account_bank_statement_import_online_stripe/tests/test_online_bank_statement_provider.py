@@ -54,8 +54,9 @@ class TestStripe(common.SavepointCase):
     def setUp(self):
         super().setUp()
         self.reference = "SO91234"
+        self.transaction_id = "txn_1"
         self.transaction = {
-            "id": "txn_1",
+            "id": self.transaction_id,
             "available_on": int(self.datetime_from.timestamp()),
             "object": "balance_transaction",
             "description": self.reference,
@@ -124,6 +125,28 @@ class TestStripe(common.SavepointCase):
         with pytest.raises(ValidationError):
             self.provider._obtain_statement_data(self.datetime_from, self.datetime_to)
 
+    def test_bank_statement_lines_creation(self):
+        with self._mock_balance_transaction_list(), self._mock_balance(0):
+            self.provider._pull(self.datetime_from, self.datetime_to)
+
+        lines = self._find_statement_lines()
+        assert len(lines) == 2
+
+    def test_bank_statement_lines__not_imported_twice(self):
+        with self._mock_balance_transaction_list(), self._mock_balance(0):
+            self.provider._pull(self.datetime_from, self.datetime_to)
+            self.provider._pull(self.datetime_from, self.datetime_to)
+
+        lines = self._find_statement_lines()
+        assert len(lines) == 2
+
+    def _find_statement_lines(self):
+        return self.env["account.bank.statement.line"].search(
+            [
+                ("stripe_id", "=", self.transaction_id),
+            ]
+        )
+
     @contextmanager
     def _mock_balance_transaction_list(self):
         def side_effect(available_on, **kwargs):
@@ -140,18 +163,10 @@ class TestStripe(common.SavepointCase):
 
         gte = available_on.get("gte")
         if gte:
-            transactions = [
-                t
-                for t in transactions
-                if gte <= t["available_on"]
-            ]
+            transactions = [t for t in transactions if gte <= t["available_on"]]
         lt = available_on.get("lt")
         if lt:
-            transactions = [
-                t
-                for t in transactions
-                if t["available_on"] < lt
-            ]
+            transactions = [t for t in transactions if t["available_on"] < lt]
 
         return transactions
 
