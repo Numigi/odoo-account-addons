@@ -1,5 +1,5 @@
-Online Bank Statements Stripe
-=============================
+Bank Statement Online Stripe
+============================
 
 .. contents:: Table of Contents
 
