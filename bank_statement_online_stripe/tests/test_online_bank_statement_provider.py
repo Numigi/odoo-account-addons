@@ -74,11 +74,10 @@ class TestStripe(common.SavepointCase):
         self.balance = 3000
 
     def test_map_transaction(self):
-        expected_label = f"Transaction ({self.reference})"
         vals = self.provider._map_stripe_transaction(self.transaction)
         assert json.loads(vals["stripe_payload"]) == self.transaction
-        assert vals["name"] == expected_label
-        assert vals["note"] == expected_label
+        assert self.reference in vals["name"]
+        assert self.reference in vals["note"]
         assert vals["ref"] == self.reference
         assert vals["amount"] == 10
         assert vals["partner_id"] == self.partner.id
@@ -86,11 +85,10 @@ class TestStripe(common.SavepointCase):
         assert vals["date"] == self.transaction_date
 
     def test_map_fee(self):
-        expected_label = f"Fee ({self.reference})"
         vals = self.provider._map_stripe_fee(self.transaction)
         assert json.loads(vals["stripe_payload"]) == self.transaction
-        assert vals["name"] == expected_label
-        assert vals["note"] == expected_label
+        assert self.reference in vals["name"]
+        assert self.reference in vals["note"]
         assert vals["ref"] == self.reference
         assert vals["amount"] == -0.40
         assert vals["partner_id"] == self.partner.id
