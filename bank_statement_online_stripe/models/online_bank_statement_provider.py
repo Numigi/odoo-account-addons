@@ -61,7 +61,9 @@ class OnlineBankStatementProvider(models.Model):
 
         for tx in unimported_transactions:
             yield self._map_stripe_transaction(tx)
-            yield self._map_stripe_fee(tx)
+
+            if tx.get("fee"):
+                yield self._map_stripe_fee(tx)
 
     def _get_unimported_transactions(self, transactions):
         tx_ids = [tx["id"] for tx in transactions]

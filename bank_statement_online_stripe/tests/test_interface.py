@@ -12,8 +12,8 @@ class TestStripeTransactionInterface(common.TransactionCase):
     def setUp(self):
         super().setUp()
         self.api_key = "myapikey"
-        self.datetime_from = datetime.now()
-        self.datetime_to = self.datetime_from + timedelta(30)
+        self.datetime_from = datetime.now() - timedelta(30)
+        self.datetime_to = self.datetime_from - timedelta(15)
         self.interface = BalanceTransactionInterface(
             api_key=self.api_key,
             datetime_from=self.datetime_from,
@@ -25,18 +25,21 @@ class TestStripeTransactionInterface(common.TransactionCase):
             "id": "txn_1",
             "object": "balance_transaction",
             "amount": 1000,
+            "status": "available",
         }
 
         self.t2 = {
             "id": "txn_2",
             "object": "balance_transaction",
             "amount": 2000,
+            "status": "available",
         }
 
         self.t3 = {
             "id": "txn_2",
             "object": "balance_transaction",
             "amount": 3000,
+            "status": "available",
         }
 
         self.balance = 10000
@@ -64,6 +67,13 @@ class TestStripeTransactionInterface(common.TransactionCase):
             balance = self.interface.get_end_balance()
 
         assert balance == 100 - 10 - 20 - 30
+
+    def test_test_end_balance__exclude_pending_transactions(self):
+        self.t3["status"] = "pending"
+        with self._mock_balance_transaction_list(), self._mock_balance():
+            balance = self.interface.get_end_balance()
+
+        assert balance == 100 - 10 - 20
 
     @contextmanager
     def _mock_balance_transaction_list(self):

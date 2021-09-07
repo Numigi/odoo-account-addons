@@ -68,6 +68,7 @@ class TestStripe(common.SavepointCase):
                     "name": self.partner_name,
                 }
             },
+            "status": "available",
         }
         self.transactions = [self.transaction]
         self.balance = 3000
@@ -139,6 +140,15 @@ class TestStripe(common.SavepointCase):
 
         lines = self._find_statement_lines()
         assert len(lines) == 2
+
+    def test_bank_statement_lines__no_fee(self):
+        self.transaction["fee"] = 0
+
+        with self._mock_balance_transaction_list(), self._mock_balance(0):
+            self.provider._pull(self.datetime_from, self.datetime_to)
+
+        lines = self._find_statement_lines()
+        assert len(lines) == 1
 
     def _find_statement_lines(self):
         return self.env["account.bank.statement.line"].search(

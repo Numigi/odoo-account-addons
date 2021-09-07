@@ -60,7 +60,9 @@ class BalanceTransactionInterface:
             starting_after=starting_after,
             expand=["data.source.billing_details"],
         )
-        items = payload["data"]
+        items = [
+            t for t in payload["data"] if t.get("status") == "available"
+        ]
         yield items
 
         if payload["has_more"]:
