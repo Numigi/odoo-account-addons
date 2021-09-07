@@ -39,6 +39,7 @@
         "account_unaffected_earnings_disabled",
         "bank_statement_extra_columns",
         "bank_statement_no_reverse",
+        "bank_statement_online_stripe",
         "budget_analysis_account_move_line",
         "canada_account_types",
         "canada_bank_transfer",
