@@ -25,7 +25,7 @@ msgstr "Clé d'API"
 #. module: bank_statement_online_stripe
 #: model:ir.model,name:bank_statement_online_stripe.model_account_bank_statement_line
 msgid "Bank Statement Line"
-msgstr ""
+msgstr "Ligne de relevé bancaire"
 
 #. module: bank_statement_online_stripe
 #: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:88
@@ -36,7 +36,7 @@ msgstr "Frais ({})"
 #. module: bank_statement_online_stripe
 #: model:ir.model,name:bank_statement_online_stripe.model_online_bank_statement_provider
 msgid "Online Bank Statement Provider"
-msgstr ""
+msgstr "Fournisseur de relevé bancaire en ligne"
 
 #. module: bank_statement_online_stripe
 #: model:ir.model.fields,field_description:bank_statement_online_stripe.field_account_bank_statement_line__stripe_id
@@ -51,7 +51,7 @@ msgstr "Clé d'API Stripe"
 #. module: bank_statement_online_stripe
 #: model:ir.model.fields,field_description:bank_statement_online_stripe.field_account_bank_statement_line__stripe_payload
 msgid "Stripe Payload"
-msgstr "Donées de transaction Stripe"
+msgstr "Données de transaction Stripe"
 
 #. module: bank_statement_online_stripe
 #: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:38
