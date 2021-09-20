@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-07 11:16-0400\n"
-"PO-Revision-Date: 2021-09-07 11:19-0400\n"
+"POT-Creation-Date: 2021-09-20 15:21+0000\n"
+"PO-Revision-Date: 2021-09-20 11:22-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 2.3\n"
-"Language: fr\n"
 
 #. module: bank_statement_online_stripe
 #: model_terms:ir.ui.view,arch_db:bank_statement_online_stripe.online_bank_statement_provider_form
@@ -28,7 +28,7 @@ msgid "Bank Statement Line"
 msgstr "Ligne de relevé bancaire"
 
 #. module: bank_statement_online_stripe
-#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:88
+#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:101
 #, python-format
 msgid "Fee ({})"
 msgstr "Frais ({})"
@@ -54,13 +54,30 @@ msgid "Stripe Payload"
 msgstr "Données de transaction Stripe"
 
 #. module: bank_statement_online_stripe
-#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:38
+#: model_terms:ir.ui.view,arch_db:bank_statement_online_stripe.online_bank_statement_provider_form
+msgid "Test API Key"
+msgstr "Tester la clé d'API"
+
+#. module: bank_statement_online_stripe
+#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:25
+#, python-format
+msgid "The Stripe API key is invalid."
+msgstr "La clé d'API Stripe est invalide."
+
+#. module: bank_statement_online_stripe
+#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:27
+#, python-format
+msgid "The Stripe API key is valid."
+msgstr "La clé d'API Stripe est valide."
+
+#. module: bank_statement_online_stripe
+#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:51
 #, python-format
 msgid "The stripe api key is not defined on the Stripe provider."
 msgstr "La clé d'API Stripe n'est pas définie dans la configuration d'import Stripe."
 
 #. module: bank_statement_online_stripe
-#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:78
+#: code:addons/bank_statement_online_stripe/models/online_bank_statement_provider.py:91
 #, python-format
 msgid "Transaction ({})"
 msgstr "Transaction ({})"

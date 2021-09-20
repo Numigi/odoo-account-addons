@@ -2,9 +2,11 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import json
+import stripe
+from stripe.error import AuthenticationError
 from datetime import datetime
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from ..interface import BalanceTransactionInterface
 
 STRIPE = "stripe"
@@ -15,6 +17,17 @@ class OnlineBankStatementProvider(models.Model):
     _inherit = "online.bank.statement.provider"
 
     stripe_api_key = fields.Char()
+
+    def test_stripe_api_key(self):
+        try:
+            self._try_stripe_api_key()
+        except AuthenticationError:
+            raise UserError(_("The Stripe API key is invalid."))
+        else:
+            raise UserError(_("The Stripe API key is valid."))
+
+    def _try_stripe_api_key(self):
+        stripe.Balance.retrieve(api_key=self.stripe_api_key)
 
     @api.model
     def _get_available_services(self):

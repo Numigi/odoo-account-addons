@@ -12,8 +12,15 @@
                         <field
                             name="stripe_api_key"
                             string="API Key"
+                            password="True"
                             attrs="{'required': [('service', '=', 'stripe')]}"
                         />
+                        <button
+                            name="test_stripe_api_key"
+                            string="Test API Key"
+                            type="object"
+                            attrs="{'invisible': [('stripe_api_key', '=', False)]}"
+                            />
                     </group>
                 </group>
             </xpath>
