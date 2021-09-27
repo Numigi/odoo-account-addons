@@ -57,7 +57,7 @@ class TestStripe(common.SavepointCase):
         self.transaction_id = "txn_1"
         self.transaction = {
             "id": self.transaction_id,
-            "available_on": int(self.datetime_from.timestamp()),
+            "created": int(self.datetime_from.timestamp()),
             "object": "balance_transaction",
             "description": self.reference,
             "amount": 1000,
@@ -157,24 +157,24 @@ class TestStripe(common.SavepointCase):
 
     @contextmanager
     def _mock_balance_transaction_list(self):
-        def side_effect(available_on, **kwargs):
+        def side_effect(created, **kwargs):
             return {
                 "has_more": False,
-                "data": self._get_filtered_transactions(available_on),
+                "data": self._get_filtered_transactions(created),
             }
 
         with patch("stripe.BalanceTransaction.list", side_effect=side_effect):
             yield
 
-    def _get_filtered_transactions(self, available_on):
+    def _get_filtered_transactions(self, created):
         transactions = self.transactions
 
-        gte = available_on.get("gte")
+        gte = created.get("gte")
         if gte:
-            transactions = [t for t in transactions if gte <= t["available_on"]]
-        lt = available_on.get("lt")
+            transactions = [t for t in transactions if gte <= t["created"]]
+        lt = created.get("lt")
         if lt:
-            transactions = [t for t in transactions if t["available_on"] < lt]
+            transactions = [t for t in transactions if t["created"] < lt]
 
         return transactions
 
@@ -182,7 +182,7 @@ class TestStripe(common.SavepointCase):
     def _mock_balance(self, amount):
         return_value = {
             "object": "balance",
-            "available": [
+            "pending": [
                 {
                     "amount": amount,
                     "currency": "cad",
