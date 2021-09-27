@@ -77,12 +77,11 @@ Known Issues
 
 Payment Date
 ~~~~~~~~~~~~
-Note that a payment in ``Stripe`` takes a few days before becoming available in the balance.
+Note that the module uses the creation date of a balance transaction instead of
+its date of availability in order to determine whether a transaction should be imported or not.
 
-Only transactions that are available in the balance are imported into Odoo.
-
-The date in the Odoo Statement is the date when the payment becomes available,
-not the date when the payment is created.
+This means that the balance shown in the bank statement in Odoo does not reflect
+the amount available for a payout in Stripe.
 
 Contributors
 ------------

@@ -68,13 +68,6 @@ class TestStripeTransactionInterface(common.TransactionCase):
 
         assert balance == 100 - 10 - 20 - 30
 
-    def test_test_end_balance__exclude_pending_transactions(self):
-        self.t3["status"] = "pending"
-        with self._mock_balance_transaction_list(), self._mock_balance():
-            balance = self.interface.get_end_balance()
-
-        assert balance == 100 - 10 - 20
-
     @contextmanager
     def _mock_balance_transaction_list(self):
         side_effect = [
@@ -88,7 +81,7 @@ class TestStripeTransactionInterface(common.TransactionCase):
     def _mock_balance(self):
         return_value = {
             "object": "balance",
-            "available": [
+            "pending": [
                 {
                     "amount": self.balance,
                     "currency": "cad",

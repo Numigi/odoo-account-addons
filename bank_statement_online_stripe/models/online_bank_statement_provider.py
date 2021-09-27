@@ -141,7 +141,7 @@ class OnlineBankStatementProvider(models.Model):
         return source.get("billing_details") or {}
 
     def _get_stripe_transaction_date(self, tx):
-        timestamp = tx["available_on"]
+        timestamp = tx["created"]
         datetime_ = datetime.fromtimestamp(timestamp)
         return fields.Date.context_today(self, datetime_)
 
