@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_bank_statement_line_form" model="ir.ui.view" >
+        <field name="name">Bank Statement Line:</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account.view_bank_statement_line_form"/>
+        <field name="arch" type="xml">
+            <field name="note" position="after">
+            </field>
+        </field>
+    </record>
+
+</odoo>
