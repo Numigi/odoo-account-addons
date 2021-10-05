@@ -15,6 +15,10 @@
         "base_sparse_field",
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "views/account_journal.xml",
+        "views/bank_statement_import_config.xml",
+        "wizard/bank_statement_import_wizard.xml",
     ],
     "installable": True,
 }

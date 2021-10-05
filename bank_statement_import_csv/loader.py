@@ -3,8 +3,15 @@
 
 import csv
 import traceback
+from babel.numbers import (
+    parse_decimal,
+    NumberFormatError,
+    validate_currency,
+    UnknownCurrencyError,
+)
 from decimal import Decimal
 from datetime import datetime
+from .error import BankStatementError
 
 ZERO = Decimal("0")
 
@@ -39,33 +46,38 @@ class BankStatementLoader:
 
     def load(self, file):
         rows = self._iter_rows(file)
-        return {"rows": [self._parse_row(r) for r in rows]}
+        return {"rows": [self.parse_row(r) for r in rows]}
 
-    def parse_decimal(self, amount_str):
-        return 
-
-    def _parse_row(self, row):
-        try:
-            return {
-                "date": self._get_date(row),
-                "amount": _decimal_to_string(self._get_amount(row)),
-                "currency": self._get_currency(row),
-                "currency_amount": _decimal_to_string(self._get_currency_amount(row)),
-                "balance": _decimal_to_string(self._get_balance(row)),
-                "description": self._get_description(row),
-                "reference": self._get_reference(row),
-            }
-        except Exception as err:
-            return {
-                "traceback": traceback.format_exc(),
-                "error": str(err),
-            }
+    def parse_row(self, row):
+        return {
+            "date": self._get_date(row),
+            "amount": self._get_amount(row),
+            "currency": self._get_currency(row),
+            "currency_amount": self._get_currency_amount(row),
+            "balance": self._get_balance(row),
+            "description": self._get_description(row),
+            "reference": self._get_reference(row),
+        }
 
     def _get_date(self, row):
         if self._date_index is not None:
             str_date = self._get_cell(row, self._date_index)
-            date_ = datetime.strptime(str_date, self._date_format).date()
+
+            try:
+                date_ = self._parse_date(str_date)
+            except ValueError:
+                return self._get_parse_date_error(str_date)
+
             return str(date_)
+
+    def _parse_date(self, str_date):
+        return datetime.strptime(str_date, self._date_format).date()
+
+    def _get_parse_date_error(self, str_date):
+        return BankStatementError(
+            msg="The given date ({date}) does not match the format {format}.",
+            kwargs={"date": str_date, "format": self._date_format},
+        )
 
     def _get_description(self, row):
         if self._description_index is not None:
@@ -77,13 +89,35 @@ class BankStatementLoader:
 
     def _get_currency(self, row):
         if self._currency_index is not None:
-            return self._get_cell(row, self._currency_index)
+            value = self._get_cell(row, self._currency_index)
+
+            if not value and self._get_currency_amount(row):
+                return BankStatementError(
+                    msg="The currrency is required when an amount "
+                    "in foreign currency is given.",
+                )
+
+            if value:
+                return _parse_currency_or_error(value)
 
     def _get_amount(self, row):
-        amount = self._get_single_column_amount(row) or ZERO
-        withdraw = self._get_withdraw(row) or ZERO
-        deposit = self._get_deposit(row) or ZERO
-        return amount + deposit - withdraw
+        amount = self._get_single_column_amount(row)
+        withdraw = self._get_withdraw(row)
+        deposit = self._get_deposit(row)
+
+        error = next(
+            (
+                el
+                for el in (amount, withdraw, deposit)
+                if isinstance(el, BankStatementError)
+            ),
+            None,
+        )
+
+        if error:
+            return error
+
+        return (amount or ZERO) + (deposit or ZERO) - (withdraw or ZERO)
 
     def _get_single_column_amount(self, row):
         if self._amount_index is not None:
@@ -102,7 +136,11 @@ class BankStatementLoader:
             amount = self._get_amount(row)
             currency_amount = self._get_cell_decimal(row, self._currency_amount_index)
 
-            if amount and currency_amount and _not_same_sign(amount, currency_amount):
+            if (
+                isinstance(amount, Decimal) and
+                isinstance(currency_amount, Decimal) and
+                _not_same_sign(amount, currency_amount)
+            ):
                 currency_amount *= -1
 
             return currency_amount
@@ -113,7 +151,7 @@ class BankStatementLoader:
 
     def _get_cell_decimal(self, row, index):
         amount_str = self._get_cell(row, index)
-        return Decimal(amount_str) if amount_str else None
+        return _parse_decimal_or_error(amount_str)
 
     def _get_cell(self, row, index):
         if index < len(row):
@@ -135,6 +173,35 @@ def _not_same_sign(a1, a2):
     return (a1 < 0 and a2 > 0) or (a1 > 0 and a2 < 0)
 
 
-def _decimal_to_string(amount):
-    if amount is not None:
-        return amount.to_eng_string()
+def _parse_decimal_or_error(value):
+    try:
+        return _parse_decimal(value)
+    except NumberFormatError:
+        return _get_decimal_error(value)
+
+
+def _parse_decimal(value):
+    value = value.replace(" ", "")
+    return parse_decimal(value) if value else None
+
+
+def _get_decimal_error(value):
+    return BankStatementError(
+        msg="The given value ({}) does not seem to be a valid number.",
+        args=(value,),
+    )
+
+
+def _parse_currency_or_error(value):
+    try:
+        validate_currency(value)
+        return value
+    except UnknownCurrencyError:
+        return _get_currency_error(value)
+
+
+def _get_currency_error(value):
+    return BankStatementError(
+        msg="The given value ({}) does not seem to be a valid curency code.",
+        args=(value,),
+    )

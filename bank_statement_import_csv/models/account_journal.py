@@ -4,6 +4,10 @@
 from odoo import api, fields, models
 
 
-class AccountBankStatementLine(models.Model):
+class AccountJournal(models.Model):
 
-    _inherit = "account.bank.statement.line"
+    _inherit = "account.journal"
+
+    statement_import_config_id = fields.Many2one(
+        "bank.statement.import.config",
+    )

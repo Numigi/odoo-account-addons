@@ -9,13 +9,15 @@ class BankStatementImportConfig(models.Model):
     _name = "bank.statement.import.config"
     _description = "Bank Statement Import Config"
 
-    first_row = fields.Integer()
-    delimiter = fields.Char()
+    name = fields.Char(required=True, translate=True)
+
+    first_row = fields.Integer(default=2)
+    delimiter = fields.Char(default=",")
     quotechar = fields.Char()
-    encoding = fields.Char()
+    encoding = fields.Char(required=True, default="utf-8")
 
     date_index = fields.Integer()
-    date_format = fields.Char()
+    date_format = fields.Char(required=True)
 
     description_enabled = fields.Boolean()
     description_index = fields.Integer()
