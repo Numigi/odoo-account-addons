@@ -13,7 +13,7 @@ class TestMonoCurrencyCSV(common.TransactionCase):
         super().setUp()
 
         self.config = {
-            "first_row": 2,
+            "first_row": 3,
             "date": {
                 "index": 0,
                 "format": "%d-%m-%Y",

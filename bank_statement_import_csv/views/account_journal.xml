@@ -6,8 +6,10 @@
         <field name="model">account.journal</field>
         <field name="inherit_id" ref="account.view_account_journal_form"/>
         <field name="arch" type="xml">
-            <field name="update_posted" position="after">
-                <field name="statement_import_config_id"/>
+            <field name="bank_statements_source" position="after">
+                <field name="statement_import_config_id"
+                    string="Statement Import Configuration"
+                    />
             </field>
         </field>
     </record>

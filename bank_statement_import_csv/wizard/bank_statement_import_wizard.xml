@@ -19,8 +19,8 @@
                          >
                             Errors where found while loading the selected file.
                     </div>
-                    <field name="line_ids" readonly="1" force_save="1">
-                        <tree decoration-danger="has_error">
+                    <field name="line_ids">
+                        <tree decoration-danger="has_error" editable="1" create="0" delete="0">
                             <field name="date"/>
                             <field name="reference"
                                 attrs="{'column_invisible': [('parent.show_reference', '=', False)]}"
@@ -37,6 +37,12 @@
                                 />
                             <field name="currency"
                                 attrs="{'column_invisible': [('parent.show_currency_amount', '=', False)]}"
+                                />
+                            <button name="validate_error_correction"
+                                string="Validate"
+                                type="object"
+                                attrs="{'column_invisible': [('parent.has_error', '=', False)],
+                                        'invisible': [('has_error', '=', False)]}"
                                 />
                             <field name="has_error" invisible="1"/>
                         </tree>

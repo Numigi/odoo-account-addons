@@ -7,6 +7,13 @@
         <field name="arch" type="xml">
             <form string="Bank Statement Import Configuration">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
                     <div class="oe_title">
                         <h1>
                             <field name="name"/>
@@ -15,35 +22,44 @@
                     <group>
                         <group>
                             <field name="first_row"/>
+                            <field name="reversed_order"/>
+                        </group>
+                        <group>
+                            <field name="encoding"/>
                             <field name="delimiter"/>
                             <field name="quotechar"/>
-                            <field name="encoding"/>
-
+                        </group>
+                        <group>
                             <field name="date_index"/>
                             <field name="date_format"/>
-
-                            <field name="description_enabled"/>
+                        </group>
+                        <group>
+                            <field name="description_enabled" string="Description"/>
                             <field name="description_index"
                                 attrs="{'invisible': [('description_enabled', '=', False)]}"/>
-
-                            <field name="reference_enabled"/>
+                        </group>
+                        <group>
+                            <field name="reference_enabled" string="Reference"/>
                             <field name="reference_index"
                                 attrs="{'invisible': [('reference_enabled', '=', False)]}"/>
-
-                            <field name="withdraw_deposit_enabled"/>
+                        </group>
+                        <group>
+                            <field name="withdraw_deposit_enabled"
+                                string="Withdraw / Deposit Columns"/>
                             <field name="withdraw_index"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
                             <field name="deposit_index"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
-
                             <field name="amount_index"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', True)]}"/>
-
-                            <field name="balance_enabled"/>
+                        </group>
+                        <group>
+                            <field name="balance_enabled" string="Balance"/>
                             <field name="balance_index"
                                 attrs="{'invisible': [('balance_enabled', '=', False)]}"/>
-
-                            <field name="currency_amount_enabled"/>
+                        </group>
+                        <group>
+                            <field name="currency_amount_enabled" string="Amount Foreign Currency"/>
                             <field name="currency_index"
                                 attrs="{'invisible': [('currency_amount_enabled', '=', False)]}"/>
                             <field name="currency_amount_index"
@@ -54,5 +70,46 @@
             </form>
         </field>
     </record>
+
+    <record id="bank_statement_import_config_list" model="ir.ui.view">
+        <field name="name">Bank Statement Import Config List</field>
+        <field name="model">bank.statement.import.config</field>
+        <field name="arch" type="xml">
+            <tree string="Bank Statement Import Configurations">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="bank_statement_import_config_search" model="ir.ui.view">
+        <field name="name">Bank Statement Import Config Search</field>
+        <field name="model">bank.statement.import.config</field>
+        <field name="arch" type="xml">
+            <search string="Search Statement Import Configuration">
+                <field name="name"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+           </search>
+        </field>
+    </record>
+
+    <record id="action_bank_statement_import_config" model="ir.actions.act_window">
+        <field name="name">Bank Statement Import Configurations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bank.statement.import.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="bank_statement_import_config_list"/>
+        <field name="search_view_id" ref="bank_statement_import_config_search"/>
+    </record>
+
+    <menuitem
+        id="menu_config_bank_statement_import_config"
+        name="Bank Statement Import Configurations"
+        parent="account.account_account_menu"
+        action="action_bank_statement_import_config"
+        sequence="100"
+        />
 
 </odoo>

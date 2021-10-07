@@ -20,7 +20,7 @@ class BankStatementLoader:
     def __init__(self, config):
         self._config = config
 
-        self._first_row = config.get("first_row", 0)
+        self._first_row = config.get("first_row", 1)
         self._delimiter = config.get("delimiter", ",")
         self._quotechar = config.get("quotechar")
 
@@ -68,7 +68,7 @@ class BankStatementLoader:
             except ValueError:
                 return self._get_parse_date_error(str_date)
 
-            return str(date_)
+            return date_.strftime("%Y-%m-%d")
 
     def _parse_date(self, str_date):
         return datetime.strptime(str_date, self._date_format).date()
@@ -162,7 +162,7 @@ class BankStatementLoader:
     def _iter_rows(self, file):
         reader = csv.reader(file, delimiter=self._delimiter, quotechar=self._quotechar)
 
-        for i in range(self._first_row):
+        for i in range(self._first_row - 1):
             next(reader, None)
 
         for row in reader:

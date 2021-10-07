@@ -18,7 +18,7 @@ class BankStatementImportWizard(models.TransientModel):
 
     journal_id = fields.Many2one(
         "account.journal",
-        default=lambda self: self.context.get("journal_id")
+        default=lambda self: self._context.get("journal_id")
     )
     config_id = fields.Many2one("bank.statement.import.config", required=True)
 
@@ -34,6 +34,8 @@ class BankStatementImportWizard(models.TransientModel):
 
     has_error = fields.Boolean(compute="_compute_has_error")
     show_confirm = fields.Boolean(compute="_compute_show_confirm")
+
+    statement_id = fields.Many2one("account.bank.statement")
 
     @api.onchange("journal_id")
     def _onchange_journal(self):
@@ -59,7 +61,8 @@ class BankStatementImportWizard(models.TransientModel):
             wizard.show_confirm = wizard.line_ids and not wizard.has_error
 
     def confirm(self):
-        pass
+        self.statement_id = self._make_bank_statement()
+        return self.statement_id.get_formview_action()
 
     def load_file(self):
         loader = self._get_loader()
@@ -71,6 +74,9 @@ class BankStatementImportWizard(models.TransientModel):
             *((0, 0, self._make_line_vals(vals)) for vals in data["rows"]),
         ]
 
+        return self.get_wizard_action()
+
+    def get_wizard_action(self):
         action = self.get_formview_action()
         action["target"] = "new"
         return action
@@ -111,3 +117,36 @@ class BankStatementImportWizard(models.TransientModel):
 
     def _get_csv_loader_config(self):
         return self.config_id.get_csv_loader_config()
+
+    def _make_bank_statement(self):
+        vals = self._get_statement_vals()
+        return self.env["account.bank.statement"].create(vals)
+
+    def _get_statement_vals(self):
+        vals = {
+            "journal_id": self.journal_id.id,
+            "line_ids": self._get_statement_line_vals(),
+        }
+
+        if self.config_id.balance_enabled:
+            first_line, last_line = self._get_first_and_last_line()
+            vals["balance_start"] = float(first_line.balance) - float(first_line.amount)
+            vals["balance_end_real"] = float(last_line.balance)
+
+        return vals
+
+    def _get_first_and_last_line(self):
+        lines = self.line_ids
+
+        if self.config_id.reversed_order:
+            return lines[-1], lines[0]
+        else:
+            return lines[0], lines[-1]
+
+    def _get_statement_line_vals(self):
+        lines = self.line_ids
+
+        if not self.config_id.reversed_order:
+            first_line = lines[0]
+
+        return [(0, 0, l._get_statement_line_vals()) for l in lines]
