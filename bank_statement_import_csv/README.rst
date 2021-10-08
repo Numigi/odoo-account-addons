@@ -61,11 +61,14 @@ I define the different parameters according to the csv format provided by my ban
 
 First Row
 ~~~~~~~~~
-The ``First Row`` parameter defines the line at which the first transaction appears.
+The ``First Row`` parameter defines the index of the line at which the first transaction appears.
 
-Here is an example of file where the first row is ``3``.
+Here is an example of file where the first row is ``2``.
 
 .. image:: static/description/example_csv_first_row.png
+
+Note that in most ``csv`` editors, the first line is number ``1``.
+However, the index of the first line in the file is technically ``0``.
 
 Reversed Order
 ~~~~~~~~~~~~~~
@@ -161,6 +164,57 @@ The column ``Currency`` expects the code of the currency in which the transactio
 The column ``Currency Amount`` expects the original amount of the transaction in the foreign currency.
 
 The module only maps these fields for transactions in a currency different from the company currency.
+
+Journal
+~~~~~~~
+I go to the form view of my bank journal.
+
+In the tab ``Bank Account``, I select my statement import configuration.
+
+.. image:: static/description/journal_form.png
+
+Usage
+-----
+I go to the accounting dashboard and click on ``Import Statements``.
+
+.. image:: static/description/accounting_dashboard.png
+
+The import wizard is opened.
+
+The configuration defined on my journal is prefilled.
+
+.. image:: static/description/wizard.png
+
+I upload my file and click on ``Load File``.
+
+.. image:: static/description/wizard_load_file.png
+
+..
+
+    The extra step of clicking on a button after uploading the file is
+    due to limitations in the Odoo framework.
+
+After loading the file, the system shows a row in red, meaning that there
+were errors parsing the row.
+
+.. image:: static/description/wizard_loaded_red_rows.png
+
+I can manually fix the data in the row in error.
+When a row is corrected, I click on ``Validate``.
+
+.. image:: static/description/wizard_row_validate.png
+
+When all rows are corrected, the confirmation button appears in the bottom of the file.
+
+.. image:: static/description/wizard_confirm.png
+
+After clicking on the button, the new bank statement is displayed.
+
+.. image:: static/description/bank_statement_form.png
+
+I notice that the transaction lines where properly created.
+
+I also notice that the initial and ending balances are properly set.
 
 Contributors
 ------------

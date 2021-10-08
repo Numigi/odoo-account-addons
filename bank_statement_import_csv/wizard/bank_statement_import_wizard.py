@@ -27,13 +27,12 @@ class BankStatementImportWizard(models.TransientModel):
 
     line_ids = fields.One2many("bank.statement.import.wizard.line", "wizard_id")
 
-    show_description = fields.Boolean(compute="_compute_show_fields")
     show_reference = fields.Boolean(compute="_compute_show_fields")
     show_balance = fields.Boolean(compute="_compute_show_fields")
     show_currency_amount = fields.Boolean(compute="_compute_show_fields")
 
     has_error = fields.Boolean(compute="_compute_has_error")
-    show_confirm = fields.Boolean(compute="_compute_show_confirm")
+    is_ready = fields.Boolean(compute="_compute_is_ready")
 
     statement_id = fields.Many2one("account.bank.statement")
 
@@ -55,9 +54,9 @@ class BankStatementImportWizard(models.TransientModel):
             wizard.has_error = any(l.has_error for l in self.line_ids)
 
     @api.depends("line_ids", "has_error")
-    def _compute_show_confirm(self):
+    def _compute_is_ready(self):
         for wizard in self:
-            wizard.show_confirm = wizard.line_ids and not wizard.has_error
+            wizard.is_ready = wizard.line_ids and not wizard.has_error
 
     def confirm(self):
         self.statement_id = self._make_bank_statement()

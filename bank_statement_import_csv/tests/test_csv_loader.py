@@ -13,7 +13,7 @@ class TestMonoCurrencyCSV(common.TransactionCase):
         super().setUp()
 
         self.config = {
-            "first_row": 3,
+            "first_row": 2,
             "date": {
                 "index": 0,
                 "format": "%d-%m-%Y",
@@ -59,7 +59,7 @@ class TestMonoCurrencyCSV(common.TransactionCase):
 
     def test_balance(self):
         rows = self._get_rows()
-        assert rows[0]["balance"] == Decimal("79082.64")
+        assert rows[0]["balance"] == Decimal("34475.86")
 
     def test_withdraw_wrong_input(self):
         row = ["", "", "", "wrong", "", ""]

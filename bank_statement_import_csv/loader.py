@@ -20,7 +20,7 @@ class BankStatementLoader:
     def __init__(self, config):
         self._config = config
 
-        self._first_row = config.get("first_row", 1)
+        self._first_row = config.get("first_row", 0)
         self._delimiter = config.get("delimiter", ",")
         self._quotechar = config.get("quotechar")
 
@@ -162,7 +162,7 @@ class BankStatementLoader:
     def _iter_rows(self, file):
         reader = csv.reader(file, delimiter=self._delimiter, quotechar=self._quotechar)
 
-        for i in range(self._first_row - 1):
+        for i in range(self._first_row):
             next(reader, None)
 
         for row in reader:

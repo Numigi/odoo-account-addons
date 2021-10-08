@@ -29,7 +29,7 @@ class TestWizard(common.SavepointCase):
             {
                 "name": "Test",
                 "date_format": "%Y-%m-%d",
-                "first_row": 3,
+                "first_row": 2,
                 "delimiter": ",",
                 "encoding": "cp1250",
                 "reversed_order": True,
@@ -59,7 +59,7 @@ class TestWizard(common.SavepointCase):
     def test_mono_currency(self):
         self._load_mono_currency_file()
         assert len(self.wizard.line_ids) == 6
-        assert self.wizard.show_confirm
+        assert self.wizard.is_ready
 
     def test_wrong_date_format(self):
         self.config.date_index = 0
@@ -70,11 +70,8 @@ class TestWizard(common.SavepointCase):
         rows = self.wizard.line_ids
 
         assert self.wizard.has_error
-        assert not self.wizard.show_confirm
+        assert not self.wizard.is_ready
         assert rows[0].has_error
-
-    def test_show_description(self):
-        assert self.wizard.show_description
 
     def test_show_reference(self):
         self.config.reference_enabled = True
