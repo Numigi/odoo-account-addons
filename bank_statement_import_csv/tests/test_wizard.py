@@ -2,12 +2,14 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytest
-from datetime import date
+from ddt import ddt, data
+from datetime import datetime, date
 from odoo.tests import common
 from odoo.exceptions import ValidationError
 from .common import get_file_base64
 
 
+@ddt
 class TestWizard(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
@@ -130,8 +132,29 @@ class TestWizard(common.SavepointCase):
         with pytest.raises(ValidationError):
             self.wizard.confirm()
 
-    def _add_wizard_line(self, **kwargs):
-        self.wizard.write({"line_ids": [(0, 0, kwargs)]})
+    def test_validate_error_correction(self):
+        line = self._make_wizard_line()
+        line.has_error = True
+        line.validate_error_correction()
+        assert not line.has_error
+
+    @data(
+        "date",
+        "amount",
+        "currency",
+        "currency_amount",
+        "balance",
+    )
+    def test_validate_error_correction__wrong_value(self, field):
+        line = self._make_wizard_line()
+        line[field] = "wrong"
+        with pytest.raises(ValidationError):
+            line.validate_error_correction()
+
+    def _make_wizard_line(self, **kwargs):
+        return self.env["bank.statement.import.wizard.line"].create(
+            {"wizard_id": self.wizard.id, "date": datetime.now().date(), **kwargs}
+        )
 
     def _load_mono_currency_file(self):
         self._setup_mono_currency_config()

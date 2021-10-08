@@ -11,6 +11,7 @@ from babel.numbers import (
 )
 from decimal import Decimal
 from datetime import datetime
+from odoo import _
 from .error import BankStatementError
 
 ZERO = Decimal("0")
@@ -62,20 +63,14 @@ class BankStatementLoader:
     def _get_date(self, row):
         if self._date_index is not None:
             str_date = self._get_cell(row, self._date_index)
-
-            try:
-                date_ = self._parse_date(str_date)
-            except ValueError:
-                return self._get_parse_date_error(str_date)
-
-            return date_.strftime("%Y-%m-%d")
+            return parse_date_or_error(str_date, self._date_format)
 
     def _parse_date(self, str_date):
         return datetime.strptime(str_date, self._date_format).date()
 
     def _get_parse_date_error(self, str_date):
         return BankStatementError(
-            msg="The given date ({date}) does not match the format {format}.",
+            msg=_("The given date ({date}) does not match the format {format}."),
             kwargs={"date": str_date, "format": self._date_format},
         )
 
@@ -93,12 +88,14 @@ class BankStatementLoader:
 
             if not value and self._get_currency_amount(row):
                 return BankStatementError(
-                    msg="The currrency is required when an amount "
-                    "in foreign currency is given.",
+                    msg=_(
+                        "The currrency is required when an amount "
+                        "in foreign currency is given."
+                    ),
                 )
 
             if value:
-                return _parse_currency_or_error(value)
+                return parse_currency_or_error(value)
 
     def _get_amount(self, row):
         amount = self._get_single_column_amount(row)
@@ -151,7 +148,7 @@ class BankStatementLoader:
 
     def _get_cell_decimal(self, row, index):
         amount_str = self._get_cell(row, index)
-        return _parse_decimal_or_error(amount_str)
+        return parse_decimal_or_error(amount_str)
 
     def _get_cell(self, row, index):
         if index < len(row):
@@ -173,7 +170,26 @@ def _not_same_sign(a1, a2):
     return (a1 < 0 and a2 > 0) or (a1 > 0 and a2 < 0)
 
 
-def _parse_decimal_or_error(value):
+def parse_date_or_error(str_date, format_):
+    try:
+        date_ = _parse_date(str_date, format_)
+        return date_.strftime("%Y-%m-%d")
+    except ValueError:
+        return _get_parse_date_error(str_date, format_)
+
+
+def _parse_date(str_date, format_):
+    return datetime.strptime(str_date, format_).date()
+
+
+def _get_parse_date_error(str_date, format_):
+    return BankStatementError(
+        msg=_("The given date ({date}) does not match the format {format}."),
+        kwargs={"date": str_date, "format": format_},
+    )
+
+
+def parse_decimal_or_error(value):
     try:
         return _parse_decimal(value)
     except NumberFormatError:
@@ -187,12 +203,12 @@ def _parse_decimal(value):
 
 def _get_decimal_error(value):
     return BankStatementError(
-        msg="The given value ({}) does not seem to be a valid number.",
+        msg=_("The given value ({}) does not seem to be a valid number."),
         args=(value,),
     )
 
 
-def _parse_currency_or_error(value):
+def parse_currency_or_error(value):
     try:
         validate_currency(value)
         return value
@@ -202,6 +218,6 @@ def _parse_currency_or_error(value):
 
 def _get_currency_error(value):
     return BankStatementError(
-        msg="The given value ({}) does not seem to be a valid curency code.",
+        msg=_("The given value ({}) does not seem to be a valid curency code."),
         args=(value,),
     )

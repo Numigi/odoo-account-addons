@@ -9,3 +9,8 @@ class BankStatementError:
     msg: str
     args: list = field(default_factory=lambda: [])
     kwargs: dict = field(default_factory=lambda: {})
+
+
+
+def is_bank_statement_error(value):
+    return isinstance(value, BankStatementError)

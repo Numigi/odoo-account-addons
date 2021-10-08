@@ -4,6 +4,12 @@
 from datetime import datetime
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+from ..loader import (
+    parse_decimal_or_error,
+    parse_currency_or_error,
+    parse_date_or_error,
+)
+from ..error import is_bank_statement_error
 
 
 class BankStatementImportWizardLine(models.TransientModel):
@@ -14,18 +20,46 @@ class BankStatementImportWizardLine(models.TransientModel):
     wizard_id = fields.Many2one(
         "bank.statement.import.wizard", required=True, ondelete="cascade"
     )
-    date = fields.Char()
-    amount = fields.Char()
+    date = fields.Char(required=True)
+    amount = fields.Char(required=True)
     currency = fields.Char()
     currency_amount = fields.Char()
     balance = fields.Char()
-    description = fields.Char()
+    description = fields.Char(required=True)
     reference = fields.Char()
     has_error = fields.Boolean()
 
     def validate_error_correction(self):
         self.has_error = False
+        self._validate_line_fields()
         return self.wizard_id.get_wizard_action()
+
+    def _validate_line_fields(self):
+        for field in ("amount", "currency_amount", "balance"):
+            self._validate_line_amount(field)
+
+        self._validate_line_date()
+        self._validate_line_currency()
+
+    def _validate_line_amount(self, field):
+        value = self[field]
+        if value:
+            parsed_value = parse_decimal_or_error(value)
+            self._raise_if_is_bank_statement_error(parsed_value)
+
+    def _validate_line_date(self):
+        parsed_value = parse_date_or_error(self.date, "%Y-%m-%d")
+        self._raise_if_is_bank_statement_error(parsed_value)
+
+    def _validate_line_currency(self):
+        code = self.currency
+        if code:
+            value = parse_currency_or_error(code)
+            self._raise_if_is_bank_statement_error(value)
+
+    def _raise_if_is_bank_statement_error(self, value):
+        if is_bank_statement_error(value):
+            raise ValidationError(_(value.msg).format(*value.args, **value.kwargs))
 
     def _get_statement_line_vals(self):
         currency = self._get_currency()

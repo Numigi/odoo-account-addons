@@ -13,7 +13,10 @@
                         <field name="file" filename="filename"/>
                         <field name="filename" invisible="1"/>
                     </group>
-                    <button name="load_file" string="Load File" type="object"/>
+                    <button name="load_file" string="Load File" type="object"
+                        attrs="{'invisible': [('filename', '=', False)]}"
+                        class="oe_highlight"
+                        />
                     <div class="alert alert-danger"
                          role="alert"
                          attrs="{'invisible': [('has_error', '=', False)]}"
@@ -35,13 +38,15 @@
                             <field name="description"/>
                             <field name="amount"/>
                             <field name="balance"
-                                attrs="{'column_invisible': [('parent.show_balance', '=', False)]}"
+                                attrs="{'column_invisible': [('parent.show_balance', '=', False)],
+                                        'required': [('parent.show_balance', '=', True)]}"
                                 />
                             <field name="currency_amount"
                                 attrs="{'column_invisible': [('parent.show_currency_amount', '=', False)]}"
                                 />
                             <field name="currency"
-                                attrs="{'column_invisible': [('parent.show_currency_amount', '=', False)]}"
+                                attrs="{'column_invisible': [('parent.show_currency_amount', '=', False)],
+                                        'required': [('currency_amount', '!=', False)]}"
                                 />
                             <button name="validate_error_correction"
                                 string="Validate"
