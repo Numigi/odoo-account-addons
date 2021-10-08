@@ -67,6 +67,101 @@ Here is an example of file where the first row is ``3``.
 
 .. image:: static/description/example_csv_first_row.png
 
+Reversed Order
+~~~~~~~~~~~~~~
+Check this box if your transactions appear in backward order in your csv file.
+
+This is mostly relevant if the csv file contains a balance column.
+In such case, the first and last rows in the file are used to determine the
+initial and ending balance.
+
+Encoding
+~~~~~~~~
+The field ``Encoding`` must contain the technical value of the format in which the file is encoded.
+
+Typical values include:
+
+* utf-8
+* latin-1
+* cp1252
+
+Delimiter
+~~~~~~~~~
+The field ``Delimiter`` must contain the character used to seperate fields in the csv file.
+
+Quotechar
+~~~~~~~~~
+The field ``Quotechar`` must contain the character used as text delimiter.
+
+Columns
+~~~~~~~
+
+Date
+****
+The date is a mandatory column in the csv file.
+
+You must supply the index of the column and the format used to parse the date.
+
+The format must be specified in `Python Syntax <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes>`_.
+
+The most common formats are:
+
+* %d-%m-%Y
+* %d/%m/%Y
+* %m-%d-%Y
+* %m/%d/%Y
+* %Y-%m-%d
+* %Y/%m/%d
+
+Label
+*****
+The ``Label Index`` field is mandatory.
+
+It is mapped to the field ``Label`` (name) of the bank statement line.
+
+Reference
+*********
+The ``Reference`` field is optional.
+
+It is mapped to the field ``Reference`` (ref) of the bank statement line.
+
+Amounts
+*******
+The module supports either an amount displayed as a single column in the file,
+or withdraws and deposits separated in two columns.
+
+If ``Withdraw / Deposit`` is checked, you need to supply indexes for both columns.
+
+.. image:: static/description/import_config_withdraw_deposit.png
+
+If ``Withdraw / Deposit`` is unchecked, you need to supply the index of the amount column.
+
+.. image:: static/description/import_config_amount.png
+
+Balance
+*******
+Optionnaly, the module allows to parse a balance column, containing the balance
+of the bank account after the transaction.
+
+.. image:: static/description/import_config_balance.png
+
+This column does not add any info to the bank statement line itself.
+
+However, it allows to automatically fill the initial and ending balances of the bank statement.
+
+Amount Foreign Currency
+***********************
+In case your bank statement contains transactions in multiple currencies,
+you may parse two extra columns.
+
+.. image:: static/description/import_config_amount_foreign_currency.png
+
+The column ``Currency`` expects the code of the currency in which the transaction occured.
+
+The column ``Currency Amount`` expects the original amount of the transaction in the foreign currency.
+
+The module only maps these fields for transactions in a currency different from the company currency.
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)

@@ -45,7 +45,6 @@ class BankStatementImportWizard(models.TransientModel):
     def _compute_show_fields(self):
         for wizard in self:
             config = wizard.config_id
-            wizard.show_description = config.description_enabled
             wizard.show_reference = config.reference_enabled
             wizard.show_balance = config.balance_enabled
             wizard.show_currency_amount = config.currency_amount_enabled

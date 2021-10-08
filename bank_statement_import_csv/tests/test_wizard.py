@@ -74,7 +74,6 @@ class TestWizard(common.SavepointCase):
         assert rows[0].has_error
 
     def test_show_description(self):
-        self.config.description_enabled = True
         assert self.wizard.show_description
 
     def test_show_reference(self):
@@ -150,7 +149,6 @@ class TestWizard(common.SavepointCase):
     def _setup_multi_currency_config(self):
         self.config.date_index = 0
         self.config.date_format = "%d/%m/%Y"
-        self.config.description_enabled = True
         self.config.description_index = 3
         self.config.reference_enabled = True
         self.config.reference_index = 1
@@ -164,7 +162,6 @@ class TestWizard(common.SavepointCase):
     def _setup_mono_currency_config(self):
         self.config.date_index = 0
         self.config.date_format = "%d-%m-%Y"
-        self.config.description_enabled = True
         self.config.description_index = 1
         self.config.reference_enabled = True
         self.config.reference_index = 2

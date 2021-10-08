@@ -19,7 +19,7 @@ class BankStatementImportConfig(models.Model):
         help="Check this box is the lines in the csv files are ordered "
         "starting with the latest transaction."
     )
-    delimiter = fields.Char(default=",")
+    delimiter = fields.Char(default=",", required=True)
     quotechar = fields.Char()
     encoding = fields.Char(
         required=True,
@@ -28,11 +28,14 @@ class BankStatementImportConfig(models.Model):
         "\n\nTypical values:\n - utf-8\n - cp1252\n - latin-1",
     )
 
-    date_index = fields.Integer()
+    date_index = fields.Integer(required=True, default=0)
     date_format = fields.Char(required=True)
 
-    description_enabled = fields.Boolean()
-    description_index = fields.Integer()
+    description_index = fields.Integer(
+        required=True,
+        default=0,
+        string="Label Index",
+    )
 
     reference_enabled = fields.Boolean()
     reference_index = fields.Integer()
@@ -61,9 +64,7 @@ class BankStatementImportConfig(models.Model):
             },
             "description": {
                 "index": self.description_index,
-            }
-            if self.description_enabled
-            else None,
+            },
             "reference": {
                 "index": self.reference_index,
             }

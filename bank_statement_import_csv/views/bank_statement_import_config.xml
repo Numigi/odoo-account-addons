@@ -34,9 +34,7 @@
                             <field name="date_format"/>
                         </group>
                         <group>
-                            <field name="description_enabled" string="Description"/>
-                            <field name="description_index"
-                                attrs="{'invisible': [('description_enabled', '=', False)]}"/>
+                            <field name="description_index"/>
                         </group>
                         <group>
                             <field name="reference_enabled" string="Reference"/>
