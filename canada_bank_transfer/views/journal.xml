@@ -18,6 +18,7 @@
                         <field name="eft_user_long_name" string="User Long Name"/>
                         <field name="eft_user_number" string="User Number"/>
                         <field name="eft_destination" string="Destination"/>
+                        <field name="eft_sequence_id" string="Sequence"/>
                     </group>
                 </xpath>
             </field>
