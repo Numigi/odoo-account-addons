@@ -3,6 +3,8 @@ Canada EFT Bank Transfer
 ========================
 This module enables to generate credit transfer files for transactions between bank accounts in Canada.
 
+.. contents:: Table of Contents
+
 Configuration
 -------------
 As member of `Accounting / Manager`, I go to the list view of accounting journals.
@@ -39,6 +41,29 @@ It indicates the data processing center that will handle your tranfers.
 The value depends on the bank and the location of your company.
 
 .. image:: static/description/journal_form_eft_fields_filled.png
+
+Sequence
+~~~~~~~~
+Since version ``1.2.0`` of the module, each journal (with EFT enabled)
+has its own distinct sequence for the EFT.
+
+.. image:: static/description/journal_form_eft_sequence.png
+
+This sequence number is used by the bank to identify your payment batch.
+
+..
+
+    In previous versions of the module, only one sequence was defined per company.
+
+If you let the field empty, the system will automatically create it when saving the journal.
+
+You may edit the next number of the sequence.
+
+.. image:: static/description/eft_sequence_form.png
+
+Therefore, when generating a new EFT, this number will be used.
+
+.. image:: static/description/eft_with_file_sequence_number.png
 
 Bank Account Configuration
 --------------------------
