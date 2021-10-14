@@ -15,6 +15,7 @@
         "account_analytic_required_forbidden",
         "account_bank_menu",
         "account_budget_balance",
+        "account_check_deposit_enhanced",
         "account_closing_journal",
         "account_closing_journal_mis_builder",
         "account_closing_wizard",
