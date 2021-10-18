@@ -30,37 +30,37 @@
                             <field name="quotechar"/>
                         </group>
                         <group>
-                            <field name="date_index"/>
+                            <field name="date_column"/>
                             <field name="date_format"/>
                         </group>
                         <group>
-                            <field name="description_index"/>
+                            <field name="description_column"/>
                         </group>
                         <group>
                             <field name="reference_enabled" string="Reference"/>
-                            <field name="reference_index"
+                            <field name="reference_column"
                                 attrs="{'invisible': [('reference_enabled', '=', False)]}"/>
                         </group>
                         <group>
                             <field name="withdraw_deposit_enabled"
                                 string="Withdraw / Deposit Columns"/>
-                            <field name="withdraw_index"
+                            <field name="withdraw_column"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
-                            <field name="deposit_index"
+                            <field name="deposit_column"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
-                            <field name="amount_index"
+                            <field name="amount_column"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', True)]}"/>
                         </group>
                         <group>
                             <field name="balance_enabled" string="Balance"/>
-                            <field name="balance_index"
+                            <field name="balance_column"
                                 attrs="{'invisible': [('balance_enabled', '=', False)]}"/>
                         </group>
                         <group>
                             <field name="currency_amount_enabled" string="Amount Foreign Currency"/>
-                            <field name="currency_index"
+                            <field name="currency_column"
                                 attrs="{'invisible': [('currency_amount_enabled', '=', False)]}"/>
-                            <field name="currency_amount_index"
+                            <field name="currency_amount_column"
                                 attrs="{'invisible': [('currency_amount_enabled', '=', False)]}"/>
                         </group>
                     </group>

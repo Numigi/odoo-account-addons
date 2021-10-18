@@ -13,7 +13,7 @@ class TestMonoCurrencyCSV(common.TransactionCase):
         super().setUp()
 
         self.config = {
-            "first_row": 2,
+            "first_row_index": 2,
             "date": {
                 "index": 0,
                 "format": "%d-%m-%Y",
@@ -84,7 +84,7 @@ class TestMonoCurrencyCSV(common.TransactionCase):
         rows = self._get_rows()
         assert rows[0]["reference"] == "CPI080000000666"
 
-    def test_index_exceeding_row(self):
+    def test_column_exceeding_row(self):
         self.config["reference"]["index"] = 100
         rows = self._get_rows()
         assert rows[0]["reference"] == ""
@@ -106,7 +106,7 @@ class TestMultiCurrencyCSV(common.TransactionCase):
         super().setUp()
 
         self.config = {
-            "first_row": 2,
+            "first_row_index": 2,
             "amount": {
                 "index": 4,
             },

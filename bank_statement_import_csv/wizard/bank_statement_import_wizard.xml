@@ -31,12 +31,12 @@
                     </div>
                     <field name="line_ids">
                         <tree decoration-danger="has_error" editable="1" create="0" delete="0">
-                            <field name="date"/>
+                            <field name="date" required="1"/>
                             <field name="reference"
                                 attrs="{'column_invisible': [('parent.show_reference', '=', False)]}"
                                 />
-                            <field name="description"/>
-                            <field name="amount"/>
+                            <field name="description" required="1"/>
+                            <field name="amount" required="1"/>
                             <field name="balance"
                                 attrs="{'column_invisible': [('parent.show_balance', '=', False)],
                                         'required': [('parent.show_balance', '=', True)]}"

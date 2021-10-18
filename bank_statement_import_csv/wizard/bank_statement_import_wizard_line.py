@@ -20,12 +20,12 @@ class BankStatementImportWizardLine(models.TransientModel):
     wizard_id = fields.Many2one(
         "bank.statement.import.wizard", required=True, ondelete="cascade"
     )
-    date = fields.Char(required=True)
-    amount = fields.Char(required=True)
+    date = fields.Char()
+    amount = fields.Char()
     currency = fields.Char()
     currency_amount = fields.Char()
     balance = fields.Char()
-    description = fields.Char(required=True)
+    description = fields.Char()
     reference = fields.Char()
     has_error = fields.Boolean()
 
