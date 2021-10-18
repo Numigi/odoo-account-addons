@@ -21,7 +21,7 @@ class BankStatementLoader:
     def __init__(self, config):
         self._config = config
 
-        self._first_row = config.get("first_row", 0)
+        self._first_row_index = config.get("first_row_index", 0)
         self._delimiter = config.get("delimiter", ",")
         self._quotechar = config.get("quotechar")
 
@@ -98,7 +98,7 @@ class BankStatementLoader:
                 return parse_currency_or_error(value)
 
     def _get_amount(self, row):
-        amount = self._get_single_column_amount(row)
+        amount = self._get_single_index_amount(row)
         withdraw = self._get_withdraw(row)
         deposit = self._get_deposit(row)
 
@@ -116,7 +116,7 @@ class BankStatementLoader:
 
         return (amount or ZERO) + (deposit or ZERO) - (withdraw or ZERO)
 
-    def _get_single_column_amount(self, row):
+    def _get_single_index_amount(self, row):
         if self._amount_index is not None:
             return self._get_cell_decimal(row, self._amount_index)
 
@@ -159,7 +159,7 @@ class BankStatementLoader:
     def _iter_rows(self, file):
         reader = csv.reader(file, delimiter=self._delimiter, quotechar=self._quotechar)
 
-        for i in range(self._first_row):
+        for i in range(self._first_row_index):
             next(reader, None)
 
         for row in reader:

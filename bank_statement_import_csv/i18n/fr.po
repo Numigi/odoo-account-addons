@@ -33,9 +33,9 @@ msgid "Amount Foreign Currency"
 msgstr "Montant devise étrangère"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__amount_index
-msgid "Amount Index"
-msgstr "Montant (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__amount_column
+msgid "Amount Column"
+msgstr "Colonne montant"
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_search
@@ -54,9 +54,9 @@ msgid "Balance Enabled"
 msgstr "Solde activé"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_index
-msgid "Balance Index"
-msgstr "Solde (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_column
+msgid "Balance Column"
+msgstr "Colonne solde"
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
@@ -154,14 +154,14 @@ msgid "Currency Amount Enabled"
 msgstr "Montant en devise activé"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_index
-msgid "Currency Amount Index"
-msgstr "Montant en devise (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_column
+msgid "Currency Amount Column"
+msgstr "Colonne montant en devise"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_index
-msgid "Currency Index"
-msgstr "Devise (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_column
+msgid "Currency Column"
+msgstr "Colonne devise"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__date
@@ -174,9 +174,9 @@ msgid "Date Format"
 msgstr "Format de la date"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_index
-msgid "Date Index"
-msgstr "Date (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_column
+msgid "Date Column"
+msgstr "Colonne date"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__delimiter
@@ -184,9 +184,9 @@ msgid "Delimiter"
 msgstr "Délimiteur"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__deposit_index
-msgid "Deposit Index"
-msgstr "Dépôt (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__deposit_column
+msgid "Deposit Column"
+msgstr "Colonne dépôt"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__description
@@ -251,9 +251,9 @@ msgid "Journal"
 msgstr "Journal"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__description_index
-msgid "Label Index"
-msgstr "Libellé (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__description_column
+msgid "Label Column"
+msgstr "Colonne libellé"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config____last_update
@@ -314,9 +314,9 @@ msgid "Reference Enabled"
 msgstr "Référence activée"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_index
-msgid "Reference Index"
-msgstr "Référence (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_column
+msgid "Reference Column"
+msgstr "Colonne référence"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reversed_order
@@ -412,47 +412,11 @@ msgid "Withdraw Deposit Enabled"
 msgstr "Retrait / dépôt activé"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_index
-msgid "Withdraw Index"
-msgstr "Retrait (indice)"
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_column
+msgid "Withdraw Column"
+msgstr "Colonne retrait"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__wizard_id
 msgid "Wizard"
 msgstr "Wizard"
-
-#~ msgid "Account Closing Wizard"
-#~ msgstr "Assistant de fermeture de période comptable"
-
-#~ msgid "Company"
-#~ msgstr "Société"
-
-#~ msgid "Default Retained Earnings Account"
-#~ msgstr "Compte de BNR par défaut"
-
-#~ msgid "Fiscal Year Closing"
-#~ msgstr "Fermeture fiscale"
-
-#~ msgid "Move"
-#~ msgstr "Pièce comptable"
-
-#~ msgid ""
-#~ "No account defined under company {company} as the default account for "
-#~ "retained earnings."
-#~ msgstr ""
-#~ "Aucun compte n'est défini pour la société {company} en tant que compte de "
-#~ "BNR par défaut."
-
-#~ msgid "Period"
-#~ msgstr "Période"
-
-#~ msgid "Period closing from {date_from} to {date_to}"
-#~ msgstr "Fermeture fiscale de {date_from} à {date_to}"
-
-#~ msgid ""
-#~ "The account {} is already defined as default account for retained "
-#~ "earnings. You may only define one default retained earnings account per "
-#~ "company."
-#~ msgstr ""
-#~ "Le compte {} est déjà défini en tant que compte par défaut pour les BNR. "
-#~ "Vous pouvez définir un seul compte de BNR par défaut par société."

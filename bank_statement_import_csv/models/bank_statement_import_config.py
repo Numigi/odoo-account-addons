@@ -28,75 +28,75 @@ class BankStatementImportConfig(models.Model):
         "\n\nTypical values:\n - utf-8\n - cp1252\n - latin-1",
     )
 
-    date_index = fields.Integer(required=True, default=0)
+    date_column = fields.Integer(required=True, default=0)
     date_format = fields.Char(required=True)
 
-    description_index = fields.Integer(
+    description_column = fields.Integer(
         required=True,
         default=0,
-        string="Label Index",
+        string="Label Column",
     )
 
     reference_enabled = fields.Boolean()
-    reference_index = fields.Integer()
+    reference_column = fields.Integer()
 
     withdraw_deposit_enabled = fields.Boolean()
-    withdraw_index = fields.Integer()
-    deposit_index = fields.Integer()
+    withdraw_column = fields.Integer()
+    deposit_column = fields.Integer()
 
-    amount_index = fields.Integer()
+    amount_column = fields.Integer()
 
     balance_enabled = fields.Boolean()
-    balance_index = fields.Integer()
+    balance_column = fields.Integer()
 
-    currency_index = fields.Integer()
-    currency_amount_index = fields.Integer()
+    currency_column = fields.Integer()
+    currency_amount_column = fields.Integer()
     currency_amount_enabled = fields.Boolean()
 
     def get_csv_loader_config(self):
         return {
-            "first_row": self.first_row,
+            "first_row_index": self.first_row - 1,
             "delimiter": self.delimiter or None,
             "quotechar": self.quotechar or None,
             "date": {
-                "index": self.date_index,
+                "index": self.date_column - 1,
                 "format": self.date_format,
             },
             "description": {
-                "index": self.description_index,
+                "index": self.description_column - 1,
             },
             "reference": {
-                "index": self.reference_index,
+                "index": self.reference_column - 1,
             }
             if self.reference_enabled
             else None,
             "withdraw": {
-                "index": self.withdraw_index,
+                "index": self.withdraw_column - 1,
             }
             if self.withdraw_deposit_enabled
             else None,
             "deposit": {
-                "index": self.deposit_index,
+                "index": self.deposit_column - 1,
             }
             if self.withdraw_deposit_enabled
             else None,
             "amount": {
-                "index": self.amount_index,
+                "index": self.amount_column - 1,
             }
             if not self.withdraw_deposit_enabled
             else None,
             "balance": {
-                "index": self.balance_index,
+                "index": self.balance_column - 1,
             }
             if self.balance_enabled
             else None,
             "currency": {
-                "index": self.currency_index,
+                "index": self.currency_column - 1,
             }
             if self.currency_amount_enabled
             else None,
             "currency_amount": {
-                "index": self.currency_amount_index,
+                "index": self.currency_amount_column - 1,
             }
             if self.currency_amount_enabled
             else None,

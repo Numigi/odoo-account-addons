@@ -31,7 +31,7 @@ class TestWizard(common.SavepointCase):
             {
                 "name": "Test",
                 "date_format": "%Y-%m-%d",
-                "first_row": 2,
+                "first_row": 3,
                 "delimiter": ",",
                 "encoding": "cp1250",
                 "reversed_order": True,
@@ -64,7 +64,7 @@ class TestWizard(common.SavepointCase):
         assert self.wizard.is_ready
 
     def test_wrong_date_format(self):
-        self.config.date_index = 0
+        self.config.date_column = 0
         self.config.date_format = "%Y-%m-%d"
 
         self.wizard.file = get_file_base64("cad_mono_currency.csv")
@@ -167,27 +167,27 @@ class TestWizard(common.SavepointCase):
         self.wizard.load_file()
 
     def _setup_multi_currency_config(self):
-        self.config.date_index = 0
+        self.config.date_column = 1
         self.config.date_format = "%d/%m/%Y"
-        self.config.description_index = 3
+        self.config.description_column = 4
         self.config.reference_enabled = True
-        self.config.reference_index = 1
+        self.config.reference_column = 2
         self.config.withdraw_deposit_enabled = False
-        self.config.amount_index = 4
+        self.config.amount_column = 5
         self.config.balance_enabled = False
         self.config.currency_amount_enabled = True
-        self.config.currency_index = 5
-        self.config.currency_amount_index = 6
+        self.config.currency_column = 6
+        self.config.currency_amount_column = 7
 
     def _setup_mono_currency_config(self):
-        self.config.date_index = 0
+        self.config.date_column = 1
         self.config.date_format = "%d-%m-%Y"
-        self.config.description_index = 1
+        self.config.description_column = 2
         self.config.reference_enabled = True
-        self.config.reference_index = 2
+        self.config.reference_column = 3
         self.config.withdraw_deposit_enabled = True
-        self.config.withdraw_index = 3
-        self.config.deposit_index = 4
+        self.config.withdraw_column = 4
+        self.config.deposit_column = 5
         self.config.balance_enabled = True
-        self.config.balance_index = 5
+        self.config.balance_column = 6
         self.config.currency_amount_enabled = False

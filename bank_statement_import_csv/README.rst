@@ -61,14 +61,11 @@ I define the different parameters according to the csv format provided by my ban
 
 First Row
 ~~~~~~~~~
-The ``First Row`` parameter defines the index of the line at which the first transaction appears.
+The ``First Row`` parameter defines the number of the line at which the first transaction appears.
 
-Here is an example of file where the first row is ``2``.
+Here is an example of file where the first row is ``3``.
 
 .. image:: static/description/example_csv_first_row.png
-
-Note that in most ``csv`` editors, the first line is number ``1``.
-However, the index of the first line in the file is technically ``0``.
 
 Reversed Order
 ~~~~~~~~~~~~~~
@@ -103,7 +100,7 @@ Date
 ****
 The date is a mandatory column in the csv file.
 
-You must supply the index of the column and the format used to parse the date.
+You must supply the number of the column and the format used to parse the date.
 
 The format must be specified in `Python Syntax <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes>`_.
 
@@ -118,7 +115,7 @@ The most common formats are:
 
 Label
 *****
-The ``Label Index`` field is mandatory.
+The ``Label Column`` field is mandatory.
 
 It is mapped to the field ``Label`` (name) of the bank statement line.
 
@@ -133,11 +130,11 @@ Amounts
 The module supports either an amount displayed as a single column in the file,
 or withdraws and deposits separated in two columns.
 
-If ``Withdraw / Deposit`` is checked, you need to supply indexes for both columns.
+If ``Withdraw / Deposit`` is checked, you need to supply columns for both columns.
 
 .. image:: static/description/import_config_withdraw_deposit.png
 
-If ``Withdraw / Deposit`` is unchecked, you need to supply the index of the amount column.
+If ``Withdraw / Deposit`` is unchecked, you need to supply the number of the amount column.
 
 .. image:: static/description/import_config_amount.png
 
