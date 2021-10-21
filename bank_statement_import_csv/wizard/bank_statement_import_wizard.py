@@ -28,6 +28,7 @@ class BankStatementImportWizard(models.TransientModel):
     line_ids = fields.One2many("bank.statement.import.wizard.line", "wizard_id")
 
     show_reference = fields.Boolean(compute="_compute_show_fields")
+    show_partner_name = fields.Boolean(compute="_compute_show_fields")
     show_balance = fields.Boolean(compute="_compute_show_fields")
     show_currency_amount = fields.Boolean(compute="_compute_show_fields")
 
@@ -45,6 +46,7 @@ class BankStatementImportWizard(models.TransientModel):
         for wizard in self:
             config = wizard.config_id
             wizard.show_reference = config.reference_enabled
+            wizard.show_partner_name = config.partner_name_enabled
             wizard.show_balance = config.balance_enabled
             wizard.show_currency_amount = config.currency_amount_enabled
 
@@ -122,6 +124,7 @@ class BankStatementImportWizard(models.TransientModel):
 
     def _get_statement_vals(self):
         vals = {
+            "name": self.filename,
             "journal_id": self.journal_id.id,
             "line_ids": self._get_statement_line_vals(),
         }

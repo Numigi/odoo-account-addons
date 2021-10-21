@@ -34,6 +34,7 @@ class BankStatementLoader:
         self._balance_index = self._get_index_of("balance")
         self._description_index = self._get_index_of("description")
         self._reference_index = self._get_index_of("reference")
+        self._partner_name_index = self._get_index_of("partner_name")
         self._currency_index = self._get_index_of("currency")
         self._currency_amount_index = self._get_index_of("currency_amount")
 
@@ -58,6 +59,7 @@ class BankStatementLoader:
             "balance": self._get_balance(row),
             "description": self._get_description(row),
             "reference": self._get_reference(row),
+            "partner_name": self._get_partner_name(row),
         }
 
     def _get_date(self, row):
@@ -81,6 +83,10 @@ class BankStatementLoader:
     def _get_reference(self, row):
         if self._reference_index is not None:
             return self._get_cell(row, self._reference_index)
+
+    def _get_partner_name(self, row):
+        if self._partner_name_index is not None:
+            return self._get_cell(row, self._partner_name_index)
 
     def _get_currency(self, row):
         if self._currency_index is not None:

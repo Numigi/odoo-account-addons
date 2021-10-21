@@ -40,6 +40,9 @@ class BankStatementImportConfig(models.Model):
     reference_enabled = fields.Boolean()
     reference_column = fields.Integer()
 
+    partner_name_enabled = fields.Boolean()
+    partner_name_column = fields.Integer()
+
     withdraw_deposit_enabled = fields.Boolean()
     withdraw_column = fields.Integer()
     deposit_column = fields.Integer()
@@ -69,6 +72,11 @@ class BankStatementImportConfig(models.Model):
                 "index": self.reference_column - 1,
             }
             if self.reference_enabled
+            else None,
+            "partner_name": {
+                "index": self.partner_name_column - 1,
+            }
+            if self.partner_name_enabled
             else None,
             "withdraw": {
                 "index": self.withdraw_column - 1,

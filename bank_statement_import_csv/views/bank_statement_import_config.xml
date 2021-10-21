@@ -37,6 +37,11 @@
                             <field name="description_column"/>
                         </group>
                         <group>
+                            <field name="partner_name_enabled" string="Partner Name"/>
+                            <field name="partner_name_column"
+                                attrs="{'invisible': [('partner_name_enabled', '=', False)]}"/>
+                        </group>
+                        <group>
                             <field name="reference_enabled" string="Reference"/>
                             <field name="reference_column"
                                 attrs="{'invisible': [('reference_enabled', '=', False)]}"/>

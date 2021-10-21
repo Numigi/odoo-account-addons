@@ -125,6 +125,22 @@ The ``Reference`` field is optional.
 
 It is mapped to the field ``Reference`` (ref) of the bank statement line.
 
+Partner Name
+************
+Since version ``1.1.0`` of the module, it is possible to enter the ``Partner Name``.
+
+.. image:: static/description/import_config_partner_name.png
+
+The name of the partner does not allow to automatically fill the ``Partner`` field on
+bank statement lines.
+
+However, it allows to fill the field ``Partner Name`` on statement lines.
+This field gives a hint when manually selecting the partner for a transaction.
+
+By default, the column ``Partner Name`` is not displayed on bank statement lines.
+
+See the module `bank_statement_extra_columns <https://github.com/Numigi/odoo-account-addons/tree/12.0/bank_statement_extra_columns>`_ to display this column.
+
 Amounts
 *******
 The module supports either an amount displayed as a single column in the file,
@@ -212,6 +228,13 @@ After clicking on the button, the new bank statement is displayed.
 I notice that the transaction lines where properly created.
 
 I also notice that the initial and ending balances are properly set.
+
+File Name
+---------
+Since version ``1.1.0`` of the module, the name of the generated bank statement is
+the name of the imported file.
+
+.. image:: static/description/bank_statement_with_name.png
 
 Contributors
 ------------

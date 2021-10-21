@@ -32,6 +32,9 @@
                     <field name="line_ids">
                         <tree decoration-danger="has_error" editable="1" create="0" delete="0">
                             <field name="date" required="1"/>
+                            <field name="partner_name"
+                                attrs="{'column_invisible': [('parent.show_partner_name', '=', False)]}"
+                                />
                             <field name="reference"
                                 attrs="{'column_invisible': [('parent.show_reference', '=', False)]}"
                                 />
@@ -69,6 +72,7 @@
                         </form>
                     </field>
                     <field name="show_reference" invisible="1"/>
+                    <field name="show_partner_name" invisible="1"/>
                     <field name="show_balance" invisible="1"/>
                     <field name="show_currency_amount" invisible="1"/>
                     <field name="has_error" invisible="1"/>

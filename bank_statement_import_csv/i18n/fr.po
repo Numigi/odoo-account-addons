@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-08 22:34+0000\n"
-"PO-Revision-Date: 2021-10-08 18:48-0400\n"
+"POT-Creation-Date: 2021-10-21 13:48+0000\n"
+"PO-Revision-Date: 2021-10-21 09:49-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -28,14 +28,14 @@ msgid "Amount"
 msgstr "Montant"
 
 #. module: bank_statement_import_csv
-#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
-msgid "Amount Foreign Currency"
-msgstr "Montant devise étrangère"
-
-#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__amount_column
 msgid "Amount Column"
 msgstr "Colonne montant"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Amount Foreign Currency"
+msgstr "Montant devise étrangère"
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_search
@@ -49,14 +49,14 @@ msgid "Balance"
 msgstr "Solde"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_enabled
-msgid "Balance Enabled"
-msgstr "Solde activé"
-
-#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_column
 msgid "Balance Column"
 msgstr "Colonne solde"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_enabled
+msgid "Balance Enabled"
+msgstr "Solde activé"
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
@@ -89,11 +89,6 @@ msgstr "Wizard d'import de relevé bancaire"
 #: model:ir.model,name:bank_statement_import_csv.model_bank_statement_import_wizard_line
 msgid "Bank Statement Import Wizard Line"
 msgstr "Ligne de wizard d'import de relevé bancaire"
-
-#. module: bank_statement_import_csv
-#: model:ir.model,name:bank_statement_import_csv.model_account_bank_statement_line
-msgid "Bank Statement Line"
-msgstr "Ligne de relevé bancaire"
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
@@ -149,14 +144,14 @@ msgid "Currency Amount"
 msgstr "Montant en devise"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_enabled
-msgid "Currency Amount Enabled"
-msgstr "Montant en devise activé"
-
-#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_column
 msgid "Currency Amount Column"
 msgstr "Colonne montant en devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_enabled
+msgid "Currency Amount Enabled"
+msgstr "Montant en devise activé"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_column
@@ -169,14 +164,14 @@ msgid "Date"
 msgstr "Date"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_format
-msgid "Date Format"
-msgstr "Format de la date"
-
-#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_column
 msgid "Date Column"
 msgstr "Colonne date"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_format
+msgid "Date Format"
+msgstr "Format de la date"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__delimiter
@@ -292,10 +287,26 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard_line.py:54
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard_line.py:90
 #, python-format
 msgid "No active currency found with the code {}."
 msgstr "Aucune devise active trouvée pour le code {}."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__partner_name
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Partner Name"
+msgstr "Nom du partenaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__partner_name_column
+msgid "Partner Name Column"
+msgstr "Colonne nom du partenaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__partner_name_enabled
+msgid "Partner Name Enabled"
+msgstr "Nom du partenaire activé"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__quotechar
@@ -309,14 +320,14 @@ msgid "Reference"
 msgstr "Référence"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_enabled
-msgid "Reference Enabled"
-msgstr "Référence activée"
-
-#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_column
 msgid "Reference Column"
 msgstr "Colonne référence"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_enabled
+msgid "Reference Enabled"
+msgstr "Référence activée"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reversed_order
@@ -337,6 +348,11 @@ msgstr "Montrer la balance"
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_currency_amount
 msgid "Show Currency Amount"
 msgstr "Montrer le montant en devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_partner_name
+msgid "Show Partner Name"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_reference
@@ -365,7 +381,13 @@ msgid "The bank statement is ready to be created."
 msgstr "Le relevé bancaire est prêt à être créé."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:99
+#: code:addons/bank_statement_import_csv/loader.py:97
+#, python-format
+msgid "The currrency is required when an amount in foreign currency is given."
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:101
 #, python-format
 msgid ""
 "The encoding defined in the configuration ({encoding}) does not match the "
@@ -373,6 +395,25 @@ msgid ""
 msgstr ""
 "L'encodage défini dans la configuration ({encoding}) ne correspond pas au "
 "fichier sélectionné ({filename})."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:75
+#: code:addons/bank_statement_import_csv/loader.py:193
+#, python-format
+msgid "The given date ({date}) does not match the format {format}."
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:227
+#, python-format
+msgid "The given value ({}) does not seem to be a valid curency code."
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:212
+#, python-format
+msgid "The given value ({}) does not seem to be a valid number."
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__first_row
@@ -407,16 +448,19 @@ msgid "Withdraw / Deposit Columns"
 msgstr "Colonnes retrait / dépôt"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_deposit_enabled
-msgid "Withdraw Deposit Enabled"
-msgstr "Retrait / dépôt activé"
-
-#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_column
 msgid "Withdraw Column"
 msgstr "Colonne retrait"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_deposit_enabled
+msgid "Withdraw Deposit Enabled"
+msgstr "Retrait / dépôt activé"
+
+#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__wizard_id
 msgid "Wizard"
 msgstr "Wizard"
+
+#~ msgid "Bank Statement Line"
+#~ msgstr "Ligne de relevé bancaire"
