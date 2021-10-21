@@ -79,6 +79,10 @@ class TestWizard(common.SavepointCase):
         self.config.reference_enabled = True
         assert self.wizard.show_reference
 
+    def test_show_partner_name(self):
+        self.config.partner_name_enabled = True
+        assert self.wizard.show_partner_name
+
     def test_show_balance(self):
         self.config.balance_enabled = True
         assert self.wizard.show_balance
@@ -105,6 +109,8 @@ class TestWizard(common.SavepointCase):
         assert statement.balance_start == 10730.38 - 1138.24
         assert statement.balance_end_real == 34475.86
 
+        assert statement.name == "cad_mono_currency.csv"
+
     def test_bank_statement__multi_currency(self):
         self._load_multi_currency_file()
         self.wizard.confirm()
@@ -125,6 +131,15 @@ class TestWizard(common.SavepointCase):
         assert lines[2].amount == -149.40
         assert lines[2].currency_id == self.usd
         assert lines[2].amount_currency == -116.71
+
+    def test_bank_statement__partner_name_enabled(self):
+        self.config.partner_name_enabled = True
+        self.config.partner_name_column = 2
+        self._load_mono_currency_file()
+        self.wizard.confirm()
+        statement = self.wizard.statement_id
+        lines = statement.line_ids
+        assert lines[0].partner_name == "nostrud exercitation ullamco"
 
     def test_inactive_currency(self):
         self._load_multi_currency_file()
@@ -158,12 +173,16 @@ class TestWizard(common.SavepointCase):
 
     def _load_mono_currency_file(self):
         self._setup_mono_currency_config()
-        self.wizard.file = get_file_base64("cad_mono_currency.csv")
+        filename = "cad_mono_currency.csv"
+        self.wizard.file = get_file_base64(filename)
+        self.wizard.filename = filename
         self.wizard.load_file()
 
     def _load_multi_currency_file(self):
         self._setup_multi_currency_config()
-        self.wizard.file = get_file_base64("cad_multi_currency.csv")
+        filename = "cad_multi_currency.csv"
+        self.wizard.file = get_file_base64(filename)
+        self.wizard.filename = filename
         self.wizard.load_file()
 
     def _setup_multi_currency_config(self):

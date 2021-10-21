@@ -27,6 +27,7 @@ class BankStatementImportWizardLine(models.TransientModel):
     balance = fields.Char()
     description = fields.Char()
     reference = fields.Char()
+    partner_name = fields.Char()
     has_error = fields.Boolean()
 
     def validate_error_correction(self):
@@ -67,6 +68,7 @@ class BankStatementImportWizardLine(models.TransientModel):
             "date": datetime.strptime(self.date, "%Y-%m-%d").date(),
             "name": self.description,
             "ref": self.reference,
+            "partner_name": self.partner_name,
             "amount": float(self.amount) if self.amount else None,
             "amount_currency": float(self.currency_amount) if currency else None,
             "currency_id": currency.id if currency else None,
