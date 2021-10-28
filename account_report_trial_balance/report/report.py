@@ -55,8 +55,8 @@ class TrialBalanceReport(models.TransientModel):
         )
 
     def _get_report_url(self):
-        config = self.env['ir.config_parameter'].sudo()
-        return config.get_param('report.url') or config.get_param('web.base.url')
+        config = self.env["ir.config_parameter"].sudo()
+        return config.get_param("report.url") or config.get_param("web.base.url")
 
     def get_rendering_variables(self):
         return {
@@ -72,7 +72,9 @@ class TrialBalanceReport(models.TransientModel):
     def initial_balance_clicked(self, account_id):
         action = self._get_move_line_action()
         account = self._get_account(account_id)
-        action["name"] = _("({account}) - Initial Balance").format(account=account.display_name)
+        action["name"] = _("({account}) - Initial Balance").format(
+            account=account.display_name
+        )
         action["domain"] = self._get_initial_balance_domain(account_id)
         return action
 
@@ -100,7 +102,9 @@ class TrialBalanceReport(models.TransientModel):
     def closing_balance_clicked(self, account_id):
         action = self._get_move_line_action()
         account = self._get_account(account_id)
-        action["name"] = _("({account}) - Closing Balance").format(account=account.display_name)
+        action["name"] = _("({account}) - Closing Balance").format(
+            account=account.display_name
+        )
         action["domain"] = self._get_closing_balance_domain(account_id)
         return action
 
@@ -167,7 +171,9 @@ class TrialBalanceReport(models.TransientModel):
         ]
 
     def _filter_null_accounts(self, accounts):
-        return accounts.filtered(lambda r: self._get_debit_credit(r) != (0,0) or self._initial_balance(r))
+        return accounts.filtered(
+            lambda r: self._get_debit_credit(r) != (0, 0) or self._initial_balance(r)
+        )
 
     def _get_debit_credit(self, account):
         date_from = self.date_from.strftime(DATE_FORMAT)
@@ -183,7 +189,11 @@ class TrialBalanceReport(models.TransientModel):
             and am.state = 'posted'
             GROUP BY aml.account_id
             """,
-            (date_from, date_to, account.id,),
+            (
+                date_from,
+                date_to,
+                account.id,
+            ),
         )
         res = self._cr.fetchall()
         if not res:
@@ -203,7 +213,10 @@ class TrialBalanceReport(models.TransientModel):
             and am.state = 'posted'
             GROUP BY aml.account_id
             """,
-            (date_from, account.id,),
+            (
+                date_from,
+                account.id,
+            ),
         )
         res = self._cr.fetchall()
         if not res:
