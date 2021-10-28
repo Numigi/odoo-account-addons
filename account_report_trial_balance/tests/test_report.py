@@ -151,5 +151,27 @@ class TestReport(common.SavepointCase):
             ("move_id.state", "=", "posted"),
         ]
 
+    def test_exclude_null(self):
+        self.report.exclude_null = True
+        accounts = self.report._get_accounts()
+        accounts_are_null = False
+        for account in accounts:
+            if self.report._get_debit_credit(account) == (0,0) and not self.report._initial_balance(account):
+                accounts_are_null = True
+                break
+        
+        assert not accounts_are_null
+
+    def test_include_null(self):
+        self.report.exclude_null = False
+        accounts = self.report._get_accounts()
+        accounts_are_null = False
+        for account in accounts:
+            if self.report._get_debit_credit(account) == (0,0) and not self.report._initial_balance(account):
+                accounts_are_null = True
+                break
+        
+        assert accounts_are_null
+
     def _get_lines(self):
         return self.report.get_rendering_variables()["lines"]

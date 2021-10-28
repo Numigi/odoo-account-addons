@@ -30,6 +30,9 @@
                                 force_save="1"
                                 />
                         </group>
+                        <group>
+                            <field name="exclude_null"/>
+                        </group>
                     </group>
                 </sheet>
                 <footer>
