@@ -169,7 +169,8 @@ class BankStatementLoader:
             next(reader, None)
 
         for row in reader:
-            yield row
+            if row:
+                yield row
 
 
 def _not_same_sign(a1, a2):
