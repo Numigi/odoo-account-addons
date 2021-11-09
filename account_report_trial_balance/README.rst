@@ -19,7 +19,6 @@ I select a date range for the report.
 
 .. image:: static/description/wizard.png
 
-I can also choose to exclude accounts who's values are all at zero by clicking the checkbox.
 
 Then, I click on ``View``.
 It selects only posted account move lines.
@@ -31,6 +30,12 @@ In the report, I can click on any amount to view the details.
 .. image:: static/description/report_amount.png
 
 .. image:: static/description/report_amount_clicked.png
+
+When generating the report, you can also select to exclude accounts that have all their values at 0.
+
+.. image:: static/description/wizard_null.png
+
+.. image:: static/description/report_null.png
 
 Contributors
 ------------
