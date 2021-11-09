@@ -144,7 +144,14 @@ class TrialBalanceReport(models.TransientModel):
     def _get_lines(self):
         lines = []
         for account in self._get_accounts():
-            if not self.exclude_null or self.exclude_null and (self._get_debit_credit(account) != (0, 0) or self._initial_balance(account)):
+            if (
+                not self.exclude_null
+                or self.exclude_null
+                and (
+                    self._get_debit_credit(account) != (0, 0)
+                    or self._initial_balance(account)
+                )
+            ):
                 lines.append(self._get_account_line(account))
         return lines
 
