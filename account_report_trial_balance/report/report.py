@@ -142,7 +142,11 @@ class TrialBalanceReport(models.TransientModel):
         }
 
     def _get_lines(self):
-        return [self._get_account_line(account) for account in self._get_accounts()]
+        lines = []
+        for account in self._get_accounts():
+            if not self.exclude_null or self.exclude_null and (self._get_debit_credit(account) != (0, 0) or self._initial_balance(account)):
+                lines.append(self._get_account_line(account))
+        return lines
 
     def _get_account_line(self, account):
         debit, credit = self._get_debit_credit(account)
@@ -160,20 +164,12 @@ class TrialBalanceReport(models.TransientModel):
     def _get_accounts(self):
         domain = self._get_account_domain()
         accounts = self.env["account.account"].search(domain)
-        if self.exclude_null:
-            accounts = self._filter_null_accounts(accounts)
-
         return accounts
 
     def _get_account_domain(self):
         return [
             ("company_id", "=", self.company_id.id),
         ]
-
-    def _filter_null_accounts(self, accounts):
-        return accounts.filtered(
-            lambda r: self._get_debit_credit(r) != (0, 0) or self._initial_balance(r)
-        )
 
     def _get_debit_credit(self, account):
         date_from = self.date_from.strftime(DATE_FORMAT)

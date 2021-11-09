@@ -167,29 +167,13 @@ class TestReport(common.SavepointCase):
 
     def test_exclude_null(self):
         self.report.exclude_null = True
-        accounts = self.report._get_accounts()
-        assert not self._accounts_are_null(accounts)
+        lines = self._get_lines()
+        assert not lines
 
     def test_include_null(self):
         self.report.exclude_null = False
-        accounts = self.report._get_accounts()
-        assert self._accounts_are_null(accounts)
-
-    def _accounts_are_null(self, accounts):
-        accounts_are_null = False
-        for account in accounts:
-            if (
-                self.report._get_debit_credit(account)
-                == (
-                    0,
-                    0,
-                )
-                and not self.report._initial_balance(account)
-            ):
-                accounts_are_null = True
-                break
-
-        return accounts_are_null
+        lines = self._get_lines()
+        assert lines
 
     def _get_lines(self):
         return self.report.get_rendering_variables()["lines"]
