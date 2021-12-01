@@ -38,6 +38,7 @@
         "account_show_full_features",
         "account_type_archive",
         "account_unaffected_earnings_disabled",
+        "bank_reconciliation_filter",
         "bank_statement_extra_columns",
         "bank_statement_no_reverse",
         "bank_statement_online_stripe",
