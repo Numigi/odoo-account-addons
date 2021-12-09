@@ -51,10 +51,14 @@
                                 string="Withdraw / Deposit Columns"/>
                             <field name="withdraw_column"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
+                            <field name="reverse_withdraw"
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
                             <field name="deposit_column"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
                             <field name="amount_column"
                                 attrs="{'invisible': [('withdraw_deposit_enabled', '=', True)]}"/>
+                            <field name="reverse_deposit"
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
                         </group>
                         <group>
                             <field name="balance_enabled" string="Balance"/>

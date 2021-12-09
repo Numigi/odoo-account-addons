@@ -154,6 +154,15 @@ If ``Withdraw / Deposit`` is unchecked, you need to supply the number of the amo
 
 .. image:: static/description/import_config_amount.png
 
+Reversed Widthdraw / Deposit
+****************************
+It is possible that your bank proposes the CSV statements with negative amounts in the withdraw columns
+and positive amounts in the deposit columns (or vice versa).
+
+Since version ``1.2.0`` of the module, it is possible to reverse the amounts contained in the withdraw and deposit columns.
+
+.. image:: static/description/import_config_reversed_amounts.png
+
 Balance
 *******
 Optionnaly, the module allows to parse a balance column, containing the balance
