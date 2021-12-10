@@ -53,9 +53,19 @@ class TestMonoCurrencyCSV(common.TransactionCase):
         rows = self._get_rows()
         assert rows[0]["amount"] == Decimal("-1235.98")
 
+    def test_reverse_withdraw(self):
+        self.config["withdraw"]["reverse"] = True
+        rows = self._get_rows()
+        assert rows[0]["amount"] == Decimal("1235.98")
+
     def test_amount_deposit(self):
         rows = self._get_rows()
         assert rows[3]["amount"] == Decimal("18396.00")
+
+    def test_reverse_deposit(self):
+        self.config["deposit"]["reverse"] = True
+        rows = self._get_rows()
+        assert rows[3]["amount"] == Decimal("-18396.00")
 
     def test_balance(self):
         rows = self._get_rows()

@@ -3,7 +3,7 @@
 
 {
     "name": "Bank Statement Import CSV",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://numigi.com",

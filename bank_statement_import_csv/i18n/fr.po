@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-21 13:48+0000\n"
-"PO-Revision-Date: 2021-10-21 09:49-0400\n"
+"POT-Creation-Date: 2021-12-09 19:41+0000\n"
+"PO-Revision-Date: 2021-12-09 14:43-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -94,6 +94,18 @@ msgstr "Ligne de wizard d'import de relevé bancaire"
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
 msgid "Cancel"
 msgstr "Annuler"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__reverse_deposit
+msgid "Check this box if the deposit column contains negative amounts."
+msgstr ""
+"Cocher cette case si la colonne de dépôts contient des montants négatifs."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__reverse_withdraw
+msgid "Check this box if the withdraw column contains negative amounts."
+msgstr ""
+"Cocher cette case si la colonne de retraits contient des montants négatifs."
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__reversed_order
@@ -330,6 +342,16 @@ msgid "Reference Enabled"
 msgstr "Référence activée"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reverse_deposit
+msgid "Reverse Deposit"
+msgstr "Dépôt inversé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reverse_withdraw
+msgid "Reverse Withdraw"
+msgstr "Retrait inversé"
+
+#. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reversed_order
 msgid "Reversed Order"
 msgstr "Ordre inversé"
@@ -381,7 +403,7 @@ msgid "The bank statement is ready to be created."
 msgstr "Le relevé bancaire est prêt à être créé."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:97
+#: code:addons/bank_statement_import_csv/loader.py:103
 #, python-format
 msgid "The currrency is required when an amount in foreign currency is given."
 msgstr ""
@@ -397,20 +419,20 @@ msgstr ""
 "fichier sélectionné ({filename})."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:75
-#: code:addons/bank_statement_import_csv/loader.py:193
+#: code:addons/bank_statement_import_csv/loader.py:81
+#: code:addons/bank_statement_import_csv/loader.py:206
 #, python-format
 msgid "The given date ({date}) does not match the format {format}."
 msgstr ""
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:227
+#: code:addons/bank_statement_import_csv/loader.py:240
 #, python-format
 msgid "The given value ({}) does not seem to be a valid curency code."
 msgstr ""
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:212
+#: code:addons/bank_statement_import_csv/loader.py:225
 #, python-format
 msgid "The given value ({}) does not seem to be a valid number."
 msgstr ""

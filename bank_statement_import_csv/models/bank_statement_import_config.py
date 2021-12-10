@@ -45,7 +45,13 @@ class BankStatementImportConfig(models.Model):
 
     withdraw_deposit_enabled = fields.Boolean()
     withdraw_column = fields.Integer()
+    reverse_withdraw = fields.Boolean(
+        help="Check this box if the withdraw column contains negative amounts."
+    )
     deposit_column = fields.Integer()
+    reverse_deposit = fields.Boolean(
+        help="Check this box if the deposit column contains negative amounts."
+    )
 
     amount_column = fields.Integer()
 
@@ -80,11 +86,13 @@ class BankStatementImportConfig(models.Model):
             else None,
             "withdraw": {
                 "index": self.withdraw_column - 1,
+                "reverse": self.reverse_withdraw,
             }
             if self.withdraw_deposit_enabled
             else None,
             "deposit": {
                 "index": self.deposit_column - 1,
+                "reverse": self.reverse_deposit,
             }
             if self.withdraw_deposit_enabled
             else None,

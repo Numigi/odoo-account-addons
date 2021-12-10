@@ -111,6 +111,15 @@ class TestWizard(common.SavepointCase):
 
         assert statement.name == "cad_mono_currency.csv"
 
+    def test_reverse_withdraw_and_deposit(self):
+        self.config.reverse_deposit = True
+        self.config.reverse_withdraw = True
+        self._load_mono_currency_file()
+        self.wizard.confirm()
+        lines = self.wizard.statement_id.line_ids
+        assert lines[0].amount == -1138.24
+        assert lines[4].amount == 183.30
+
     def test_bank_statement__multi_currency(self):
         self._load_multi_currency_file()
         self.wizard.confirm()

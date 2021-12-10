@@ -30,7 +30,9 @@ class BankStatementLoader:
 
         self._amount_index = self._get_index_of("amount")
         self._withdraw_index = self._get_index_of("withdraw")
+        self._reverse_withdraw = self._is_reversed("withdraw")
         self._deposit_index = self._get_index_of("deposit")
+        self._reverse_deposit = self._is_reversed("deposit")
         self._balance_index = self._get_index_of("balance")
         self._description_index = self._get_index_of("description")
         self._reference_index = self._get_index_of("reference")
@@ -45,6 +47,10 @@ class BankStatementLoader:
     def _get_format_of(self, field_name):
         field = self._config.get(field_name)
         return field["format"] if field else None
+
+    def _is_reversed(self, field_name):
+        field = self._config.get(field_name)
+        return field.get("reverse") if field else False
 
     def load(self, file):
         rows = self._iter_rows(file)
@@ -128,11 +134,17 @@ class BankStatementLoader:
 
     def _get_withdraw(self, row):
         if self._withdraw_index is not None:
-            return self._get_cell_decimal(row, self._withdraw_index)
+            amount = self._get_cell_decimal(row, self._withdraw_index)
+            if self._reverse_withdraw:
+                amount = -amount if amount is not None else None
+            return amount
 
     def _get_deposit(self, row):
         if self._deposit_index is not None:
-            return self._get_cell_decimal(row, self._deposit_index)
+            amount = self._get_cell_decimal(row, self._deposit_index)
+            if self._reverse_deposit:
+                amount = -amount if amount is not None else None
+            return amount
 
     def _get_currency_amount(self, row):
         if self._currency_amount_index is not None:
