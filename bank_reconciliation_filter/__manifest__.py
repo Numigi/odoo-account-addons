@@ -4,7 +4,7 @@
 {
     "name": "Bank Reconciliation Filter",
     "summary": "Filter the list of journal entries proposed by the reconciliation widget",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",

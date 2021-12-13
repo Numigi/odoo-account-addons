@@ -133,6 +133,30 @@ class TestReconciliation(common.SavepointCase):
         lines = self._get_move_lines()
         assert self.invoice_payable_line not in lines
 
+    def test_invoice_matching(self):
+        aml_ids = self._apply_invoice_matching_rule()
+        assert self.invoice_payable_line.id in aml_ids
+
+    def test_invoice_matching__show_payments_only(self):
+        self.journal.reconcile_show_payments_only = True
+        aml_ids = self._apply_invoice_matching_rule()
+        assert self.invoice_payable_line.id not in aml_ids
+
+    def test_payment_matching(self):
+        aml_ids = self._apply_invoice_matching_rule(exclude_payment=False)
+        assert self.payment_bank_line.id in aml_ids
+
+    def test_payment_matching__show_payments_only(self):
+        self.journal.reconcile_show_payments_only = True
+        aml_ids = self._apply_invoice_matching_rule(exclude_payment=False)
+        assert self.payment_bank_line.id in aml_ids
+
+    def _apply_invoice_matching_rule(self, exclude_payment=True):
+        reconcile_model = self.env.ref("account.reconciliation_model_default_rule")
+        excluded_ids = [self.payment_bank_line.id] if exclude_payment else []
+        result = reconcile_model._apply_rules(self.statement_line, excluded_ids=excluded_ids)
+        return result[self.statement_line.id]["aml_ids"]
+
     def _get_move_lines(self):
         widget = self.env["account.reconciliation.widget"]
         domain = widget._domain_move_lines_for_reconciliation(
