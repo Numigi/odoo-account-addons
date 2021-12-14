@@ -23,8 +23,11 @@ Overview
 
 Current Year Earnings
 ~~~~~~~~~~~~~~~~~~~~~
-This module archives the account type ``Current Year Earnings`` related to
-the ``Undistributed Profits/Losses`` account.
+This module hides the account type ``Current Year Earnings`` in the form/list view of an account.
+
+.. image:: static/description/account_type_hidden.png
+
+This account type should not be archived, because different modules assume that it exists.
 
 Initial Balance
 ~~~~~~~~~~~~~~~
