@@ -74,3 +74,16 @@ class TestReconciliation(TranslationCase):
     )
     def test_translations_found_with_correct_term(self, data):
         assert self._find_translation(data[0], data[1])
+
+
+@ddt
+class TestPayment(TranslationCase):
+
+    @data(
+        ('Outgoing Payments', 'Payments Sortants'),
+        ('Payments Configuration', 'Configuration des Payements'),
+        ('Outstanding Payments Account', 'Compte de Payements Sortants'),
+        ('Outstanding Receipts Account', 'Compte de Payements Entrants'),
+    )
+    def test_no_translation_found_with_wrong_term(self, data):
+        assert not self._find_translation(data[0], data[1])
