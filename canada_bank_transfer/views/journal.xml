@@ -11,7 +11,7 @@
                     <field name="canada_transit"/>
                 </xpath>
 
-                <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                <group name="outgoing_payment" position="after">
                     <field name="eft_enabled" invisible="1"/>
                     <group string="EFT" attrs="{'invisible': [('eft_enabled', '=', False)]}">
                         <field name="eft_user_short_name" string="User Short Name"/>
@@ -20,7 +20,7 @@
                         <field name="eft_destination" string="Destination"/>
                         <field name="eft_sequence_id" string="Sequence"/>
                     </group>
-                </xpath>
+                </group>
             </field>
         </record>
 
