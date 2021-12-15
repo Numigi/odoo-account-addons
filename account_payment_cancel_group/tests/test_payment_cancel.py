@@ -38,9 +38,12 @@ class TestPaymentCancel(common.SavepointCase):
 
     def test_if_not_member_of_group__user_not_allowed(self):
         with pytest.raises(AccessError):
-            self.payment.sudo(self.user).action_cancel()
+            self.payment.sudo(self.user).action_draft()
 
     def test_if_member_of_group__user_allowed(self):
         self.user.groups_id |= self.env.ref('account_payment_cancel_group.group_cancel_payments')
-        self.payment.sudo(self.user).action_cancel()
-        assert self.payment.state == 'cancel'
+        self.payment.sudo(self.user).action_draft()
+        assert self.payment.state == 'draft'
+
+    def test_call_method_with_empty_recordset(self):
+        self.env["account.payment"].sudo(self.user).action_draft()
