@@ -63,7 +63,7 @@ class AccountJournal(models.Model):
         )
         for journal in self:
             journal.eft_enabled = (
-                eft_method and eft_method in journal.outbound_payment_method_ids
+                eft_method and eft_method.id in journal.outbound_payment_method_ids.ids
             )
 
     @api.model
