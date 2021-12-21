@@ -32,6 +32,7 @@ class IrTranslation(models.Model):
         _update_credit_note_translations(self.env)
         _update_aged_balance_translations(self.env)
         _update_reconciliation_translations(self.env)
+        _update_payment_translations(self.env)
 
 
 def _update_credit_note_translations(env):
@@ -85,10 +86,7 @@ def _update_aged_balance_translations(env):
         ("Balance agée", "Âge des comptes"),
         ("balance agée", "âge des comptes"),
     ]
-    for source, destination in mapping:
-        translations = _find_translations_term_with_value(env, source)
-        for translation in translations:
-            _replace_term_in_translation(translation, source, destination)
+    _replace_terms(env, mapping)
 
 
 def _update_reconciliation_translations(env):
@@ -107,6 +105,20 @@ def _update_reconciliation_translations(env):
         # Grammatical errors
         ("annuler le lettrage l'entrée", "annuler la conciliation")
     ]
+    _replace_terms(env, mapping)
+
+
+def _update_payment_translations(env):
+    mapping = [
+        ("Payments Sortants", "Paiements sortants"),
+        ("Configuration des Payements", "Configuration des paiements"),
+        ("Compte de Payements Sortants", "Compte de paiement sortant"),
+        ("Compte de Payements Entrants", "Compte de paiement entrant"),
+    ]
+    _replace_terms(env, mapping)
+
+
+def _replace_terms(env, mapping):
     for source, destination in mapping:
         translations = _find_translations_term_with_value(env, source)
         for translation in translations:
