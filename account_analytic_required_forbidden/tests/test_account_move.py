@@ -65,3 +65,8 @@ class TestAccountMove(common.SavepointCase):
         self.line_2.analytic_account_id = self.analytic
         with pytest.raises(ValidationError):
             self.move.post()
+
+    def test_both_fields_checked(self):
+        self.account_1.analytic_account_required = True
+        with pytest.raises(ValidationError):
+            self.account_1.analytic_account_forbidden = True

@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_analytic_required_forbidden
+# 	* account_analytic_required_forbidden
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-12 14:35+0000\n"
-"PO-Revision-Date: 2019-03-12 14:35+0000\n"
+"POT-Creation-Date: 2021-12-21 19:10+0000\n"
+"PO-Revision-Date: 2021-12-21 14:11-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Poedit 2.3\n"
 
 #. module: account_analytic_required_forbidden
 #: model:ir.model,name:account_analytic_required_forbidden.model_account_account
@@ -31,8 +33,22 @@ msgid "Analytic Account Required"
 msgstr "Compte analytique obligatoire"
 
 #. module: account_analytic_required_forbidden
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_account__display_name
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_move_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_analytic_required_forbidden
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_account__id
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_move__id
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_analytic_required_forbidden
 #: model:ir.model,name:account_analytic_required_forbidden.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_analytic_required_forbidden
@@ -41,17 +57,41 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: account_analytic_required_forbidden
-#: code:addons/account_analytic_required_forbidden/models.py:36
-#, python-format
-msgid "The journal entry can not be posted because the line {line} "
-"has an analytic account ({analytic_account}). "
-"The account {account} forbids an analytic account."
-msgstr "La pièce comptable ne peut pas être validée, car la ligne {line} a un compte analytique ({analytic_account}). "
-"Le compte {account} ne permet pas d’inscrire un compte analytique."
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_account____last_update
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_analytic_required_forbidden.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_analytic_required_forbidden
-#: code:addons/account_analytic_required_forbidden/models.py:27
+#: code:addons/account_analytic_required_forbidden/models.py:0
 #, python-format
-msgid "The journal entry can not be posted because the line {line} has no analytic account. The account {account} requires an analytic account."
-msgstr "La pièce comptable ne peut pas être validée, car la ligne {line} "
-"n’a pas de compte analytique. Le compte {account} oblige de renseigner le compte analytique."
+msgid ""
+"The analytic account can not be required and forbidden for the same GL "
+"account ({})."
+msgstr ""
+"Le compte analytique ne peut pas être obligatoire et interdit pour le même "
+"compte de GL ({})."
+
+#. module: account_analytic_required_forbidden
+#: code:addons/account_analytic_required_forbidden/models.py:0
+#, python-format
+msgid ""
+"The journal entry can not be posted because the line {line} has an analytic "
+"account ({analytic_account}). The account {account} forbids an analytic "
+"account."
+msgstr ""
+"La pièce comptable ne peut pas être validée, car la ligne {line} a un compte "
+"analytique ({analytic_account}). Le compte {account} ne permet pas "
+"d’inscrire un compte analytique."
+
+#. module: account_analytic_required_forbidden
+#: code:addons/account_analytic_required_forbidden/models.py:0
+#, python-format
+msgid ""
+"The journal entry can not be posted because the line {line} has no analytic "
+"account. The account {account} requires an analytic account."
+msgstr ""
+"La pièce comptable ne peut pas être validée, car la ligne {line} n’a pas de "
+"compte analytique. Le compte {account} oblige de renseigner le compte "
+"analytique."
