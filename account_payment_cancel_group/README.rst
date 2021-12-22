@@ -18,9 +18,13 @@ This module adds a user group allowed to cancel payments.
 
 The `Cancel` button on payments is only displayed for members of this group.
 
-When cancelling a payment, a message with the name of the user is logged in the chatter for traceability.
+Known Issues
+~~~~~~~~~~~~
+As of Odoo version 14.0, the cancellation of payments passes through the status ``Draft``.
 
-.. image:: static/description/payment_cancelled_message.png
+In other words, a posted payment can be reset to draft, then it can be cancelled.
+
+Because of this new behavior, the module now restricts both ``Reset To Draft`` and ``Cancel`` buttons.
 
 Contributors
 ------------

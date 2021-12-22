@@ -9,6 +9,9 @@
             <button name="action_cancel" position="attributes">
                 <attribute name="groups">account_payment_cancel_group.group_cancel_payments</attribute>
             </button>
+            <button name="action_draft" position="attributes">
+                <attribute name="groups">account_payment_cancel_group.group_cancel_payments</attribute>
+            </button>
         </field>
     </record>
 
