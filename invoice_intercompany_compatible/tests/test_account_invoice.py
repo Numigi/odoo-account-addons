@@ -14,12 +14,12 @@ class TestAccountInvoice(SavepointCase):
             }
         )
 
-
         cls.company_b = cls.env["res.company"].create(
             {
                 "name": "Company B",
             }
         )
+
 
         cls.bank_account_b = cls.env["res.partner.bank"].create(
             {
@@ -30,9 +30,9 @@ class TestAccountInvoice(SavepointCase):
         )
 
     def test_bank_account(self):
-        invoice_obj = self.env["account.invoice"].with_context(
-            default_type="out_invoice", default_company_id=self.company_a.id
-        )
-        with Form(invoice_obj) as form:
-            form.company_id = self.company_b
-            assert form.partner_bank_id == self.bank_account_b
+        invoice = self.env["account.invoice"].new({
+            "type": "out_invoice",
+            "company_id": self.company_b.id,
+        })
+        invoice._onchange_company_set_partner_bank()
+        assert invoice.partner_bank_id == self.bank_account_b
