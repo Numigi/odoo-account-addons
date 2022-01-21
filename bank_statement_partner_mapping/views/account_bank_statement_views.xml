@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="account_bank_statement_view_form_inherit_bank_statement_partner_mapping" model="ir.ui.view">
+        <field name="name">account.bank.statement.view.form.inherit</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+              <header position="inside">
+                    <button name="button_recuperate_partners"
+                            string="Recuperate Partners"
+                            type="object"
+                            class="oe_highlight"/>
+                </header>
+        </field>
+     </record>
+
+</odoo>
