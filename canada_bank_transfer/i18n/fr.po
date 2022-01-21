@@ -1022,7 +1022,7 @@ msgstr ""
 #~ "Le numéro de séquence d'un EFT doit être rempli avant de générer le "
 #~ "fichier de transfert."
 
-. module: canada_bank_transfer
+#. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__use_transit_account
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__use_transit_account
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_res_company__use_transit_account
