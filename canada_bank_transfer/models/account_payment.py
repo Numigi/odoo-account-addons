@@ -46,3 +46,9 @@ class AccountPayment(models.Model):
             payment.is_eft_payment = (
                 eft_method and payment.payment_method_id == eft_method
             )
+
+    def _get_liquidity_move_line_vals(self, amount):
+        vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
+        if self.journal_id.use_transit_account and self.payment_method_id == self.env.ref("canada_bank_transfer.payment_method_eft"):
+            vals.update({'account_id': self.payment_type == 'outbound' and self.journal_id.transit_account and self.journal_id.transit_account.id})
+        return vals

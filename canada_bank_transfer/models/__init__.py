@@ -8,4 +8,5 @@ from . import (
     res_bank,
     res_company,
     res_partner_bank,
+    res_config_settings
 )

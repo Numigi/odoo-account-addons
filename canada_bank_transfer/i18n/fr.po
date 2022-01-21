@@ -1021,3 +1021,37 @@ msgstr ""
 #~ msgstr ""
 #~ "Le numéro de séquence d'un EFT doit être rempli avant de générer le "
 #~ "fichier de transfert."
+
+. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__use_transit_account
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__use_transit_account
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_company__use_transit_account
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_config_settings__use_transit_account
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "Use a transit Account"
+msgstr "Utiliser un compte de transit"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "Electronic Funds Transfers"
+msgstr "Transferts de Fonds Électroniques"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "When activated, Payments are affected on a transit Account.\n"
+"                                <br/>\n"
+"                                When validating the EFT,Transit Account Moves are reversed to be affected on the Bank\n"
+"                                Account."
+msgstr "Pour la méthode de paiement EFT,les paiements validés sont comptabilisés sur un compte de transit.\n"
+"                                        <br/>\n"
+"                                        La validation de l’EFT renverse les écritures sur le compte de transit et affecte la balance sur le compte de banque."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__transit_account
+msgid "Transit Account"
+msgstr "Compte de transit"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__deposit_account_move_id
+msgid "Deposit Account Move"
+msgstr "Pièce comptable de dépôt"

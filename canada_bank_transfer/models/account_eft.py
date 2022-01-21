@@ -86,6 +86,8 @@ class EFT(models.Model):
     )
 
     payment_notices_sent = fields.Boolean(copy=False)
+    deposit_account_move_id = fields.Many2one('account.move', string='Deposit Account Move', readonly=1)
+    use_transit_account = fields.Boolean(string="Use a transit Account", related="journal_id.use_transit_account", store=1)
 
     def _compute_name(self):
         for eft in self:
@@ -135,6 +137,11 @@ class EFT(models.Model):
 
     @api.multi
     def action_draft(self):
+        if self.deposit_account_move_id:
+            # Cancel deposit account move and delete it
+            self.deposit_account_move_id.journal_id.update_posted = True
+            self.deposit_account_move_id.button_cancel()
+            self.deposit_account_move_id.unlink()
         self.write({"state": "draft"})
 
     def _check_payment_and_bank_accounts(self):

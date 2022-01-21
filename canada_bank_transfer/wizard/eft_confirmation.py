@@ -2,7 +2,7 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from ..change_payment_date import change_payment_date
 
 
@@ -14,6 +14,44 @@ class EFTConfirmationWizard(models.TransientModel):
     eft_id = fields.Many2one('account.eft')
     line_ids = fields.One2many('account.eft.confirmation.line', 'wizard_id')
 
+    def _prepare_invoice_values(self):
+        """Prepare values of EFT Entries."""
+        vals_invoice_lines = []
+        for line in self.line_ids.filtered(lambda line: line.completed):
+            vals_invoice_lines.append(
+                (
+                    0,
+                    0,
+                    {
+                        "partner_id": line.partner_id.id,
+                        "debit": line.amount,
+                        "account_id": self.eft_id.journal_id.transit_account.id,
+                        "name": self.eft_id.name + _(" - Deposit"),
+                    },
+                )
+            )
+
+        vals_invoice_lines.append(
+            (
+                0,
+                0,
+                {
+                    "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
+                    "credit": sum(self.line_ids.filtered(lambda line: line.completed).mapped('amount')),
+                    "account_id": self.eft_id.journal_id.default_debit_account_id.id,
+                    "name": self.eft_id.name + _(" - Deposit"),
+                },
+            )
+        )
+        invoice_vals = {
+            "ref": self.eft_id.name + _(" - Deposit"),
+            "move_type": "entry",
+            "date": fields.Date.today(),
+            "journal_id": self.eft_id.journal_id.id,
+            "line_ids": vals_invoice_lines,
+        }
+        return invoice_vals
+
     @api.multi
     def action_validate(self):
         """Validate the EFT.
@@ -23,6 +61,7 @@ class EFTConfirmationWizard(models.TransientModel):
         * Attach the EFT file to each completed payments.
         * Move the paiments not marked as `completed` to the `Failed Payments`
         * section in the form view of the EFT.
+        * Creation journal Entries.
         """
         self.eft_id.state = 'done'
 
@@ -36,7 +75,13 @@ class EFTConfirmationWizard(models.TransientModel):
 
         self.eft_id.payment_ids = completed_payments
         self.eft_id.failed_payment_ids = failed_payments
-
+        # Creation of journal Entries
+        if self.eft_id.use_transit_account:
+            invoice_vals = self._prepare_invoice_values()
+            deposit_account_move = self.env["account.move"].create(invoice_vals)
+            deposit_account_move.post()
+            if deposit_account_move:
+                self.eft_id.deposit_account_move_id = deposit_account_move.id
         return True
 
 

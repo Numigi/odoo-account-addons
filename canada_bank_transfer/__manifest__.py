@@ -24,6 +24,7 @@
         "views/journal.xml",
         "views/payment_search_with_filter.xml",
         "views/payment_with_eft_smart_button.xml",
+        "views/res_config_settings_views.xml",
         "wizard/eft_confirmation.xml",
         "wizard/payment_notice_email.xml",
     ],
