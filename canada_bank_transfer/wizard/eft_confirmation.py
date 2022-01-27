@@ -14,43 +14,6 @@ class EFTConfirmationWizard(models.TransientModel):
     eft_id = fields.Many2one('account.eft')
     line_ids = fields.One2many('account.eft.confirmation.line', 'wizard_id')
 
-    def _prepare_invoice_values(self):
-        """Prepare values of EFT Entries."""
-        vals_invoice_lines = []
-        for line in self.line_ids.filtered(lambda line: line.completed):
-            vals_invoice_lines.append(
-                (
-                    0,
-                    0,
-                    {
-                        "partner_id": line.partner_id.id,
-                        "debit": line.amount,
-                        "account_id": self.eft_id.journal_id.transit_account.id,
-                        "name": self.eft_id.name + _(" - Deposit"),
-                    },
-                )
-            )
-
-        vals_invoice_lines.append(
-            (
-                0,
-                0,
-                {
-                    "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
-                    "credit": sum(self.line_ids.filtered(lambda line: line.completed).mapped('amount')),
-                    "account_id": self.eft_id.journal_id.default_debit_account_id.id,
-                    "name": self.eft_id.name + _(" - Deposit"),
-                },
-            )
-        )
-        invoice_vals = {
-            "ref": self.eft_id.name + _(" - Deposit"),
-            "move_type": "entry",
-            "date": fields.Date.today(),
-            "journal_id": self.eft_id.journal_id.id,
-            "line_ids": vals_invoice_lines,
-        }
-        return invoice_vals
 
     @api.multi
     def action_validate(self):
@@ -83,6 +46,50 @@ class EFTConfirmationWizard(models.TransientModel):
             if deposit_account_move:
                 self.eft_id.deposit_account_move_id = deposit_account_move.id
         return True
+
+    def _prepare_invoice_values(self):
+        """Prepare values of EFT Entries."""
+        invoice_vals = {
+            "ref": self.eft_id.name + _(" - Deposit"),
+            "move_type": "entry",
+            "date": fields.Date.today(),
+            "journal_id": self.eft_id.journal_id.id,
+            "line_ids": self._prepare_invoice_line_vals(),
+        }
+        return invoice_vals
+
+    def _prepare_invoice_line_vals(self):
+        """Prepare line values of EFT Entries."""
+        vals_invoice_lines = []
+        for line in self.line_ids.filtered(lambda line: line.completed):
+            vals_invoice_lines.append(
+                (
+                    0,
+                    0,
+                    self._get_payment_line_vals(line)
+                )
+            )
+
+        vals_invoice_lines.append(
+            (
+                0,
+                0,
+                {
+                    "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
+                    "credit": sum(self.line_ids.filtered(lambda line: line.completed).mapped('amount')),
+                    "account_id": self.eft_id.journal_id.default_debit_account_id.id,
+                    "name": self.eft_id.name + _(" - Deposit"),
+                },
+            )
+        )
+        return vals_invoice_lines
+
+    def _get_payment_line_vals(self, line):
+        """Prepare line values of EFT Entries from Payments."""
+        return  {"partner_id": line.partner_id.id,
+                 "debit": line.amount,
+                 "account_id": self.eft_id.journal_id.transit_account.id,
+                 "name": self.eft_id.name + _(" - Deposit")}
 
 
 class EFTConfirmationLine(models.TransientModel):

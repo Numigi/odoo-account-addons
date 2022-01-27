@@ -1055,3 +1055,9 @@ msgstr "Compte de transit"
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__deposit_account_move_id
 msgid "Deposit Account Move"
 msgstr "Pièce comptable de dépôt"
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_payment.py:55
+#, python-format
+msgid "You must choose an Transit Account in Journal %s."
+msgstr "Vous devez choisir un compte de transit dans le journal %s."

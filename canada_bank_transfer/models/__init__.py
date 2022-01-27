@@ -6,7 +6,6 @@ from . import (
     account_journal,
     account_payment,
     res_bank,
-    res_company,
     res_partner_bank,
     res_config_settings
 )
