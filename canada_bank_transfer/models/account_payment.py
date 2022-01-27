@@ -49,10 +49,16 @@ class AccountPayment(models.Model):
 
     def _get_liquidity_move_line_vals(self, amount):
         vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
-        if self.journal_id.use_transit_account and self.payment_method_id == self.env.ref("canada_bank_transfer.payment_method_eft"):
+        if (
+            self.journal_id.use_transit_account
+            and self.payment_method_id
+            == self.env.ref("canada_bank_transfer.payment_method_eft")
+        ):
             if not self.journal_id.transit_account:
                 raise ValidationError(
-                    _('You must choose an Transit Account in Journal %s.') %self.journal_id.name)
+                    _("You must choose an Transit Account in Journal %s.")
+                    % self.journal_id.name
+                )
             else:
-                vals.update({'account_id': self.journal_id.transit_account.id})
+                vals.update({"account_id": self.journal_id.transit_account.id})
         return vals

@@ -86,8 +86,12 @@ class EFT(models.Model):
     )
 
     payment_notices_sent = fields.Boolean(copy=False)
-    deposit_account_move_id = fields.Many2one('account.move', string='Deposit Account Move', readonly=1)
-    use_transit_account = fields.Boolean(string="Use a transit Account", related="journal_id.use_transit_account")
+    deposit_account_move_id = fields.Many2one(
+        "account.move", string="Deposit Account Move", readonly=1
+    )
+    use_transit_account = fields.Boolean(
+        string="Use a transit Account", related="journal_id.use_transit_account"
+    )
 
     def _compute_name(self):
         for eft in self:

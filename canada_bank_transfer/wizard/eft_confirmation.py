@@ -40,29 +40,28 @@ class EFTConfirmationWizard(models.TransientModel):
         self.eft_id.failed_payment_ids = failed_payments
         # Creation of journal Entries
         if self.eft_id.use_transit_account:
-            invoice_vals = self._prepare_invoice_values()
+            invoice_vals = self._prepare_account_move_values()
             deposit_account_move = self.env["account.move"].create(invoice_vals)
             deposit_account_move.post()
-            if deposit_account_move:
-                self.eft_id.deposit_account_move_id = deposit_account_move.id
+            self.eft_id.deposit_account_move_id = deposit_account_move.id
         return True
 
-    def _prepare_invoice_values(self):
+    def _prepare_account_move_values(self):
         """Prepare values of EFT Entries."""
-        invoice_vals = {
+        account_move_vals = {
             "ref": self.eft_id.name + _(" - Deposit"),
             "move_type": "entry",
             "date": fields.Date.today(),
             "journal_id": self.eft_id.journal_id.id,
-            "line_ids": self._prepare_invoice_line_vals(),
+            "line_ids": self._prepare_account_move_line_vals(),
         }
-        return invoice_vals
+        return account_move_vals
 
-    def _prepare_invoice_line_vals(self):
+    def _prepare_account_move_line_vals(self):
         """Prepare line values of EFT Entries."""
-        vals_invoice_lines = []
+        vals_account_move_lines = []
         for line in self.line_ids.filtered(lambda line: line.completed):
-            vals_invoice_lines.append(
+            vals_account_move_lines.append(
                 (
                     0,
                     0,
@@ -70,7 +69,7 @@ class EFTConfirmationWizard(models.TransientModel):
                 )
             )
 
-        vals_invoice_lines.append(
+        vals_account_move_lines.append(
             (
                 0,
                 0,
@@ -82,7 +81,7 @@ class EFTConfirmationWizard(models.TransientModel):
                 },
             )
         )
-        return vals_invoice_lines
+        return vals_account_move_lines
 
     def _get_payment_line_vals(self, line):
         """Prepare line values of EFT Entries from Payments."""

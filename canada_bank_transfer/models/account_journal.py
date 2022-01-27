@@ -50,8 +50,10 @@ class AccountJournal(models.Model):
     eft_sequence_id = fields.Many2one(
         "ir.sequence", string="EFT Sequence", ondelete="restrict"
     )
-    transit_account = fields.Many2one('account.account', string="Transit Account")
-    use_transit_account = fields.Boolean(string="Use a transit Account", compute='_get_use_transit_account')
+    transit_account = fields.Many2one("account.account", string="Transit Account")
+    use_transit_account = fields.Boolean(
+        string="Use a transit Account", compute="_get_use_transit_account"
+    )
 
     @api.depends("outbound_payment_method_ids")
     def _compute_eft_enabled(self):
@@ -71,7 +73,11 @@ class AccountJournal(models.Model):
     @api.multi
     def _get_use_transit_account(self):
         for record in self:
-            record.use_transit_account = self.env["ir.config_parameter"].sudo().get_param("canada_bank_transfer.use_transit_account")
+            record.use_transit_account = (
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("canada_bank_transfer.use_transit_account")
+            )
 
     @api.model
     def create(self, vals):
@@ -96,4 +102,5 @@ class AccountJournal(models.Model):
                     "number_increment": 1,
                     "company_id": self.company_id.id,
                     "implementation": "no_gap",
-                })
+                }
+            )
