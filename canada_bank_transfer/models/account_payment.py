@@ -1,9 +1,9 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from ..transaction_types import TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE
-
+from odoo.exceptions import ValidationError
 
 class AccountPayment(models.Model):
 
@@ -46,3 +46,19 @@ class AccountPayment(models.Model):
             payment.is_eft_payment = (
                 eft_method and payment.payment_method_id == eft_method
             )
+
+    def _get_liquidity_move_line_vals(self, amount):
+        vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
+        if (
+            self.journal_id.use_transit_account
+            and self.payment_method_id
+            == self.env.ref("canada_bank_transfer.payment_method_eft")
+        ):
+            if not self.journal_id.transit_account:
+                raise ValidationError(
+                    _("You must choose an Transit Account in Journal %s.")
+                    % self.journal_id.name
+                )
+            else:
+                vals.update({"account_id": self.journal_id.transit_account.id})
+        return vals
