@@ -171,9 +171,11 @@ class EFT(models.Model):
         self._delete_deposit_account_move()
 
     def _delete_deposit_account_move(self):
-        if self.deposit_account_move_id:
-            self.deposit_account_move_id.button_cancel()
-            self.deposit_account_move_id.unlink()
+        move = self.deposit_account_move_id
+        if move:
+            move.line_ids.remove_move_reconcile()
+            move.button_cancel()
+            move.unlink()
 
     @api.multi
     def action_done(self):

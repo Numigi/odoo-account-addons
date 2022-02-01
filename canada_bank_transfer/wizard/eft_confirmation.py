@@ -51,6 +51,7 @@ class EFTConfirmationWizard(models.TransientModel):
         invoice_vals = self._prepare_account_move_values()
         move = self.env["account.move"].create(invoice_vals)
         move.post()
+        self._reconcile_deposit_move(move)
         return move
 
     def _prepare_account_move_values(self):
@@ -72,24 +73,48 @@ class EFTConfirmationWizard(models.TransientModel):
         return vals_account_move_lines
 
     def _get_payment_line_vals(self, line):
+        move_line = self._get_payment_move_line(line.payment_id)
         return {
             "partner_id": line.partner_id.id,
-            "debit": line.amount,
-            "account_id": self._get_payment_account(line).id,
-            "name": self.eft_id.name + _(" - Deposit"),
+            "debit": move_line.credit,
+            "account_id": move_line.account_id.id,
+            "currency_id": move_line.currency_id.id,
+            "amount_currency": -(move_line.amount_currency or 0),
+            "name": line.payment_id.name + _(" - Deposit"),
         }
 
     def _get_counterpart_move_vals(self):
         return {
             "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
-            "credit": sum(self.line_ids.filtered("completed").mapped("amount")),
+            "credit": self._get_counterpart_move_amount(),
             "account_id": self.eft_id.journal_id.default_debit_account_id.id,
             "name": self.eft_id.name + _(" - Deposit"),
         }
 
-    def _get_payment_account(self, line):
-        move_line = line.payment_id.move_line_ids.filtered("credit")[0]
-        return move_line.account_id
+    def _get_counterpart_move_amount(self):
+        return sum(
+            self._get_payment_move_line(l.payment_id).credit
+            for l in self.line_ids
+            if l.completed
+        )
+
+    def _reconcile_deposit_move(self, move):
+        for line in move.line_ids.filtered("debit"):
+            self._reconcile_deposit_move_line(line)
+
+    def _reconcile_deposit_move_line(self, deposit_line):
+        payment = self._get_payment_matching_deposit_line(deposit_line)
+        payment_line = self._get_payment_move_line(payment)
+        (payment_line | deposit_line).reconcile()
+
+    def _get_payment_move_line(self, payment):
+        return payment.move_line_ids.filtered("credit")[0]
+
+    def _get_payment_matching_deposit_line(self, line):
+        payments = self.mapped("line_ids.payment_id")
+        return next(
+            p for p in payments if p.name in line.name
+        )
 
 
 class EFTConfirmationLine(models.TransientModel):
