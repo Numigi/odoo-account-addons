@@ -257,6 +257,41 @@ I verify that the email message is properly set. Then, I click on `Send`.
 
 The payment notices are now sent.
 
+Using a Transit Account
+-----------------------
+Some banks squash all payments of an EFT into a single line in bank statements.
+In such case, you may want your payments in Odoo to be squashed into one line as well.
+
+Since version ``1.3.0`` of the module, it is possible to define a transit account to use for EFT payments.
+
+To enable this feature, go to the settings of Accounting and check the box ``Use a Transit Account``.
+
+.. image:: static/description/use_transit_account.png
+
+Then, in the form view of your bank journal, select the account to use as transit.
+
+.. image:: static/description/journal_transit_account.png
+
+When confirming a payment, the transit account is debited instead of the bank account.
+
+.. image:: static/description/payment_move_with_transit_account.png
+
+After confirming the EFT, a deposit journal entry is created (simlilarly to check deposits).
+
+.. image:: static/description/eft_confirmed_with_transit.png
+
+This journal entry debits the transit account and credits the bank account.
+
+.. image:: static/description/deposit_account_move.png
+
+The transit account is automatically reconciled with the payment when confirming the EFT.
+
+.. image:: static/description/transit_account_reconciliation.png
+
+In your bank statement, the deposit appears with the complete EFT amount.
+
+.. image:: static/description/bank_statement_with_deposit.png
+
 Contributors
 ------------
 * Savoir-faire Linux

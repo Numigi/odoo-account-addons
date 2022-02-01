@@ -1028,7 +1028,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_res_company__use_transit_account
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_res_config_settings__use_transit_account
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
-msgid "Use a transit Account"
+msgid "Use a Transit Account"
 msgstr "Utiliser un compte de transit"
 
 #. module: canada_bank_transfer

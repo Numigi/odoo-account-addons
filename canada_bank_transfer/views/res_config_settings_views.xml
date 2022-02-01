@@ -20,7 +20,7 @@
                             <field name="use_transit_account"/>
                         </div>
                         <div class="o_setting_right_pane">
-                            <label for="use_transit_account" string="Use a transit Account"/>
+                            <label for="use_transit_account" string="Use a Transit Account"/>
                             <div class="text-muted">
                                 When activated, Payments are affected on a transit Account.
                                 <br></br>

@@ -90,7 +90,7 @@ class EFT(models.Model):
         "account.move", string="Deposit Account Move", readonly=1
     )
     use_transit_account = fields.Boolean(
-        string="Use a transit Account", related="journal_id.use_transit_account"
+        string="Use a Transit Account", related="journal_id.use_transit_account"
     )
 
     def _compute_name(self):
