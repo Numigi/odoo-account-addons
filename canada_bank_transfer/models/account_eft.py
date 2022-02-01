@@ -141,9 +141,6 @@ class EFT(models.Model):
 
     @api.multi
     def action_draft(self):
-        if self.deposit_account_move_id:
-            self.deposit_account_move_id.button_cancel()
-            self.deposit_account_move_id.unlink()
         self.write({"state": "draft"})
 
     def _check_payment_and_bank_accounts(self):
@@ -169,7 +166,14 @@ class EFT(models.Model):
         for rec in self:
             if rec.state == "done":
                 rec.payment_ids.write({"state": "posted"})
+
         self.write({"state": "cancelled"})
+        self._delete_deposit_account_move()
+
+    def _delete_deposit_account_move(self):
+        if self.deposit_account_move_id:
+            self.deposit_account_move_id.button_cancel()
+            self.deposit_account_move_id.unlink()
 
     @api.multi
     def action_done(self):

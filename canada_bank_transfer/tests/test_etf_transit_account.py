@@ -100,5 +100,4 @@ class TestETFEntryAccountCase(EtfTransitAccountCase):
         wizard = self._open_confirmation_wizard_etf()
         wizard.action_validate()
         self.eft.action_cancel()
-        self.eft.action_draft()
         assert not self.eft.deposit_account_move_id
