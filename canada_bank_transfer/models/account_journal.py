@@ -52,7 +52,7 @@ class AccountJournal(models.Model):
     )
     transit_account = fields.Many2one("account.account", string="Transit Account")
     use_transit_account = fields.Boolean(
-        string="Use a transit Account", compute="_get_use_transit_account"
+        string="Use a Transit Account", compute="_get_use_transit_account"
     )
 
     @api.depends("outbound_payment_method_ids")

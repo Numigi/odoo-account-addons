@@ -90,7 +90,7 @@ class EFT(models.Model):
         "account.move", string="Deposit Account Move", readonly=1
     )
     use_transit_account = fields.Boolean(
-        string="Use a transit Account", related="journal_id.use_transit_account"
+        string="Use a Transit Account", related="journal_id.use_transit_account"
     )
 
     def _compute_name(self):
@@ -141,9 +141,6 @@ class EFT(models.Model):
 
     @api.multi
     def action_draft(self):
-        if self.deposit_account_move_id:
-            self.deposit_account_move_id.button_cancel()
-            self.deposit_account_move_id.unlink()
         self.write({"state": "draft"})
 
     def _check_payment_and_bank_accounts(self):
@@ -169,7 +166,16 @@ class EFT(models.Model):
         for rec in self:
             if rec.state == "done":
                 rec.payment_ids.write({"state": "posted"})
+
         self.write({"state": "cancelled"})
+        self._delete_deposit_account_move()
+
+    def _delete_deposit_account_move(self):
+        move = self.deposit_account_move_id
+        if move:
+            move.line_ids.remove_move_reconcile()
+            move.button_cancel()
+            move.unlink()
 
     @api.multi
     def action_done(self):

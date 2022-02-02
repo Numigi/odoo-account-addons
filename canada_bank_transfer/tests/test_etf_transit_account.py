@@ -44,24 +44,21 @@ class EtfTransitAccountCase(EFTCase):
             }
         )
 
-        cls.payment_etf_1 = cls.generate_payment(cls.partner_account_bank, 500)
-        cls.payment_etf_2 = cls.generate_payment(cls.partner_account_bank, 700)
-        cls.payments_etf = cls.payment_etf_1 | cls.payment_etf_2
+        cls.payment_1 = cls.generate_payment(cls.partner_account_bank, 500)
+        cls.payment_2 = cls.generate_payment(cls.partner_account_bank, 700)
+        cls.payments = cls.payment_1 | cls.payment_2
 
     def test_transit_account_payment(self):
-        assert (
-            self.account_transit.id
-            in self.payment_etf_1.move_line_ids.mapped("account_id").ids
-        )
+        assert self.account_transit in self.payment_1.move_line_ids.mapped("account_id")
 
 
-class TestETFEntryAccountCase(EtfTransitAccountCase):
+class TestTransitMoveCase(EtfTransitAccountCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.eft = cls.env["account.eft"].create(
             {
-                "payment_ids": [(6, 0, cls.payments_etf.ids)],
+                "payment_ids": [(6, 0, cls.payments.ids)],
                 "journal_id": cls.journal.id,
             }
         )
@@ -70,35 +67,39 @@ class TestETFEntryAccountCase(EtfTransitAccountCase):
         cls.eft.action_approve()
         cls.eft.generate_eft_file()
 
-    def _open_confirmation_wizard_etf(self):
-        action = self.eft.action_done()
-        return self.env["account.eft.confirmation.wizard"].browse(action["res_id"])
-
-    def test_transit_account_entry_etf(self):
+    def test_deposit_move(self):
         wizard = self._open_confirmation_wizard_etf()
         wizard.line_ids.filtered(
-            lambda l: l.payment_id == self.payment_etf_1
+            lambda l: l.payment_id == self.payment_1
         ).completed = False
         wizard.action_validate()
-        assert self.eft.deposit_account_move_id
-        assert (
-            self.eft.deposit_account_move_id.line_ids.filtered(
-                lambda l: l.account_id.id == self.account_transit.id
-            )[0].debit
-            == 700
-        )
-        assert (
-            self.eft.deposit_account_move_id.line_ids.filtered(
-                lambda l: l.account_id.id
-                == self.eft.journal_id.default_debit_account_id.id
-            )[0].credit
-            == 700
-        )
-        assert len(self.eft.deposit_account_move_id.line_ids) == 2
+        move = self.eft.deposit_account_move_id
+        assert move
+        debit_line = move.line_ids.filtered("debit")
+        credit_line = move.line_ids.filtered("credit")
+        assert debit_line.account_id == self.account_transit
+        assert debit_line.amount_currency == 700
+        assert credit_line.account_id == self.eft.journal_id.default_debit_account_id
+        assert credit_line.amount_currency == -700
 
-    def test_transit_account_entry_etf_set_draft(self):
+    def test_move_deleted_on_cancel(self):
         wizard = self._open_confirmation_wizard_etf()
         wizard.action_validate()
         self.eft.action_cancel()
-        self.eft.action_draft()
         assert not self.eft.deposit_account_move_id
+
+    def test_move_lines_reconciled(self):
+        wizard = self._open_confirmation_wizard_etf()
+        wizard.action_validate()
+        move = self.eft.deposit_account_move_id
+        lines = move.line_ids.filtered("debit")
+        line_1 = lines.filtered(lambda l: l.amount_currency == 500)
+        line_2 = lines.filtered(lambda l: l.amount_currency == 700)
+        assert line_1.reconciled
+        assert line_2.reconciled
+        assert line_1.mapped("matched_credit_ids.credit_move_id.payment_id") == self.payment_1
+        assert line_2.mapped("matched_credit_ids.credit_move_id.payment_id") == self.payment_2
+
+    def _open_confirmation_wizard_etf(self):
+        action = self.eft.action_done()
+        return self.env["account.eft.confirmation.wizard"].browse(action["res_id"])
