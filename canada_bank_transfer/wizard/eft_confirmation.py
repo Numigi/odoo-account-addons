@@ -48,21 +48,19 @@ class EFTConfirmationWizard(models.TransientModel):
         return True
 
     def _make_deposit_move(self):
-        invoice_vals = self._prepare_account_move_values()
-        move = self.env["account.move"].create(invoice_vals)
+        move_vals = self._prepare_account_move_values()
+        move = self.env["account.move"].create(move_vals)
         move.post()
         self._reconcile_deposit_move(move)
         return move
 
     def _prepare_account_move_values(self):
-        account_move_vals = {
+        return {
             "ref": self.eft_id.name + _(" - Deposit"),
-            "move_type": "entry",
             "date": fields.Date.today(),
             "journal_id": self.eft_id.journal_id.id,
             "line_ids": self._prepare_account_move_line_vals(),
         }
-        return account_move_vals
 
     def _prepare_account_move_line_vals(self):
         vals_account_move_lines = []
