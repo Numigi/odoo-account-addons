@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_invoice_line_advance_report_tree" model="ir.ui.view">
+        <field name="name">account.invoice.line.tree</field>
+        <field name="model">account.invoice.line</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice Lines" create="false" import="false">
+                <field name="invoice_id"/>
+                <field name="partner_id"/>
+                <field name="invoice_date"/>
+                <field name="product_id"/>
+                <field name="account_id"/>
+                <field name="project_id"/>
+                <field name="account_analytic_id"/>
+                <field name="price_subtotal"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_invoice_line_advance_report_pivot" model="ir.ui.view">
+        <field name="name">account.invoice.line.pivot</field>
+        <field name="model">account.invoice.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoice Lines">
+                <field name="product_id" type="row"/>
+                <field name="price_subtotal" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="account_invoice_line_advance_report_search" model="ir.ui.view">
+        <field name="name">account.invoice.line.search</field>
+        <field name="model">account.invoice.line</field>
+        <field name="arch" type="xml">
+            <search string="Invoice Line">
+                <field name="invoice_id"/>
+                <field name="partner_id"/>
+                <field name="invoice_date"/>
+                <field name="product_id"/>
+                <field name="name"/>
+                <field name="price_unit"/>
+                <field name="invoice_line_tax_ids"/>
+                <field name="account_id"/>
+                <field name="project_id"/>
+                <field name="account_analytic_id"/>
+                <field name="analytic_tag_ids"/>
+                <field name="price_subtotal"/>
+                <filter name="customer" string="Customer" domain="[('invoice_type', 'in', ['out_invoice', 'out_refund'])]"/>
+                <filter name="supplier" string="Supplier" domain="[('invoice_type', 'in', ['in_invoice', 'in_refund'])]"/>
+                <separator/>
+                <filter name="invoice" string="Invoices" domain="[('invoice_type', 'in', ['out_invoice', 'in_invoice'])]"/>
+                <filter name="credit_note" string="Credit Notes" domain="[('invoice_type', 'in', ['out_refund', 'in_refund'])]"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_invoice" string="Invoice Number" context="{'group_by':'invoice_id'}"/>
+                    <filter name="group_by_partner" string="Partner" context="{'group_by':'partner_id'}"/>
+                    <filter name="group_by_invoice_date" string="Invoice Date" context="{'group_by':'invoice_date'}"/>
+                    <filter name="group_by_product" string="Product" context="{'group_by':'product_id'}"/>
+                    <filter name="group_by_name" string="Description" context="{'group_by':'name'}"/>
+                    <filter name="group_by_account" string="Account" context="{'group_by':'account_id'}"/>
+                    <filter name="group_by_project" string="Project" context="{'group_by':'project_id'}"/>
+                    <filter name="group_by_analytic_account" string="Analytic Account" context="{'group_by':'account_analytic_id'}"/>
+                    <filter name="group_by_amount" string="Amount" context="{'group_by':'price_subtotal'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_invoice_line_advance_report" model="ir.actions.act_window">
+        <field name="name">Invoices - Advanced analysis</field>
+        <field name="res_model">account.invoice.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('account_invoice_line_advance_report_tree')}),
+                          (0, 0, {'view_mode': 'pivot', 'view_id': ref('account_invoice_line_advance_report_pivot')})]"/>
+        <field name="domain">[('display_type', '=', False)]</field>
+        <field name="context">{}</field>
+        <field name="search_view_id" ref="account_invoice_line_advance_report_search"/>
+    </record>
+
+    <menuitem id="menu_invoice_line_advance_report"
+              name="Invoices - Advanced Analysis"
+              parent="account.account_reports_management_menu"
+              action="action_invoice_line_advance_report"
+              sequence="1"/>
+
+</odoo>
