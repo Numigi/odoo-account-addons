@@ -4,45 +4,45 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-29 21:15+0000\n"
-"PO-Revision-Date: 2021-01-29 16:16-0500\n"
+"POT-Creation-Date: 2021-10-28 15:36+0000\n"
+"PO-Revision-Date: 2021-10-28 11:37-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
+"Language: fr\n"
+"X-Generator: Poedit 2.3\n"
 
 #. module: account_report_trial_balance
-#: code:addons/account_report_trial_balance/report/report.py:94
+#: code:addons/account_report_trial_balance/report/report.py:98
 #, python-format
 msgid "({account}) - Balance"
 msgstr "({account}) - Solde de la période"
 
 #. module: account_report_trial_balance
-#: code:addons/account_report_trial_balance/report/report.py:101
+#: code:addons/account_report_trial_balance/report/report.py:105
 #, python-format
 msgid "({account}) - Closing Balance"
 msgstr "({account}) - Solde de clôture"
 
 #. module: account_report_trial_balance
-#: code:addons/account_report_trial_balance/report/report.py:87
+#: code:addons/account_report_trial_balance/report/report.py:91
 #, python-format
 msgid "({account}) - Credit"
 msgstr "({account}) - Crédit"
 
 #. module: account_report_trial_balance
-#: code:addons/account_report_trial_balance/report/report.py:80
+#: code:addons/account_report_trial_balance/report/report.py:84
 #, python-format
 msgid "({account}) - Debit"
 msgstr "({account}) - Débit"
 
 #. module: account_report_trial_balance
-#: code:addons/account_report_trial_balance/report/report.py:73
+#: code:addons/account_report_trial_balance/report/report.py:75
 #, python-format
 msgid "({account}) - Initial Balance"
 msgstr "({account}) - Solde initial"
@@ -70,12 +70,12 @@ msgstr "Société"
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #. module: account_report_trial_balance
 #: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
@@ -108,12 +108,17 @@ msgstr "Débit"
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nom affiché"
+
+#. module: account_report_trial_balance
+#: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__exclude_null
+msgid "Exclude Accounts At Zero"
+msgstr "Exclure les comptes à zéro"
 
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_report_trial_balance
 #: model_terms:ir.ui.view,arch_db:account_report_trial_balance.report_body
@@ -123,17 +128,17 @@ msgstr "Solde initial"
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Dernière mise à jour par"
 
 #. module: account_report_trial_balance
 #: model:ir.model.fields,field_description:account_report_trial_balance.field_account_report_trial_balance__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Dernière mise à jour le"
 
 #. module: account_report_trial_balance
 #. openerp-web

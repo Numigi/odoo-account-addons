@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 19:57+0000\n"
-"PO-Revision-Date: 2021-01-28 14:59-0500\n"
+"POT-Creation-Date: 2021-10-13 18:33+0000\n"
+"PO-Revision-Date: 2021-10-13 14:34-0400\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3\n"
 
 #. module: canada_bank_transfer
 #: model:mail.template,body_html:canada_bank_transfer.payment_notice_email_template
@@ -128,6 +128,11 @@ msgstr "Annulé"
 #: selection:account.payment,eft_transaction_type:0
 msgid "Commission Pay"
 msgstr "Paie de commission"
+
+#. module: canada_bank_transfer
+#: model:ir.model,name:canada_bank_transfer.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_confirmation_line__completed
@@ -1016,3 +1021,43 @@ msgstr ""
 #~ msgstr ""
 #~ "Le numéro de séquence d'un EFT doit être rempli avant de générer le "
 #~ "fichier de transfert."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__use_transit_account
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__use_transit_account
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_company__use_transit_account
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_res_config_settings__use_transit_account
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "Use a Transit Account"
+msgstr "Utiliser un compte de transit"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "Electronic Funds Transfers"
+msgstr "Transferts de Fonds Électroniques"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "When activated, Payments are affected on a transit Account.\n"
+"                                <br/>\n"
+"                                When validating the EFT,Transit Account Moves are reversed to be affected on the Bank\n"
+"                                Account."
+msgstr "Pour la méthode de paiement EFT,les paiements validés sont comptabilisés sur un compte de transit.\n"
+"                                        <br/>\n"
+"                                        La validation de l’EFT renverse les écritures sur le compte de transit et affecte la balance sur le compte de banque."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__transit_account
+msgid "Transit Account"
+msgstr "Compte de transit"
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__deposit_account_move_id
+msgid "Deposit Account Move"
+msgstr "Pièce comptable de dépôt"
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_payment.py:55
+#, python-format
+msgid "You must choose an Transit Account in Journal %s."
+msgstr "Vous devez choisir un compte de transit dans le journal %s."
