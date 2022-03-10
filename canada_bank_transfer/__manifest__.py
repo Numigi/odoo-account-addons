@@ -3,32 +3,33 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
-    'name': 'Canada Bank Transfer',
-    'version': '1.0.1',
-    'author': 'Savoir-faire Linux,Numigi',
-    'maintainer': 'Numigi',
-    'website': 'https://bit.ly/numigi-com',
-    'license': 'LGPL-3',
-    'category': 'Accounting',
-    'depends': [
-        'payment',
+    "name": "Canada Bank Transfer",
+    "version": "1.3.0",
+    "author": "Savoir-faire Linux,Numigi",
+    "maintainer": "Numigi",
+    "website": "https://bit.ly/numigi-com",
+    "license": "LGPL-3",
+    "category": "Accounting",
+    "depends": [
+        "payment",
     ],
-    'data': [
-        'security/ir.model.access.csv',
-        'security/res_groups.xml',
-        'data/email_template.xml',
-        'data/payment_method.xml',
-        'data/sequence.xml',
-        'views/bank_account.xml',
-        'views/eft.xml',
-        'views/journal.xml',
-        'views/payment_search_with_filter.xml',
-        'views/payment_with_eft_smart_button.xml',
-        'wizard/eft_confirmation.xml',
-        'wizard/payment_notice_email.xml',
+    "data": [
+        "security/ir.model.access.csv",
+        "security/ir_rule.xml",
+        "security/res_groups.xml",
+        "data/mail_template.xml",
+        "data/account_payment_method.xml",
+        "views/bank_account.xml",
+        "views/eft.xml",
+        "views/journal.xml",
+        "views/payment_search_with_filter.xml",
+        "views/payment_with_eft_smart_button.xml",
+        "views/res_config_settings_views.xml",
+        "wizard/eft_confirmation.xml",
+        "wizard/payment_notice_email.xml",
     ],
-    'external_dependencies': {
-        'python': ['unidecode'],
+    "external_dependencies": {
+        "python": ["unidecode"],
     },
-    'installable': True,
+    "installable": True,
 }

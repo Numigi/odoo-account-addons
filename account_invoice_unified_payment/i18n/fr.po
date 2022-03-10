@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_unified_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-18 17:33+0000\n"
+"PO-Revision-Date: 2021-08-18 17:33+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_unified_payment
+#: model:ir.actions.server,name:account_invoice_unified_payment.action_reconcile_and_open_payment
+msgid "Apply Credits And Register Payment"
+msgstr "Appliquer les crédits et enregistrer un paiement"
+
+#. module: account_invoice_unified_payment
+#: model:ir.model,name:account_invoice_unified_payment.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_invoice_unified_payment
+#: code:addons/account_invoice_unified_payment/models/account_invoice.py:78
+#, python-format
+msgid "The invoice {} is not open."
+msgstr "La facture {} n'est pas ouverte."
+
+#. module: account_invoice_unified_payment
+#: code:addons/account_invoice_unified_payment/models/account_invoice.py:68
+#, python-format
+msgid "The open balance of invoices ({invoice_residual}) must strictly be higher than the open balance of refunds ({refund_residual})."
+msgstr "La balance ouverte des factures ({invoice_residual}) doit être strictement plus grande que la balance ouverte des "
+"notes de crédit ({refund_residual})."
+
+#. module: account_invoice_unified_payment
+#: code:addons/account_invoice_unified_payment/models/account_invoice.py:38
+#, python-format
+msgid "These are in multiple currencies ({})."
+msgstr "Elles sont en devises multiples ({})."
+
+#. module: account_invoice_unified_payment
+#: code:addons/account_invoice_unified_payment/models/account_invoice.py:46
+#, python-format
+msgid "These belong to multiple commercial partners ({})."
+msgstr "Elles sont liées à différents partenaires commerciaux ({})."
+
+#. module: account_invoice_unified_payment
+#: code:addons/account_invoice_unified_payment/models/account_invoice.py:54
+#, python-format
+msgid "These have different accounts defined ({})."
+msgstr "Elles ont différents comptes définis ({})."
+
+#. module: account_invoice_unified_payment
+#: code:addons/account_invoice_unified_payment/models/account_invoice.py:78
+#, python-format
+msgid "You may not reconcile the selected invoices and refunds.\n"
+""
+msgstr "Vous ne pouvez pas réconcilier les factures et notes de crédit sélectionnées.\n"

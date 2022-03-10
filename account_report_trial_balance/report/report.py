@@ -19,6 +19,8 @@ class TrialBalanceReport(models.TransientModel):
     date_from = fields.Date(required=True)
     date_to = fields.Date(required=True)
 
+    exclude_null = fields.Boolean(string="Exclude Accounts At Zero")
+
     @api.onchange("date_range_id")
     def _onchange_date_range(self):
         if self.date_range_id:
@@ -53,8 +55,8 @@ class TrialBalanceReport(models.TransientModel):
         )
 
     def _get_report_url(self):
-        config = self.env['ir.config_parameter'].sudo()
-        return config.get_param('report.url') or config.get_param('web.base.url')
+        config = self.env["ir.config_parameter"].sudo()
+        return config.get_param("report.url") or config.get_param("web.base.url")
 
     def get_rendering_variables(self):
         return {
@@ -70,7 +72,9 @@ class TrialBalanceReport(models.TransientModel):
     def initial_balance_clicked(self, account_id):
         action = self._get_move_line_action()
         account = self._get_account(account_id)
-        action["name"] = _("({account}) - Initial Balance").format(account=account.display_name)
+        action["name"] = _("({account}) - Initial Balance").format(
+            account=account.display_name
+        )
         action["domain"] = self._get_initial_balance_domain(account_id)
         return action
 
@@ -98,7 +102,9 @@ class TrialBalanceReport(models.TransientModel):
     def closing_balance_clicked(self, account_id):
         action = self._get_move_line_action()
         account = self._get_account(account_id)
-        action["name"] = _("({account}) - Closing Balance").format(account=account.display_name)
+        action["name"] = _("({account}) - Closing Balance").format(
+            account=account.display_name
+        )
         action["domain"] = self._get_closing_balance_domain(account_id)
         return action
 
@@ -136,7 +142,13 @@ class TrialBalanceReport(models.TransientModel):
         }
 
     def _get_lines(self):
-        return [self._get_account_line(account) for account in self._get_accounts()]
+        all_lines = (
+            self._get_account_line(account) for account in self._get_accounts()
+        )
+        if self.exclude_null:
+            return [l for l in all_lines if not self._is_null_line(l)]
+        else:
+            return [*all_lines]
 
     def _get_account_line(self, account):
         debit, credit = self._get_debit_credit(account)
@@ -150,6 +162,15 @@ class TrialBalanceReport(models.TransientModel):
             "initial_balance": initial_balance,
             "closing_balance": initial_balance + balance,
         }
+
+    def _is_null_line(self, line):
+        return (
+            not line["debit"]
+            and not line["credit"]
+            and not line["balance"]
+            and not line["initial_balance"]
+            and not line["closing_balance"]
+        )
 
     def _get_accounts(self):
         domain = self._get_account_domain()
@@ -174,7 +195,11 @@ class TrialBalanceReport(models.TransientModel):
             and am.state = 'posted'
             GROUP BY aml.account_id
             """,
-            (date_from, date_to, account.id,),
+            (
+                date_from,
+                date_to,
+                account.id,
+            ),
         )
         res = self._cr.fetchall()
         if not res:
@@ -194,7 +219,10 @@ class TrialBalanceReport(models.TransientModel):
             and am.state = 'posted'
             GROUP BY aml.account_id
             """,
-            (date_from, account.id,),
+            (
+                date_from,
+                account.id,
+            ),
         )
         res = self._cr.fetchall()
         if not res:

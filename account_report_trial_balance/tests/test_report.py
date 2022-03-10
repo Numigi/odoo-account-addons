@@ -13,43 +13,55 @@ class TestReport(common.SavepointCase):
         cls.today = datetime.now().date()
         cls.date_from = cls.today - timedelta(30)
         cls.date_to = cls.today - timedelta(1)
-        cls.report = cls.env["account.report.trial.balance"].create({
-            "company_id": cls.company.id,
-            "date_from": cls.date_from,
-            "date_to": cls.date_to,
-        })
-        cls.journal = cls.env["account.journal"].create({
-            "name": "My Journal",
-            "code": "INV",
-            "type": "general",
-            "company_id": cls.company.id,
-        })
-        cls.account_1 = cls.env["account.account"].create({
-            "company_id": cls.company.id,
-            "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
-            "name": "Receivable",
-            "code": "10000",
-            "reconcile": True,
-        })
-        cls.account_2 = cls.env["account.account"].create({
-            "company_id": cls.company.id,
-            "user_type_id": cls.env.ref("account.data_account_type_payable").id,
-            "name": "Payable",
-            "code": "20000",
-            "reconcile": True,
-        })
-        cls.account_3 = cls.env["account.account"].create({
-            "company_id": cls.company.id,
-            "user_type_id": cls.env.ref("account.data_account_type_revenue").id,
-            "name": "Revenue",
-            "code": "40000",
-        })
-        cls.account_4 = cls.env["account.account"].create({
-            "company_id": cls.company.id,
-            "user_type_id": cls.env.ref("account.data_account_type_expenses").id,
-            "name": "Expense",
-            "code": "50000",
-        })
+        cls.report = cls.env["account.report.trial.balance"].create(
+            {
+                "company_id": cls.company.id,
+                "date_from": cls.date_from,
+                "date_to": cls.date_to,
+            }
+        )
+        cls.journal = cls.env["account.journal"].create(
+            {
+                "name": "My Journal",
+                "code": "INV",
+                "type": "general",
+                "company_id": cls.company.id,
+            }
+        )
+        cls.account_1 = cls.env["account.account"].create(
+            {
+                "company_id": cls.company.id,
+                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+                "name": "Receivable",
+                "code": "10000",
+                "reconcile": True,
+            }
+        )
+        cls.account_2 = cls.env["account.account"].create(
+            {
+                "company_id": cls.company.id,
+                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "name": "Payable",
+                "code": "20000",
+                "reconcile": True,
+            }
+        )
+        cls.account_3 = cls.env["account.account"].create(
+            {
+                "company_id": cls.company.id,
+                "user_type_id": cls.env.ref("account.data_account_type_revenue").id,
+                "name": "Revenue",
+                "code": "40000",
+            }
+        )
+        cls.account_4 = cls.env["account.account"].create(
+            {
+                "company_id": cls.company.id,
+                "user_type_id": cls.env.ref("account.data_account_type_expenses").id,
+                "name": "Expense",
+                "code": "50000",
+            }
+        )
         cls.move_1 = cls._make_move(cls.account_1, cls.account_3, 300)
         cls.move_2 = cls._make_move(cls.account_4, cls.account_2, 200)
 
@@ -67,12 +79,14 @@ class TestReport(common.SavepointCase):
             "credit": amount,
             "company_id": cls.company.id,
         }
-        return cls.env["account.move"].create({
-            "journal_id": cls.journal.id,
-            "date": cls.date_from,
-            "company_id": cls.company.id,
-            "line_ids": [(0, 0, debit_vals), (0, 0, credit_vals)],
-        })
+        return cls.env["account.move"].create(
+            {
+                "journal_id": cls.journal.id,
+                "date": cls.date_from,
+                "company_id": cls.company.id,
+                "line_ids": [(0, 0, debit_vals), (0, 0, credit_vals)],
+            }
+        )
 
     def test_one_line_per_account(self):
         lines = self._get_lines()
@@ -150,6 +164,16 @@ class TestReport(common.SavepointCase):
             ("date", "<=", self.date_to),
             ("move_id.state", "=", "posted"),
         ]
+
+    def test_exclude_null(self):
+        self.report.exclude_null = True
+        lines = self._get_lines()
+        assert not lines
+
+    def test_include_null(self):
+        self.report.exclude_null = False
+        lines = self._get_lines()
+        assert lines
 
     def _get_lines(self):
         return self.report.get_rendering_variables()["lines"]

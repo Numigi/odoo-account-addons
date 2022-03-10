@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record
+            id="res_config_settings_view_form_inherit_canada_bank_transfer"
+            model="ir.ui.view"
+    >
+        <field
+                name="name"
+        >res.config.settings.view.form.inherit.canada.bank.transfer
+        </field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='send_default']" position="after">
+
+                <h2>Electronic Funds Transfers</h2>
+                <div class="row mt16 o_settings_container" id="electronic_funds_transfers">
+                    <div class="col-12 col-lg-6 o_setting_box" groups="account.group_account_user">
+                        <div class="o_setting_left_pane">
+                            <field name="use_transit_account"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="use_transit_account" string="Use a Transit Account"/>
+                            <div class="text-muted">
+                                When activated, Payments are affected on a transit Account.
+                                <br></br>
+                                When validating the EFT,Transit Account Moves are reversed to be affected on the Bank
+                                Account.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

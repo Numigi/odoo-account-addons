@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_move_reversal_access
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-14 15:16+0000\n"
+"PO-Revision-Date: 2021-01-14 15:16+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_reversal_access
+#: model:ir.model,name:account_move_reversal_access.model_account_move
+msgid "Journal Entries"
+msgstr "Pièces comptables"
+
+#. module: account_move_reversal_access
+#: model:res.groups,name:account_move_reversal_access.group_reverse_account_moves
+msgid "Reverse Account Moves"
+msgstr "Renverser les pièces comptables"
+
+#. module: account_move_reversal_access
+#: code:addons/account_move_reversal_access/models/account_move.py:31
+#, python-format
+msgid "You can't reverse a move on bank or cash journal type. Please use the cancel function."
+msgstr "Vous ne pouvez pas renverser une pièce comptable pour un journal de banque ou liquidités. Veuillez utiliser la fonction d'annulation."
+
+#. module: account_move_reversal_access
+#: code:addons/account_move_reversal_access/models/account_move.py:23
+#, python-format
+msgid "You haven't access to reverse account entries. Please contact your administrator or manager."
+msgstr "Vous n'avez pas les accès pour renverser une pièce comptable. Veuillez contacter votre gestionnaire ou administrateur."
+
