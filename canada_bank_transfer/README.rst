@@ -3,6 +3,8 @@ Canada EFT Bank Transfer
 ========================
 This module enables to generate credit transfer files for transactions between bank accounts in Canada.
 
+.. contents:: Table of Contents
+
 Configuration
 -------------
 As member of `Accounting / Manager`, I go to the list view of accounting journals.
@@ -39,6 +41,29 @@ It indicates the data processing center that will handle your tranfers.
 The value depends on the bank and the location of your company.
 
 .. image:: static/description/journal_form_eft_fields_filled.png
+
+Sequence
+~~~~~~~~
+Since version ``1.2.0`` of the module, each journal (with EFT enabled)
+has its own distinct sequence for the EFT.
+
+.. image:: static/description/journal_form_eft_sequence.png
+
+This sequence number is used by the bank to identify your payment batch.
+
+..
+
+    In previous versions of the module, only one sequence was defined per company.
+
+If you let the field empty, the system will automatically create it when saving the journal.
+
+You may edit the next number of the sequence.
+
+.. image:: static/description/eft_sequence_form.png
+
+Therefore, when generating a new EFT, this number will be used.
+
+.. image:: static/description/eft_with_file_sequence_number.png
 
 Bank Account Configuration
 --------------------------
@@ -231,6 +256,41 @@ I verify that the email message is properly set. Then, I click on `Send`.
 .. image:: static/description/eft_payment_notices_sent.png
 
 The payment notices are now sent.
+
+Using a Transit Account
+-----------------------
+Some banks squash all payments of an EFT into a single line in bank statements.
+In such case, you may want your payments in Odoo to be squashed into one line as well.
+
+Since version ``1.3.0`` of the module, it is possible to define a transit account to use for EFT payments.
+
+To enable this feature, go to the settings of Accounting and check the box ``Use a Transit Account``.
+
+.. image:: static/description/use_transit_account.png
+
+Then, in the form view of your bank journal, select the account to use as transit.
+
+.. image:: static/description/journal_transit_account.png
+
+When confirming a payment, the transit account is debited instead of the bank account.
+
+.. image:: static/description/payment_move_with_transit_account.png
+
+After confirming the EFT, a deposit journal entry is created (simlilarly to check deposits).
+
+.. image:: static/description/eft_confirmed_with_transit.png
+
+This journal entry debits the transit account and credits the bank account.
+
+.. image:: static/description/deposit_account_move.png
+
+The transit account is automatically reconciled with the payment when confirming the EFT.
+
+.. image:: static/description/transit_account_reconciliation.png
+
+In your bank statement, the deposit appears with the complete EFT amount.
+
+.. image:: static/description/bank_statement_with_deposit.png
 
 Contributors
 ------------

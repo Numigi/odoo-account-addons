@@ -1,4 +1,7 @@
 .log
 /.idea
+*.pyc
+.DS_Store
 __pycache__
 .pytest_cache
+.vscode

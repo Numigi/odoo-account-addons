@@ -1,11 +1,12 @@
 # © 2018 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+from datetime import datetime
 from odoo.tests import common
 from odoo.exceptions import UserError
 
 
-class TestAccountMoveLine(common.SavepointCase):
+class ExpenseCase(common.SavepointCase):
 
     @classmethod
     def setUpClass(cls):
@@ -56,8 +57,12 @@ class TestAccountMoveLine(common.SavepointCase):
         cls.employee = cls.env.ref('hr.employee_mit')
         cls.employee.user_id = cls.user
 
-        cls.payable = cls.env['account.account'].search(
-            [('user_type_id.type', '=', 'payable')], limit=1)
+        cls.payable = cls.env['account.account'].create({
+            "name": "Expenses Payable",
+            "code": "222222",
+            "user_type_id": cls.env.ref('account.data_account_type_payable').id,
+            "reconcile": True,
+        })
 
         cls.employee.address_home_id.property_account_payable_id = cls.payable.id
 
@@ -75,19 +80,22 @@ class TestAccountMoveLine(common.SavepointCase):
             'sheet_id': cls.sheet.id,
         })
 
+
+class TestExpenseInCompanyCurrency(ExpenseCase):
+
     def test_onchangeAmountSetupTaxLines_thenTaxLinesAreComputed(self):
         self.assertFalse(self.expense.tax_line_ids)
 
         self.expense._onchange_amount_setup_tax_lines()
 
-        self.assertEqual(self.expense.total_amount, 700)
+        assert self.expense.total_amount == 700
 
         lines = self.expense.tax_line_ids
-        self.assertEqual(len(lines), 2)
-        self.assertEqual(lines[0].tax_id, self.tax_1)
-        self.assertEqual(lines[1].tax_id, self.tax_2)
-        self.assertAlmostEqual(lines[0].amount, 700 * (0.05 / 1.14975), 2)
-        self.assertAlmostEqual(lines[1].amount, 700 * (0.09975 / 1.14975), 2)
+        assert len(lines) == 2
+        assert lines[0].tax_id == self.tax_1
+        assert lines[1].tax_id == self.tax_2
+        assert lines[0].amount == round(700 * (0.05 / 1.14975), 2)
+        assert lines[1].amount == round(700 * (0.09975 / 1.14975), 2)
 
     def test_ifTaxesExcludedFromPrice_thenTaxLinesAmountAreBasedOnPrice(self):
         self.assertFalse(self.expense.tax_line_ids)
@@ -98,20 +106,38 @@ class TestAccountMoveLine(common.SavepointCase):
 
         self.expense._onchange_amount_setup_tax_lines()
 
-        self.assertAlmostEqual(self.expense.total_amount, 700 * 1.14975, 2)
+        assert self.expense.total_amount == round(700 * 1.14975, 2)
 
         lines = self.expense.tax_line_ids
-        self.assertEqual(len(lines), 2)
-        self.assertEqual(lines[0].tax_id, self.tax_1)
-        self.assertEqual(lines[1].tax_id, self.tax_2)
-        self.assertAlmostEqual(lines[0].amount, 700 * 0.05, 2)
-        self.assertAlmostEqual(lines[1].amount, 700 * 0.09975, 2)
+        assert len(lines) == 2
+        assert lines[0].tax_id == self.tax_1
+        assert lines[1].tax_id == self.tax_2
+        assert lines[0].amount == round(700 * 0.05, 2)
+        assert lines[1].amount == round(700 * 0.09975, 2)
 
     def test_onchangeAmountSetupTaxLines_ifNoReceivableAccountDefined_thenRaiseError(self):
         self.tax_1.account_id = False
 
         with self.assertRaises(UserError):
             self.expense._onchange_amount_setup_tax_lines()
+
+    def test_tax_amounts_properly_propagated_to_account_move(self):
+        self.expense._onchange_amount_setup_tax_lines()
+        self.expense.tax_line_ids[0].amount = 10
+        self.expense.tax_line_ids[1].amount = 5
+
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
+
+        move_lines = self.sheet.account_move_id.line_ids
+        assert len(move_lines) == 4
+
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+        assert tax_1.debit == 10
+        assert tax_2.debit == 5
+        assert payable.credit == round(700, 2)
 
     def test_whenValidatingExpense_thenTaxesAreCorrectlyAccounted(self):
         self.expense._onchange_amount_setup_tax_lines()
@@ -120,14 +146,14 @@ class TestAccountMoveLine(common.SavepointCase):
         self.sheet.action_sheet_move_create()
 
         move_lines = self.sheet.account_move_id.line_ids
-        self.assertEqual(len(move_lines), 4)
+        assert len(move_lines) == 4
 
         tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
         tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
-        self.assertAlmostEqual(payable.credit, 700, 2)
+        assert tax_1.debit == round(700 * (0.05 / 1.14975), 2)
+        assert tax_2.debit == round(700 * (0.09975 / 1.14975), 2)
+        assert payable.credit == round(700, 2)
 
     def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(self):
         self.tax_1.amount = 5
@@ -140,28 +166,28 @@ class TestAccountMoveLine(common.SavepointCase):
         self.sheet.action_sheet_move_create()
 
         move_lines = self.sheet.account_move_id.line_ids
-        self.assertEqual(len(move_lines), 4)
+        assert len(move_lines) == 4
 
         tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
         tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-        self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-        self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
+        assert tax_1.debit == round(700 * 0.05, 2)
+        assert tax_2.debit == round(700 * 0.09975, 2)
+        assert payable.credit == round(700 * 1.14975, 2)
 
     def test_ifTaxesAreIncludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
         self.sheet.approve_expense_sheets()
         self.sheet.action_sheet_move_create()
 
         move_lines = self.sheet.account_move_id.line_ids
-        self.assertEqual(len(move_lines), 4)
+        assert len(move_lines) == 4
 
         tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
         tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
-        self.assertAlmostEqual(payable.credit, 700)
+        assert tax_1.debit == round(700 * (0.05 / 1.14975), 2)
+        assert tax_2.debit == round(700 * (0.09975 / 1.14975), 2)
+        assert payable.credit == 700
 
     def test_ifTaxesAreExcludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
         self.tax_1.amount = 5
@@ -172,14 +198,14 @@ class TestAccountMoveLine(common.SavepointCase):
         self.sheet.action_sheet_move_create()
 
         move_lines = self.sheet.account_move_id.line_ids
-        self.assertEqual(len(move_lines), 4)
+        assert len(move_lines) == 4
 
         tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
         tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-        self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-        self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
+        assert tax_1.debit == round(700 * 0.05, 2)
+        assert tax_2.debit == round(700 * 0.09975, 2)
+        assert payable.credit == round(700 * 1.14975, 2)
 
     def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
         self.expense._onchange_amount_setup_tax_lines()
@@ -189,10 +215,10 @@ class TestAccountMoveLine(common.SavepointCase):
 
         (self.expense | expense_2)._compute_amount()
 
-        self.assertEqual(self.expense.total_amount, 700)
-        self.assertEqual(expense_2.total_amount, 500)
-        self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.14975, 2)
-        self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.14975, 2)
+        assert self.expense.total_amount == 700
+        assert expense_2.total_amount == 500
+        assert self.expense.untaxed_amount == round(700 / 1.14975, 2)
+        assert expense_2.untaxed_amount == round(500 / 1.14975, 2)
 
     def test_withMultipleExpenseLines_taxesAreCorrectlyAccounted(self):
         self.expense._onchange_amount_setup_tax_lines()
@@ -211,6 +237,61 @@ class TestAccountMoveLine(common.SavepointCase):
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
 
         total_amount = 700 + 500
-        self.assertAlmostEqual(sum(tax_1.mapped('debit')), total_amount * (0.05 / 1.14975), 0)
-        self.assertAlmostEqual(sum(tax_2.mapped('debit')), total_amount * (0.09975 / 1.14975), 0)
-        self.assertAlmostEqual(sum(payable.mapped('credit')), total_amount, 0)
+        assert round(sum(tax_1.mapped('debit'))) == round(total_amount * (0.05 / 1.14975))
+        assert round(sum(tax_2.mapped('debit'))) == round(total_amount * (0.09975 / 1.14975))
+        assert sum(payable.mapped('credit')) == total_amount
+
+
+class TestExpenseInForeignCurrency(ExpenseCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.cad = cls.env.ref("base.CAD")
+        cls.journal = cls.env["account.journal"].create(
+            {
+                "name": "My Journal In CAD",
+                "code": "EXPC",
+                "currency_id": cls.cad.id,
+                "type": "purchase",
+            }
+        )
+        cls.expense.write({
+            "journal_id": cls.journal.id,
+            "currency_id": cls.cad.id,
+        })
+        cls.payable.currency_id = cls.cad
+
+        cls.rate = 0.5
+
+        cls.env["res.currency.rate"].search([]).unlink()
+        cls.env["res.currency.rate"].create({
+            "currency_id": cls.cad.id,
+            "name": datetime.now().date(),
+            "rate": cls.rate,
+        })
+
+    def test_amount_in_foreign_currency(self):
+        self.expense._onchange_amount_setup_tax_lines()
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
+
+        move_lines = self.sheet.account_move_id.line_ids
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+        expense = move_lines - tax_1 - tax_2 - payable
+
+        tax_1_amount = 700 * (0.05 / 1.14975)
+        tax_2_amount = 700 * (0.09975 / 1.14975)
+        total = 700
+
+        assert tax_1.amount_currency == round(tax_1_amount, 2)
+        assert tax_2.amount_currency == round(tax_2_amount, 2)
+        assert payable.amount_currency == round(-total, 2)
+        assert expense.amount_currency == round(total - tax_1_amount - tax_2_amount, 2)
+
+        assert tax_1.debit == round(tax_1.amount_currency / self.rate, 2)
+        assert tax_2.debit == round(tax_2.amount_currency / self.rate, 2)
+        assert payable.credit == round(-payable.amount_currency / self.rate, 2)
+        assert expense.debit == round(expense.amount_currency / self.rate, 2)
