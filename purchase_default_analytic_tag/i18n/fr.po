@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_default_analytic_tag
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-10 08:28+0000\n"
+"PO-Revision-Date: 2022-02-10 08:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_default_analytic_tag
+#: model:ir.model.fields,field_description:purchase_default_analytic_tag.field_product_product__analytic_tag_ids
+#: model:ir.model.fields,field_description:purchase_default_analytic_tag.field_product_template__analytic_tag_ids
+msgid "Analytic Tags"
+msgstr "Étiquettes analytiques"
+
+#. module: purchase_default_analytic_tag
+#: model:ir.model,name:purchase_default_analytic_tag.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
