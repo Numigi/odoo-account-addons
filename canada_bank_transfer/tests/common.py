@@ -12,6 +12,10 @@ class EFTCase(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env["ir.config_parameter"].sudo().set_param(
+            "canada_bank_transfer.use_transit_account", False
+        )
+
         cls.rbc = cls.env["res.bank"].create(
             {
                 "name": "Royal Bank of Canada",
@@ -59,7 +63,19 @@ class EFTCase(common.SavepointCase):
         )
 
         cls.supplier_1 = cls.env["res.partner"].create(
-            {"name": "Supplier 1", "supplier": True}
+            {
+                "name": "Supplier 1",
+                "supplier": True,
+                "is_company": True,
+            }
+        )
+
+        cls.supplier_contact = cls.env["res.partner"].create(
+            {
+                "name": "Payable Services",
+                "parent_id": cls.supplier_1.id,
+                "type": "contact",
+            },
         )
 
         cls.td_account = cls.env["res.partner.bank"].create(
