@@ -69,9 +69,7 @@ class TestTransitMoveCase(EtfTransitAccountCase):
 
     def test_deposit_move(self):
         wizard = self._open_confirmation_wizard_etf()
-        wizard.line_ids.filtered(
-            lambda l: l.payment_id == self.payment_1
-        ).completed = False
+        wizard.line_ids.filtered(lambda l: l.payment_id == self.payment_1).completed = False
         wizard.action_validate()
         move = self.eft.deposit_account_move_id
         assert move

@@ -15,10 +15,7 @@ class Bank(models.Model):
     def _check_canada_institution_is_3_digits(self):
         banks_with_institution = self.filtered(lambda b: b.canada_institution)
         for bank in banks_with_institution:
-            if (
-                not bank.canada_institution.isdigit()
-                or len(bank.canada_institution) != 3
-            ):
+            if not bank.canada_institution.isdigit() or len(bank.canada_institution) != 3:
                 raise ValidationError(
                     _("The institution number must contain 3 digits. Got `{}`.").format(
                         bank.canada_institution

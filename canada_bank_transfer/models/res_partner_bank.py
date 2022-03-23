@@ -39,12 +39,8 @@ class ResPartnerBank(models.Model):
         If the transit or the institution number is missing, replace the number
         with a series of `X`. This allows to easily identify what field is missing.
         """
-        canada_accounts = self.filtered(
-            lambda a: a.canada_transit or a.bank_id.canada_institution
-        )
-        canada_accounts_result = [
-            (a.id, a.formatted_canada_number) for a in canada_accounts
-        ]
+        canada_accounts = self.filtered(lambda a: a.canada_transit or a.bank_id.canada_institution)
+        canada_accounts_result = [(a.id, a.formatted_canada_number) for a in canada_accounts]
 
         other_accounts = self - canada_accounts
         other_accounts_result = super(ResPartnerBank, other_accounts).name_get()
