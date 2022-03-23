@@ -223,6 +223,7 @@ class TestEFTCreditDetails(EFTCase):
 
     def test_destinator_short_name__uses_commercial_partner_name(self):
         self.payments[0].partner_id = self.supplier_contact
+        self.payments[0].partner_bank_id = self.td_account
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[104:134] == 'SUPPLIER 1                    '  # 30 caracters
 
