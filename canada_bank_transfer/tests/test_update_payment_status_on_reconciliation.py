@@ -5,6 +5,7 @@ from .test_etf_transit_account import TestTransitMoveCase
 
 
 class TestPaymentStatusReconciled(TestTransitMoveCase):
+ 
     def test_payment_reconciled__status_reconciled(self):
         wizard = self._open_confirmation_wizard_etf()
         wizard.action_validate()
