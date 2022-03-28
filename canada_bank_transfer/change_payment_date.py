@@ -15,11 +15,13 @@ def change_payment_date(payment: Payment, new_date: date) -> None:
     Super user priviledges are used to prevent access right errors.
     """
     payment_sudo = payment.sudo()
-    account_move = payment_sudo.mapped('move_line_ids.move_id')
-    account_move.write({
-        'state': 'draft',
-        'date': new_date,
-    })
-    account_move.line_ids.write({'date_maturity': new_date})
-    account_move.state = 'posted'
+    account_move = payment_sudo.mapped("move_line_ids.move_id")
+    account_move.write(
+        {
+            "state": "draft",
+            "date": new_date,
+        }
+    )
+    account_move.line_ids.write({"date_maturity": new_date})
+    account_move.state = "posted"
     payment_sudo.payment_date = new_date

@@ -47,9 +47,7 @@ class AccountJournal(models.Model):
 
     eft_enabled = fields.Boolean(compute="_compute_eft_enabled", store=True)
 
-    eft_sequence_id = fields.Many2one(
-        "ir.sequence", string="EFT Sequence", ondelete="restrict"
-    )
+    eft_sequence_id = fields.Many2one("ir.sequence", string="EFT Sequence", ondelete="restrict")
     transit_account = fields.Many2one("account.account", string="Transit Account")
     use_transit_account = fields.Boolean(
         string="Use a Transit Account", compute="_get_use_transit_account"
@@ -66,9 +64,7 @@ class AccountJournal(models.Model):
             "canada_bank_transfer.payment_method_eft", raise_if_not_found=False
         )
         for journal in self:
-            journal.eft_enabled = (
-                eft_method and eft_method in journal.outbound_payment_method_ids
-            )
+            journal.eft_enabled = eft_method and eft_method in journal.outbound_payment_method_ids
 
     @api.multi
     def _get_use_transit_account(self):

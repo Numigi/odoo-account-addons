@@ -5,6 +5,7 @@ from odoo import api, fields, models, _
 from ..transaction_types import TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE
 from odoo.exceptions import ValidationError
 
+
 class AccountPayment(models.Model):
 
     _inherit = "account.payment"
@@ -43,22 +44,27 @@ class AccountPayment(models.Model):
             "canada_bank_transfer.payment_method_eft", raise_if_not_found=False
         )
         for payment in self:
-            payment.is_eft_payment = (
-                eft_method and payment.payment_method_id == eft_method
-            )
+            payment.is_eft_payment = eft_method and payment.payment_method_id == eft_method
 
     def _get_liquidity_move_line_vals(self, amount):
         vals = super(AccountPayment, self)._get_liquidity_move_line_vals(amount)
-        if (
-            self.journal_id.use_transit_account
-            and self.payment_method_id
-            == self.env.ref("canada_bank_transfer.payment_method_eft")
+        if self.journal_id.use_transit_account and self.payment_method_id == self.env.ref(
+            "canada_bank_transfer.payment_method_eft"
         ):
             if not self.journal_id.transit_account:
                 raise ValidationError(
-                    _("You must choose an Transit Account in Journal %s.")
-                    % self.journal_id.name
+                    _("You must choose an Transit Account in Journal %s.") % self.journal_id.name
                 )
             else:
                 vals.update({"account_id": self.journal_id.transit_account.id})
         return vals
+
+    @api.multi
+    def unreconcile(self):
+        res = super(AccountPayment, self).unreconcile()
+        self._eft_payments_update_state_sent()
+        return res
+
+    @api.multi
+    def _eft_payments_update_state_sent(self):
+        self.filtered(lambda payment: payment.is_eft_payment).write({"state": "sent"})
