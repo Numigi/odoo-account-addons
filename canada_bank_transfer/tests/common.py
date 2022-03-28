@@ -87,9 +87,7 @@ class EFTCase(common.SavepointCase):
             }
         )
 
-        cls.supplier_2 = cls.env["res.partner"].create(
-            {"name": "Supplier 2", "supplier": True}
-        )
+        cls.supplier_2 = cls.env["res.partner"].create({"name": "Supplier 2", "supplier": True})
 
         cls.rbc_account = cls.env["res.partner.bank"].create(
             {
@@ -109,9 +107,7 @@ class EFTCase(common.SavepointCase):
                 "partner_bank_account_id": bank_account.id,
                 "amount": amount,
                 "payment_type": "outbound",
-                "payment_method_id": cls.env.ref(
-                    "canada_bank_transfer.payment_method_eft"
-                ).id,
+                "payment_method_id": cls.env.ref("canada_bank_transfer.payment_method_eft").id,
                 "currency_id": cls.env.ref("base.CAD").id,
                 "partner_type": "supplier",
                 "eft_transaction_type": "450",

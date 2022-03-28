@@ -8,7 +8,6 @@ from odoo.exceptions import ValidationError
 
 
 class AccountEFTCase(EFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -19,10 +18,9 @@ class AccountEFTCase(EFTCase):
 
 
 class TestCreateEFTFromPayments(AccountEFTCase):
-
     def _create_eft_from_payments(self):
-        action = self.env['account.eft'].create_eft_from_payments(self.payments)
-        return self.env['account.eft'].browse(action['res_id'])
+        action = self.env["account.eft"].create_eft_from_payments(self.payments)
+        return self.env["account.eft"].browse(action["res_id"])
 
     def test_payments_are_asigned_to_eft(self):
         eft = self._create_eft_from_payments()
@@ -30,7 +28,7 @@ class TestCreateEFTFromPayments(AccountEFTCase):
 
     def test_state_is_draft(self):
         eft = self._create_eft_from_payments()
-        assert eft.state == 'draft'
+        assert eft.state == "draft"
 
     def test_eft_name_is_computed_on_create(self):
         eft = self._create_eft_from_payments()
@@ -42,12 +40,12 @@ class TestCreateEFTFromPayments(AccountEFTCase):
             self._create_eft_from_payments()
 
     def test_raise_error_if_payment_method_is_not_eft(self):
-        self.pmt_2.payment_method_id = self.env.ref('account.account_payment_method_manual_in')
+        self.pmt_2.payment_method_id = self.env.ref("account.account_payment_method_manual_in")
         with pytest.raises(ValidationError):
             self._create_eft_from_payments()
 
     def test_raise_error_if_payment_is_not_posted(self):
-        self.payments |= self.pmt_1.copy({'state': 'draft'})
+        self.payments |= self.pmt_1.copy({"state": "draft"})
         with pytest.raises(ValidationError):
             self._create_eft_from_payments()
 
@@ -70,18 +68,19 @@ class TestCreateEFTFromPayments(AccountEFTCase):
 
     def test_eft_currency_is_journal_currency(self):
         eft = self._create_eft_from_payments()
-        assert eft.currency_id == self.env.ref('base.CAD')
+        assert eft.currency_id == self.env.ref("base.CAD")
 
 
 class TestGenerateEFTFile(AccountEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.eft = cls.env['account.eft'].create({
-            'payment_ids': [(6, 0, cls.payments.ids)],
-            'journal_id': cls.journal.id,
-        })
+        cls.eft = cls.env["account.eft"].create(
+            {
+                "payment_ids": [(6, 0, cls.payments.ids)],
+                "journal_id": cls.journal.id,
+            }
+        )
         cls.eft.action_approve()
 
     def test_content_binary_is_filled(self):
@@ -120,7 +119,7 @@ class TestGenerateEFTFile(AccountEFTCase):
             self.eft.generate_eft_file()
 
     def test_raise_error_if_account_number_is_not_digit(self):
-        self.pmt_1.partner_bank_account_id.acc_number = '123456a'
+        self.pmt_1.partner_bank_account_id.acc_number = "123456a"
         with pytest.raises(ValidationError):
             self.eft.generate_eft_file()
 
@@ -130,14 +129,15 @@ class TestGenerateEFTFile(AccountEFTCase):
 
 
 class TestEFTConfirmationWizard(AccountEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.eft = cls.env['account.eft'].create({
-            'payment_ids': [(6, 0, cls.payments.ids)],
-            'journal_id': cls.journal.id,
-        })
+        cls.eft = cls.env["account.eft"].create(
+            {
+                "payment_ids": [(6, 0, cls.payments.ids)],
+                "journal_id": cls.journal.id,
+            }
+        )
         cls.eft.validate_payments()
         cls.eft.action_approve()
         cls.eft.generate_eft_file()
@@ -146,28 +146,28 @@ class TestEFTConfirmationWizard(AccountEFTCase):
 
     def _open_confirmation_wizard(self):
         action = self.eft.action_done()
-        return self.env['account.eft.confirmation.wizard'].browse(action['res_id'])
+        return self.env["account.eft.confirmation.wizard"].browse(action["res_id"])
 
     def test_on_eft_confirmation__wizard_lines_are_completed_by_default(self):
         wizard = self._open_confirmation_wizard()
-        assert wizard.mapped('line_ids.completed') == [True, True]
+        assert wizard.mapped("line_ids.completed") == [True, True]
 
     def test_on_eft_confirmation__eft_state_set_to_done(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.eft.state == 'done'
+        assert self.eft.state == "done"
 
     def test_on_eft_confirmation__payments_are_sent(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.eft.mapped('payment_ids.state') == ['sent', 'sent']
+        assert self.eft.mapped("payment_ids.state") == ["sent", "sent"]
 
     def test_on_eft_confirmation__failed_payments_are_not_sent(self):
         wizard = self._open_confirmation_wizard()
         wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
         wizard.action_validate()
-        assert self.pmt_1.state == 'posted'
-        assert self.pmt_2.state == 'sent'
+        assert self.pmt_1.state == "posted"
+        assert self.pmt_2.state == "sent"
 
     def test_on_eft_confirmation__payment_date_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
@@ -177,17 +177,17 @@ class TestEFTConfirmationWizard(AccountEFTCase):
     def test_on_eft_confirmation__payment_move_is_posted(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped('move_line_ids.move_id').state == 'posted'
+        assert self.pmt_1.mapped("move_line_ids.move_id").state == "posted"
 
     def test_on_eft_confirmation__payment_move_date_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped('move_line_ids.move_id').date == self.eft_date
+        assert self.pmt_1.mapped("move_line_ids.move_id").date == self.eft_date
 
     def test_on_eft_confirmation__payment_move_line_date_maturity_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped('move_line_ids.date_maturity') == [self.eft_date, self.eft_date]
+        assert self.pmt_1.mapped("move_line_ids.date_maturity") == [self.eft_date, self.eft_date]
 
     def test_on_eft_confirmation__failed_payment_date_is_not_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
@@ -198,25 +198,26 @@ class TestEFTConfirmationWizard(AccountEFTCase):
 
 
 class TestEFTWorkflow(AccountEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.eft = cls.env['account.eft'].create({
-            'payment_ids': [(6, 0, cls.payments.ids)],
-            'journal_id': cls.journal.id,
-        })
+        cls.eft = cls.env["account.eft"].create(
+            {
+                "payment_ids": [(6, 0, cls.payments.ids)],
+                "journal_id": cls.journal.id,
+            }
+        )
 
     def test_approve(self):
-        assert self.eft.state == 'draft'
+        assert self.eft.state == "draft"
         self.eft.action_approve()
-        assert self.eft.state == 'approved'
+        assert self.eft.state == "approved"
 
     def test_set_to_draft(self):
         self.eft.action_approve()
-        assert self.eft.state == 'approved'
+        assert self.eft.state == "approved"
         self.eft.action_draft()
-        assert self.eft.state == 'draft'
+        assert self.eft.state == "draft"
 
     def test_unlink_not_possible_if_not_draft(self):
         self.eft.action_approve()

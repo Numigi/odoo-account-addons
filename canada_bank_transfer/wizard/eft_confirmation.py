@@ -27,17 +27,13 @@ class EFTConfirmationWizard(models.TransientModel):
         """
         self.eft_id.state = "done"
 
-        completed_payments = self.line_ids.filtered(lambda l: l.completed).mapped(
-            "payment_id"
-        )
+        completed_payments = self.line_ids.filtered(lambda l: l.completed).mapped("payment_id")
         for payment in completed_payments:
             change_payment_date(payment, self.eft_id.payment_date)
 
         completed_payments.write({"state": "sent"})
 
-        failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped(
-            "payment_id"
-        )
+        failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped("payment_id")
 
         self.eft_id.payment_ids = completed_payments
         self.eft_id.failed_payment_ids = failed_payments
@@ -91,9 +87,7 @@ class EFTConfirmationWizard(models.TransientModel):
 
     def _get_counterpart_move_amount(self):
         return sum(
-            self._get_payment_move_line(l.payment_id).credit
-            for l in self.line_ids
-            if l.completed
+            self._get_payment_move_line(l.payment_id).credit for l in self.line_ids if l.completed
         )
 
     def _reconcile_deposit_move(self, move):
@@ -110,9 +104,7 @@ class EFTConfirmationWizard(models.TransientModel):
 
     def _get_payment_matching_deposit_line(self, line):
         payments = self.mapped("line_ids.payment_id")
-        return next(
-            p for p in payments if p.name in line.name
-        )
+        return next(p for p in payments if p.name in line.name)
 
 
 class EFTConfirmationLine(models.TransientModel):

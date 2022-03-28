@@ -66,9 +66,7 @@ class EFT(models.Model):
     journal_id = fields.Many2one(
         "account.journal", "Journal", required=True, track_visibility="onchange"
     )
-    currency_id = fields.Many2one(
-        "res.currency", "Currency", compute="_compute_currency_id"
-    )
+    currency_id = fields.Many2one("res.currency", "Currency", compute="_compute_currency_id")
 
     state = fields.Selection(
         [
@@ -110,9 +108,7 @@ class EFT(models.Model):
     @api.depends("journal_id")
     def _compute_currency_id(self):
         for eft in self:
-            eft.currency_id = (
-                eft.journal_id.currency_id or eft.journal_id.company_id.currency_id
-            )
+            eft.currency_id = eft.journal_id.currency_id or eft.journal_id.company_id.currency_id
 
     def _get_next_eft_sequence(self):
         sequence = self.journal_id.eft_sequence_id
@@ -120,8 +116,7 @@ class EFT(models.Model):
         if not number.isdigit():
             raise ValidationError(
                 _(
-                    "The sequence number of an EFT must strictly be an integer. "
-                    "Got {value}."
+                    "The sequence number of an EFT must strictly be an integer. " "Got {value}."
                 ).format(value=number)
             )
         return int(number)

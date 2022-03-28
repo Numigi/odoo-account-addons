@@ -21,53 +21,58 @@ from .common import (
 )
 
 
-@pytest.mark.parametrize('number,expected_value', [
-    (10, '000001000'),
-    (10.23, '000001023'),
-    (10.234, '000001023'),
-    (10.235, '000001024'),
-    (1.49999999, '000000150')
-])
+@pytest.mark.parametrize(
+    "number,expected_value",
+    [
+        (10, "000001000"),
+        (10.23, "000001023"),
+        (10.234, "000001023"),
+        (10.235, "000001024"),
+        (1.49999999, "000000150"),
+    ],
+)
 def test_format_payment_amount(number, expected_value):
     assert _format_payment_amount(number) == expected_value
 
 
-@pytest.mark.parametrize('number,expected_value', [
-    (10, '0000000001000'),
-    (10.23, '0000000001023'),
-    (10.234, '0000000001023'),
-    (10.235, '0000000001024'),
-    (1.49999999, '0000000000150')
-])
+@pytest.mark.parametrize(
+    "number,expected_value",
+    [
+        (10, "0000000001000"),
+        (10.23, "0000000001023"),
+        (10.234, "0000000001023"),
+        (10.235, "0000000001024"),
+        (1.49999999, "0000000000150"),
+    ],
+)
 def test_format_total_amount(number, expected_value):
     assert _format_total_amount(number) == expected_value
 
 
 @ddt
 class TestFormatEFTHeader(EFTCase):
-
     def test_record_type_is_a(self):
         header = format_header(self.journal, 1)
-        assert header[0] == 'A'
+        assert header[0] == "A"
 
     def test_sequence_is_always_one(self):
         header = format_header(self.journal, 999)
-        assert header[1:10] == '000000001'
+        assert header[1:10] == "000000001"
 
     def test_user_number(self):
         header = format_header(self.journal, 1)
         assert header[10:20] == USER_NUMBER
 
-    @data(False, '123456789')
+    @data(False, "123456789")
     def test_invalid_user_number_raises_error(self, wrong_number):
         self.journal.eft_user_number = wrong_number
         with pytest.raises(ValidationError):
             format_header(self.journal, 1)
 
     @data(
-        (1, '0001'),
-        (999, '0999'),
-        (9999, '9999'),
+        (1, "0001"),
+        (999, "0999"),
+        (9999, "9999"),
     )
     def test_file_number(self, data_):
         number, formatted_number = data_
@@ -79,8 +84,8 @@ class TestFormatEFTHeader(EFTCase):
             format_header(self.journal, 10000)
 
     @data(
-        ('2019-06-30', '019181'),
-        ('2020-01-01', '020001'),
+        ("2019-06-30", "019181"),
+        ("2020-01-01", "020001"),
     )
     def test_format_header_create_date(self, data_):
         date, formatted_date = data_
@@ -92,7 +97,7 @@ class TestFormatEFTHeader(EFTCase):
         header = format_header(self.journal, 1)
         assert header[30:35] == DESTINATION
 
-    @data(False, '1234', 'abcde')
+    @data(False, "1234", "abcde")
     def test_invalid_destination_data_center_code_raises_error(self, wrong_code):
         self.journal.eft_destination = wrong_code
         with pytest.raises(ValidationError):
@@ -107,12 +112,12 @@ class TestFormatEFTHeader(EFTCase):
         assert header[55:58] == "CAD"
 
     def test_if_no_journal_currency_then_company_currency_is_used(self):
-        journal = self.journal.copy({'currency_id': False})
+        journal = self.journal.copy({"currency_id": False})
         header = format_header(journal, 1)
         assert header[55:58] == journal.company_id.currency_id.name
 
     def test_currency_code_with_usd(self):
-        self.journal.currency_id = self.env.ref('base.USD')
+        self.journal.currency_id = self.env.ref("base.USD")
         header = format_header(self.journal, 1)
         assert header[55:58] == "USD"
 
@@ -123,7 +128,6 @@ class TestFormatEFTHeader(EFTCase):
 
 @ddt
 class TestEFTCreditDetails(EFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -137,11 +141,11 @@ class TestEFTCreditDetails(EFTCase):
 
     def test_record_type_is_c(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[0] == 'C'
+        assert record[0] == "C"
 
     @data(
-        (2, '000000002'),
-        (999, '000000999'),
+        (2, "000000002"),
+        (999, "000000999"),
     )
     def test_sequence_number(self, data_):
         number, formatted_number = data_
@@ -154,51 +158,47 @@ class TestEFTCreditDetails(EFTCase):
 
     def test_file_number(self):
         record = format_credit_details_group(self.journal, self.payments, 999, 2)
-        assert record[20:24] == '0999'
+        assert record[20:24] == "0999"
 
     def test_operation_code(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[24:27] == '450'
+        assert record[24:27] == "450"
 
     def test_operation_code_is_450_by_default(self):
-        self.payments[0].write({'eft_transaction_type': None})
+        self.payments[0].write({"eft_transaction_type": None})
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[24:27] == '450'
+        assert record[24:27] == "450"
 
     def test_payment_amount(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[27:37] == '0000011111'  # payment 1: 111.11
-        assert record[27 + 240:37 + 240] == '0000022222'  # payment 2: 222.22
+        assert record[27:37] == "0000011111"  # payment 1: 111.11
+        assert record[27 + 240 : 37 + 240] == "0000022222"  # payment 2: 222.22
 
     def test_format_header_create_date(self):
-        with freeze_time('2019-06-30'):
+        with freeze_time("2019-06-30"):
             self.payments[0].payment_date = datetime.now().date()
             record = format_credit_details_group(self.journal, self.payments, 1, 2)
-            assert record[37:43] == '019181'
+            assert record[37:43] == "019181"
 
     def test_destination_institution(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[43:47] == '0004'  # '0{institution}'
+        assert record[43:47] == "0004"  # '0{institution}'
 
     def test_destination_transit(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[47:52] == '20002'
+        assert record[47:52] == "20002"
 
     @data(
-        ('1234567', '1234567     '),
-        ('12345678', '12345678    '),
-        ('123456789012', '123456789012'),
+        ("1234567", "1234567     "),
+        ("12345678", "12345678    "),
+        ("123456789012", "123456789012"),
     )
     def test_destination_account(self, data_):
         self.td_account.acc_number = data_[0]
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         assert record[52:64] == data_[1]
 
-    @data(
-        '1234567 ',  # non-digit
-        '123456',  # too short
-        '1234567890123'  # too long
-    )
+    @data("1234567 ", "123456", "1234567890123")  # non-digit  # too short  # too long
     def test_if_account_number_too_short_raise_error(self, wrong_number):
         self.td_account.acc_number = wrong_number
         with pytest.raises(ValidationError):
@@ -206,20 +206,20 @@ class TestEFTCreditDetails(EFTCase):
 
     def test_zeros_from_64_to_89(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[64:89] == '0' * 25
+        assert record[64:89] == "0" * 25
 
     def test_user_short_name(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[89:104] == 'YOUR COMPANY   '  # 15 caracters
+        assert record[89:104] == "YOUR COMPANY   "  # 15 caracters
 
     def test_accents_are_removed_from_user_short_name(self):
-        self.journal.eft_user_short_name = 'Québec Inc. *'
+        self.journal.eft_user_short_name = "Québec Inc. *"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[89:104] == 'QUEBEC INC. _  '  # 15 caracters
+        assert record[89:104] == "QUEBEC INC. _  "  # 15 caracters
 
     def test_destinator_short_name(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[104:134] == 'SUPPLIER 1                    '  # 30 caracters
+        assert record[104:134] == "SUPPLIER 1                    "  # 30 caracters
 
     def test_destinator_short_name__uses_commercial_partner_name(self):
         self.payments[0].partner_id = self.supplier_contact
@@ -229,27 +229,27 @@ class TestEFTCreditDetails(EFTCase):
     def test_destinator_short_name__uses_acc_holder_name_if_available(self):
         self.payments[0].partner_bank_account_id.acc_holder_name = "Custom Account Holder Name"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[104:134] == 'CUSTOM ACCOUNT HOLDER NAME    '  # 30 caracters
+        assert record[104:134] == "CUSTOM ACCOUNT HOLDER NAME    "  # 30 caracters
 
     def test_accents_are_removed_from_destinator_name(self):
-        self.td_account.partner_id.name = '12345 Québec Inc. *test*'
+        self.td_account.partner_id.name = "12345 Québec Inc. *test*"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[104:134] == '12345 QUEBEC INC. _TEST_      '  # 30 caracters
+        assert record[104:134] == "12345 QUEBEC INC. _TEST_      "  # 30 caracters
 
     def test_user_long_name(self):
-        self.journal.company_id.name = 'Your Company Inc.'
+        self.journal.company_id.name = "Your Company Inc."
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[134:164] == 'YOUR COMPANY INC.             '  # 30 caracters
+        assert record[134:164] == "YOUR COMPANY INC.             "  # 30 caracters
 
     def test_specific_user_long_name(self):
-        self.journal.eft_user_long_name = 'Specific User Long Name'
+        self.journal.eft_user_long_name = "Specific User Long Name"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[134:164] == 'SPECIFIC USER LONG NAME       '
+        assert record[134:164] == "SPECIFIC USER LONG NAME       "
 
     def test_accents_are_removed_from_user_long_name(self):
-        self.journal.company_id.name = 'Your Company Inc. *test*'
+        self.journal.company_id.name = "Your Company Inc. *test*"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
-        assert record[134:164] == 'YOUR COMPANY INC. _TEST_      '  # 30 caracters
+        assert record[134:164] == "YOUR COMPANY INC. _TEST_      "  # 30 caracters
 
     def test_user_number_at_164(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
@@ -258,16 +258,16 @@ class TestEFTCreditDetails(EFTCase):
     def test_transaction_reference_number(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         reference = record[174:192]
-        assert reference == self.pmt_1.name.replace('/', '_')
+        assert reference == self.pmt_1.name.replace("/", "_")
 
-        reference_2 = record[174 + 240:192 + 240]
-        assert reference_2 == self.pmt_2.name.replace('/', '_')
+        reference_2 = record[174 + 240 : 192 + 240]
+        assert reference_2 == self.pmt_2.name.replace("/", "_")
 
     def test_transaction_reference_number_with_long_payment_name(self):
-        self.pmt_1.name = 'SUPP.OUT/2019/1234567'
+        self.pmt_1.name = "SUPP.OUT/2019/1234567"
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         reference = record[174:193]
-        assert reference == 'PP.OUT_2019_1234567'
+        assert reference == "PP.OUT_2019_1234567"
 
     def test_origin_institution(self):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
@@ -321,33 +321,32 @@ class TestEFTCreditDetailsWith6Payments(EFTCase):
         assert len(record) == 1464
 
     @data(
-        (0, '0000011111'),
-        (1, '0000022222'),
-        (2, '0000033333'),
-        (3, '0000044444'),
-        (4, '0000055555'),
-        (5, '0000066666'),
+        (0, "0000011111"),
+        (1, "0000022222"),
+        (2, "0000033333"),
+        (3, "0000044444"),
+        (4, "0000055555"),
+        (5, "0000066666"),
     )
     def test_payment_amount(self, data_):
         record = format_credit_details_group(self.journal, self.payments, 1, 2)
         offset = 240 * data_[0]
-        assert record[27 + offset:37 + offset] == data_[1]
+        assert record[27 + offset : 37 + offset] == data_[1]
 
 
 @ddt
 class TestEFTTrailer(EFTCase):
-
     def test_trailer_length(self):
         trailer = format_trailer(self.journal, 1, 1, 1, 1)
         assert len(trailer) == 1464
 
     def test_record_type_is_z(self):
         trailer = format_trailer(self.journal, 1, 1, 1, 1)
-        assert trailer[0] == 'Z'
+        assert trailer[0] == "Z"
 
     def test_sequence_number(self):
         trailer = format_trailer(self.journal, 1, 123, 1, 1)
-        assert trailer[1:10] == '000000123'
+        assert trailer[1:10] == "000000123"
 
     def test_user_number(self):
         trailer = format_trailer(self.journal, 1, 1, 1, 1)
@@ -375,10 +374,9 @@ class TestEFTTrailer(EFTCase):
 
 
 class CompleteEFTCase(EFTCase):
-
     @classmethod
     def _generate_payments(cls, number_of_payments):
-        payments = cls.env['account.payment']
+        payments = cls.env["account.payment"]
         for i in range(number_of_payments):
             payments |= cls.generate_payment(cls.rbc_account, i + 1)
         return payments
@@ -386,7 +384,6 @@ class CompleteEFTCase(EFTCase):
 
 @ddt
 class TestCompleteEFTLength(CompleteEFTCase):
-
     @data(1, 5, 6)
     def test_eft_length_with_6_payments_or_less(self, number_of_payments):
         payments = self._generate_payments(number_of_payments)
@@ -408,7 +405,6 @@ class TestCompleteEFTLength(CompleteEFTCase):
 
 @ddt
 class TestCompleteEFTAmountPosition(CompleteEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -416,18 +412,18 @@ class TestCompleteEFTAmountPosition(CompleteEFTCase):
 
     @data(
         # (formatted_payment_amount, amount_index_in_file)
-        ('0000000100', 1492),  # 1492 = 1464 + 1 + 27 (header + \n + 27)
-        ('0000000200', 1732),  # 1732 = 1492 + 240
-        ('0000000500', 2452),  # 2452 = 1492 + 240 * 4
-        ('0000000600', 2692),  # 2692 = 1492 + 240 * 5
-        ('0000000700', 2957),  # 2957 = 1464 + 1 + 1464 + 1 + 27 (header + \n + group1 + \n + 27)
-        ('0000001200', 4157),  # 4157 = 2957 + 240 * 5
-        ('0000001300', 4422),  # 4421 = 1464 * 3 + 3 + 27
-        ('0000001800', 5622),  # 5622 = 4421 + 240 * 5
-        ('0000001900', 5887),  # 5887 = 1464 * 4 + 4 + 27
-        ('0000002000', 6127),  # 6127 = 5887 + 240
+        ("0000000100", 1492),  # 1492 = 1464 + 1 + 27 (header + \n + 27)
+        ("0000000200", 1732),  # 1732 = 1492 + 240
+        ("0000000500", 2452),  # 2452 = 1492 + 240 * 4
+        ("0000000600", 2692),  # 2692 = 1492 + 240 * 5
+        ("0000000700", 2957),  # 2957 = 1464 + 1 + 1464 + 1 + 27 (header + \n + group1 + \n + 27)
+        ("0000001200", 4157),  # 4157 = 2957 + 240 * 5
+        ("0000001300", 4422),  # 4421 = 1464 * 3 + 3 + 27
+        ("0000001800", 5622),  # 5622 = 4421 + 240 * 5
+        ("0000001900", 5887),  # 5887 = 1464 * 4 + 4 + 27
+        ("0000002000", 6127),  # 6127 = 5887 + 240
     )
     def test_payments_order(self, data_):
         formatted_payment_amount, amount_index_in_file = data_
         eft = generate_eft(self.journal, self.payments, 1)
-        assert eft[amount_index_in_file:amount_index_in_file + 10] == formatted_payment_amount
+        assert eft[amount_index_in_file : amount_index_in_file + 10] == formatted_payment_amount

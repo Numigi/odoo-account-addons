@@ -233,7 +233,7 @@ Multiple changes were applied to the `EFT`.
 
 (1) The EFT is now `Done`.
 
-(2) The 2 succeeding payments are at the status `Sent`.
+(2) The 2 succeeding payments are at the status `Reconciled`.
     The payment dates were updated to match the EFT date.
 
 (3) The failed payment is still at the status `Posted`.
@@ -241,6 +241,24 @@ Multiple changes were applied to the `EFT`.
 
 (4) A new button `Send Payment Notices` appears.
     This button allows to notice the recipients by email.
+
+Now I select a journal item line which is reconciled,
+showed by field Matching Number set
+I use button Unreconciled Entries to unreconcile it
+
+.. image:: static/description/move_unreconcile.png
+
+A wizard is opened, I use button Unreconcile
+
+.. image:: static/description/move_unreconcile_button.png
+
+I can see that field Matching Number is null
+
+.. image:: static/description/move_unreconcile_result.png
+
+Payment associated to the journal item just unreconciled has now state 'Sent'
+
+.. image:: static/description/payment_unreconciled.png
 
 Payment Notices
 ---------------
