@@ -50,7 +50,9 @@ def _format_julian_date(date_: date):
 def _verify_file_number(file_number: int, context: dict) -> None:
     if not (1 <= file_number <= 9999):
         raise ValidationError(
-            _("Expected an EFT file number between 1 and 9999. Got `{}`.").format(file_number)
+            _("Expected an EFT file number between 1 and 9999. Got `{}`.").format(
+                file_number
+            )
         )
 
 
@@ -61,21 +63,27 @@ def _format_file_number(file_number: int) -> str:
 def _verify_user_number(user_number: str, context: dict) -> None:
     if not user_number or len(user_number) != 10:
         raise ValidationError(
-            _("Expected a bank user number with 10 caracters. Got `{}`.").format(user_number)
+            _("Expected a bank user number with 10 caracters. Got `{}`.").format(
+                user_number
+            )
         )
 
 
 def _verify_destination_code(destination: str, context: dict) -> None:
     if not destination or len(destination) != 5 or not destination.isdigit():
         raise ValidationError(
-            _("Expected a destination code with 5 digits. Got `{}`.").format(destination)
+            _("Expected a destination code with 5 digits. Got `{}`.").format(
+                destination
+            )
         )
 
 
 def _verify_currency_code(currency_code: str, context: dict) -> None:
     if len(currency_code) != 3:
         raise ValidationError(
-            _("Expected a currency name with 3 caracters. Got `{}`.").format(currency_code)
+            _("Expected a currency name with 3 caracters. Got `{}`.").format(
+                currency_code
+            )
         )
 
 
@@ -121,7 +129,9 @@ def _format_sequence_number(sequence_number: int) -> str:
 def _verify_institution_number(institution_number: str, context: dict) -> None:
     if not institution_number or len(institution_number) != 3:
         raise ValidationError(
-            _("Expected an institution name with 3 caracters. Got `{}`.").format(institution_number)
+            _("Expected an institution name with 3 caracters. Got `{}`.").format(
+                institution_number
+            )
         )
 
     if not institution_number.isdigit():
@@ -137,16 +147,22 @@ def _verify_transit(transit: str, context: dict) -> None:
         )
 
     if not transit.isdigit():
-        raise ValidationError(_("The transit number `{}` must contain only digits.").format(number))
+        raise ValidationError(
+            _("The transit number `{}` must contain only digits.").format(number)
+        )
 
 
 def _verify_account_number(number: str, context: dict) -> None:
     if not number.isdigit():
-        raise ValidationError(_("The account number `{}` must contain only digits.").format(number))
+        raise ValidationError(
+            _("The account number `{}` must contain only digits.").format(number)
+        )
 
     if not (7 <= len(number) <= 12):
         raise ValidationError(
-            _("The account number `{}` must contain between 7 and 12 digits.").format(number)
+            _("The account number `{}` must contain between 7 and 12 digits.").format(
+                number
+            )
         )
 
 
@@ -157,9 +173,9 @@ def _format_account_number(number: str) -> str:
 def _verify_user_short_name(user_short_name: str, context: dict) -> None:
     if not user_short_name or len(user_short_name) > 15:
         raise ValidationError(
-            _("Expected a user short name between 1 and 15 caracters. Got `{}`.").format(
-                user_short_name
-            )
+            _(
+                "Expected a user short name between 1 and 15 caracters. Got `{}`."
+            ).format(user_short_name)
         )
 
 
@@ -197,23 +213,38 @@ def _format_transaction_reference(reference: str) -> str:
 def _verify_transaction_type(transaction_type: str, context: dict) -> None:
     if not transaction_type.isdigit():
         raise ValidationError(
-            _("The transaction type must have 3 digits. Got `{}`.").format(transaction_type)
+            _("The transaction type must have 3 digits. Got `{}`.").format(
+                transaction_type
+            )
         )
     if len(transaction_type) != 3:
         raise ValidationError(
-            _("Expected a transaction type with 3 caracters. Got `{}`.").format(transaction_type)
+            _("Expected a transaction type with 3 caracters. Got `{}`.").format(
+                transaction_type
+            )
         )
 
 
 def _verify_payment_amount(amount: float, context: dict) -> None:
     if amount >= 10000000:
         raise ValidationError(
-            _("EFT transfers support only payments below ten millions.").format(transaction_type)
+            _("EFT transfers support only payments below ten millions.").format(
+                transaction_type
+            )
         )
 
 
 def _format_payment_amount(amount: float) -> str:
     return "{0:0>9.0f}".format(float_round(amount * 100, 0))
+
+
+def _get_account_holder_name(account):
+    name = account.acc_holder_name or ""
+    return name.strip()
+
+
+def _get_commercial_partner_name(payment):
+    return payment.partner_id.commercial_partner_id.name
 
 
 def _format_credit_detail_segment(payment: Payment) -> str:
@@ -244,11 +275,15 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             )
         )
 
-    destinator_name = (destination_account.acc_holder_name or "").strip() or payment.partner_id.name
+    destinator_name = _get_account_holder_name(
+        destination_account
+    ) or _get_commercial_partner_name(payment)
 
     transaction_type = payment.eft_transaction_type or DEFAULT_TRANSACTION_TYPE
 
-    user_long_name = payment.journal_id.eft_user_long_name or payment.journal_id.company_id.name
+    user_long_name = (
+        payment.journal_id.eft_user_long_name or payment.journal_id.company_id.name
+    )
 
     _verify_transaction_type(transaction_type, context)
     _verify_user_number(payment.journal_id.eft_user_number, context)
@@ -283,7 +318,9 @@ def _format_credit_detail_segment(payment: Payment) -> str:
             destination_institution=destination_account.bank_id.canada_institution,
             destination_transit=destination_account.canada_transit,
             destination_account=_format_account_number(destination_account.acc_number),
-            user_short_name=_format_user_short_name(payment.journal_id.eft_user_short_name),
+            user_short_name=_format_user_short_name(
+                payment.journal_id.eft_user_short_name
+            ),
             destinator_name=_format_destinator_name(destinator_name),
             user_long_name=_format_user_long_name(user_long_name),
             user_number=payment.journal_id.eft_user_number,
