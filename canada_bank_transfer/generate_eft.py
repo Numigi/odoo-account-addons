@@ -311,7 +311,10 @@ def _format_credit_detail_segment(payment):
 
 
 def format_credit_details_group(
-    journal, payments, file_number, sequence_number,
+    journal,
+    payments,
+    file_number,
+    sequence_number,
 ):
     """Format a credit details section containing between 1 and 6 payments.
 
