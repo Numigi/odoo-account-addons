@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="conciliation_wizard_view_form" model="ir.ui.view">
+            <field name="name">conciliation_wizard_view_form</field>
+            <field name="model">conciliation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="conciliation_wizard_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="statement_id" invisible="1"/>
+                                <field name="balance_end_real" />
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="outstanding" string="Oustanding Cheques">
+                                <field name="payment_outbound_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="payment_date"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount" sum="Amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="outstanding" string="Oustanding Deposits">
+                                <field name="payment_inbound_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="payment_date"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount" sum="Amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
