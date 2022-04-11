@@ -3,8 +3,9 @@
 
 from odoo import api, fields, models
 
-class AccountPayment(models.Model):
-    _inherit = 'account.payment'
 
-    rec_outbound_id = fields.Many2one('reconciliation.wizard')
-    rec_inbound_id = fields.Many2one('reconciliation.wizard')
+class AccountPayment(models.Model):
+    _inherit = "account.payment"
+
+    rec_outbound_id = fields.Many2one("reconciliation.wizard")
+    rec_inbound_id = fields.Many2one("reconciliation.wizard")
