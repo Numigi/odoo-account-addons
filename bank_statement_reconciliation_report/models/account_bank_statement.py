@@ -32,21 +32,27 @@ class AccountBankStatement(models.Model):
             'res_id': self.conciliation_id.id
         }
 
-    def compute_outbond(self):
+    def compute_outbound(self):
         AccountPayment = self.env['account.payment']
         outbound_domain = [('payment_type', '=', 'outbound'), ('journal_id', '=', self.journal_id.id),
                            ('state', 'in', ['posted', 'sent'])]
         outbound_ids = AccountPayment.search(outbound_domain)
-        logging.info('Outound ids ----------------------')
-        logging.info(outbound_ids)
         return outbound_ids
 
-    def compute_inbond(self):
+    def compute_inbound(self):
         AccountPayment = self.env['account.payment']
         inbond_domain = [('payment_type', '=', 'inbound'), ('journal_id', '=', self.journal_id.id),
                          ('state', 'in', ['posted', 'sent'])]
         inbound_ids = AccountPayment.search(inbond_domain)
-        logging.info('Inbound ids ----------------------')
-        logging.info(inbound_ids)
         return inbound_ids
 
+    def get_sum(self, payments):
+        return sum(payments.mapped('amount'))
+
+    def get_account_balance(self):
+        AccountMoveLine = self.env['account.move.line']
+        account_ids = [self.journal_id.default_debit_account_id.id, self.journal_id.default_credit_account_id.id]
+        line_ids = AccountMoveLine.search([('account_id', 'in', account_ids)])
+        debit = sum(line_ids.mapped('debit'))
+        credit = sum(line_ids.mapped('credit'))
+        return debit - credit

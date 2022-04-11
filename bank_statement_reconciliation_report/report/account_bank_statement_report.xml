@@ -11,11 +11,17 @@
                             <h2 class="text-center">Bank conciliation report</h2>
                             <div class="row">
                                 <div class="col-md-6">Account :</div>
-                                <div class="col-md-6"><span t-field="o.conciliation_id.name"/></div>
+                                <div class="col-md-6">
+                                    <span t-field="o.conciliation_id.name"/>
+                                </div>
                                 <div class="col-md-6">Date :</div>
-                                <div class="col-md-6"><span t-field="o.date"/></div>
-                                <div class="col-md-6">Statement Ending Balance : </div>
-                                <div class="col-md-6 text-right"><span t-field="o.balance_end_real"/></div>
+                                <div class="col-md-6">
+                                    <span t-field="o.date"/>
+                                </div>
+                                <div class="col-md-6">Statement Ending Balance :</div>
+                                <div class="col-md-6 text-right">
+                                    <span t-field="o.balance_end_real"/>
+                                </div>
                             </div>
 
                             <h2>Outstanding Cheques</h2>
@@ -30,17 +36,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="o.compute_outbond()" t-as="outbound">
+                                    <t t-foreach="o.compute_outbound()" t-as="outbound">
                                         <tr>
-                                            <td><t t-esc="outbound.name" /></td>
-                                            <td><t t-esc="outbound.payment_date" /></td>
-                                            <td><t t-esc="outbound.partner_id.name" /></td>
-                                            <td><t t-esc="outbound.communication" /></td>
-                                            <td><t t-esc="outbound.amount" /></td>
+                                            <td>
+                                                <t t-esc="outbound.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="outbound.payment_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="outbound.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="outbound.communication"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="outbound.amount"/>
+                                            </td>
                                         </tr>
                                     </t>
+                                    <tr>
+                                        <td colspan="4">Total Outstanding Cheques</td>
+                                        <td class="text-right">
+                                            <t t-set="total_outbound" t-value="o.get_sum(o.compute_outbound())"/>
+                                            <t t-esc="total_outbound"
+                                               t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                            />
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
+
                             <h2>Oustanding Deposits</h2>
                             <table class="table">
                                 <thead>
@@ -53,17 +79,57 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="o.compute_inbond()" t-as="inbound">
+                                    <t t-foreach="o.compute_inbound()" t-as="inbound">
                                         <tr>
-                                            <td><t t-esc="inbound.name" /></td>
-                                            <td><t t-esc="inbound.payment_date" /></td>
-                                            <td><t t-esc="inbound.partner_id.name" /></td>
-                                            <td><t t-esc="inbound.communication" /></td>
-                                            <td><t t-esc="inbound.amount" /></td>
+                                            <td>
+                                                <t t-esc="inbound.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="inbound.payment_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="inbound.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="inbound.communication"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="inbound.amount"/>
+                                            </td>
                                         </tr>
                                     </t>
+                                    <tr>
+                                        <td colspan="4">Total Outstanding Deposits</td>
+                                        <td class="text-right">
+                                            <t t-set="total_inbound" t-value="o.get_sum(o.compute_inbound())"/>
+                                            <t t-esc="o.get_sum(o.compute_inbound())"
+                                               t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
+
+                            <div class="row">
+                                <div class="col-md-6">Calculated Balance with Reconciliation</div>
+                                <div class="col-md-6 text-right">
+                                    <t t-set="conciliation_balance"
+                                       t-value="o.balance_end_real - total_outbound +  total_inbound"/>
+                                    <t t-esc="conciliation_balance"
+                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </div>
+                                <div class="col-md-6">Account Balance in the date</div>
+                                <div class="col-md-6 text-right">
+                                    <t t-set="account_balance" t-value="o.get_account_balance()"/>
+                                    <t t-esc="account_balance"
+                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </div>
+                                <div class="col-md-6">Difference</div>
+                                <div class="col-md-6 text-right">
+                                    <t t-set="difference" t-value="conciliation_balance - account_balance"/>
+                                    <t t-esc="difference"
+                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </div>
+                            </div>
 
                         </div>
                     </t>
