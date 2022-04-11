@@ -14,9 +14,14 @@
                                 <field name="name"/>
                                 <field name="statement_id" invisible="1"/>
                                 <field name="balance_end_real" />
+                                <field name="total_outbound"/>
+                                <field name="total_inbound"/>
                             </group>
                             <group>
                                 <field name="date"/>
+                                <field name="conciliation_balance"/>
+                                <field name="difference"/>
+                                <field name="account_balance"/>
                             </group>
                         </group>
                         <notebook>
