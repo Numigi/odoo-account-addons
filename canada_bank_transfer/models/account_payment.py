@@ -58,13 +58,3 @@ class AccountPayment(models.Model):
             else:
                 vals.update({"account_id": self.journal_id.transit_account.id})
         return vals
-
-    @api.multi
-    def unreconcile(self):
-        res = super(AccountPayment, self).unreconcile()
-        self._eft_payments_update_state_sent()
-        return res
-
-    @api.multi
-    def _eft_payments_update_state_sent(self):
-        self.filtered(lambda payment: payment.is_eft_payment).write({"state": "sent"})
