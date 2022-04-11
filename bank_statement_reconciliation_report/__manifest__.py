@@ -16,5 +16,6 @@
         'security/ir.model.access.csv',
         'views/account_bank_statement_views.xml',
         'wizard/conciliation_wizard_views.xml',
+        'report/account_bank_statement_report.xml',
     ],
 }

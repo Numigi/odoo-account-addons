@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <template id="statement_report_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center">Bank conciliation report</h2>
+                            <div class="row">
+                                <div class="col-md-6">Account :</div>
+                                <div class="col-md-6"><span t-field="o.conciliation_id.name"/></div>
+                                <div class="col-md-6">Date :</div>
+                                <div class="col-md-6"><span t-field="o.date"/></div>
+                                <div class="col-md-6">Statement Ending Balance : </div>
+                                <div class="col-md-6 text-right"><span t-field="o.balance_end_real"/></div>
+                            </div>
+
+                            <h2>Outstanding Cheques</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Ref</th>
+                                        <th>Date</th>
+                                        <th>Partner</th>
+                                        <th>Number</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.compute_outbond()" t-as="outbound">
+                                        <tr>
+                                            <td><t t-esc="outbound.name" /></td>
+                                            <td><t t-esc="outbound.payment_date" /></td>
+                                            <td><t t-esc="outbound.partner_id.name" /></td>
+                                            <td><t t-esc="outbound.communication" /></td>
+                                            <td><t t-esc="outbound.amount" /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <h2>Oustanding Deposits</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Ref</th>
+                                        <th>Date</th>
+                                        <th>Partner</th>
+                                        <th>Number</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.compute_inbond()" t-as="inbound">
+                                        <tr>
+                                            <td><t t-esc="inbound.name" /></td>
+                                            <td><t t-esc="inbound.payment_date" /></td>
+                                            <td><t t-esc="inbound.partner_id.name" /></td>
+                                            <td><t t-esc="inbound.communication" /></td>
+                                            <td><t t-esc="inbound.amount" /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <record id="action_statement_report_document" model="ir.actions.report">
+            <field name="name">Bank conciliation report</field>
+            <field name="model">account.bank.statement</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bank_statement_reconciliation_report.statement_report_document</field>
+            <field name="report_file">bank_statement_reconciliation_report.statement_report_document</field>
+            <field name="print_report_name">('Bank conciliation - %s'%object.name)</field>
+            <field name="binding_model_id" ref="account.model_account_bank_statement"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>

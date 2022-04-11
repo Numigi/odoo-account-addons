@@ -31,3 +31,22 @@ class AccountBankStatement(models.Model):
             'target': 'new',
             'res_id': self.conciliation_id.id
         }
+
+    def compute_outbond(self):
+        AccountPayment = self.env['account.payment']
+        outbound_domain = [('payment_type', '=', 'outbound'), ('journal_id', '=', self.journal_id.id),
+                           ('state', 'in', ['posted', 'sent'])]
+        outbound_ids = AccountPayment.search(outbound_domain)
+        logging.info('Outound ids ----------------------')
+        logging.info(outbound_ids)
+        return outbound_ids
+
+    def compute_inbond(self):
+        AccountPayment = self.env['account.payment']
+        inbond_domain = [('payment_type', '=', 'inbound'), ('journal_id', '=', self.journal_id.id),
+                         ('state', 'in', ['posted', 'sent'])]
+        inbound_ids = AccountPayment.search(inbond_domain)
+        logging.info('Inbound ids ----------------------')
+        logging.info(inbound_ids)
+        return inbound_ids
+

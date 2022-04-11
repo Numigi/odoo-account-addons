@@ -26,6 +26,7 @@
                                         <field name="name"/>
                                         <field name="payment_date"/>
                                         <field name="partner_id"/>
+                                        <field name="communication"/>
                                         <field name="amount" sum="Amount"/>
                                     </tree>
                                 </field>
@@ -36,6 +37,7 @@
                                         <field name="name"/>
                                         <field name="payment_date"/>
                                         <field name="partner_id"/>
+                                        <field name="communication"/>
                                         <field name="amount" sum="Amount"/>
                                     </tree>
                                 </field>
