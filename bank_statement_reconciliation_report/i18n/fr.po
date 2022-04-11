@@ -1,0 +1,224 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bank_statement_reconciliation_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20211006\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-11 13:09+0000\n"
+"PO-Revision-Date: 2022-04-11 13:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Account :"
+msgstr "Compte :"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Account Balance in the date"
+msgstr "Solde comptable à la date"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Amount"
+msgstr "Montant"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model,name:bank_statement_reconciliation_report.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Relevé bancaire"
+
+#. module: bank_statement_reconciliation_report
+#: code:addons/bank_statement_reconciliation_report/models/account_bank_statement.py:25
+#: model:ir.actions.report,name:bank_statement_reconciliation_report.action_statement_report_document
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+#, python-format
+msgid "Bank conciliation report"
+msgstr "Rapport de conciliation bancaire"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__conciliation_balance
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__reconciliation_balance
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Calculated Balance with Reconciliation"
+msgstr "Solde aux livres selon la conciliation"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__name
+msgid "Compte"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_account_bank_statement__conciliation_id
+msgid "Conciliation"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model,name:bank_statement_reconciliation_report.model_conciliation_wizard
+msgid "Conciliation Wizard"
+msgstr "Popup Conciliation"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__currency_id
+msgid "Currency"
+msgstr "Devise"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__date
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Date"
+msgstr "Date "
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Date :"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__difference
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Difference"
+msgstr "Différence"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__balance_end_real
+msgid "Ending Balance"
+msgstr "Solde final"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Number"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_view_form
+msgid "Oustanding Cheques"
+msgstr "Chèques en circulation"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Oustanding Deposits"
+msgstr "Dépôts en circulation"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Outstanding Cheques"
+msgstr "Chèques en circulation"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__payment_inbound_ids
+msgid "Payment Inbound"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__payment_outbound_ids
+msgid "Payment Outbound"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model,name:bank_statement_reconciliation_report.model_account_payment
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_account_payment__rec_inbound_id
+msgid "Rec Inbound"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_account_payment__rec_outbound_id
+msgid "Rec Outbound"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.account_bank_statement_form_inherit
+msgid "Reconciliation report"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Ref"
+msgstr "Réf"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__statement_id
+msgid "Statement"
+msgstr "Relevé"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Statement Ending Balance :"
+msgstr ""
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__total_outbound
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Total Outstanding Cheques"
+msgstr "Total Chèques en circulation"
+
+#. module: bank_statement_reconciliation_report
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__account_balance
+#: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_conciliation_wizard__total_inbound
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.statement_report_document
+msgid "Total Outstanding Deposits"
+msgstr "Total Dépôts en circulation"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_view_form
+msgid "conciliation_wizard_form"
+msgstr ""
+
