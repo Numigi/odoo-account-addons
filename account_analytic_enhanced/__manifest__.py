@@ -11,7 +11,6 @@
     "category": "Hidden/Dependency",
     "summary": """The analytic account stays archived if it has been manually archived""",
     "depends": ["analytic"],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
 }

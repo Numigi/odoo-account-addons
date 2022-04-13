@@ -21,14 +21,15 @@ class AccountAnalyticAccount(models.Model):
 
         for account in self:
             account.active_toggle = account.active
+
     @api.multi
     def write(self, vals):
         res = super(AccountAnalyticAccount, self).write(vals)
 
-        if 'active' in vals and vals['active']:
+        if "active" in vals and vals["active"]:
             self._account_analytic_not_active()
 
         return res
 
     def _account_analytic_not_active(self):
-        self.filtered(lambda account: not account.active_toggle).write({'active': False})
+        self.filtered(lambda account: not account.active_toggle).write({"active": False})
