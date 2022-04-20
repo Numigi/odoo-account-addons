@@ -12,6 +12,8 @@ class EFTCase(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.cad = cls.env.ref("base.CAD")
+
         cls.env["ir.config_parameter"].sudo().set_param(
             "canada_bank_transfer.use_transit_account", False
         )
@@ -54,7 +56,7 @@ class EFTCase(common.SavepointCase):
                 "type": "bank",
                 "code": "NBC",
                 "bank_account_id": cls.nbc_account.id,
-                "currency_id": cls.env.ref("base.CAD").id,
+                "currency_id": cls.cad.id,
                 "eft_user_short_name": USER_SHORT_NAME,
                 "eft_user_number": USER_NUMBER,
                 "eft_destination": DESTINATION,
@@ -108,7 +110,7 @@ class EFTCase(common.SavepointCase):
                 "amount": amount,
                 "payment_type": "outbound",
                 "payment_method_id": cls.env.ref("canada_bank_transfer.payment_method_eft").id,
-                "currency_id": cls.env.ref("base.CAD").id,
+                "currency_id": cls.cad.id,
                 "partner_type": "supplier",
                 "eft_transaction_type": "450",
             }
