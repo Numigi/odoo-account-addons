@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from . import (
+    account_bank_statement_line,
     account_eft,
     account_journal,
     account_payment,
