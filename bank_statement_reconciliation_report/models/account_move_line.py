@@ -4,8 +4,9 @@
 from odoo import api, fields, models
 
 
-class AccountPayment(models.Model):
-    _inherit = "account.payment"
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
 
     rec_outbound_id = fields.Many2one("reconciliation.wizard")
     rec_inbound_id = fields.Many2one("reconciliation.wizard")
+    state = fields.Selection([('draft', 'Unposted'), ('posted', 'Posted')], string='Status', related="move_id.state")

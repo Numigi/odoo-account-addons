@@ -29,10 +29,10 @@
                                 <field name="payment_outbound_ids">
                                     <tree>
                                         <field name="name"/>
-                                        <field name="payment_date"/>
+                                        <field name="date"/>
                                         <field name="partner_id"/>
-                                        <field name="communication"/>
-                                        <field name="amount" sum="Amount"/>
+                                        <field name="name"/>
+                                        <field name="credit" sum="Amount"/>
                                     </tree>
                                 </field>
                             </page>
@@ -40,10 +40,10 @@
                                 <field name="payment_inbound_ids">
                                     <tree>
                                         <field name="name"/>
-                                        <field name="payment_date"/>
+                                        <field name="date"/>
                                         <field name="partner_id"/>
-                                        <field name="communication"/>
-                                        <field name="amount" sum="Amount"/>
+                                        <field name="name"/>
+                                        <field name="debit" sum="Amount"/>
                                     </tree>
                                 </field>
                             </page>

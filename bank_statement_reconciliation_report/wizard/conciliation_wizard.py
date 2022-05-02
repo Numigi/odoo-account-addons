@@ -17,11 +17,11 @@ class ConciliationWizard(models.Model):
         string="Ending Balance", related="statement_id.balance_end_real"
     )
     payment_outbound_ids = fields.One2many(
-        "account.payment", "rec_outbound_id", compute="_compute_outbond"
+        "account.move.line", "rec_outbound_id", compute="_compute_outbond"
     )
     total_outbound = fields.Monetary(string="Total Oustanding Cheques")
     payment_inbound_ids = fields.One2many(
-        "account.payment", "rec_inbound_id", compute="_compute_inbond"
+        "account.move.line", "rec_inbound_id", compute="_compute_inbond"
     )
     total_inbound = fields.Monetary(string="Oustanding Deposits")
     reconciliation_balance = fields.Monetary(
@@ -50,30 +50,29 @@ class ConciliationWizard(models.Model):
                 item.journal_id.code,
                 item.journal_id.default_debit_account_id.name,
             )
+    def _get_defaut_line(self):
+        AccountMoveLine = self.env["account.move.line"]
+        journal_default_accounts = [self.journal_id.default_debit_account_id.id,
+                                    self.journal_id.default_credit_account_id.id]
+        default_domain = [
+            ("journal_id", "=", self.journal_id.id),
+            ("account_id", "in", journal_default_accounts),
+            ("statement_line_id", "=", False),
+            ("state", "=", "posted"),
+        ]
+        return AccountMoveLine.search(default_domain)
 
     def _compute_outbond(self):
-        AccountPayment = self.env["account.payment"]
-        outbound_domain = [
-            ("payment_type", "=", "outbound"),
-            ("journal_id", "=", self.journal_id.id),
-            ("state", "in", ["posted", "sent"]),
-        ]
-        outbound_ids = AccountPayment.search(outbound_domain)
+        outbound_ids = self._get_defaut_line().filtered(lambda x: x.date <= self.date and x.credit > 0)
         for item in self:
             item.payment_outbound_ids = [(6, 0, outbound_ids.ids)]
-            item.total_outbound = sum(outbound_ids.mapped("amount"))
+            item.total_outbound = sum(outbound_ids.mapped("credit"))
 
     def _compute_inbond(self):
-        AccountPayment = self.env["account.payment"]
-        inbond_domain = [
-            ("payment_type", "=", "inbound"),
-            ("journal_id", "=", self.journal_id.id),
-            ("state", "in", ["posted", "sent"]),
-        ]
-        inbond_ids = AccountPayment.search(inbond_domain)
+        inbond_ids = self._get_defaut_line().filtered(lambda x: x.date <= self.date and x.debit > 0)
         for item in self:
             item.payment_inbound_ids = [(6, 0, inbond_ids.ids)]
-            item.total_inbound = sum(inbond_ids.mapped("amount"))
+            item.total_inbound = sum(inbond_ids.mapped("debit"))
 
     @api.depends("total_outbound", "total_inbound")
     def _compute_balance(self):
