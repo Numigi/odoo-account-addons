@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
-import logging
 
 
 class AccountBankStatement(models.Model):
@@ -35,11 +34,15 @@ class AccountBankStatement(models.Model):
         }
 
     def compute_outbound(self):
-        outbound_ids = self.conciliation_id.get_defaut_line().filtered(lambda x: x.date <= self.date and x.credit > 0)
+        outbound_ids = self.conciliation_id.get_defaut_line().filtered(
+            lambda x: x.date <= self.date and x.credit > 0
+        )
         return outbound_ids
 
     def compute_inbound(self):
-        inbound_ids = self.conciliation_id.get_defaut_line().filtered(lambda x: x.date <= self.date and x.debit > 0)
+        inbound_ids = self.conciliation_id.get_defaut_line().filtered(
+            lambda x: x.date <= self.date and x.debit > 0
+        )
         return inbound_ids
 
     def get_sum_inbound(self):

@@ -9,4 +9,8 @@ class AccountMoveLine(models.Model):
 
     rec_outbound_id = fields.Many2one("reconciliation.wizard")
     rec_inbound_id = fields.Many2one("reconciliation.wizard")
-    state = fields.Selection([('draft', 'Unposted'), ('posted', 'Posted')], string='Status', related="move_id.state")
+    state = fields.Selection(
+        [("draft", "Unposted"), ("posted", "Posted")],
+        string="Status",
+        related="move_id.state",
+    )
