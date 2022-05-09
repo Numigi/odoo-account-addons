@@ -35,27 +35,23 @@ class AccountBankStatement(models.Model):
         }
 
     def compute_outbound(self):
-        AccountPayment = self.env["account.payment"]
-        outbound_domain = [
-            ("payment_type", "=", "outbound"),
-            ("journal_id", "=", self.journal_id.id),
-            ("state", "in", ["posted", "sent"]),
-        ]
-        outbound_ids = AccountPayment.search(outbound_domain)
+        outbound_ids = self.conciliation_id.get_defaut_line().filtered(lambda x: x.date <= self.date and x.credit > 0)
         return outbound_ids
 
     def compute_inbound(self):
-        AccountPayment = self.env["account.payment"]
-        inbond_domain = [
-            ("payment_type", "=", "inbound"),
-            ("journal_id", "=", self.journal_id.id),
-            ("state", "in", ["posted", "sent"]),
-        ]
-        inbound_ids = AccountPayment.search(inbond_domain)
+        inbound_ids = self.conciliation_id.get_defaut_line().filtered(lambda x: x.date <= self.date and x.debit > 0)
         return inbound_ids
 
-    def get_sum(self, payments):
-        return sum(payments.mapped("amount"))
+    def get_sum_inbound(self):
+        payments = self.compute_inbound()
+        return sum(payments.mapped("debit"))
+
+    def get_sum_outbound(self):
+        payments = self.compute_outbound()
+        return sum(payments.mapped("credit"))
+
+    def get_conciliation_balance(self):
+        return self.balance_end_real - self.get_sum_outbound() + self.get_sum_inbound()
 
     def get_account_balance(self):
         AccountMoveLine = self.env["account.move.line"]
@@ -67,3 +63,6 @@ class AccountBankStatement(models.Model):
         debit = sum(line_ids.mapped("debit"))
         credit = sum(line_ids.mapped("credit"))
         return debit - credit
+
+    def get_difference(self):
+        return self.get_conciliation_balance() - self.get_account_balance()

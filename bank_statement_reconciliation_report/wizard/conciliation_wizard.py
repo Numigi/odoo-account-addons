@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-import logging
 
 
 class ConciliationWizard(models.Model):
@@ -50,7 +49,7 @@ class ConciliationWizard(models.Model):
                 item.journal_id.code,
                 item.journal_id.default_debit_account_id.name,
             )
-    def _get_defaut_line(self):
+    def get_defaut_line(self):
         AccountMoveLine = self.env["account.move.line"]
         journal_default_accounts = [self.journal_id.default_debit_account_id.id,
                                     self.journal_id.default_credit_account_id.id]
@@ -63,16 +62,16 @@ class ConciliationWizard(models.Model):
         return AccountMoveLine.search(default_domain)
 
     def _compute_outbond(self):
-        outbound_ids = self._get_defaut_line().filtered(lambda x: x.date <= self.date and x.credit > 0)
+        outbound_ids = self.get_defaut_line().filtered(lambda x: x.date <= self.date and x.credit > 0)
         for item in self:
             item.payment_outbound_ids = [(6, 0, outbound_ids.ids)]
             item.total_outbound = sum(outbound_ids.mapped("credit"))
 
     def _compute_inbond(self):
-        inbond_ids = self._get_defaut_line().filtered(lambda x: x.date <= self.date and x.debit > 0)
+        inbound_ids = self.get_defaut_line().filtered(lambda x: x.date <= self.date and x.debit > 0)
         for item in self:
-            item.payment_inbound_ids = [(6, 0, inbond_ids.ids)]
-            item.total_inbound = sum(inbond_ids.mapped("debit"))
+            item.payment_inbound_ids = [(6, 0, inbound_ids.ids)]
+            item.total_inbound = sum(inbound_ids.mapped("debit"))
 
     @api.depends("total_outbound", "total_inbound")
     def _compute_balance(self):

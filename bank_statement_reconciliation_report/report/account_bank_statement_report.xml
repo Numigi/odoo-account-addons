@@ -42,26 +42,25 @@
                                                 <t t-esc="outbound.name"/>
                                             </td>
                                             <td>
-                                                <t t-esc="outbound.payment_date"/>
+                                                <t t-esc="outbound.date"/>
                                             </td>
                                             <td>
                                                 <t t-esc="outbound.partner_id.name"/>
                                             </td>
                                             <td>
-                                                <t t-esc="outbound.communication"/>
+                                                <t t-esc="outbound.name"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="outbound.amount"/>
+                                                <span t-field="outbound.credit"/>
                                             </td>
                                         </tr>
                                     </t>
                                     <tr>
                                         <td colspan="4">Total Outstanding Cheques</td>
                                         <td class="text-right">
-                                            <t t-set="total_outbound" t-value="o.get_sum(o.compute_outbound())"/>
+                                            <t t-set="total_outbound" t-value="o.get_sum_outbound()"/>
                                             <t t-esc="total_outbound"
-                                               t-options='{"widget": "monetary", "display_currency": o.currency_id}'
-                                            />
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -85,51 +84,55 @@
                                                 <t t-esc="inbound.name"/>
                                             </td>
                                             <td>
-                                                <t t-esc="inbound.payment_date"/>
+                                                <t t-esc="inbound.date"/>
                                             </td>
                                             <td>
                                                 <t t-esc="inbound.partner_id.name"/>
                                             </td>
                                             <td>
-                                                <t t-esc="inbound.communication"/>
+                                                <t t-esc="inbound.name"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="inbound.amount"/>
+                                                <span t-field="inbound.debit"/>
                                             </td>
                                         </tr>
                                     </t>
                                     <tr>
                                         <td colspan="4">Total Outstanding Deposits</td>
                                         <td class="text-right">
-                                            <t t-set="total_inbound" t-value="o.get_sum(o.compute_inbound())"/>
-                                            <t t-esc="o.get_sum(o.compute_inbound())"
-                                               t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            <t t-set="total_inbound" t-value="o.get_sum_inbound()"/>
+                                            <t t-esc="total_inbound"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <div class="row">
-                                <div class="col-md-6">Calculated Balance with Reconciliation</div>
-                                <div class="col-md-6 text-right">
-                                    <t t-set="conciliation_balance"
-                                       t-value="o.balance_end_real - total_outbound +  total_inbound"/>
-                                    <t t-esc="conciliation_balance"
-                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </div>
-                                <div class="col-md-6">Account Balance in the date</div>
-                                <div class="col-md-6 text-right">
-                                    <t t-set="account_balance" t-value="o.get_account_balance()"/>
-                                    <t t-esc="account_balance"
-                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </div>
-                                <div class="col-md-6">Difference</div>
-                                <div class="col-md-6 text-right">
-                                    <t t-set="difference" t-value="conciliation_balance - account_balance"/>
-                                    <t t-esc="difference"
-                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </div>
-                            </div>
+                            <br />
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Calculated Balance with Reconciliation</th>
+                                        <th class="text-right">
+                                            <t t-esc="o.get_conciliation_balance()"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Account Balance in the date</th>
+                                        <th class="text-right">
+                                            <t t-esc="o.get_account_balance()"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Difference</th>
+                                        <th class="text-right">
+                                            <t t-esc="o.get_difference()"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
 
                         </div>
                     </t>
