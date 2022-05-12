@@ -86,7 +86,7 @@ class TestTransitMoveCase(EtfTransitAccountCase):
         self.eft.action_cancel()
         assert not self.eft.deposit_account_move_id
 
-    def test_move_lines_and_payments_reconciled(self):
+    def test_move_lines_reconciled(self):
         wizard = self._open_confirmation_wizard_etf()
         wizard.action_validate()
         move = self.eft.deposit_account_move_id
@@ -97,19 +97,46 @@ class TestTransitMoveCase(EtfTransitAccountCase):
         assert line_2.reconciled
         assert line_1.mapped("matched_credit_ids.credit_move_id.payment_id") == self.payment_1
         assert line_2.mapped("matched_credit_ids.credit_move_id.payment_id") == self.payment_2
-        assert self.eft.mapped("payment_ids.state") == ["reconciled", "reconciled"]
+
+    def test_bank_statement_confirmation(self):
+        wizard = self._open_confirmation_wizard_etf()
+        wizard.action_validate()
+
+        move = self.eft.deposit_account_move_id
+        credit = move.line_ids.filtered("credit")
+
+        line = self._make_bank_statement_line(credit)
+        line.process_reconciliation(payment_aml_rec=credit)
+
+        assert self.payment_1.state == "reconciled"
+        assert self.payment_2.state == "reconciled"
+
+        line.button_cancel_reconciliation()
+
+        assert self.payment_1.state == "sent"
+        assert self.payment_2.state == "sent"
+
+    def _make_bank_statement_line(self, pmt_move_line):
+        line_vals = {
+            "date": pmt_move_line.date,
+            "name": "/",
+            "ref": "/",
+            "amount": -pmt_move_line.credit,
+            "amount_currency": pmt_move_line.amount_currency,
+        }
+        statement = self.env["account.bank.statement"].create(
+            {
+                "name": "/",
+                "journal_id": pmt_move_line.journal_id.id,
+                "currency_id": pmt_move_line.currency_id.id,
+                "line_ids": [
+                    (
+                        0, 0, line_vals
+                    )
+                ]
+            })
+        return statement.line_ids
 
     def _open_confirmation_wizard_etf(self):
         action = self.eft.action_done()
         return self.env["account.eft.confirmation.wizard"].browse(action["res_id"])
-
-
-class TestPaymentStatusUnreconciled(TestTransitMoveCase):
-
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.payments.unreconcile()
-
-    def test_payment_unreconciled__status_sent(self):
-        assert self.eft.mapped("payment_ids.state") == ["sent", "sent"]
