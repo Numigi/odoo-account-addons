@@ -9,6 +9,10 @@
             <field name="arch" type="xml">
                 <form string="conciliation_wizard_form">
                     <sheet>
+                        <header>
+                            <button name="%(action_statement_report_document)d" id="action_statement_report_document_btn"
+                                    type="action" string="Print" class="oe_highlight"/>
+                        </header>
                         <group>
                             <group>
                                 <field name="name"/>
@@ -20,8 +24,8 @@
                             <group>
                                 <field name="date"/>
                                 <field name="conciliation_balance"/>
-                                <field name="difference"/>
                                 <field name="account_balance"/>
+                                <field name="difference"/>
                             </group>
                         </group>
                         <notebook>
