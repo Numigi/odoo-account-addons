@@ -15,3 +15,5 @@ class AccountMoveLine(models.Model):
         related="move_id.state",
         store=True,
     )
+    payment_name = fields.Char(string="Reference", related="payment_id.name", store=True)
+    payment_check_number = fields.Integer(string="Number", related="payment_id.check_number")

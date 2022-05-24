@@ -39,7 +39,7 @@
                                     <t t-foreach="o.payment_outbound_ids" t-as="outbound">
                                         <tr>
                                             <td>
-                                                <t t-esc="outbound.payment_id.name"/>
+                                                <t t-esc="outbound.payment_name"/>
                                             </td>
                                             <td>
                                                 <t t-esc="outbound.date"/>
@@ -48,7 +48,7 @@
                                                 <t t-esc="outbound.partner_id.name"/>
                                             </td>
                                             <td>
-                                                <t t-esc="outbound.payment_id.check_number"/>
+                                                <t t-esc="outbound.payment_check_number"/>
                                             </td>
                                             <td class="text-right">
                                                 <span t-field="outbound.credit"/>
@@ -79,7 +79,7 @@
                                     <t t-foreach="o.payment_inbound_ids" t-as="inbound">
                                         <tr>
                                             <td>
-                                                <t t-esc="inbound.payment_id.name"/>
+                                                <t t-esc="inbound.payment_name"/>
                                             </td>
                                             <td>
                                                 <t t-esc="inbound.date"/>
