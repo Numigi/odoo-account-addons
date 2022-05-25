@@ -99,9 +99,3 @@ class ConciliationWizard(models.Model):
             domain = [("account_id", "in", [account_debit_id, account_credit_id])]
         move_lines = self.env["account.move.line"].search(domain)
         return sum(move_lines.mapped("debit")) - sum(move_lines.mapped("credit"))
-
-    def _get_difference(self):
-        return self._get_conciliation_balance() - self.account_balance
-
-    def _get_conciliation_balance(self):
-        return self.balance_end_real - self.total_outbound + self.total_inbound

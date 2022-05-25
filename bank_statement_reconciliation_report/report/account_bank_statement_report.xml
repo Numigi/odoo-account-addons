@@ -107,7 +107,7 @@
                                     <tr>
                                         <th>Calculated Balance with Reconciliation</th>
                                         <th class="text-right">
-                                            <t t-esc="o._get_conciliation_balance()"
+                                            <t t-esc="o.conciliation_balance"
                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </th>
                                     </tr>
@@ -121,7 +121,7 @@
                                     <tr>
                                         <th>Difference</th>
                                         <th class="text-right">
-                                            <t t-esc="o._get_difference()"
+                                            <t t-esc="o.difference"
                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </th>
                                     </tr>
