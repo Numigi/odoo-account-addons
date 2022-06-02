@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_bank_statement_form_inherit" model="ir.ui.view">
+            <field name="name">Account Bank Statement</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div[hasclass('oe_button_box')]" position="inside">
+                    <button class="oe_stat_button" name="button_bank_conciliation" string="Reconciliation report"
+                            type="object" icon="fa-check-square-o" />
+                </xpath>
+                <xpath expr="//sheet/group/group[2]/div[2]" position="after">
+                    <field name="date_end_bank_statement"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <template id="conciliation_wizard_report_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center">Bank conciliation report</h2>
+                            <div class="row">
+                                <div class="col-md-6">Account :</div>
+                                <div class="col-md-6">
+                                    <span t-field="o.name"/>
+                                </div>
+                                <div class="col-md-6">Date :</div>
+                                <div class="col-md-6">
+                                    <span t-field="o.date"/>
+                                </div>
+                                <div class="col-md-6">Statement Ending Balance :</div>
+                                <div class="col-md-6 text-right">
+                                    <span t-field="o.balance_end_real"/>
+                                </div>
+                            </div>
+
+                            <h2>Outstanding Cheques</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Payment Date</th>
+                                        <th>Partner</th>
+                                        <th>Number</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.payment_outbound_ids" t-as="outbound">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="outbound.payment_name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="outbound.date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="outbound.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="outbound.payment_check_number"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="outbound.credit"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="4">Total Outstanding Cheques</td>
+                                        <td class="text-right">
+                                            <t t-esc="o.total_outbound"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Oustanding Deposits</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Payment Date</th>
+                                        <th>Partner</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.payment_inbound_ids" t-as="inbound">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="inbound.payment_name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="inbound.date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="inbound.partner_id.name"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="inbound.debit"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td colspan="4">Total Outstanding Deposits</td>
+                                        <td class="text-right">
+                                            <t t-esc="o.total_inbound"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br />
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Calculated Balance with Reconciliation</th>
+                                        <th class="text-right">
+                                            <t t-esc="o.conciliation_balance"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Account Balance in the date</th>
+                                        <th class="text-right">
+                                            <t t-esc="o.account_balance"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Difference</th>
+                                        <th class="text-right">
+                                            <t t-esc="o.difference"
+                                               t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <record id="action_statement_report_document" model="ir.actions.report">
+            <field name="name">Bank conciliation report</field>
+            <field name="model">conciliation.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">bank_statement_reconciliation_report.conciliation_wizard_report_document</field>
+            <field name="report_file">bank_statement_reconciliation_report.conciliation_wizard_report_document</field>
+            <field name="print_report_name">('Bank conciliation - %s' % object.name)</field>
+            <field name="binding_model_id" ref="bank_statement_reconciliation_report.model_conciliation_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>

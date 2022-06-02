@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="conciliation_wizard_view_form" model="ir.ui.view">
+            <field name="name">conciliation_wizard_view_form</field>
+            <field name="model">conciliation.wizard</field>
+            <field name="arch" type="xml">
+                <form string="conciliation_wizard_form">
+                    <sheet>
+                        <header>
+                            <button name="%(action_statement_report_document)d" id="action_statement_report_document_btn"
+                                    type="action" string="Print" class="oe_highlight"/>
+                        </header>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="statement_id" invisible="1"/>
+                                <field name="balance_end_real" />
+                                <field name="total_outbound"/>
+                                <field name="total_inbound"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="conciliation_balance"/>
+                                <field name="account_balance"/>
+                                <field name="difference"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="outstanding" string="Oustanding Cheques">
+                                <field name="payment_outbound_ids">
+                                    <tree>
+                                        <field name="payment_name"/>
+                                        <field name="date"/>
+                                        <field name="partner_id"/>
+                                        <field name="payment_check_number"/>
+                                        <field name="credit" sum="Amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="outstanding" string="Oustanding Deposits">
+                                <field name="payment_inbound_ids">
+                                    <tree>
+                                        <field name="payment_name"/>
+                                        <field name="date"/>
+                                        <field name="partner_id"/>
+                                        <field name="debit" sum="Amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
