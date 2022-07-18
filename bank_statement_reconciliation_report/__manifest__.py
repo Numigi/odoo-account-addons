@@ -10,7 +10,7 @@
     "maintainer": "Numigi",
     "license": "AGPL-3",
     "category": "Account",
-    "version": "12.1.1",
+    "version": "12.1.2",
     "depends": ["account_check_printing"],
     "data": [
         "security/ir.model.access.csv",
