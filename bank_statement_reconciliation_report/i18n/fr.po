@@ -221,11 +221,6 @@ msgid "Statement Ending Balance"
 msgstr "Solde du relevé de compte"
 
 #. module: bank_statement_reconciliation_report
-#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_report_document
-msgid "Statement Ending Balance :"
-msgstr "Solde du relevé de compte :"
-
-#. module: bank_statement_reconciliation_report
 #: model:ir.model.fields,field_description:bank_statement_reconciliation_report.field_account_move_line__state
 msgid "Status"
 msgstr "État"
@@ -252,3 +247,22 @@ msgstr "Total Dépôts en circulation"
 msgid "conciliation_wizard_form"
 msgstr ""
 
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_report_document
+msgid "<span style=\"font-size: 1.2em; font-weight: bold;\"> Account: </span>"
+msgstr "<span style=\"font-size: 1.2em; font-weight: bold;\"> Compte: </span>"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_report_document
+msgid "<span style=\"font-size: 1.2em; font-weight: bold;\"> Date: </span>"
+msgstr "<span style=\"font-size: 1.2em; font-weight: bold;\"> Date: </span>"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_report_document
+msgid "<span style=\"font-size: 1.2em; font-weight: bold;\"> Statement Ending Balance: </span>"
+msgstr "<span style=\"font-size: 1.2em; font-weight: bold;\"> Solde du relevé de compte : </span>"
+
+#. module: bank_statement_reconciliation_report
+#: model_terms:ir.ui.view,arch_db:bank_statement_reconciliation_report.conciliation_wizard_report_document
+msgid "<span style=\"font-size: 1.2em; font-weight: bold;\"> Statement: </span>"
+msgstr "<span style=\"font-size: 1.2em; font-weight: bold;\"> Relevé: </span>"
