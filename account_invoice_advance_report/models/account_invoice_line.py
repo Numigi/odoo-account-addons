@@ -7,4 +7,3 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
     invoice_date = fields.Date(related="invoice_id.date_invoice", store=True)
-    invoice_reference = fields.Char(related="invoice_id.reference", store=True)
