@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <tree string="Invoice Lines" create="false" import="false">
                 <field name="invoice_id"/>
-                <field name="invoice_reference"/>
+                <field name="invoice_ref"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
                 <field name="product_id"/>

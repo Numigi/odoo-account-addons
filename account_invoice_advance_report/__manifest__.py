@@ -3,7 +3,7 @@
 
 {
     "name": "Account Invoice Advance Report",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://www.numigi.com",
