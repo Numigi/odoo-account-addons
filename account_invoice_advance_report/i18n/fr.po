@@ -111,5 +111,10 @@ msgstr "Projet"
 #. module: account_invoice_advance_report
 #: model_terms:ir.ui.view,arch_db:account_invoice_advance_report.account_invoice_line_advance_report_search
 msgid "Supplier"
-msgstr ""
+msgstr "Fournisseur"
 
+#. module: account_invoice_advance_report
+#: model:ir.model.fields,field_description:account_invoice_advance_report.field_account_invoice_line__invoice_ref
+#: model:ir.model.fields,field_description:account_invoice_advance_report.field_account_invoice_line__invoice_reference
+msgid "Invoice Reference"
+msgstr "Référence de la facture"
