@@ -14,7 +14,7 @@ Usage
 
     .. image:: static/description/Reconciliation-Report-Popup-Print-Button.png
 
-_ Click on `Print` button to print the report in PDF mode.
+- Click on `Print` button to print the report in PDF mode.
 
     .. image:: static/description/Bank-conciliation-Report-pdf.png
 

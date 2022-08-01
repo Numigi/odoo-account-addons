@@ -16,7 +16,7 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="statement_id" invisible="1"/>
+                                <field name="statement_id" readonly="1"/>
                                 <field name="balance_end_real" />
                                 <field name="total_outbound"/>
                                 <field name="total_inbound"/>

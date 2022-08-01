@@ -9,30 +9,20 @@
                     <t t-call="web.external_layout">
                         <div class="page">
                             <h2 class="text-center">Bank conciliation report</h2>
-                            <div class="row">
-                                <div class="col-md-6">Account :</div>
-                                <div class="col-md-6">
-                                    <span t-field="o.name"/>
-                                </div>
-                                <div class="col-md-6">Date :</div>
-                                <div class="col-md-6">
-                                    <span t-field="o.date"/>
-                                </div>
-                                <div class="col-md-6">Statement Ending Balance :</div>
-                                <div class="col-md-6 text-right">
-                                    <span t-field="o.balance_end_real"/>
-                                </div>
-                            </div>
+                            <div class="mt-3"><span style="font-size: 1.2em; font-weight: bold;"> Account: </span> <span t-field="o.journal_id.default_debit_account_id"/></div>
+                            <div class="mt-3"><span style="font-size: 1.2em; font-weight: bold;"> Statement: </span> <span t-field="o.statement_id"/></div>
+                            <div class="mt-3"><span style="font-size: 1.2em; font-weight: bold;"> Date: </span> <span t-field="o.date"/></div>
+                            <div class="mt-3"><span style="font-size: 1.2em; font-weight: bold;"> Statement Ending Balance: </span><span t-field="o.balance_end_real"/></div>
 
-                            <h2>Outstanding Cheques</h2>
-                            <table class="table">
+                            <h2 class="mt-3">Outstanding Cheques</h2>
+                            <table class="table mt-3">
                                 <thead>
                                     <tr>
                                         <th>Reference</th>
                                         <th>Payment Date</th>
                                         <th>Partner</th>
                                         <th>Number</th>
-                                        <th>Amount</th>
+                                        <th class="text-right">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,13 +56,13 @@
                             </table>
 
                             <h2>Oustanding Deposits</h2>
-                            <table class="table">
+                            <table class="table mt-3">
                                 <thead>
                                     <tr>
                                         <th>Reference</th>
                                         <th>Payment Date</th>
                                         <th>Partner</th>
-                                        <th>Amount</th>
+                                        <th class="text-right">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -93,7 +83,7 @@
                                         </tr>
                                     </t>
                                     <tr>
-                                        <td colspan="4">Total Outstanding Deposits</td>
+                                        <td colspan="3">Total Outstanding Deposits</td>
                                         <td class="text-right">
                                             <t t-esc="o.total_inbound"
                                                t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
@@ -102,7 +92,7 @@
                                 </tbody>
                             </table>
                             <br />
-                            <table class="table">
+                            <table class="table mt-3">
                                 <thead>
                                     <tr>
                                         <th>Calculated Balance with Reconciliation</th>
@@ -128,6 +118,9 @@
                                 </thead>
                             </table>
 
+                            <div style="position:absolute;top:895px; page-break-inside: avoid; width:50%">
+                                 <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+                            </div>
                         </div>
                     </t>
                 </t>
