@@ -22,3 +22,8 @@
   branch: "14.0"
   includes:
     - date_range
+
+- url: https://github.com/OCA/bank-statement-import
+  branch: "14.0"
+  includes:
+    - account_statement_import
