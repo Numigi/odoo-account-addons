@@ -42,6 +42,7 @@
                                 <field name="date" readonly="True"/>
                                 <field name="name" readonly="True"/>
                                 <field name="partner_id" readonly="True"/>
+                                <field name="available_partner_bank_ids" invisible="True"/>
                                 <field name="partner_bank_id" readonly="False"
                                     context="{'default_partner_id': partner_id}" domain="[('partner_id', '=', partner_id)]"/>
                                 <field name="amount" readonly="True" sum="Total" />
@@ -54,6 +55,7 @@
                                 <field name="date"/>
                                 <field name="name"/>
                                 <field name="partner_id"/>
+                                <field name="available_partner_bank_ids" invisible="True"/>
                                 <field name="partner_bank_id"/>
                                 <field name="amount" sum="Total" />
                                 <field name="state"/>
