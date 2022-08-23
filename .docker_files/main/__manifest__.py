@@ -33,6 +33,7 @@
         "account_type_sane",
         "account_unaffected_earnings_disabled",
         "bank_statement_no_reverse",
+        "bank_statement_online_stripe",
         "bank_statement_partner_name",
         "canada_account_types",
         "canada_bank_transfer",

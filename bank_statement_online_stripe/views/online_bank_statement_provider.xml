@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="online_bank_statement_provider_form" model="ir.ui.view" >
+        <field name="name">Online Bank Statement Provider: add Stripe</field>
+        <field name="model">online.bank.statement.provider</field>
+        <field name="inherit_id" ref="account_statement_import_online.online_bank_statement_provider_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main']" position="inside">
+                <group attrs="{'invisible': [('service', '!=', 'stripe')]}">
+                    <group>
+                        <field
+                            name="stripe_api_key"
+                            string="API Key"
+                            password="True"
+                            attrs="{'required': [('service', '=', 'stripe')]}"
+                        />
+                        <button
+                            name="test_stripe_api_key"
+                            string="Test API Key"
+                            type="object"
+                            attrs="{'invisible': [('stripe_api_key', '=', False)]}"
+                            />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
