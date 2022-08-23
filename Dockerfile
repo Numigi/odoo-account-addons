@@ -46,6 +46,7 @@ COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
 COPY invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
 COPY invoice_list_email /mnt/extra-addons/invoice_list_email
+COPY invoice_mass_mailing_with_layout /mnt/extra-addons/invoice_mass_mailing_with_layout
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
 COPY payment_list_not_sent /mnt/extra-addons/payment_list_not_sent

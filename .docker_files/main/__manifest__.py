@@ -39,6 +39,7 @@
         "invoice_currency_validation",
         "invoice_fiscal_position_required",
         "invoice_list_email",
+        "invoice_mass_mailing_with_layout",
         "invoice_refund_not_earlier",
         "lang_fr_activated",
         "old_accounts",
