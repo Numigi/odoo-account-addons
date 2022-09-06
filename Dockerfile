@@ -34,10 +34,12 @@ COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_usage_purchase
 COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usage_sale
 COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
+COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_type_sane /mnt/extra-addons/account_type_sane
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
+COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
 COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
 COPY bank_statement_partner_name /mnt/extra-addons/bank_statement_partner_name
