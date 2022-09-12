@@ -33,6 +33,7 @@
         "account_show_full_features",
         "account_type_sane",
         "account_unaffected_earnings_disabled",
+        "bank_statement_import_csv",
         "bank_statement_extra_columns",
         "bank_statement_no_reverse",
         "bank_statement_partner_name",
