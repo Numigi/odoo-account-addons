@@ -27,3 +27,8 @@
   branch: "14.0"
   includes:
     - account_statement_import
+
+- url: https://github.com/OCA/account-financial-tools
+  branch: "14.0"
+  includes:
+    - account_check_deposit
