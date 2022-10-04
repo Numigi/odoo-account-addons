@@ -64,6 +64,7 @@ COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY invoice_write_access /mnt/extra-addons/invoice_write_access
 COPY invoice_write_access_purchase /mnt/extra-addons/invoice_write_access_purchase
 COPY invoice_write_access_sale /mnt/extra-addons/invoice_write_access_sale
+COPY mis_builder_automated_report /mnt/extra-addons/mis_builder_automated_report
 COPY old_accounts /mnt/extra-addons/old_accounts
 COPY payment_stripe_not_silenced /mnt/extra-addons/payment_stripe_not_silenced
 COPY vendor_invoice_full_list /mnt/extra-addons/vendor_invoice_full_list
