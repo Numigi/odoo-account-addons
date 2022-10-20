@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* mis_builder_automated_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-19 23:40+0000\n"
+"PO-Revision-Date: 2022-10-19 23:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mis_builder_automated_report
+#. openerp-web
+#: code:addons/mis_builder_automated_report/static/src/xml/mis_report_widget.xml:6
+#: model_terms:ir.ui.view,arch_db:mis_builder_automated_report.mis_report_instance_view_form_inherit
+#, python-format
+msgid "Automated Edition"
+msgstr ""
+
+#. module: mis_builder_automated_report
+#: model:ir.actions.act_window,name:mis_builder_automated_report.automated_report_view_action
+#: model:ir.ui.menu,name:mis_builder_automated_report.automated_report_view_menu
+msgid "Automated Reports"
+msgstr "Édition Automatisée"
+
+#. module: mis_builder_automated_report
+#: model_terms:ir.ui.view,arch_db:mis_builder_automated_report.automated_report_view_tree
+msgid "Edition"
+msgstr "Édition"
+
+#. module: mis_builder_automated_report
+#: model_terms:ir.ui.view,arch_db:mis_builder_automated_report.automated_report_view_tree
+msgid "File"
+msgstr "Fichier"
+
+#. module: mis_builder_automated_report
+#: code:addons/mis_builder_automated_report/report/mis_report_instance_xlsx.py:162
+#, python-format
+msgid "Generated on {} at {}"
+msgstr "Généré le {} à {}"
+
+#. module: mis_builder_automated_report
+#: model:ir.model.fields,field_description:mis_builder_automated_report.field_mis_report_instance__analytic_group_account_iteration
+msgid "Iterate on Analytic Account Groups"
+msgstr "Itérer sur les groupes analytiques"
+
+#. module: mis_builder_automated_report
+#: model:ir.model.fields,field_description:mis_builder_automated_report.field_mis_report_instance__analytic_account_iteration
+msgid "Iterate on Analytic Accounts"
+msgstr "Itérer sur les comptes analytiques"
+
+#. module: mis_builder_automated_report
+#: model:ir.model,name:mis_builder_automated_report.model_mis_report_instance
+msgid "MIS Report Instance"
+msgstr "Instance de rapport MIS"
+
+#. module: mis_builder_automated_report
+#: model_terms:ir.ui.view,arch_db:mis_builder_automated_report.automated_report_view_tree
+msgid "Report"
+msgstr "Rapport"
+
+#. module: mis_builder_automated_report
+#: model:ir.model,name:mis_builder_automated_report.model_ir_actions_report
+msgid "Report Action"
+msgstr "Action Rapport"
+
+#. module: mis_builder_automated_report
+#: model_terms:ir.ui.view,arch_db:mis_builder_automated_report.automated_report_view_tree
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: mis_builder_automated_report
+#: model:ir.model,name:mis_builder_automated_report.model_report_mis_builder_mis_report_instance_xlsx
+msgid "report.mis_builder.mis_report_instance_xlsx"
+msgstr ""
+
+#. module: mis_builder_automated_report
+#: model:ir.model,name:mis_builder_automated_report.model_report_mis_builder_automated_report_mis_report_instance_xlsx
+msgid "report.mis_builder_automated_report.mis_report_instance_xlsx"
+msgstr ""
+

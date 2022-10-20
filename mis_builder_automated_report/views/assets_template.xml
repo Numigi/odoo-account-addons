@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" name="mis_builder_automated_report" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/mis_builder_automated_report/static/src/js/mis_report_widget.js"
+            />
+        </xpath>
+    </template>
+</odoo>

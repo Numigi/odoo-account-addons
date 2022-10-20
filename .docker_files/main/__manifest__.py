@@ -56,6 +56,7 @@
         "invoice_write_access",
         "invoice_write_access_purchase",
         "invoice_write_access_sale",
+        "mis_builder_automated_report",
         "l10n_generic_coa",  # Used for testing addons
         "old_accounts",
         "payment_stripe_not_silenced",

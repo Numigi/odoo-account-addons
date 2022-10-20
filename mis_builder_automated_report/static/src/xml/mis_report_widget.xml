@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" inherit_id="mis_builder.template" xml:space="preserve">
+    <t t-extend="MisReportWidgetTemplate">
+        <t t-jquery=".oe_mis_builder_export" t-operation="after">
+            <button class="oe_mis_builder_automated_export btn btn-sm oe_button">
+                <span class="fa fa-download" />
+                Automated Edition
+            </button>
+        </t>
+    </t>
+</template>

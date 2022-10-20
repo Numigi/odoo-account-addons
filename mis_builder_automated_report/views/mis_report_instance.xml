@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record model="ir.ui.view" id="mis_report_instance_view_form_inherit">
+        <field name="name">mis.report.instance.view.form.inherit</field>
+        <field name="model">mis.report.instance</field>
+        <field name="inherit_id" ref="mis_builder.mis_report_instance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='export_xls']" position="after">
+                <button
+                    type="object"
+                    name="export_xls"
+                    string="Automated Edition"
+                    icon="fa-download"
+                    context="{'automated_edition': True}"
+                />
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page name="automated_edition" string="Automated Edition">
+                    <group name="iterations">
+                        <field name="analytic_account_iteration"/>
+                        <field name="analytic_group_account_iteration"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+     </record>
+</odoo>

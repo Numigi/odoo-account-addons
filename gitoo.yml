@@ -34,3 +34,7 @@
   includes:
     - web_widget_color
     - web_widget_dropdown_dynamic
+
+- url: https://github.com/OCA/queue
+  branch: "12.0"
+  includes: ["queue_job"]
