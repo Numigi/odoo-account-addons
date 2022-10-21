@@ -21,7 +21,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mis_builder_automated_report.mis_report_instance_view_form_inherit
 #, python-format
 msgid "Automated Edition"
-msgstr ""
+msgstr "Édition automatisée"
 
 #. module: mis_builder_automated_report
 #: model:ir.actions.act_window,name:mis_builder_automated_report.automated_report_view_action
