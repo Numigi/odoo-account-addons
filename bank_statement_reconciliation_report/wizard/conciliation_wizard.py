@@ -93,9 +93,10 @@ class ConciliationWizard(models.Model):
         journal = self.journal_id
         account_debit_id = journal.default_debit_account_id.id
         account_credit_id = journal.default_credit_account_id.id
+        domain = [('date', '<=', self.date), ("state", "=", "posted")]
         if account_debit_id == account_credit_id:
-            domain = [("account_id", "=", account_debit_id)]
+            domain.append(("account_id", "=", account_debit_id))
         else:
-            domain = [("account_id", "in", [account_debit_id, account_credit_id])]
+            domain.append(("account_id", "in", [account_debit_id, account_credit_id]))
         move_lines = self.env["account.move.line"].search(domain)
         return sum(move_lines.mapped("debit")) - sum(move_lines.mapped("credit"))
