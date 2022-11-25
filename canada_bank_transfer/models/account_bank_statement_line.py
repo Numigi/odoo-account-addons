@@ -21,7 +21,8 @@ class AccountBankStatementLine(models.Model):
         if self.journal_id.use_transit_account:
             payments = self._get_transit_eft_payments()
             payments.write({"state": "sent"})
-
+        for rec in self:
+            rec.move_name = ""
         super().button_cancel_reconciliation()
 
     def _get_transit_eft_payments(self):
