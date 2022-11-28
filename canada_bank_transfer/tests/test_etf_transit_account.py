@@ -112,7 +112,7 @@ class TestTransitMoveCase(EtfTransitAccountCase):
         assert self.payment_2.state == "reconciled"
 
         line.button_cancel_reconciliation()
-
+        assert line.move_name == ""
         assert self.payment_1.state == "sent"
         assert self.payment_2.state == "sent"
 
