@@ -3,10 +3,6 @@
 
 - url: https://github.com/Numigi/odoo-base-addons
   branch: "14.0"
-  includes:
-    - base_xml_rename
-    - base_extended_security
-    - lang_fr_activated
 
 - url: https://github.com/OCA/mis-builder
   branch: "14.0"
