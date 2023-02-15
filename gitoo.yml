@@ -33,3 +33,8 @@
   includes:
     - account_statement_import
     - account_statement_import_online
+
+- url: https://github.com/OCA/account-financial-tools
+  branch: "14.0"
+  includes:
+    - account_check_deposit
