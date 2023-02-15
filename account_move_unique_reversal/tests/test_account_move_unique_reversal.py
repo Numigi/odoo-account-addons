@@ -13,6 +13,7 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
         cls.journal = cls.env["account.journal"].create(
             {"name": "Test", "code": "TEST", "type": "general"}
         )
+        cls.today = fields.date.today()
         cls.account_1 = cls.env["account.account"].create(
             {
                 "name": "Account 1",
@@ -32,6 +33,7 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
         cls.move = cls.env["account.move"].create(
             {
                 "journal_id": cls.journal.id,
+                "date": cls.today,
                 "line_ids": [
                     (0, 0, {"account_id": cls.account_1.id, "name": "/", "debit": 75}),
                     (0, 0, {"account_id": cls.account_1.id, "name": "/", "debit": 25}),
@@ -44,7 +46,6 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
             }
         )
         cls.move.action_post()
-        cls.today = fields.date.today()
 
     def test_reverse_reversed_entry_fail(self):
         self._reverse_move(self.move)
