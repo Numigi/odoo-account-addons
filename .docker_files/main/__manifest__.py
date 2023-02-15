@@ -44,7 +44,6 @@
         "invoice_fiscal_position_required",
         "invoice_list_email",
         "invoice_refund_not_earlier",
-        "lang_fr_activated",
         "old_accounts",
         "payment_list_not_sent",
     ],
