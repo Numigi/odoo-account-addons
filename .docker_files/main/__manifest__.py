@@ -37,6 +37,7 @@
         "bank_statement_import_csv",
         "bank_statement_extra_columns",
         "bank_statement_no_reverse",
+        "bank_statement_online_stripe",
         "bank_statement_partner_name",
         "canada_account_types",
         "canada_bank_transfer",

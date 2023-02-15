@@ -19,10 +19,16 @@
   includes:
     - date_range
 
+- url: https://github.com/OCA/web
+  branch: "14.0"
+  includes:
+    - web_widget_dropdown_dynamic
+
 - url: https://github.com/OCA/bank-statement-import
   branch: "14.0"
   includes:
     - account_statement_import
+    - account_statement_import_online
     - account_statement_import_base
     - account_statement_import_txt_xlsx
     - account_statement_import_paypal
