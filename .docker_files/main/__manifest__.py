@@ -49,6 +49,7 @@
         "lang_fr_activated",
         "old_accounts",
         "payment_list_not_sent",
+        "payment_stripe_not_silenced",
     ],
     "installable": True,
 }
