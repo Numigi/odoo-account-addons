@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_bank_statement_detail_enhanced_doc"
+              inherit_id="account_banking_reconciliation.report_bank_statement_detail_doc">
+        <xpath expr="//div[hasclass('row')]" position="attributes">
+            <attribute name="class">col</attribute>
+        </xpath>
+    </template>
+</odoo>
