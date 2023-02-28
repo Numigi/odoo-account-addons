@@ -14,6 +14,7 @@
         "account_additional_group",
         "account_analytic_required_forbidden",
         "account_bank_menu",
+        "account_banking_reconciliation_enhanced",
         "account_budget_balance",
         "account_check_deposit_enhanced",
         "account_closing_journal",
