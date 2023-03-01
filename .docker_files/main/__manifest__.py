@@ -37,6 +37,7 @@
         "account_report_line_menu",
         "account_report_trial_balance",
         "account_show_full_features",
+        "account_transfer_with_partner",
         "account_type_archive",
         "account_unaffected_earnings_disabled",
         "bank_reconciliation_filter",

@@ -45,6 +45,7 @@ COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
 COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
+COPY account_transfer_with_partner /mnt/extra-addons/account_transfer_with_partner
 COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
 COPY bank_reconciliation_filter /mnt/extra-addons/bank_reconciliation_filter
