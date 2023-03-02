@@ -7,6 +7,8 @@
     "category": "Accounting",
     "summary": "Account Transfer with partner",
     "author": "Numigi",
+    "maintainer": "Numigi",
+    "website": "https://www.numigi.com",
     "depends": [
         "account",
     ],

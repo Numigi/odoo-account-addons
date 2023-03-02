@@ -21,10 +21,8 @@ class TestAccountPaymentInternalTransfer(common.SavepointCase):
         cls.bank_journal_2 = cls.env['account.journal'].create(
             {'name': 'Bank 2', 'type': 'bank', 'code': 'BNK68', 'currency_id': cls.currency_cad_id})
 
-        cls.cash_journal = cls.env['account.journal'].create(
-            {'name': 'Cash', 'type': 'cash', 'code': 'CSHTEST1'})
 
-        cls.payment_bank2bank = cls.payment_model.create({
+        cls.payment = cls.payment_model.create({
             'payment_date': time.strftime('%Y') + '-07-15',
             'payment_type': 'transfer',
             'amount': 50,
@@ -34,28 +32,15 @@ class TestAccountPaymentInternalTransfer(common.SavepointCase):
             'payment_method_id': cls.payment_method_manual_out.id,
         })
 
-        cls.payment_bank2bank.post()
+        cls.payment.post()
 
-        cls.payment_bank2cash = cls.payment_model.create({
-            'payment_date': time.strftime('%Y') + '-07-15',
-            'payment_type': 'transfer',
-            'amount': 100,
-            'currency_id': cls.currency_cad_id,
-            'journal_id': cls.bank_journal_1.id,
-            'destination_journal_id': cls.cash_journal.id,
-            'payment_method_id': cls.payment_method_manual_out.id,
-        })
+      
 
-        cls.payment_bank2cash.post()
-
-    def test_internal_transfer_bank2bank_partner(self):
-        company = self.payment_bank2bank.company_id
-        assert len(self.payment_bank2bank.move_line_ids) > 0
+    def test_internal_transfer_partner(self):
+        company = self.payment.company_id
+        assert len(self.payment.move_line_ids) > 0
         assert all(
             partner == company.partner_id
-            for partner in self.payment_bank2bank.move_line_ids.mapped('partner_id')
+            for partner in self.payment.move_line_ids.mapped('partner_id')
         )
 
-    def test_internal_transfer_bank2cash_partner(self):
-        assert len(self.payment_bank2cash.move_line_ids) > 0
-        self.assertFalse(self.payment_bank2cash.move_line_ids.mapped('partner_id'))

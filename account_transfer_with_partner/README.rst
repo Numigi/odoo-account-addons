@@ -7,11 +7,11 @@ in the case of an internal transfer payment.
 Overview
 ========
 
-As a user of account application, I create a new internal transfer payment between two bank accounts.
+As a user of account application, I create a new internal transfer payment between two accounts.
 
 .. image:: static/description/payment_internal_transfer.png
 
-I confirm the transfer and accessed the journal items.
+I confirm the transfer and access the journal items.
 
 I notice that the partner information was associated with the active company.
 

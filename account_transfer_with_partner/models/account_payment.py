@@ -10,11 +10,6 @@ class AccountPayment(models.Model):
     def _get_shared_move_line_vals(self, debit, credit, amount_currency, move_id, invoice_id=False):
         res = super(AccountPayment, self)._get_shared_move_line_vals(debit, credit, amount_currency, move_id,
                                                                      invoice_id=invoice_id)
-        conditions = (
-                self.payment_type == 'transfer' and
-                self.journal_id.type == 'bank' and
-                self.destination_journal_id.type == 'bank'
-        )
-        if conditions:
+        if self.payment_type == 'transfer':
             res['partner_id'] = self.company_id.partner_id.id
         return res
