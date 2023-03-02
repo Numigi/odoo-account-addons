@@ -15,9 +15,13 @@ I confirm the transfer and access the journal items.
 
 I notice that the partner information was associated with the active company.
 
-.. image:: .. image:: static/description/journal_items_partner.png
+.. image:: static/description/journal_items_partner.png
 
 
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+
+More information
+----------------
+* Meet us at https://bit.ly/numigi-com
