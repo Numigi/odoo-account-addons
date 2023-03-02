@@ -1,22 +1,30 @@
-from odoo.addons.test_mail.tests.common import mail_new_test_user
+# © 2023 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo.tests import common
 import time
 
 
-class TestAccountPaymentTransfer(common.SavepointCase):
+class TestAccountPaymentInternalTransfer(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        """Prepare Users and Bank Statements."""
-        super(TestAccountPaymentTransfer, cls).setUpClass()
+        super(TestAccountPaymentInternalTransfer, cls).setUpClass()
+        cls.payment_model = cls.env['account.payment']
+        cls.payment_method_manual_out = cls.env.ref("account.account_payment_method_manual_out")
+        cls.currency_usd_id = cls.env.ref('base.USD').id
         cls.currency_cad_id = cls.env.ref("base.CAD").id
-        cls.bank_journal_1 = cls.env['account.journal'].create({'name': 'Bank 1', 'type': 'bank', 'code': 'BNK67'})
+        cls.bank_journal_1 = cls.env['account.journal'].create({'name': 'Bank 1',
+                                                                'type': 'bank',
+                                                                'code': 'BNK67',
+                                                                'currency_id': cls.currency_usd_id})
 
         cls.bank_journal_2 = cls.env['account.journal'].create(
             {'name': 'Bank 2', 'type': 'bank', 'code': 'BNK68', 'currency_id': cls.currency_cad_id})
 
-        cls.payment_method_manual_out = cls.env.ref("account.account_payment_method_manual_out")
+        cls.cash_journal = cls.env['account.journal'].create(
+            {'name': 'Cash', 'type': 'cash', 'code': 'CSHTEST1'})
 
-        cls.payment_bank2bank = cls.env['account.partner'].create({
+        cls.payment_bank2bank = cls.payment_model.create({
             'payment_date': time.strftime('%Y') + '-07-15',
             'payment_type': 'transfer',
             'amount': 50,
@@ -28,21 +36,26 @@ class TestAccountPaymentTransfer(common.SavepointCase):
 
         cls.payment_bank2bank.post()
 
-        cls.payment_bank2cash = cls.env['account.partner'].create({
+        cls.payment_bank2cash = cls.payment_model.create({
             'payment_date': time.strftime('%Y') + '-07-15',
             'payment_type': 'transfer',
-            'amount': 50,
+            'amount': 100,
             'currency_id': cls.currency_cad_id,
             'journal_id': cls.bank_journal_1.id,
-            'destination_journal_id': cls.bank_journal_2.id,
+            'destination_journal_id': cls.cash_journal.id,
             'payment_method_id': cls.payment_method_manual_out.id,
         })
 
-        cls.payment_bank2bank.post()
+        cls.payment_bank2cash.post()
 
-
-    def test_internal_transfer_journal_items_partner(self):
+    def test_internal_transfer_bank2bank_partner(self):
         company = self.payment_bank2bank.company_id
+        assert len(self.payment_bank2bank.move_line_ids) > 0
+        assert all(
+            partner == company.partner_id
+            for partner in self.payment_bank2bank.move_line_ids.mapped('partner_id')
+        )
 
-        assert self.payment.move_line_ids
-        assert self.payment.move_line_ids.mapped('partner_id')[0] == company.partner_id
+    def test_internal_transfer_bank2cash_partner(self):
+        assert len(self.payment_bank2cash.move_line_ids) > 0
+        self.assertFalse(self.payment_bank2cash.move_line_ids.mapped('partner_id'))

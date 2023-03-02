@@ -1,17 +1,21 @@
 Account transfer with partner
 =============================
 
-This module allows to designate a partner for journal item as the active company partner in the case of payment with transfer type.
+This module allows setting the partner value of journal items to the active company partner
+in the case of an internal transfer payment.
 
 Overview
 ========
 
-As a user with the ability to create payments in the "Accounting" application, I create a new transfer between accounts.
+As a user of account application, I create a new internal transfer payment between two bank accounts.
 
+.. image:: static/description/payment_internal_transfer.png
 
-I confirmed the transfer and accessed the journal items.
+I confirm the transfer and accessed the journal items.
 
-I noticed that the partner information was associated with the active company.
+I notice that the partner information was associated with the active company.
+
+.. image:: .. image:: static/description/journal_items_partner.png
 
 
 Contributors
