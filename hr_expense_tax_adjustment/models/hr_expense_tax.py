@@ -1,4 +1,4 @@
-# © 2018 Numigi
+# © 2023 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import fields, models
@@ -12,7 +12,8 @@ class HrExpenseTax(models.Model):
 
     expense_id = fields.Many2one(
         'hr.expense', 'Expense', required=True, ondelete='cascade', index=True)
-    amount = fields.Float('Amount', required=True, digits=dp.get_precision('Account'))
+    amount = fields.Float('Amount', required=True,
+                          digits=dp.get_precision('Account'))
     account_id = fields.Many2one(
         'account.account', 'Account', required=True, ondelete='restrict')
     tax_id = fields.Many2one(

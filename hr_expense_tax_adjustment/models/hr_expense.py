@@ -1,4 +1,4 @@
-# © 2018 Numigi
+# © 2023 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import logging
@@ -47,65 +47,40 @@ class HrExpense(models.Model):
                 'tax_id': tax['id'] or tax['id'].origin,
                 'price_include': tax['price_include'],
             })
-            # values = {
-            #     'amount': tax['amount'],
-            #     'account_id': tax['account_id'],
-            #     'tax_id': self.tax_ids[index-1]._origin.id,
-            #     'price_include': tax['price_include'],
-            # }
-            # self.update({
-            #     'tax_line_ids': [(0, 0, values)],
-            # })
 
-    # def _get_account_move_line_values(self):
-    #     expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
-    #     expenses_without_tax_lines = self.filtered(
-    #         lambda e: not e.tax_line_ids)
+    def _get_account_move_line_values(self):
+        # TODO this function must be fixed for v14
+        expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
+        expenses_without_tax_lines = self.filtered(
+            lambda e: not e.tax_line_ids)
 
-    #     account_move_lines = super(
-    #         HrExpense, expenses_without_tax_lines)._get_account_move_line_values()
+        account_move_lines = super(
+            HrExpense, expenses_without_tax_lines)._get_account_move_line_values()
 
-    #     account_move_lines_with_tax = super(
-    #         HrExpense, expenses_with_tax_lines)._get_account_move_line_values()
+        for expense in expenses_with_tax_lines:
+            account_move_lines.extend(expense._move_line_get_using_tax_lines())
 
-    #     account_move_lines.update(account_move_lines_with_tax)
+        return account_move_lines
 
-    #     # for expense in expenses_with_tax_lines:
-    #     #     account_move_lines.extend(expense._move_line_get_using_tax_lines())
+    def _move_line_get_using_tax_lines(self):
+        # TODO this function must be fixed and _prepare_move_line value obsolete on v14
+        expense_move_line = self._prepare_move_line_value()
+        expense_move_line['price'] = self.untaxed_amount
+        move_lines = [expense_move_line]
 
-    #     return account_move_lines
+        for line in self.tax_line_ids:
+            move_lines.append({
+                'type': 'tax',
+                'name': line.tax_id.name,
+                'price_unit': line.amount,
+                'quantity': 1,
+                'price': line.amount,
+                'account_id': line.account_id.id,
+                'tax_line_id': line.tax_id.id,
+                'expense_id': self.id,
+            })
 
-    # def _get_account_move_line_values(self):
-    #     expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
-    #     expenses_without_tax_lines = self.filtered(
-    #         lambda e: not e.tax_line_ids)
-
-    #     account_move_lines = super(
-    #         HrExpense, expenses_without_tax_lines)._get_account_move_line_values()
-
-    #     for expense in expenses_with_tax_lines:
-    #         account_move_lines.extend(expense._move_line_get_using_tax_lines())
-
-    #     return account_move_lines
-
-    # def _move_line_get_using_tax_lines(self):
-    #     expense_move_line = self._prepare_move_line_value()
-    #     expense_move_line['price'] = self.untaxed_amount
-    #     move_lines = [expense_move_line]
-
-    #     for line in self.tax_line_ids:
-    #         move_lines.append({
-    #             'type': 'tax',
-    #             'name': line.tax_id.name,
-    #             'price_unit': line.amount,
-    #             'quantity': 1,
-    #             'price': line.amount,
-    #             'account_id': line.account_id.id,
-    #             'tax_line_id': line.tax_id.id,
-    #             'expense_id': self.id,
-    #         })
-
-    #     return move_lines
+        return move_lines
 
     @api.depends('quantity', 'unit_amount', 'tax_ids', 'currency_id', 'tax_line_ids.amount')
     def _compute_amount(self):

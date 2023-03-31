@@ -1,4 +1,4 @@
-# © 2018 Numigi
+# © 2023 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo.tests import common
@@ -76,7 +76,7 @@ class TestAccountMoveLine(common.SavepointCase):
             'employee_id': cls.employee.id,
             'product_id': cls.product.id,
             'unit_amount': 700.00,
-            'tax_ids': [(6, 0, [cls.tax_1.id, cls.tax_2.id])],
+            'tax_ids': [(6, 0, [cls.parent_tax.id])],
             'sheet_id': cls.sheet.id,
         })
 
@@ -125,121 +125,112 @@ class TestAccountMoveLine(common.SavepointCase):
         self.assertAlmostEqual(lines[0].amount, 700 * 0.05, 2)
         self.assertAlmostEqual(lines[1].amount, 700 * 0.09975, 2)
 
-#     def test_whenValidatingExpense_thenTaxesAreCorrectlyAccounted(self):
-#         self.expense._onchange_amount_setup_tax_lines()
+    def test_whenValidatingExpense_thenTaxesAreCorrectlyAccounted(self):
+        self.expense._onchange_amount_setup_tax_lines()
 
-#         self.sheet.approve_expense_sheets()
-#         self.sheet.action_sheet_move_create()
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
 
-#         move_lines = self.sheet.account_move_id.line_ids
-#         self.assertEqual(len(move_lines), 4)
+        move_lines = self.sheet.account_move_id.line_ids
+        self.assertEqual(len(move_lines), 4)
 
-#         # tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
-#         # tax_2 = move_lines.filtered(
-#         #     lambda l: l.account_id == self.tax_account_2)
-#         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-#         # self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-#         # self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
-#         self.assertAlmostEqual(payable.credit, 700, 2)
-# # =====================================================================================================================
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(
+            lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
+        self.assertAlmostEqual(payable.credit, 700, 2)
 
-#     def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(self):
-#         self.tax_1.amount = 5
-#         self.tax_1.price_include = False
-#         self.tax_2.price_include = False
+    def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(self):
+        self.tax_1.amount = 5
+        self.tax_1.price_include = False
+        self.tax_2.price_include = False
 
-#         self.expense._onchange_amount_setup_tax_lines()
+        self.expense._onchange_amount_setup_tax_lines()
 
-#         self.sheet.approve_expense_sheets()
-#         self.sheet.action_sheet_move_create()
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
 
-#         move_lines = self.sheet.account_move_id.line_ids
-#         self.assertEqual(len(move_lines), 4)
+        move_lines = self.sheet.account_move_id.line_ids
+        self.assertEqual(len(move_lines), 4)
 
-#         tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
-#         tax_2 = move_lines.filtered(
-#             lambda l: l.account_id == self.tax_account_2)
-#         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-#         self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
-#         self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-#         self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(
+            lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+        self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
+        self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
 
-#     def test_ifTaxesAreIncludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
-#         self.tax_1.amount = 5
-#         self.tax_1.price_include = True
-#         self.tax_2.price_include = True
+    def test_ifTaxesAreIncludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
 
-#         self.sheet.approve_expense_sheets()
-#         self.sheet.action_sheet_move_create()
+        move_lines = self.sheet.account_move_id.line_ids
+        self.assertEqual(len(move_lines), 4)
 
-#         move_lines = self.sheet.account_move_id.line_ids
-#         self.assertEqual(len(move_lines), 4)
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(
+            lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
+        self.assertAlmostEqual(payable.credit, 700)
 
-#         # tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
-#         # tax_2 = move_lines.filtered(
-#         #     lambda l: l.account_id == self.tax_account_2)
-#         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-#         # self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-#         # self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
-#         self.assertAlmostEqual(payable.credit, 700)
+    def test_ifTaxesAreExcludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
+        self.tax_1.amount = 5
+        self.tax_1.price_include = False
+        self.tax_2.price_include = False
 
-#     def test_ifTaxesAreExcludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
-#         self.tax_1.amount = 5
-#         self.tax_1.price_include = False
-#         self.tax_2.price_include = False
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
 
-#         self.sheet.approve_expense_sheets()
-#         self.sheet.action_sheet_move_create()
+        move_lines = self.sheet.account_move_id.line_ids
+        self.assertEqual(len(move_lines), 4)
 
-#         move_lines = self.sheet.account_move_id.line_ids
-#         self.assertEqual(len(move_lines), 4)
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(
+            lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
+        self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
+        self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
 
-#         tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
-#         tax_2 = move_lines.filtered(
-#             lambda l: l.account_id == self.tax_account_2)
-#         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-#         self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
-#         self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-#         self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
-#     # ==============================================================================================
+    def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
+        self.expense._onchange_amount_setup_tax_lines()
 
-#     def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
-#         # self.tax_1.amount = 5
-#         self.tax_1.price_include = True
-#         self.tax_2.price_include = True
-#         self.expense._onchange_amount_setup_tax_lines()
+        expense_2 = self.expense.copy({'unit_amount': 500})
+        expense_2._onchange_amount_setup_tax_lines()
 
-#         expense_2 = self.expense.copy({'unit_amount': 500})
-#         expense_2._onchange_amount_setup_tax_lines()
+        expense_2._compute_amount()
+        self.expense._compute_amount()
 
-#         expense_2._compute_amount()
-#         self.expense._compute_amount()
+        self.assertEqual(self.expense.total_amount, 700)
+        self.assertEqual(expense_2.total_amount, 500)
+        self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.14975, 2)
+        self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.14975, 2)
 
-#         self.assertEqual(self.expense.total_amount, 700)
-#         self.assertEqual(expense_2.total_amount, 500)
-#         # self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.14975, 2)
-#         # self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.14975, 2)
+    def test_withMultipleExpenseLines_taxesAreCorrectlyAccounted(self):
+        self.expense._onchange_amount_setup_tax_lines()
 
-#     def test_withMultipleExpenseLines_taxesAreCorrectlyAccounted(self):
-#         self.expense._onchange_amount_setup_tax_lines()
+        expense_2 = self.expense.copy({'unit_amount': 500})
+        expense_2._onchange_amount_setup_tax_lines()
+        expense_2.sheet_id = self.sheet
 
-#         expense_2 = self.expense.copy({'unit_amount': 500})
-#         expense_2._onchange_amount_setup_tax_lines()
-#         expense_2.sheet_id = self.sheet
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
 
-#         self.sheet.approve_expense_sheets()
-#         self.sheet.action_sheet_move_create()
+        move_lines = self.sheet.account_move_id.line_ids
 
-#         move_lines = self.sheet.account_move_id.line_ids
+        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(
+            lambda l: l.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
 
-#         # tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
-#         # tax_2 = move_lines.filtered(
-#         #     lambda l: l.account_id == self.tax_account_2)
-#         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-
-#         total_amount = 700 + 500
-#         # self.assertAlmostEqual(sum(tax_1.mapped('debit')),
-#         #                        total_amount * (0.05 / 1.14975), 0)
-#         # self.assertAlmostEqual(sum(tax_2.mapped('debit')),
-#         #                        total_amount * (0.09975 / 1.14975), 0)
-#         self.assertAlmostEqual(sum(payable.mapped('credit')), total_amount, 0)
+        total_amount = 700 + 500
+        self.assertAlmostEqual(sum(tax_1.mapped('debit')),
+                               total_amount * (0.05 / 1.14975), 0)
+        self.assertAlmostEqual(sum(tax_2.mapped('debit')),
+                               total_amount * (0.09975 / 1.14975), 0)
+        self.assertAlmostEqual(sum(payable.mapped('credit')), total_amount, 0)
