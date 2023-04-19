@@ -47,6 +47,7 @@ COPY bank_statement_online_stripe /mnt/extra-addons/bank_statement_online_stripe
 COPY bank_statement_partner_name /mnt/extra-addons/bank_statement_partner_name
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
+COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
 COPY invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
 COPY invoice_list_email /mnt/extra-addons/invoice_list_email

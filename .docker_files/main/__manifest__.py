@@ -11,7 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
-        "account_accountant", # Used for testing account_fr_ca_labels
+        "account_accountant",  # Used for testing account_fr_ca_labels
         "l10n_generic_coa",  # Used for testing addons
         "account_additional_group",
         "account_analytic_required_forbidden",
@@ -41,6 +41,7 @@
         "bank_statement_partner_name",
         "canada_account_types",
         "canada_bank_transfer",
+        "hr_expense_tax_adjustment",
         "invoice_currency_validation",
         "invoice_fiscal_position_required",
         "invoice_list_email",

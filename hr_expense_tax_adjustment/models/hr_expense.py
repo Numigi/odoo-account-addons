@@ -1,8 +1,11 @@
-# © 2018 Numigi
+# © 2023 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models, _
+import logging
+from odoo import api, fields, models
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
 
 
 class HrExpense(models.Model):
@@ -33,30 +36,20 @@ class HrExpense(models.Model):
         self.tax_line_ids = self.env['hr.expense.tax']
 
         currency = self.currency_id or self.company_id.currency_id
-
         taxes = self.tax_ids.with_context(round=True).compute_all(
             self.unit_amount, currency, self.quantity, self.product_id)
+        print("TAXES",taxes)
+
         for tax in taxes['taxes']:
             self.tax_line_ids |= self.env['hr.expense.tax'].new({
                 'amount': tax['amount'],
                 'account_id': tax['account_id'],
-                'tax_id': tax['id'],
+                'tax_id': tax['id'] or tax['id'].origin,
                 'price_include': tax['price_include'],
             })
 
-    def _get_account_move_line_values(self):
-        expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
-        expenses_without_tax_lines = self.filtered(lambda e: not e.tax_line_ids)
-
-        account_move_lines = super(
-            HrExpense, expenses_without_tax_lines)._get_account_move_line_values()
-
-        for expense in expenses_with_tax_lines:
-            account_move_lines.extend(expense._move_line_get_using_tax_lines())
-
-        return account_move_lines
-
     def _move_line_get_using_tax_lines(self):
+        # TODO this function must be fixed and _prepare_move_line value obsolete on v14
         expense_move_line = self._prepare_move_line_value()
         expense_move_line['price'] = self.untaxed_amount
         move_lines = [expense_move_line]
@@ -81,10 +74,12 @@ class HrExpense(models.Model):
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)
 
         for expense in expenses_with_tax_lines:
-            included_tax_amount = sum(l.amount for l in expense.tax_line_ids if l.price_include)
+            included_tax_amount = sum(
+                l.amount for l in expense.tax_line_ids if l.price_include)
             tax_amount = sum(l.amount for l in expense.tax_line_ids)
 
-            expense.untaxed_amount = expense.unit_amount * expense.quantity - included_tax_amount
+            expense.untaxed_amount = expense.unit_amount * \
+                expense.quantity - included_tax_amount
             expense.total_amount = expense.untaxed_amount + tax_amount
 
         super(HrExpense, expenses_without_tax_lines)._compute_amount()
