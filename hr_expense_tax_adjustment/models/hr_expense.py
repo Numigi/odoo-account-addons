@@ -36,9 +36,9 @@ class HrExpense(models.Model):
         self.tax_line_ids = self.env['hr.expense.tax']
 
         currency = self.currency_id or self.company_id.currency_id
-
         taxes = self.tax_ids.with_context(round=True).compute_all(
             self.unit_amount, currency, self.quantity, self.product_id)
+        print("TAXES",taxes)
 
         for tax in taxes['taxes']:
             self.tax_line_ids |= self.env['hr.expense.tax'].new({
@@ -47,20 +47,6 @@ class HrExpense(models.Model):
                 'tax_id': tax['id'] or tax['id'].origin,
                 'price_include': tax['price_include'],
             })
-
-    def _get_account_move_line_values(self):
-        # TODO this function must be fixed for v14
-        expenses_with_tax_lines = self.filtered(lambda e: e.tax_line_ids)
-        expenses_without_tax_lines = self.filtered(
-            lambda e: not e.tax_line_ids)
-
-        account_move_lines = super(
-            HrExpense, expenses_without_tax_lines)._get_account_move_line_values()
-
-        for expense in expenses_with_tax_lines:
-            account_move_lines.extend(expense._move_line_get_using_tax_lines())
-
-        return account_move_lines
 
     def _move_line_get_using_tax_lines(self):
         # TODO this function must be fixed and _prepare_move_line value obsolete on v14

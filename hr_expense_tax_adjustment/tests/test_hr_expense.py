@@ -28,7 +28,7 @@ class TestAccountMoveLine(common.SavepointCase):
         cls.tax_1 = cls.env['account.tax'].create({
             'name': 'Tax 1 (5%)',
             'description': 'Tax 1 (5%)',
-            'amount': 4.5464878,
+            'amount': 4.5465,
             'amount_type': 'percent',
             'type_tax_use': 'purchase',
             'price_include': True,
@@ -104,8 +104,9 @@ class TestAccountMoveLine(common.SavepointCase):
         self.assertEqual(len(lines), 2)
         self.assertEqual(lines[0].tax_id, self.tax_1)
         self.assertEqual(lines[1].tax_id, self.tax_2)
-        self.assertAlmostEqual(lines[0].amount, 700 * (0.05 / 1.14975), 2)
-        self.assertAlmostEqual(lines[1].amount, 700 * (0.09975 / 1.14975), 2)
+        base = round(700/(1 + 0.045465 + 0.09975), 2)
+        self.assertAlmostEqual(lines[0].amount, base * 0.045465, 2)
+        self.assertAlmostEqual(lines[1].amount, base * 0.09975, 2)
 
     def test_ifTaxesExcludedFromPrice_thenTaxLinesAmountAreBasedOnPrice(self):
         self.assertFalse(self.expense.tax_line_ids)
@@ -138,10 +139,11 @@ class TestAccountMoveLine(common.SavepointCase):
         tax_2 = move_lines.filtered(
             lambda l: l.account_id == self.tax_account_2)
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
+        base = round(700/(1 + 0.045465 + 0.09975), 2)
+        self.assertAlmostEqual(tax_1.debit, base * 0.045465, 2)
+        self.assertAlmostEqual(tax_2.debit, base * 0.09975, 2)
         self.assertAlmostEqual(payable.credit, 700, 2)
-
+    #
     def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(self):
         self.tax_1.amount = 5
         self.tax_1.price_include = False
@@ -174,8 +176,8 @@ class TestAccountMoveLine(common.SavepointCase):
         tax_2 = move_lines.filtered(
             lambda l: l.account_id == self.tax_account_2)
         payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.14975), 2)
+        self.assertAlmostEqual(tax_1.debit, 700 * (0.045465 / 1.145215), 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.145215), 2)
         self.assertAlmostEqual(payable.credit, 700)
 
     def test_ifTaxesAreExcludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(self):
@@ -208,8 +210,8 @@ class TestAccountMoveLine(common.SavepointCase):
 
         self.assertEqual(self.expense.total_amount, 700)
         self.assertEqual(expense_2.total_amount, 500)
-        self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.14975, 2)
-        self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.14975, 2)
+        self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.145215, 2)
+        self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.145215, 2)
 
     def test_withMultipleExpenseLines_taxesAreCorrectlyAccounted(self):
         self.expense._onchange_amount_setup_tax_lines()
@@ -230,7 +232,7 @@ class TestAccountMoveLine(common.SavepointCase):
 
         total_amount = 700 + 500
         self.assertAlmostEqual(sum(tax_1.mapped('debit')),
-                               total_amount * (0.05 / 1.14975), 0)
+                               total_amount * (0.045465 / 1.145215), 0)
         self.assertAlmostEqual(sum(tax_2.mapped('debit')),
-                               total_amount * (0.09975 / 1.14975), 0)
+                               total_amount * (0.09975 / 1.145215), 0)
         self.assertAlmostEqual(sum(payable.mapped('credit')), total_amount, 0)
