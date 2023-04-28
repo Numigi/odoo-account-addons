@@ -10,14 +10,12 @@ class TestReconciliation(SavepointCase):
         """Prepare Users and Bank Statements."""
         super(TestReconciliation, cls).setUpClass()
 
-        currency_cad_id = cls.env.ref("base.CAD")
         company = cls.env.ref('base.main_company')
 
-        company.currency_id = currency_cad_id.id
         # create journal
         cls.journal = cls.env["account.journal"].create(
             {"name": "My Bank", "type": "bank", "code": "MBK",
-                "currency_id": currency_cad_id.id}
+                "currency_id": company.currency_id.id or False}
         )
         # create customer
         cls.client = cls.env["res.partner"].create({"name": "Client"})
