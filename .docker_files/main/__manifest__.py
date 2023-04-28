@@ -45,6 +45,7 @@
         "bank_statement_no_reverse",
         "bank_statement_online_stripe",
         "bank_statement_partner_mapping",
+        "bank_statement_reconciliation_report",
         "budget_analysis_account_move_line",
         "canada_account_types",
         "canada_bank_transfer",

@@ -36,6 +36,8 @@
                                         <field name="date"/>
                                         <field name="partner_id"/>
                                         <field name="payment_check_number"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="amount_currency" sum="Amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                         <field name="credit" sum="Amount"/>
                                     </tree>
                                 </field>
@@ -46,6 +48,8 @@
                                         <field name="payment_name"/>
                                         <field name="date"/>
                                         <field name="partner_id"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="amount_currency" sum="Amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                         <field name="debit" sum="Amount"/>
                                     </tree>
                                 </field>
