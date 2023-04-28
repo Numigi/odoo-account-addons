@@ -11,25 +11,25 @@ class TestReconciliationDifferentCurrency(SavepointCase):
         super(TestReconciliationDifferentCurrency, cls).setUpClass()
 
         # define currency to company
-        currency_usd_id = cls.env.ref("base.USD")
+        currency_eur_id = cls.env.ref("base.EUR")
 
         # create journal
         cls.dollar_journal = cls.env["account.journal"].create(
             {"name": "My Bank", "type": "bank", "code": "MBK",
-                "currency_id": currency_usd_id.id}
+                "currency_id": currency_eur_id.id}
         )
         # create customer/supplier account
         account_type_rcv = cls.env['account.account.type'].create(
             {'name': 'RCV type', 'type': 'receivable'})
         customer_account = cls.env["account.account"].create(
             {"code": "usd_acc", "user_type_id": account_type_rcv.id, "name": "115100 USD CUSTOMER ACC",
-                "currency_id": currency_usd_id.id, "reconcile": True}
+                "currency_id": currency_eur_id.id, "reconcile": True}
         )
         account_type_pbl = cls.env['account.account.type'].create(
             {'name': 'PBL type', 'type': 'payable'})
         supplier_account = cls.env["account.account"].create(
             {"code": "usd_acc1", "user_type_id": account_type_pbl.id, "name": "115100 USD SUPPLIER ACC",
-                "currency_id": currency_usd_id.id, "reconcile": True}
+                "currency_id": currency_eur_id.id, "reconcile": True}
         )
         # create customer/supplier
         cls.customer_supplier = cls.env["res.partner"].create({
@@ -45,7 +45,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "payment_type": "inbound",
                 "partner_type": "customer",
                 "partner_id": cls.customer_supplier.id,
-                "currency_id": currency_usd_id.id,
+                "currency_id": currency_eur_id.id,
                 "amount": 1000,
                 "journal_id": cls.dollar_journal.id,
                 "payment_date": "2022-03-01",
@@ -59,7 +59,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "payment_type": "inbound",
                 "partner_type": "customer",
                 "partner_id": cls.customer_supplier.id,
-                "currency_id": currency_usd_id.id,
+                "currency_id": currency_eur_id.id,
                 "amount": 1000,
                 "journal_id": cls.dollar_journal.id,
                 "payment_date": "2022-03-03",
@@ -73,7 +73,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "payment_type": "outbound",
                 "partner_type": "supplier",
                 "partner_id": cls.customer_supplier.id,
-                "currency_id": currency_usd_id.id,
+                "currency_id": currency_eur_id.id,
                 "amount": 1000,
                 "journal_id": cls.dollar_journal.id,
                 "payment_date": "2022-03-01",
@@ -87,7 +87,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "payment_type": "outbound",
                 "partner_type": "supplier",
                 "partner_id": cls.customer_supplier.id,
-                "currency_id": currency_usd_id.id,
+                "currency_id": currency_eur_id.id,
                 "amount": 1000,
                 "journal_id": cls.dollar_journal.id,
                 "payment_date": "2022-03-03",
