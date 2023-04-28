@@ -15,7 +15,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
         currency_cad_id = cls.env.ref("base.CAD")
         company = cls.env.ref('base.main_company')
 
-        company.currency_id = currency_cad_id.id,
+        company.currency_id = currency_cad_id.id
 
         # create journal
         cls.dollar_journal = cls.env["account.journal"].create(

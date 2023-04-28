@@ -10,9 +10,14 @@ class TestReconciliation(SavepointCase):
         """Prepare Users and Bank Statements."""
         super(TestReconciliation, cls).setUpClass()
 
+        currency_cad_id = cls.env.ref("base.CAD")
+        company = cls.env.ref('base.main_company')
+
+        company.currency_id = currency_cad_id.id
         # create journal
         cls.journal = cls.env["account.journal"].create(
-            {"name": "My Bank", "type": "bank", "code": "MBK"}
+            {"name": "My Bank", "type": "bank", "code": "MBK",
+                "currency_id": currency_cad_id.id}
         )
         # create customer
         cls.client = cls.env["res.partner"].create({"name": "Client"})
@@ -78,9 +83,11 @@ class TestReconciliation(SavepointCase):
             }
         )
 
-    def test_conciliation_wizard(self):
+    def test_conciliation_wizard_same_currency(self):
         bank_statement_1 = self.bank_statement_1
         bank_statement_1.button_bank_conciliation()
         conciliation = bank_statement_1.conciliation_id
+        self.assertEqual(conciliation.journal_id.currency_id,
+                         conciliation.journal_id.company_id.currency_id)
         self.assertEqual(conciliation.total_inbound, 800.0)
         self.assertEqual(conciliation.total_outbound, 500.0)
