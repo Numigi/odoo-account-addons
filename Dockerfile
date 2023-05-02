@@ -53,6 +53,7 @@ COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
 COPY bank_statement_online_stripe /mnt/extra-addons/bank_statement_online_stripe
 COPY bank_statement_partner_mapping /mnt/extra-addons/bank_statement_partner_mapping
+COPY bank_statement_reconciliation_report /mnt/extra-addons/bank_statement_reconciliation_report
 COPY budget_analysis_account_move_line /mnt/extra-addons/budget_analysis_account_move_line
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
