@@ -44,7 +44,7 @@ The calculation is based on the sum of the values ​​in the ``Amount Currency
 - The ``Calculated Balance with Reconciliation`` field :
 The field is calculated as follows: Statement Ending Balance - Total Outstanding Cheques (based on Amount Currency) + Total Outstanding Deposits (based on Amount Currency).
 
-- The ``Balance at date field`` field :
+- The ``Balance at date`` field :
 The balance is calculated from the values ​​of the ``Amount Currency`` fields on the entries.
 
 Configuration
