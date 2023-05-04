@@ -32,17 +32,17 @@ IMPORTANT !!!
 Only if the company currency differs from the journal currency, values are computed as follows:
 
 - The ``Total Outstanding Cheques`` field :
-The calculation is based on the sum of the values ​​in the ``Amount Currency`` fields of the lines of the ``Outstanding cheques`` tab, multiplied by -1 to keep a positive total
+The calculation is based on the sum of the values ​​in the ``Amount Currency`` fields of the lines of the ``Outstanding cheques`` tab, multiplied by -1 to keep a positive total.
 
     .. image:: static/description/amount_curreny_to_total_outstanding_cheque.png
 
 - The ``Total Outstanding Deposits`` field :
-The calculation is based on the sum of the values ​​in the ``Amount Currency``fields     of the lines of the ``Outstanding Deposits`` tab.
+The calculation is based on the sum of the values ​​in the ``Amount Currency`` fields of the lines of the ``Outstanding Deposits`` tab.
 
     .. image:: static/description/amount_curreny_to_total_outstanding_deposit.png
 
 - The ``Calculated Balance with Reconciliation`` field :
-The field is calculated as follows: Statement Ending Balance - Total Outstanding Cheques (based on Amount Currency) + Total Outstanding Deposits (based on Amount Currency)
+The field is calculated as follows: Statement Ending Balance - Total Outstanding Cheques (based on Amount Currency) + Total Outstanding Deposits (based on Amount Currency).
 
 - The ``Balance at date field`` field :
 The balance is calculated from the values ​​of the ``Amount Currency`` fields on the entries.
