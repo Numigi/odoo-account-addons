@@ -38,3 +38,11 @@ class AccountMove(models.Model):
                     "contact your administrator or manager."
                 )
             )
+
+    @api.depends('restrict_mode_hash_table', 'state')
+    def _compute_show_reset_to_draft_button(self):
+        for move in self:
+            if move.journal_id.type in ["sale", "purchase"]:
+                move.show_reset_to_draft_button = False
+            else:
+                super()._compute_show_reset_to_draft_button()

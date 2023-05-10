@@ -22,8 +22,8 @@ msgstr "Pièces comptables"
 
 #. module: account_move_reversal_access
 #: model:res.groups,name:account_move_reversal_access.group_reverse_account_moves
-msgid "Reverse Account Moves"
-msgstr "Renverser les pièces comptables"
+msgid "Account Moves : Reverse and Modify"
+msgstr "Pièces comptables : Renverser et Modifier"
 
 #. module: account_move_reversal_access
 #: code:addons/account_move_reversal_access/models/account_move.py:31
