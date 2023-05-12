@@ -136,3 +136,9 @@ msgstr "Le compte {} est déjà défini en tant que compte par défaut pour les 
 #: model_terms:ir.ui.view,arch_db:account_closing_wizard.account_closing_wizard_form
 msgid "Confirm"
 msgstr "Confirmer"
+
+#. module: account_closing_wizard
+#: code:addons/account_closing_wizard/wizard/account_closing_wizard.py:35
+#, python-format
+msgid "You have draft account move for this period.To close a period, all account moves should be validated."
+msgstr "Vous avez une ou plusieurs pièces comptables non validées sur la période à fermer. Pour fermer la période, toutes les pièces comptables sur la période doivent être au statut validé."
