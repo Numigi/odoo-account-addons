@@ -83,6 +83,7 @@ class TestWizard(common.SavepointCase):
             cls.receivable_account, cls.revenue_account, 300)
         cls.move_2 = cls._make_move(
             cls.expense_account, cls.payable_account, 200)
+        cls.move_1.company_id = cls.move_2.company_id = cls.company.id
 
         cls.wizard = cls.env["account.closing.wizard"].create(
             {
@@ -121,6 +122,11 @@ class TestWizard(common.SavepointCase):
         assert self.wizard._get_default_journal_id() == self.closing_journal
 
     def test_confirm__no_posted_entry(self):
+        company_user = self.env.user.company_id
+        self.env.user.write({
+            'company_id': self.company.id,
+            'company_ids': [(4, self.company.id), (4, company_user.id)],
+        })
         with pytest.raises(ValidationError):
             self.wizard.confirm()
         move = self.wizard.move_id
@@ -158,9 +164,32 @@ class TestWizard(common.SavepointCase):
         assert date_from in move.ref
         assert date_to in move.ref
 
-    def test_account_move_close_draft_in_period(self):
+    def test_account_move_close_draft_in_period_multi_comp(self):
+        company_user = self.env.user.company_id
+        self.env.user.write({
+            'company_id': self.company.id,
+            'company_ids': [(4, self.company.id), (4, company_user.id)],
+        })
         with pytest.raises(ValidationError):
             self.wizard.confirm()
+
+    def test_account_move_close_draft_in_period_multi_comp_raising_exception(self):
+        company_user = self.env.user.company_id
+        self.env.user.write({
+            'company_id': self.company.id,
+            'company_ids': [(4, self.company.id), (4, company_user.id)],
+        })
+        with pytest.raises(ValidationError):
+            self.wizard.confirm()
+
+    def test_account_move_close_draft_in_period_no_exception_raised(self):
+        self.wizard.confirm()
+
+    def test_account_move_close_draft_in_period_no_record(self):
+        domain = [("state", "=", "draft"), ("company_id", "=", self.env.user.company_id.id),
+                  ("date", "<=", self.date_to)]
+        account_ids = self.env["account.move"].search(domain)
+        assert len(account_ids.ids) == 0
 
     def test_no_earnings_account(self):
         self.earnings_account.is_default_earnings_account = False

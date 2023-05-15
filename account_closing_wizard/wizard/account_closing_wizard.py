@@ -27,7 +27,7 @@ class AccountClosingWizard(models.TransientModel):
     move_id = fields.Many2one("account.move")
 
     def _check_draft_account_move_in_period(self):
-        domain = [("state", "=", "draft"),
+        domain = [("state", "=", "draft"), ("company_id", "=", self.env.user.company_id.id),
                   ("date", "<=", self.date_to)]
         account_ids = self.env["account.move"].search(domain)
         if account_ids:
