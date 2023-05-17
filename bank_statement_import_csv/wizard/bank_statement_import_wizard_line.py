@@ -60,14 +60,16 @@ class BankStatementImportWizardLine(models.TransientModel):
 
     def _raise_if_is_bank_statement_error(self, value):
         if is_bank_statement_error(value):
-            raise ValidationError(_(value.msg).format(*value.args, **value.kwargs))
+            raise ValidationError(_(value.msg).format(
+                *value.args, **value.kwargs))
 
     def _get_statement_line_vals(self):
         currency = self._get_currency()
         return {
             "date": datetime.strptime(self.date, "%Y-%m-%d").date(),
             "name": self.description,
-            "payment_ref": self.reference,
+            "payment_ref": self.description,
+            "ref": self.reference,
             "partner_name": self.partner_name,
             "amount": float(self.amount) if self.amount else None,
             "amount_currency": float(self.currency_amount) if currency else None,

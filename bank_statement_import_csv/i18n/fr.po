@@ -198,7 +198,7 @@ msgstr "Colonne dépôt"
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__description
 msgid "Description"
-msgstr "Description"
+msgstr "Libellé"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__display_name
