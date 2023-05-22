@@ -1015,6 +1015,26 @@ msgstr ""
 "Vous ne pouvez pas supprimer un transfert EFT qui n'est pas à l'état "
 "Brouillon."
 
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "Electronic Funds Transfers"
+msgstr "Transferts de Fonds Électroniques"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
+msgid "When activated, Payments are affected on a transit Account.\n"
+"                                <br/>\n"
+"                                When validating the EFT,Transit Account Moves are reversed to be affected on the Bank\n"
+"                                Account."
+msgstr "Pour la méthode de paiement EFT,les paiements validés sont comptabilisés sur un compte de transit.\n"
+"                                        <br/>\n"
+"                                        La validation de l’EFT renverse les écritures sur le compte de transit et affecte la balance sur le compte de banque."
+
+#. module: canada_bank_transfer
+#: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__transit_account
+msgid "Transit Account"
+msgstr "Compte de transit"
+
 #~ msgid ""
 #~ "The sequence number of the EFT must be filled before generating the "
 #~ "transfer file."

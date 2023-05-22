@@ -4,7 +4,7 @@
 
 {
     "name": "Canada Bank Transfer",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": "Savoir-faire Linux,Numigi",
     "maintainer": "Numigi",
     "website": "https://bit.ly/numigi-com",
@@ -24,6 +24,7 @@
         "views/journal.xml",
         "views/payment_search_with_filter.xml",
         "views/payment_with_eft_smart_button.xml",
+        "views/res_config_settings.xml",
         "wizard/eft_confirmation.xml",
         "wizard/payment_notice_email.xml",
     ],
