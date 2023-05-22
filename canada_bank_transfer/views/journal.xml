@@ -19,8 +19,10 @@
                         <field name="eft_user_number" string="User Number"/>
                         <field name="eft_destination" string="Destination"/>
                         <field name="use_transit_account" invisible="1"/>
-                        <field name="transit_account"  attrs="{'invisible': [('use_transit_account', '=', False)],
-                        'required': [('use_transit_account', '=', True), ('eft_enabled', '=', True)]}"/>
+                        <field name="transit_account" invisible="1" />
+                        <!-- condition on v12 : obsolete, config not available on view -->
+                        <!-- attrs="{'invisible': [('use_transit_account', '=', False)],
+                        'required': [('use_transit_account', '=', True), ('eft_enabled', '=', True)]}" -->
                         <field name="eft_sequence_id" string="Sequence"/>
                     </group>
                 </group>
