@@ -2,7 +2,7 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import fields, models, _
 from ..change_payment_date import change_payment_date
 
 
@@ -22,21 +22,75 @@ class EFTConfirmationWizard(models.TransientModel):
         * Attach the EFT file to each completed payments.
         * Move the paiments not marked as `completed` to the `Failed Payments`
         * section in the form view of the EFT.
+        * Creation journal Entries.
         """
         self.eft_id.state = 'done'
 
-        completed_payments = self.line_ids.filtered(lambda l: l.completed).mapped('payment_id')
+        completed_payments = self.line_ids.filtered(
+            lambda l: l.completed).mapped('payment_id')
         for payment in completed_payments:
             change_payment_date(payment, self.eft_id.payment_date)
 
         completed_payments.mark_as_sent()
 
-        failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped('payment_id')
+        failed_payments = self.line_ids.filtered(
+            lambda l: not l.completed).mapped('payment_id')
 
         self.eft_id.payment_ids = completed_payments
         self.eft_id.failed_payment_ids = failed_payments
 
+        # Creation of journal Entries
+        if self.eft_id.use_transit_account:
+            invoice_vals = self._prepare_account_move_values()
+            deposit_account_move = self.env["account.move"].create(
+                invoice_vals)
+            deposit_account_move.post()
+            self.eft_id.deposit_account_move_id = deposit_account_move.id
         return True
+
+    def _prepare_account_move_values(self):
+        """Prepare values of EFT Entries."""
+        account_move_vals = {
+            "ref": self.eft_id.name + _(" - Deposit"),
+            "move_type": "entry",
+            "date": fields.Date.today(),
+            "journal_id": self.eft_id.journal_id.id,
+            "line_ids": self._prepare_account_move_line_vals(),
+        }
+        return account_move_vals
+
+    def _prepare_account_move_line_vals(self):
+        """Prepare line values of EFT Entries."""
+        vals_account_move_lines = []
+        for line in self.line_ids.filtered(lambda line: line.completed):
+            vals_account_move_lines.append(
+                (
+                    0,
+                    0,
+                    self._get_payment_line_vals(line)
+                )
+            )
+
+        vals_account_move_lines.append(
+            (
+                0,
+                0,
+                {
+                    "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
+                    "credit": sum(self.line_ids.filtered(lambda line: line.completed).mapped('amount')),
+                    "account_id": self.eft_id.journal_id.payment_credit_account_id.id,
+                    "name": self.eft_id.name + _(" - Deposit"),
+                },
+            )
+        )
+        return vals_account_move_lines
+
+    def _get_payment_line_vals(self, line):
+        """Prepare line values of EFT Entries from Payments."""
+        return {"partner_id": line.partner_id.id,
+                "debit": line.amount,
+                "account_id": self.eft_id.journal_id.transit_account.id,
+                "name": self.eft_id.name + _(" - Deposit")}
 
 
 class EFTConfirmationLine(models.TransientModel):

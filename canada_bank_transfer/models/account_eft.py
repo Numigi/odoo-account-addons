@@ -87,6 +87,13 @@ class EFT(models.Model):
 
     payment_notices_sent = fields.Boolean(copy=False)
 
+    deposit_account_move_id = fields.Many2one(
+        "account.move", string="Deposit Account Move", readonly=1
+    )
+    use_transit_account = fields.Boolean(
+        string="Use a transit Account", related="journal_id.use_transit_account"
+    )
+
     def _compute_name(self):
         for eft in self:
             eft.name = "EFT{0:0>4}".format(eft.id) if eft.id else _("New EFT")
@@ -110,7 +117,8 @@ class EFT(models.Model):
 
     def _get_next_eft_sequence(self):
         sequence = self.journal_id.eft_sequence_id
-        number = sequence._next() if sequence else self.env["ir.sequence"].next_by_code("EFT")
+        number = sequence._next(
+        ) if sequence else self.env["ir.sequence"].next_by_code("EFT")
         if not number.isdigit():
             raise ValidationError(
                 _(
@@ -129,21 +137,30 @@ class EFT(models.Model):
     def unlink(self):
         validated_eft = self.filtered(lambda r: r.state != "draft")
         if validated_eft:
-            raise ValidationError(_("You may not delete an EFT that is not draft."))
+            raise ValidationError(
+                _("You may not delete an EFT that is not draft."))
         return super().unlink()
 
     def action_draft(self):
+        if self.deposit_account_move_id:
+            self.deposit_account_move_id.button_cancel()
+            self.deposit_account_move_id.unlink()
         self.write({"state": "draft"})
 
     def _check_payment_and_bank_accounts(self):
         check_payment_method_is_eft(self.payment_ids, self._context)
         check_payment_state_is_posted(self.payment_ids, self._context)
         check_payment_is_not_sent(self.payment_ids, self._context)
-        check_bank_account_is_selected_on_payments(self.payment_ids, self._context)
-        check_bank_is_selected_on_bank_accounts(self.payment_ids, self._context)
-        check_transit_number_is_set_on_bank_accounts(self.payment_ids, self._context)
-        check_institution_number_is_set_on_banks(self.payment_ids, self._context)
-        check_account_number_between_7_and_12_digits(self.payment_ids, self._context)
+        check_bank_account_is_selected_on_payments(
+            self.payment_ids, self._context)
+        check_bank_is_selected_on_bank_accounts(
+            self.payment_ids, self._context)
+        check_transit_number_is_set_on_bank_accounts(
+            self.payment_ids, self._context)
+        check_institution_number_is_set_on_banks(
+            self.payment_ids, self._context)
+        check_account_number_between_7_and_12_digits(
+            self.payment_ids, self._context)
 
     def validate_payments(self):
         self._check_payment_and_bank_accounts()
@@ -204,7 +221,8 @@ class EFT(models.Model):
         if not self.sequence:
             self.sequence = self._get_next_eft_sequence()
 
-        content = generate_eft(self.journal_id, self.payment_ids, self.sequence)
+        content = generate_eft(
+            self.journal_id, self.payment_ids, self.sequence)
         self.write(
             {
                 "filename": "{}-{}.txt".format(self.name, self.sequence),
@@ -226,7 +244,8 @@ class EFT(models.Model):
         error related to multi-company rules of account.payment.
         """
         self.ensure_one()
-        template = self.env.ref("canada_bank_transfer.payment_notice_email_template")
+        template = self.env.ref(
+            "canada_bank_transfer.payment_notice_email_template")
         return {
             "type": "ir.actions.act_window",
             "res_model": "mail.compose.message",

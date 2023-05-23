@@ -31,6 +31,10 @@
                             <field name="filename" invisible="1"/>
                             <field name="content_binary" filename="filename"  attrs="{'invisible': [('filename', '=', False)]}"/>
                             <field name="payment_notices_sent" invisible="1"/>
+                            <field name="use_transit_account" invisible="1"/>
+                            <field name="deposit_account_move_id" invisible="1"/>
+                            <!-- condition on v12 : obsolete, config not available on view -->
+                            <!-- attrs="{'invisible': ['|', ('use_transit_account', '=', False), ('state', 'not in', ['done', 'cancelled'])]}" -->
                         </group>
                         <separator string="Payments"/>
                         <field name="payment_ids" attrs="{'readonly': [('state', '!=', 'draft')]}"
