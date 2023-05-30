@@ -136,3 +136,9 @@ msgstr "Le compte {} est déjà défini en tant que compte par défaut pour les 
 #: model_terms:ir.ui.view,arch_db:account_closing_wizard.account_closing_wizard_form
 msgid "Confirm"
 msgstr "Confirmer"
+
+#. module: account_closing_wizard
+#: code:addons/account_closing_wizard/wizard/account_closing_wizard.py:35
+#, python-format
+msgid "There are Draft Account Moves for that period. To close a Period, No Draft Moves should be recorded For The Period."
+msgstr "Des pièces comptables pour cette période sont au statut Brouillon. Aucune pièce au statut Brouillon ne doit être enregistrée sur la période pour pouvoir fermer."

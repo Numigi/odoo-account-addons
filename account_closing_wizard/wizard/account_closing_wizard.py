@@ -26,6 +26,20 @@ class AccountClosingWizard(models.TransientModel):
 
     move_id = fields.Many2one("account.move")
 
+    def _check_draft_account_move_in_period(self):
+        domain = [("state", "=", "draft"),
+                  ("company_id", "=", self.env.user.company_id.id),
+                  ("date", "<=", self.date_to)]
+        account_ids = self.env["account.move"].search(domain)
+        if account_ids:
+            raise ValidationError(
+                _(
+                    "There are Draft Account Moves for that period. "
+                    "To close a Period, No Draft Moves should be recorded "
+                    "For The Period. "
+                )
+            )
+
     @api.model
     def _get_default_journal_id(self):
         return self.env["account.journal"].search(
@@ -43,6 +57,7 @@ class AccountClosingWizard(models.TransientModel):
             self.date_to = self.date_range_id.date_end
 
     def confirm(self):
+        self._check_draft_account_move_in_period()
         self.move_id = self._make_account_move()
         return self.move_id.get_formview_action()
 
@@ -64,7 +79,7 @@ class AccountClosingWizard(models.TransientModel):
                 "ref": self._get_account_move_ref(),
                 "journal_id": self.journal_id.id,
                 "company_id": self.company_id.id,
-                "line_ids": [(0, 0, vals) for vals in lines],
+                "line_ids": [(0, 0, vals) for vals in reversed(lines)],
             }
         )
 
