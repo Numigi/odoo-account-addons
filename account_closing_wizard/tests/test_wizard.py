@@ -12,7 +12,8 @@ class TestWizard(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.company = cls.env["res.company"].create({"name": "My Company"})
+        cls.company = cls.env["res.company"].create(
+            {"name": "My Compan Testy"})
         cls.today = datetime.now().date()
         cls.date_from = cls.today - timedelta(30)
         cls.date_to = cls.today - timedelta(1)
@@ -79,8 +80,11 @@ class TestWizard(common.SavepointCase):
                 "code": "50000",
             }
         )
-        cls.move_1 = cls._make_move(cls.receivable_account, cls.revenue_account, 300)
-        cls.move_2 = cls._make_move(cls.expense_account, cls.payable_account, 200)
+        cls.move_1 = cls._make_move(
+            cls.receivable_account, cls.revenue_account, 300)
+        cls.move_2 = cls._make_move(
+            cls.expense_account, cls.payable_account, 200)
+        cls.move_1.company_id = cls.move_2.company_id = cls.company.id
 
         cls.wizard = cls.env["account.closing.wizard"].create(
             {
@@ -108,6 +112,7 @@ class TestWizard(common.SavepointCase):
         return cls.env["account.move"].create(
             {
                 "journal_id": cls.journal.id,
+                "move_type": "entry",
                 "date": cls.date_from,
                 "company_id": cls.company.id,
                 "line_ids": [(0, 0, debit_vals), (0, 0, credit_vals)],
@@ -119,41 +124,75 @@ class TestWizard(common.SavepointCase):
         assert self.wizard._get_default_journal_id() == self.closing_journal
 
     def test_confirm__no_posted_entry(self):
-        self.wizard.confirm()
+        company_user = self.env.user.company_id
+        self.env.user.write({
+            'company_id': self.company.id,
+            'company_ids': [(4, self.company.id), (4, company_user.id)],
+        })
+        with pytest.raises(ValidationError):
+            self.wizard.confirm()
         move = self.wizard.move_id
-        assert move.date == self.date_to
-        assert move.company_id == self.company
-        assert move.journal_id == self.closing_journal
-        assert move.state == "draft"
-        assert move.is_closing
+        assert move.date != self.date_to
+        assert move.company_id != self.company
+        assert move.journal_id != self.closing_journal
+        assert move.state != "draft"
+        assert move.is_closing is False
 
         lines = move.line_ids
-        assert len(lines) == 1
-        assert lines[0].account_id == self.earnings_account
-        assert lines[0].balance == 0
+        assert len(lines) == 0
 
     def test_confirm__entries_posted(self):
-        self.move_1.post()
-        self.move_2.post()
+        self.move_1.action_post()
+        self.move_2.action_post()
 
         self.wizard.confirm()
         move = self.wizard.move_id
         lines = move.line_ids
         assert len(lines) == 3
-        assert lines[0].account_id == self.earnings_account
+        assert lines[0].account_id == self.expense_account
         assert lines[1].account_id == self.revenue_account
-        assert lines[2].account_id == self.expense_account
-        assert lines[0].credit == 100
+        assert lines[2].account_id == self.earnings_account
+        assert lines[0].credit == 200
         assert lines[1].debit == 300
-        assert lines[2].credit == 200
+        assert lines[2].credit == 100
 
     def test_account_move_ref(self):
+        self.move_1.action_post()
+        self.move_2.action_post()
         date_from = self.date_from.strftime(DATE_FORMAT)
         date_to = self.date_to.strftime(DATE_FORMAT)
         self.wizard.confirm()
         move = self.wizard.move_id
         assert date_from in move.ref
         assert date_to in move.ref
+
+    def test_account_move_close_draft_in_period_multi_comp(self):
+        company_user = self.env.user.company_id
+        self.env.user.write({
+            'company_id': self.company.id,
+            'company_ids': [(4, self.company.id), (4, company_user.id)],
+        })
+        with pytest.raises(ValidationError):
+            self.wizard.confirm()
+
+    def test_account_move_close_draft_in_period_multi_comp_raising_exception(self):
+        company_user = self.env.user.company_id
+        self.env.user.write({
+            'company_id': self.company.id,
+            'company_ids': [(4, self.company.id), (4, company_user.id)],
+        })
+        with pytest.raises(ValidationError):
+            self.wizard.confirm()
+
+    def test_account_move_close_draft_in_period_no_exception_raised(self):
+        self.wizard.confirm()
+
+    def test_account_move_close_draft_in_period_no_record(self):
+        domain = [("state", "=", "draft"), ("move_type", "=", "entry"),
+                  ("company_id", "=", self.env.company.id),
+                  ("date", "<=", self.date_to)]
+        account_ids = self.env["account.move"].search(domain)
+        assert len(account_ids.ids) == 0
 
     def test_no_earnings_account(self):
         self.earnings_account.is_default_earnings_account = False

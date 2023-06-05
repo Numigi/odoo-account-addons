@@ -62,6 +62,22 @@ The previous closing entry will be considered when computing the new entry.
 
 .. image:: static/description/new_account_move.png
 
+Blocking from closing fiscal year
+---------------------------------
+As a user using the Numigi account closing wizard, I have a blocking error message preventing me from closing my fiscal year if an accounting document with draft status is recorded in my company with a date equal to or prior to the end date of the fiscal year to be closed.
+
+I have an unposted journal entry with a selected date and then I go to the menu to close a fiscal year.
+
+.. image:: static/description/account_move_unposted.png
+
+I have an end date that is superior to the unposted journal entry.
+
+.. image:: static/description/closing_fiscal_year.png
+
+I see an error preventing me to close the fiscal year.
+
+.. image:: static/description/closing_fiscal_year_denied.png
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
