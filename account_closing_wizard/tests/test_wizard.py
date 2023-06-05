@@ -188,7 +188,8 @@ class TestWizard(common.SavepointCase):
         self.wizard.confirm()
 
     def test_account_move_close_draft_in_period_no_record(self):
-        domain = [("state", "=", "draft"), ("company_id", "=", self.env.user.company_id.id),
+        domain = [("state", "=", "draft"), ("move_type", "=", "entry"),
+                  ("company_id", "=", self.env.company.id),
                   ("date", "<=", self.date_to)]
         account_ids = self.env["account.move"].search(domain)
         assert len(account_ids.ids) == 0

@@ -28,7 +28,7 @@ class AccountClosingWizard(models.TransientModel):
 
     def _check_draft_account_move_in_period(self):
         domain = [("state", "=", "draft"), ("move_type", "=", "entry"),
-                  ("company_id", "=", self.env.user.company_id.id),
+                  ("company_id", "=", self.env.company.id),
                   ("date", "<=", self.date_to)]
         account_ids = self.env["account.move"].search(domain)
         if account_ids:
