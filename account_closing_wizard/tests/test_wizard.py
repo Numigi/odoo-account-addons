@@ -140,8 +140,8 @@ class TestWizard(common.SavepointCase):
         assert len(lines) == 0
 
     def test_confirm__entries_posted(self):
-        self.move_1.post()
-        self.move_2.post()
+        self.move_1.action_post()
+        self.move_2.action_post()
 
         self.wizard.confirm()
         move = self.wizard.move_id
@@ -155,8 +155,8 @@ class TestWizard(common.SavepointCase):
         assert lines[2].credit == 200
 
     def test_account_move_ref(self):
-        self.move_1.post()
-        self.move_2.post()
+        self.move_1.action_post()
+        self.move_2.action_post()
         date_from = self.date_from.strftime(DATE_FORMAT)
         date_to = self.date_to.strftime(DATE_FORMAT)
         self.wizard.confirm()
