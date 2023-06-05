@@ -12,7 +12,8 @@ class TestWizard(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.company = cls.env["res.company"].create({"name": "My Company"})
+        cls.company = cls.env["res.company"].create(
+            {"name": "My Compan Testy"})
         cls.today = datetime.now().date()
         cls.date_from = cls.today - timedelta(30)
         cls.date_to = cls.today - timedelta(1)
@@ -111,6 +112,7 @@ class TestWizard(common.SavepointCase):
         return cls.env["account.move"].create(
             {
                 "journal_id": cls.journal.id,
+                "move_type": "entry",
                 "date": cls.date_from,
                 "company_id": cls.company.id,
                 "line_ids": [(0, 0, debit_vals), (0, 0, credit_vals)],
@@ -147,12 +149,12 @@ class TestWizard(common.SavepointCase):
         move = self.wizard.move_id
         lines = move.line_ids
         assert len(lines) == 3
-        assert lines[0].account_id == self.earnings_account
+        assert lines[0].account_id == self.expense_account
         assert lines[1].account_id == self.revenue_account
-        assert lines[2].account_id == self.expense_account
-        assert lines[0].credit == 100
+        assert lines[2].account_id == self.earnings_account
+        assert lines[0].credit == 200
         assert lines[1].debit == 300
-        assert lines[2].credit == 200
+        assert lines[2].credit == 100
 
     def test_account_move_ref(self):
         self.move_1.action_post()

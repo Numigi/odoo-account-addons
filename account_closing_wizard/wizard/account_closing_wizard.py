@@ -12,7 +12,7 @@ class AccountClosingWizard(models.TransientModel):
     _description = "Account Closing Wizard"
 
     company_id = fields.Many2one(
-        "res.company", required=True, default=lambda self: self.env.user.company_id
+        "res.company", required=True, default=lambda self: self.env.company
     )
     journal_id = fields.Many2one(
         "account.journal",
