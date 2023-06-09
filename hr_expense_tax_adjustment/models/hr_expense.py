@@ -38,9 +38,14 @@ class HrExpense(models.Model):
         currency = self.currency_id or self.company_id.currency_id
         taxes = self.tax_ids.with_context(round=True).compute_all(
             self.unit_amount, currency, self.quantity, self.product_id)
-        print("TAXES",taxes)
 
         for tax in taxes['taxes']:
+            if not tax["account_id"]:
+                raise UserError(
+                    _("The tax {tax} has no receivable account.").format(
+                        tax=tax["name"]
+                    )
+                )
             self.tax_line_ids |= self.env['hr.expense.tax'].new({
                 'amount': tax['amount'],
                 'account_id': tax['account_id'],
