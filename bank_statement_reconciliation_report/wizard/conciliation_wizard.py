@@ -53,7 +53,10 @@ class ConciliationWizard(models.Model):
         for item in self:
             outbounds = item._outbound_credit(item.date)
             item.payment_outbound_ids = [(6, 0, outbounds.ids)]
-            if item.journal_id.currency_id != item.journal_id.company_id.currency_id:
+            journal_account = item.journal_id.default_debit_account_id
+            if journal_account and journal_account.currency_id \
+                    and journal_account.currency_id != \
+                    item.statement_id.company_id.currency_id:
                 item.total_outbound = sum(
                     outbounds.mapped("amount_currency")) * -1
             else:
@@ -85,7 +88,10 @@ class ConciliationWizard(models.Model):
         for item in self:
             inbounds = item._inbound_debit(item.date)
             item.payment_inbound_ids = [(6, 0, inbounds.ids)]
-            if item.journal_id.currency_id != item.journal_id.company_id.currency_id:
+            journal_account = item.journal_id.default_debit_account_id
+            if journal_account and journal_account.currency_id \
+                    and journal_account.currency_id != \
+                    item.statement_id.company_id.currency_id:
                 item.total_inbound = sum(
                     inbounds.mapped("amount_currency"))
             else:
@@ -114,7 +120,10 @@ class ConciliationWizard(models.Model):
             domain.append(
                 ("account_id", "in", [account_debit_id, account_credit_id]))
         move_lines = self.env["account.move.line"].search(domain)
-        if journal.currency_id != journal.company_id.currency_id:
+        journal_account = journal.default_debit_account_id
+        if journal_account and journal_account.currency_id \
+                and journal_account.currency_id != \
+                self.statement_id.company_id.currency_id:
             return sum(move_lines.mapped("amount_currency"))
         else:
             return sum(move_lines.mapped("debit")) - sum(move_lines.mapped("credit"))
