@@ -12,9 +12,14 @@ class TestReconciliationDifferentCurrency(SavepointCase):
 
         # define currency to company
         currency_eur_id = cls.env.ref("base.EUR")
+        company = cls.env.ref("base.main_company")
+
+        # Set multi-devise config settings
+        group_multi_currency =cls.env.ref("base.group_multi_currency")
+        cls.env.user.write({'groups_id': [(6, 0, [group_multi_currency.id,])]})
 
         # create journal
-        cls.dollar_journal = cls.env["account.journal"].create(
+        cls.euro_journal = cls.env["account.journal"].create(
             {"name": "My Bank", "type": "bank", "code": "MBK",
                 "currency_id": currency_eur_id.id}
         )
@@ -47,7 +52,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "partner_id": cls.customer_supplier.id,
                 "currency_id": currency_eur_id.id,
                 "amount": 1000,
-                "journal_id": cls.dollar_journal.id,
+                "journal_id": cls.euro_journal.id,
                 "payment_date": "2022-03-01",
                 "payment_method_id": cls.env.ref("account.account_payment_method_manual_in").id,
             }
@@ -61,7 +66,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "partner_id": cls.customer_supplier.id,
                 "currency_id": currency_eur_id.id,
                 "amount": 1000,
-                "journal_id": cls.dollar_journal.id,
+                "journal_id": cls.euro_journal.id,
                 "payment_date": "2022-03-03",
                 "payment_method_id": cls.env.ref("account.account_payment_method_manual_in").id,
             }
@@ -75,7 +80,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "partner_id": cls.customer_supplier.id,
                 "currency_id": currency_eur_id.id,
                 "amount": 1000,
-                "journal_id": cls.dollar_journal.id,
+                "journal_id": cls.euro_journal.id,
                 "payment_date": "2022-03-01",
                 "payment_method_id": cls.env.ref("account.account_payment_method_manual_out").id,
             }
@@ -89,7 +94,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
                 "partner_id": cls.customer_supplier.id,
                 "currency_id": currency_eur_id.id,
                 "amount": 1000,
-                "journal_id": cls.dollar_journal.id,
+                "journal_id": cls.euro_journal.id,
                 "payment_date": "2022-03-03",
                 "payment_method_id": cls.env.ref("account.account_payment_method_manual_out").id,
             }
@@ -98,7 +103,8 @@ class TestReconciliationDifferentCurrency(SavepointCase):
         # create bank statement
         cls.bank_statement_1 = cls.env["account.bank.statement"].create(
             {
-                "journal_id": cls.dollar_journal.id,
+                "journal_id": cls.euro_journal.id,
+                "company_id": company.id,
                 "date": "2022-03-03",
                 "balance_start": 0,
                 "balance_end_real": 2000,
