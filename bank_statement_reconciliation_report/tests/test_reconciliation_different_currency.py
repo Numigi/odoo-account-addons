@@ -12,6 +12,23 @@ class TestReconciliationDifferentCurrency(SavepointCase):
 
         # define currency to company
         currency_eur_id = cls.env.ref("base.EUR")
+        
+        # Set multi-devise config settings
+        cls.acs_model = cls.env['res.config.settings']
+        acs_ids = cls.acs_model.search(
+            [('company_id', '=', cls.env.ref("base.main_company").id)]
+            )
+
+        values = {
+            'group_multi_currency': True,
+        }
+
+        if acs_ids:
+            acs_ids.write(values)
+        else:
+            default_vals = cls.acs_model.default_get([])
+            default_vals.update(values)
+            cls.acs_model.create(default_vals)
 
         # create journal
         cls.dollar_journal = cls.env["account.journal"].create(
