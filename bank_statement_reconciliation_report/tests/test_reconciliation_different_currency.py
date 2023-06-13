@@ -12,7 +12,7 @@ class TestReconciliationDifferentCurrency(SavepointCase):
 
         # define currency to company
         currency_eur_id = cls.env.ref("base.EUR")
-        
+
         # Set multi-devise config settings
         cls.acs_model = cls.env['res.config.settings']
         acs_ids = cls.acs_model.search(
