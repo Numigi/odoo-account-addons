@@ -57,10 +57,12 @@ class ConciliationWizard(models.Model):
             if self.user_has_groups('base.group_multi_currency'):
                 journal_currency = journal.currency_id if journal.currency_id \
                     else journal.default_debit_account_id.currency_id
-                if journal_currency and journal.currency_id != \
+                if journal_currency and journal_currency != \
                         item.statement_id.company_id.currency_id:
                     item.total_outbound = sum(
                         outbounds.mapped("amount_currency")) * -1
+                else:
+                    item.total_outbound = sum(outbounds.mapped("credit"))
             else:
                 item.total_outbound = sum(outbounds.mapped("credit"))
 
@@ -101,6 +103,8 @@ class ConciliationWizard(models.Model):
                         item.statement_id.company_id.currency_id:
                     item.total_inbound = sum(
                         inbounds.mapped("amount_currency"))
+                else:
+                    item.total_inbound = sum(inbounds.mapped("debit"))
             else:
                 item.total_inbound = sum(inbounds.mapped("debit"))
 
@@ -133,5 +137,8 @@ class ConciliationWizard(models.Model):
             if journal_currency and journal_currency != \
                     self.statement_id.company_id.currency_id:
                 return sum(move_lines.mapped("amount_currency"))
+            else:
+                return sum(move_lines.mapped("debit")) - sum(
+                    move_lines.mapped("credit"))
         else:
             return sum(move_lines.mapped("debit")) - sum(move_lines.mapped("credit"))
