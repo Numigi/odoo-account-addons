@@ -2,7 +2,7 @@ Account Move Reversal Access
 ============================
 
 This modules restricts access to the function of reversing Journal Entries and make it draft based on the security groups of the user and the type of journal.
-Making a journal entry and invoice to draft are also based on journal type associated to it (sale or purchase).
+Making a journal entry and invoice to draft are also based on journal type associated to it (restriction applied on sale only).
 
 - A new group is created Reverse Account Moves
 - In case of reversal Journal Entries or auto reverse Journal Entries:
@@ -17,13 +17,9 @@ Making a journal entry and invoice to draft are also based on journal type assoc
 
   + As a user who can create an invoice, I view a sales invoice (or accounting document) with the status ``Posted``.
       I notice that the ``Reset to draft`` button is not available.
-    And as a user who can create an invoice, I view an invoice (or accounting document) for purchases with the status ``Posted``.
-      I notice that the ``Reset to draft`` button is not available.
-    The constraint is added so that, on a Sales or Purchases journal, the ``Reset to draft`` button is systematically invisible, on the account.move form.
+    The constraint is added so that, on a Sales journal, the ``Reset to draft`` button is systematically invisible, on the account.move form.
   
   .. image:: static/description/sale_invoice_without_reset_to_draft.png
-
-  .. image:: static/description/purchase_invoice_without_reset_to_draft.png
 
   + As a user with access to create and modify an accounting document, and not being part of the ``Account Moves : Reverse and Modify`` group, I consult an accounting document from a Miscellaneous, Cash or Bank journal with the status ``Posted``.
     I notice that I don't have a ``Reset to draft`` button on the journal entry form.

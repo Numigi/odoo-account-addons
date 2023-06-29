@@ -42,7 +42,8 @@ class AccountMove(models.Model):
     @api.depends('restrict_mode_hash_table', 'state')
     def _compute_show_reset_to_draft_button(self):
         for move in self:
-            if move.journal_id.type in ["sale", "purchase"]:
+            # applied the restriction only if journal type is sale
+            if move.journal_id.type in ["sale"]:
                 move.show_reset_to_draft_button = False
             else:
                 super()._compute_show_reset_to_draft_button()

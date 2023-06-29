@@ -41,7 +41,8 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         group_reverse_account_moves = cls.env.ref(
             "account_move_reversal_access.group_reverse_account_moves"
         )
-        group_account_finance_billing = cls.env.ref("account.group_account_invoice")
+        group_account_finance_billing = cls.env.ref(
+            "account.group_account_invoice")
         cls.user_with_group = cls.env["res.users"].create(
             {
                 "name": "has_group",
