@@ -4,7 +4,7 @@
 from datetime import datetime, timedelta
 import pytest
 from .common import EFTCase
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class AccountEFTCase(EFTCase):
@@ -19,12 +19,20 @@ class AccountEFTCase(EFTCase):
 
 class TestCreateEFTFromPayments(AccountEFTCase):
     def _create_eft_from_payments(self):
-        action = self.env["account.eft"].create_eft_from_payments(self.payments)
+        action = self.env["account.eft"].create_eft_from_payments(
+            self.payments)
         return self.env["account.eft"].browse(action["res_id"])
 
     def test_payments_are_asigned_to_eft(self):
         eft = self._create_eft_from_payments()
         assert eft.payment_ids == self.payments
+
+    def test_payments_are_asigned_to_eft_then_cancel_payment(self):
+        self._create_eft_from_payments()
+        with pytest.raises(UserError):
+            self.pmt_1.cancel()
+        with pytest.raises(UserError):
+            self.pmt_2.cancel()
 
     def test_state_is_draft(self):
         eft = self._create_eft_from_payments()
@@ -40,7 +48,8 @@ class TestCreateEFTFromPayments(AccountEFTCase):
             self._create_eft_from_payments()
 
     def test_raise_error_if_payment_method_is_not_eft(self):
-        self.pmt_2.payment_method_id = self.env.ref("account.account_payment_method_manual_in")
+        self.pmt_2.payment_method_id = self.env.ref(
+            "account.account_payment_method_manual_in")
         with pytest.raises(ValidationError):
             self._create_eft_from_payments()
 
@@ -96,7 +105,8 @@ class TestGenerateEFTFile(AccountEFTCase):
     def test_filename_is_filled(self):
         assert not self.eft.filename
         self.eft.generate_eft_file()
-        assert self.eft.filename == "{}-{}.txt".format(self.eft.name, self.eft.sequence)
+        assert self.eft.filename == "{}-{}.txt".format(
+            self.eft.name, self.eft.sequence)
 
     def test_raise_error_if_bank_account_is_not_selected(self):
         self.pmt_1.partner_bank_account_id = False
@@ -164,7 +174,8 @@ class TestEFTConfirmationWizard(AccountEFTCase):
 
     def test_on_eft_confirmation__failed_payments_are_not_sent(self):
         wizard = self._open_confirmation_wizard()
-        wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
+        wizard.line_ids.filtered(
+            lambda l: l.payment_id == self.pmt_1).completed = False
         wizard.action_validate()
         assert self.pmt_1.state == "posted"
         assert self.pmt_2.state == "sent"
@@ -187,11 +198,13 @@ class TestEFTConfirmationWizard(AccountEFTCase):
     def test_on_eft_confirmation__payment_move_line_date_maturity_is_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
         wizard.action_validate()
-        assert self.pmt_1.mapped("move_line_ids.date_maturity") == [self.eft_date, self.eft_date]
+        assert self.pmt_1.mapped("move_line_ids.date_maturity") == [
+            self.eft_date, self.eft_date]
 
     def test_on_eft_confirmation__failed_payment_date_is_not_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
-        wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
+        wizard.line_ids.filtered(
+            lambda l: l.payment_id == self.pmt_1).completed = False
         wizard.action_validate()
         assert self.pmt_1.payment_date != self.eft_date
         assert self.pmt_2.payment_date == self.eft_date
