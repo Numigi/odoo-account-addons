@@ -188,6 +188,13 @@ The `EFT` is now approved.
 
 .. image:: static/description/eft_approved.png
 
+Restriction on Canceling Payment
+--------------------------------
+Once I have payment with EFT linked to it, and the payment is in the following state : `POSTED`, `SENT`, and `RECONCILED`,
+I can not cancel the payment anymore. If I still try to cancel it, I get the following message:
+
+.. image:: static/description/cancel_payment_usererror.png
+
 Generating The File
 -------------------
 The current step can be done by a member of the group `Accounting / Billing`.
