@@ -1041,3 +1041,9 @@ msgstr "Compte de transit"
 #~ msgstr ""
 #~ "Le numéro de séquence d'un EFT doit être rempli avant de générer le "
 #~ "fichier de transfert."
+
+#. module: canada_bank_transfer
+#: code:addons/canada_bank_transfer/models/account_payment.py:69
+#, python-format
+msgid "You cannot cancel a payment linked to an Electronic Funds Transfer."
+msgstr "Vous ne pouvez pas annuler un paiement associé à un Transfert de Fonds Électronique."
