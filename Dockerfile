@@ -28,6 +28,8 @@ COPY account_check_deposit_enhanced /mnt/extra-addons/account_check_deposit_enha
 COPY account_closing_journal /mnt/extra-addons/account_closing_journal
 COPY account_closing_journal_mis_builder /mnt/extra-addons/account_closing_journal_mis_builder
 COPY account_closing_wizard /mnt/extra-addons/account_closing_wizard
+COPY account_dashboard_onboarding_state /mnt/extra-addons/account_dashboard_onboarding_state
+COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_unified_payment /mnt/extra-addons/account_invoice_unified_payment
 COPY account_manual_entry_restricted /mnt/extra-addons/account_manual_entry_restricted
