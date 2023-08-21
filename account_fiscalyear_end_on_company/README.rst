@@ -2,7 +2,7 @@ Account Fiscalyear End on Company
 =================================
 Module shows the `fiscalyear_last_day` and `fiscalyear_last_month fields` account fields on company view form.
 
-.. image:: static/description/___.png
+.. image:: static/description/fiscal_year_end_fields.png
 
 Its Dependency
 ~~~~~~~~~~~~~~
