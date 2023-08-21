@@ -4,18 +4,14 @@
         <field name="name">res.company.form.inherit.account</field>
         <field name="model">res.company</field>
         <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='currency_id']" position="after">
-                <div class="row">
-                    <div class="col-2">
-                        <strong>Fiscal Year End</strong>
-                    </div>
-                    <div class="col-1">
-                        <field name="fiscalyear_last_day"/>
-                    </div>
-                    <div class="col-2">
-                        <field name="fiscalyear_last_month"/>
-                    </div>
+                <label for="fiscalyear_last_day" string="Fiscal Year End"/>
+                <div>
+                    <field name="fiscalyear_last_month" class="oe_inline"/>
+                    <span> &amp;nbsp;</span>
+                    <field name="fiscalyear_last_day" class="oe_inline"/>
                 </div>
             </xpath>
         </field>
