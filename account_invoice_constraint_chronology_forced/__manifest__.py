@@ -3,7 +3,7 @@
 
 {
     'name': 'Account Invoice Constraint Chronology Forced',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'author': 'Numigi',
     'maintainer': 'Numigi',
     'website': 'https://www.numigi.com',
@@ -15,4 +15,5 @@
     ],
     "data": ["views/account_journal.xml"],
     'installable': True,
+    "post_init_hook": "sale_journals_check_chronology",
 }
