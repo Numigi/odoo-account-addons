@@ -21,7 +21,7 @@
         "account_closing_journal_mis_builder",
         "account_closing_wizard",
         "account_fr_ca_labels",
-        # "account_invoice_constraint_chronology_forced",# Disable when testing account_move_chronology_qa
+        "account_invoice_constraint_chronology_forced",
         "account_move_chronology_qa",
         "account_move_reversal_access",
         "account_move_unique_reversal",
@@ -45,7 +45,7 @@
         "canada_bank_transfer",
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
-        # "invoice_fiscal_position_required", # Disable when testing account_move_chronology_qa
+        "invoice_fiscal_position_required",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",
         "invoice_refund_not_earlier",
