@@ -169,7 +169,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
         error_msg = """Chronology conflict: A conflicting validated invoice dated after 08/10/2023 exists."""
         self.assertEqual(error_msg, str(exc.exception))
 
-    # def test_03_invoice_chronology_check_draft(self):
+    # Last scenario test
         journal1 = (
             self.env["account.journal"]
             .with_user(self.user2)
