@@ -20,6 +20,7 @@
         "account_closing_journal",
         "account_closing_journal_mis_builder",
         "account_closing_wizard",
+        "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
         "account_invoice_constraint_chronology_forced",
         "account_move_reversal_access",
