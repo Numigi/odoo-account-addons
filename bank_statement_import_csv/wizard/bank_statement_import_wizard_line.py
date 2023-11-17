@@ -67,7 +67,6 @@ class BankStatementImportWizardLine(models.TransientModel):
         currency = self._get_currency()
         return {
             "date": datetime.strptime(self.date, "%Y-%m-%d").date(),
-            "name": self.description,
             "payment_ref": self.description,
             "ref": self.reference,
             "partner_name": self.partner_name,
