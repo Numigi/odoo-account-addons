@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
                 <xpath expr="//field[@name='invoice_date']" position="before">
-                    <field name="partner_highest_parent_id"/>
+                    <field name="partner_highest_parent_id" optional="show"/>
                 </xpath>
         </field>
     </record>
