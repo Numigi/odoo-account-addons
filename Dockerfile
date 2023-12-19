@@ -29,6 +29,7 @@ COPY account_closing_wizard /mnt/extra-addons/account_closing_wizard
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
+COPY account_invoice_groupby_parent_affiliate /mnt/extra-addons/account_invoice_groupby_parent_affiliate
 COPY account_move_chronology_qa /mnt/extra-addons/account_move_chronology_qa
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal

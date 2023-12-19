@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="view_invoice_partner_highest_parent_tree" model="ir.ui.view">
+        <field name="name">invoice.partner.highest.parent.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_date']" position="before">
+                    <field name="partner_highest_parent_id" optional="show"/>
+                </xpath>
+        </field>
+    </record>
+
+</odoo>
