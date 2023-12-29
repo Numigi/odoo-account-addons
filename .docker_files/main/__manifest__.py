@@ -51,6 +51,7 @@
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
         # "invoice_fiscal_position_required", # Conflict with TU of account_invoice_constraint_chronology OCA Module
+        "invoice_intercompany_compatible",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",
         "invoice_refund_not_earlier",
