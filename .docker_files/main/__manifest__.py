@@ -38,6 +38,7 @@
         "account_report_trial_balance",
         "account_search_by_amount",
         "account_show_full_features",
+        "account_type_archive",
         "account_type_sane",
         "account_unaffected_earnings_disabled",
         "bank_statement_import_csv",

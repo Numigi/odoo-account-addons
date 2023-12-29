@@ -44,6 +44,7 @@ COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
 COPY account_search_by_amount /mnt/extra-addons/account_search_by_amount
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
+COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_type_sane /mnt/extra-addons/account_type_sane
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
 COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
