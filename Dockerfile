@@ -32,6 +32,7 @@ COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invo
 COPY account_invoice_groupby_parent_affiliate /mnt/extra-addons/account_invoice_groupby_parent_affiliate
 COPY account_move_chronology_qa /mnt/extra-addons/account_move_chronology_qa
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
+COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
