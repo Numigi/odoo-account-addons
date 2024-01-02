@@ -4,10 +4,20 @@
 - url: https://github.com/Numigi/odoo-base-addons
   branch: "14.0"
 
+- url: https://github.com/Numigi/odoo-partner-addons
+  branch: "14.0"
+  includes:
+    - partner_affiliate_extended
+
 - url: https://github.com/OCA/mis-builder
   branch: "14.0"
   includes:
     - mis_builder
+
+- url: https://github.com/oca/partner-contact
+  branch: "14.0"
+  includes:
+    - partner_affiliate
 
 - url: https://github.com/OCA/reporting-engine
   branch: "14.0"
@@ -37,3 +47,4 @@
   branch: "14.0"
   includes:
     - account_check_deposit
+    - account_invoice_constraint_chronology

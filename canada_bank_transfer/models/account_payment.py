@@ -1,8 +1,9 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from ..transaction_types import TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE
+from odoo.exceptions import UserError
 
 
 class AccountPayment(models.Model):
@@ -26,7 +27,8 @@ class AccountPayment(models.Model):
         default=DEFAULT_TRANSACTION_TYPE,
     )
 
-    is_eft_payment = fields.Boolean(compute="_compute_is_eft_payment", store=True)
+    is_eft_payment = fields.Boolean(
+        compute="_compute_is_eft_payment", store=True)
 
     def _compute_eft_count(self):
         for payment in self:
@@ -46,3 +48,10 @@ class AccountPayment(models.Model):
             payment.is_eft_payment = (
                 eft_method and payment.payment_method_id == eft_method
             )
+
+    def action_draft(self):
+        for payment in self:
+            if payment.eft_ids and payment.state in ['posted', 'sent', 'reconciled']:
+                raise UserError(
+                    _('You cannot cancel a payment linked to an Electronic Funds Transfer.'))
+        super().action_draft()
