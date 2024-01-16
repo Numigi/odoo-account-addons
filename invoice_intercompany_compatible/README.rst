@@ -13,7 +13,7 @@ Bank Accounts
 When a purchase invoice is generated from a company A, the matching sale invoice is generated on the company B.
 
 Because of a missing ``onchange`` function, the bank account of company A (the buyer) is set on the sale invoice,
-instead of the bank account of company A.
+instead of the bank account of company B.
 
 When validating the purchase invoice, you get a blocking error message:
 
@@ -23,9 +23,15 @@ The above case happens if the superuser (OdooBot) is linked to the company A.
 
 Solution
 ~~~~~~~~
-After installing this module, the bank account of the selling company is properly set on the sale invoice.
+After installing this module :
 
-.. image:: static/description/invoice_with_correct_bank_account.png
+*When a purchase invoice is generated from a company A (here as `CA Company`) :
+
+.. image:: static/description/vendor_invoice_with_correct_bank_account.png
+
+*The bank account of the selling company is properly set on the sale invoice :
+
+.. image:: static/description/invoice_with_updated_bank_account.png
 
 Contributors
 ------------
