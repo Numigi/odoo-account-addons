@@ -94,7 +94,7 @@ msgid "Taxes On Expense Lines"
 msgstr "Taxes sur lignes de frais"
 
 #. module: hr_expense_tax_adjustment
-#: code:addons/hr_expense_tax_adjustment/models/hr_expense.py:40
+#: code:addons/hr_expense_tax_adjustment/models/hr_expense.py:0
 #, python-format
 msgid "The tax {tax} has no receivable account."
 msgstr "La taxe {tax} n'a pas de compte recevable."
