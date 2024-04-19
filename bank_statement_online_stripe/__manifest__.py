@@ -3,7 +3,7 @@
 
 {
     "name": "Bank Statement Online Stripe",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://numigi.com",
