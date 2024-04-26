@@ -26,20 +26,21 @@ class JournalEntry(models.Model):
         restricted_accounts = self.mapped("line_ids.account_id").filtered(
             lambda a: a.manual_entry_group_ids
         )
+        msg = _(
+            "Access right error:\n\n"
+            "Only the following user group(s) are authorized to post in the account "
+            "{account}:\n\n"
+            "{groups}"
+            "\n\n"
+            "Please contact your administrator."
+        )
 
         for account in restricted_accounts:
             allowed_groups = account.manual_entry_group_ids
             user_is_forbidden = not (allowed_groups & self.env.user.groups_id)
             if user_is_forbidden:
                 raise ValidationError(
-                    _(
-                        "Access right error:\n\n"
-                        "Only the following user group(s) are authorized to post in the account "
-                        "{account}:\n\n"
-                        "{groups}"
-                        "\n\n"
-                        "Please contact your administrator."
-                    ).format(
+                    msg.format(
                         account=account.display_name,
                         groups="\n".join(
                             ["- {}".format(g.display_name) for g in allowed_groups]

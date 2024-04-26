@@ -184,7 +184,7 @@ class BankStatementLoader:
     def _iter_rows(self, file):
         reader = csv.reader(file, delimiter=self._delimiter, quotechar=self._quotechar)
 
-        for _ in range(self._first_row_index):
+        for __ in range(self._first_row_index):
             next(reader, None)
 
         for row in reader:

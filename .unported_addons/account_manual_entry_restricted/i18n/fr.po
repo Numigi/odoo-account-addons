@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_manual_entry_restricted
-#: code:addons/account_manual_entry_restricted/models.py:33
+#: code:addons/account_manual_entry_restricted/models.py:29
 #, python-format
 msgid "Access right error:\n"
 "\n"
