@@ -69,8 +69,11 @@ def _update_credit_note_translations(env):
     ]
     for source, destination in mapping:
         translations = _find_translations_term_with_value(env, source)
+        # Fixing it not using lambda function:
+        # lambda t: _translation_contains_credit_note(t)
+        # Use instead _translation_contains_credit_note. It is the same.
         credit_note_translations = translations.filtered(
-            lambda t: _translation_contains_credit_note(t)
+            _translation_contains_credit_note
         )
         for translation in credit_note_translations:
             _replace_term_in_translation(translation, source, destination)
