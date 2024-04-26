@@ -44,30 +44,78 @@ class TestAccountMoveLine(common.SavepointCase):
         return move.line_ids.filtered(lambda l: l.account_id == self.asset)
 
     def test_negative_debit(self):
-        move = self._create_move([
-            (0, 0, {"account_id": self.expense.id, "debit": -10,}),
-            (0, 0, {"account_id": self.asset.id, "debit": 10,}),
-        ])
+        move = self._create_move(
+            [
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.expense.id,
+                        "debit": -10,
+                    },
+                ),
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.asset.id,
+                        "debit": 10,
+                    },
+                ),
+            ]
+        )
 
         line = move.line_ids[0]
         assert line.debit == 0
         assert line.credit == 10
 
     def test_negative_credit(self):
-        move = self._create_move([
-            (0, 0, {"account_id": self.expense.id, "credit": 10,}),
-            (0, 0, {"account_id": self.asset.id, "credit": -10,}),
-        ])
+        move = self._create_move(
+            [
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.expense.id,
+                        "credit": 10,
+                    },
+                ),
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.asset.id,
+                        "credit": -10,
+                    },
+                ),
+            ]
+        )
 
         line = move.line_ids[1]
         assert line.debit == 10
         assert line.credit == 0
 
     def test_negative_debit_and_credit(self):
-        move = self._create_move([
-            (0, 0, {"account_id": self.expense.id, "credit": 10,}),
-            (0, 0, {"account_id": self.asset.id, "credit": -10,}),
-        ])
+        move = self._create_move(
+            [
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.expense.id,
+                        "credit": 10,
+                    },
+                ),
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.asset.id,
+                        "credit": -10,
+                    },
+                ),
+            ]
+        )
 
         expense_line = move.line_ids[0]
         assert expense_line.debit == 0
@@ -78,10 +126,26 @@ class TestAccountMoveLine(common.SavepointCase):
         assert asset_line.credit == 0
 
     def test_write(self):
-        move = self._create_move([
-            (0, 0, {"account_id": self.expense.id, "debit": 10,}),
-            (0, 0, {"account_id": self.asset.id, "credit": 10,}),
-        ])
+        move = self._create_move(
+            [
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.expense.id,
+                        "debit": 10,
+                    },
+                ),
+                (
+                    0,
+                    0,
+                    {
+                        "account_id": self.asset.id,
+                        "credit": 10,
+                    },
+                ),
+            ]
+        )
         move.write(
             {
                 "line_ids": [

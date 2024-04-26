@@ -10,7 +10,7 @@
     "license": "AGPL-3",
     "category": "Account",
     "summary": """
-        Adds unit test for the module account_invoice_constraint_chronology 
+        Adds unit test for the module account_invoice_constraint_chronology
         in dependency.
     """,
     "depends": ["account_invoice_constraint_chronology"],

@@ -2,26 +2,26 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import logging
-from odoo import api, models
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
 
 ENGLISH_CREDIT_NOTE_TERMS = [
-    'credit note',
-    'credit notes',
-    'Credit Note',
-    'Credit Notes',
-    'Credit note',
-    'Credit notes',
-    'refund',
-    'Refund',
+    "credit note",
+    "credit notes",
+    "Credit Note",
+    "Credit Notes",
+    "Credit note",
+    "Credit notes",
+    "refund",
+    "Refund",
 ]
 
 
 class IrTranslation(models.Model):
 
-    _inherit = 'ir.translation'
+    _inherit = "ir.translation"
 
     def _load_module_terms(self, modules, langs, overwrite=False):
         result = super()._load_module_terms(modules, langs, overwrite)
@@ -36,7 +36,7 @@ class IrTranslation(models.Model):
 
 
 def _update_credit_note_translations(env):
-    u"""Update the term `Avoir` to `Note de crédit`.
+    """Update the term `Avoir` to `Note de crédit`.
 
     The term `Avoir` and all its derivatives (avoir, avoirs, l'avoir, d'avoir)
     must not always be updated to `Note de crédit`.
@@ -52,7 +52,6 @@ def _update_credit_note_translations(env):
     """
     mapping = [
         ("Facture de l'avoir", "Note de crédit"),
-
         ("l'avoir", "la note de crédit"),
         ("L'avoir", "La note de crédit"),
         ("d'avoirs", "de notes de crédit"),
@@ -64,7 +63,6 @@ def _update_credit_note_translations(env):
         ("le prochain avoir", "la prochaine note de crédit"),
         ("avoir", "note de crédit"),
         ("Avoir", "Note de crédit"),
-
         # Grammatical errors
         ("Note de crédits", "Notes de crédit"),
         ("note de crédits", "notes de crédit"),
@@ -72,13 +70,14 @@ def _update_credit_note_translations(env):
     for source, destination in mapping:
         translations = _find_translations_term_with_value(env, source)
         credit_note_translations = translations.filtered(
-            lambda t: _translation_contains_credit_note(t))
+            lambda t: _translation_contains_credit_note(t)
+        )
         for translation in credit_note_translations:
             _replace_term_in_translation(translation, source, destination)
 
 
 def _update_aged_balance_translations(env):
-    u"""Update the term `Balance âgée` to `Âge des comptes`."""
+    """Update the term `Balance âgée` to `Âge des comptes`."""
     mapping = [
         ("Balance agée des clients", "Âge des comptes clients"),
         ("Balance agée des fournisseurs", "Âge des comptes fournisseurs"),
@@ -90,10 +89,9 @@ def _update_aged_balance_translations(env):
 
 
 def _update_reconciliation_translations(env):
-    u"""Update the term `Lettrage` to `Conciliation`."""
+    """Update the term `Lettrage` to `Conciliation`."""
     mapping = [
         ("Modèles de lettrage", "Modèles de conciliation bancaire"),
-
         ("de lettrage", "de conciliation"),
         ("du lettrage", "de la conciliation"),
         ("le lettrage", "la conciliation"),
@@ -101,9 +99,8 @@ def _update_reconciliation_translations(env):
         ("Lettrer", "Réconcilier"),
         ("lettrer", "réconcilier"),
         ("Lettrage", "Conciliation"),
-
         # Grammatical errors
-        ("annuler le lettrage l'entrée", "annuler la conciliation")
+        ("annuler le lettrage l'entrée", "annuler la conciliation"),
     ]
     _replace_terms(env, mapping)
 
@@ -144,23 +141,25 @@ def _find_translations_term_with_value(env, value):
         )
         AND value like %s
         """,
-        ('ir.%', '%{}%'.format(value), )
+        (
+            "ir.%",
+            "%{}%".format(value),
+        ),
     )
     translation_ids = [r[0] for r in env.cr.fetchall()]
-    return env['ir.translation'].browse(translation_ids)
+    return env["ir.translation"].browse(translation_ids)
 
 
 def _translation_contains_credit_note(translation):
     """Evaluate whether the source of the translation contains `credit note`."""
-    return any(
-        source in translation.src
-        for source in ENGLISH_CREDIT_NOTE_TERMS
-    )
+    return any(source in translation.src for source in ENGLISH_CREDIT_NOTE_TERMS)
 
 
 def _replace_term_in_translation(translation, source, dest):
-    _logger.info((
-        "Replacing the term '{source}' with '{dest}' for the french translation "
-        "'{value}'."
-    ).format(source=source, dest=dest, value=translation.value))
+    _logger.info(
+        (
+            "Replacing the term '{source}' with '{dest}' for the french translation "
+            "'{value}'."
+        ).format(source=source, dest=dest, value=translation.value)
+    )
     translation.value = translation.value.replace(source, dest)

@@ -12,112 +12,149 @@ class PaymentWizardCase(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.user = cls.env['res.users'].create({
-            'name': 'My Employee',
-            'login': 'employee@example.com',
-            'email': 'employee@example.com',
-            'groups_id': [
-                (5, 0),
-                (4, cls.env.ref('base.group_user').id),
-            ],
-        })
+        cls.user = cls.env["res.users"].create(
+            {
+                "name": "My Employee",
+                "login": "employee@example.com",
+                "email": "employee@example.com",
+                "groups_id": [
+                    (5, 0),
+                    (4, cls.env.ref("base.group_user").id),
+                ],
+            }
+        )
 
-        cls.payment_journal = cls.env['account.journal'].create({
-            'name': 'My Bank Account',
-            'code': 'BNK1',
-            'type': 'bank',
-        })
+        cls.payment_journal = cls.env["account.journal"].create(
+            {
+                "name": "My Bank Account",
+                "code": "BNK1",
+                "type": "bank",
+            }
+        )
 
-        cls.customer_a = cls.env['res.partner'].create({
-            'name': 'Customer A',
-            'customer': True,
-            'is_company': True,
-        })
+        cls.customer_a = cls.env["res.partner"].create(
+            {
+                "name": "Customer A",
+                "customer": True,
+                "is_company": True,
+            }
+        )
 
-        cls.contact_a1 = cls.env['res.partner'].create({
-            'name': 'Contact A1',
-            'customer': True,
-            'parent_id': cls.customer_a.id,
-            'type': 'contact',
-        })
+        cls.contact_a1 = cls.env["res.partner"].create(
+            {
+                "name": "Contact A1",
+                "customer": True,
+                "parent_id": cls.customer_a.id,
+                "type": "contact",
+            }
+        )
 
-        cls.contact_a2 = cls.env['res.partner'].create({
-            'name': 'Contact A2',
-            'customer': True,
-            'parent_id': cls.customer_a.id,
-            'type': 'contact',
-        })
+        cls.contact_a2 = cls.env["res.partner"].create(
+            {
+                "name": "Contact A2",
+                "customer": True,
+                "parent_id": cls.customer_a.id,
+                "type": "contact",
+            }
+        )
 
-        cls.customer_b = cls.env['res.partner'].create({
-            'name': 'Customer B',
-            'customer': True,
-            'is_company': True,
-        })
+        cls.customer_b = cls.env["res.partner"].create(
+            {
+                "name": "Customer B",
+                "customer": True,
+                "is_company": True,
+            }
+        )
 
-        cls.payment_method = cls.env.ref('account.account_payment_method_manual_in')
-        cls.sale_journal = cls.env['account.journal'].search([('type', '=', 'sale')], limit=1)
-        cls.receivable_account = cls.env['account.account'].create({
-            'name': 'Receivable',
-            'code': '111211',
-            'user_type_id': cls.env.ref('account.data_account_type_receivable').id,
-            'reconcile': True,
-        })
-        cls.revenue_account = cls.env['account.account'].create({
-            'name': 'Revenue',
-            'code': '444144',
-            'user_type_id': cls.env.ref('account.data_account_type_revenue').id,
-        })
-        cls.writeoff_account = cls.env['account.account'].create({
-            'name': 'Write-Off',
-            'code': '511555',
-            'user_type_id': cls.env.ref('account.data_account_type_expenses').id,
-        })
-        cls.payable_account = cls.env['account.account'].create({
-            'name': 'Payable',
-            'code': '222222',
-            'user_type_id': cls.env.ref('account.data_account_type_payable').id,
-            'reconcile': True,
-        })
+        cls.payment_method = cls.env.ref("account.account_payment_method_manual_in")
+        cls.sale_journal = cls.env["account.journal"].search(
+            [("type", "=", "sale")], limit=1
+        )
+        cls.receivable_account = cls.env["account.account"].create(
+            {
+                "name": "Receivable",
+                "code": "111211",
+                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+                "reconcile": True,
+            }
+        )
+        cls.revenue_account = cls.env["account.account"].create(
+            {
+                "name": "Revenue",
+                "code": "444144",
+                "user_type_id": cls.env.ref("account.data_account_type_revenue").id,
+            }
+        )
+        cls.writeoff_account = cls.env["account.account"].create(
+            {
+                "name": "Write-Off",
+                "code": "511555",
+                "user_type_id": cls.env.ref("account.data_account_type_expenses").id,
+            }
+        )
+        cls.payable_account = cls.env["account.account"].create(
+            {
+                "name": "Payable",
+                "code": "222222",
+                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "reconcile": True,
+            }
+        )
 
     @classmethod
     def _generate_receivable(
-        cls, amount, amount_currency=None, currency=None, account=None,
-        partner=None, no_partner=False
+        cls,
+        amount,
+        amount_currency=None,
+        currency=None,
+        account=None,
+        partner=None,
+        no_partner=False,
     ):
         receivable_account = account or cls.receivable_account
         partner = partner or cls.customer_a
-        move = cls.env['account.move'].create({
-            'journal_id': cls.sale_journal.id,
-            'line_ids': [
-                (0, 0, {
-                    'partner_id': None if no_partner else partner.id,
-                    'account_id': receivable_account.id,
-                    'name': '/',
-                    'debit': amount if amount > 0 else 0,
-                    'credit': -amount if amount < 0 else 0,
-                    'amount_currency': amount_currency,
-                    'currency_id': currency.id if currency else None,
-                }),
-                (0, 0, {
-                    'account_id': cls.revenue_account.id,
-                    'name': '/',
-                    'debit': -amount if amount < 0 else 0,
-                    'credit': amount if amount > 0 else 0,
-                })
-            ]
-        })
+        move = cls.env["account.move"].create(
+            {
+                "journal_id": cls.sale_journal.id,
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "partner_id": None if no_partner else partner.id,
+                            "account_id": receivable_account.id,
+                            "name": "/",
+                            "debit": amount if amount > 0 else 0,
+                            "credit": -amount if amount < 0 else 0,
+                            "amount_currency": amount_currency,
+                            "currency_id": currency.id if currency else None,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": cls.revenue_account.id,
+                            "name": "/",
+                            "debit": -amount if amount < 0 else 0,
+                            "credit": amount if amount > 0 else 0,
+                        },
+                    ),
+                ],
+            }
+        )
         move.post()
         return move.line_ids.filtered(lambda l: l.account_id == receivable_account)
 
     def _open_wizard(self, move_lines):
         action = move_lines.open_payment_from_move_line_wizard()
-        return self.env['account.payment.from.move.line'].browse(action['res_id'])
+        return self.env["account.payment.from.move.line"].browse(action["res_id"])
 
     def _validate_wizard(self, wizard):
         wizard.journal_id = self.payment_journal
         wizard.payment_method_id = self.payment_method
         action = wizard.validate()
-        return self.env['account.payment'].browse(action['res_id'])
+        return self.env["account.payment"].browse(action["res_id"])
 
     @staticmethod
     def _is_reconciled(move_line):
@@ -139,8 +176,10 @@ class TestPaymentWizard(PaymentWizardCase):
         wizard = self._open_wizard(move_1 | move_2)
         assert wizard.amount == 75
 
-    @data('base.CAD', 'base.EUR')
-    def test_if_receivable_in_foreign_currency__payment_in_foreign_currency(self, currency_ref):
+    @data("base.CAD", "base.EUR")
+    def test_if_receivable_in_foreign_currency__payment_in_foreign_currency(
+        self, currency_ref
+    ):
         currency = self.env.ref(currency_ref)
         move_1 = self._generate_receivable(100, amount_currency=150, currency=currency)
         move_2 = self._generate_receivable(200, amount_currency=250, currency=currency)
@@ -148,8 +187,10 @@ class TestPaymentWizard(PaymentWizardCase):
         assert wizard.amount == 400
         assert wizard.currency_id == currency
 
-    @data('base.CAD', 'base.EUR')
-    def test_if_credit_receivable_in_foreign_currency__credit_amount_deduced(self, currency_ref):
+    @data("base.CAD", "base.EUR")
+    def test_if_credit_receivable_in_foreign_currency__credit_amount_deduced(
+        self, currency_ref
+    ):
         currency = self.env.ref(currency_ref)
         move_1 = self._generate_receivable(100, amount_currency=150, currency=currency)
         move_2 = self._generate_receivable(-20, amount_currency=-25, currency=currency)
@@ -164,7 +205,7 @@ class TestPaymentWizard(PaymentWizardCase):
         wizard.amount = 175
         assert wizard.payment_difference == 125
 
-    @data('base.CAD', 'base.EUR')
+    @data("base.CAD", "base.EUR")
     def test_payment_difference_in_foreign_currency(self, currency_ref):
         currency = self.env.ref(currency_ref)
         move_1 = self._generate_receivable(100, amount_currency=150, currency=currency)
@@ -183,7 +224,7 @@ class TestPaymentWizard(PaymentWizardCase):
         receivable = self._generate_receivable(100)
         wizard = self._open_wizard(receivable)
         wizard.amount = 75
-        wizard.payment_difference_handling = 'open'
+        wizard.payment_difference_handling = "open"
         self._validate_wizard(wizard)
         assert not self._is_reconciled(receivable)
 
@@ -191,7 +232,7 @@ class TestPaymentWizard(PaymentWizardCase):
         receivable = self._generate_receivable(100)
         wizard = self._open_wizard(receivable)
         wizard.amount = 75
-        wizard.payment_difference_handling = 'reconcile'
+        wizard.payment_difference_handling = "reconcile"
         wizard.writeoff_account_id = self.writeoff_account
         self._validate_wizard(wizard)
         assert self._is_reconciled(receivable)
@@ -207,7 +248,7 @@ class TestSelectableMoveLineConstraints(PaymentWizardCase):
 
     def test_if_no_line_selected__raise_error(self):
         with pytest.raises(UserError):
-            self._open_wizard(self.env['account.move.line'])
+            self._open_wizard(self.env["account.move.line"])
 
     def test_if_not_posted__raise_error(self):
         self.sale_journal.update_posted = True
@@ -257,7 +298,7 @@ class TestSelectableMoveLineConstraints(PaymentWizardCase):
             assert self._is_reconciled(item)
 
     def test_if_different_accounts__raise_error(self):
-        account_2 = self.receivable_account.copy({'code': '111212'})
+        account_2 = self.receivable_account.copy({"code": "111212"})
         receivable_1 = self._generate_receivable(100, account=self.receivable_account)
         receivable_2 = self._generate_receivable(200, account=account_2)
 
@@ -266,7 +307,7 @@ class TestSelectableMoveLineConstraints(PaymentWizardCase):
 
     def test_if_different_currencies_accounts__raise_error(self):
         receivable_1 = self._generate_receivable(100)
-        receivable_2 = self._generate_receivable(200, currency=self.env.ref('base.CAD'))
+        receivable_2 = self._generate_receivable(200, currency=self.env.ref("base.CAD"))
 
         with pytest.raises(UserError):
             self._open_wizard(receivable_1 | receivable_2)
@@ -284,10 +325,10 @@ class TestPaymentInDifferentCurrency(PaymentWizardCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.cad = cls.env.ref('base.CAD')
-        cls.eur = cls.env.ref('base.EUR')
+        cls.cad = cls.env.ref("base.CAD")
+        cls.eur = cls.env.ref("base.EUR")
 
-        cls.env['res.currency.rate'].search([]).unlink()
+        cls.env["res.currency.rate"].search([]).unlink()
         cls._add_currency_rate(cls.cad, 2)
         cls._add_currency_rate(cls.eur, 3)
 
@@ -296,10 +337,12 @@ class TestPaymentInDifferentCurrency(PaymentWizardCase):
 
     @classmethod
     def _add_currency_rate(cls, currency, rate):
-        cls.env['res.currency.rate'].create({
-            'currency_id': currency.id,
-            'rate': rate,
-        })
+        cls.env["res.currency.rate"].create(
+            {
+                "currency_id": currency.id,
+                "rate": rate,
+            }
+        )
 
     def test_payment_difference_with_payment_in_different_currency(self):
         move_1 = self._generate_receivable(100, amount_currency=200, currency=self.cad)
@@ -311,19 +354,23 @@ class TestPaymentInDifferentCurrency(PaymentWizardCase):
         assert wizard.payment_difference == 1100  # (200 + 600) * 3 / 2 - 100
 
     def test_reconcile_difference_with_payment_in_different_currency(self):
-        receivable = self._generate_receivable(300, amount_currency=600, currency=self.cad)
+        receivable = self._generate_receivable(
+            300, amount_currency=600, currency=self.cad
+        )
 
         wizard = self._open_wizard(receivable)
         wizard.amount = 100
         wizard.currency_id = self.eur
-        wizard.payment_difference_handling = 'reconcile'
+        wizard.payment_difference_handling = "reconcile"
         wizard.writeoff_account_id = self.writeoff_account
 
         self._validate_wizard(wizard)
         assert self._is_reconciled(receivable)
 
     def test_open_difference_with_payment_in_different_currency(self):
-        receivable = self._generate_receivable(300, amount_currency=600, currency=self.cad)
+        receivable = self._generate_receivable(
+            300, amount_currency=600, currency=self.cad
+        )
 
         wizard = self._open_wizard(receivable)
         wizard.amount = 150

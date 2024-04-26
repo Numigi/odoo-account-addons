@@ -27,7 +27,7 @@ msgid "The accounting entry {} is already reversed (by entry {}). You can only r
 msgstr "La pièce comptable {} est déjà renversée (pièce {}). Vous ne pouvez renverser une pièce qu’une seule fois."
 
 #. module: account_move_unique_reversal
-#: code:addons/account_move_unique_reversal/models/account_move_reversal.py:26
+#: code:addons/account_move_unique_reversal/models/account_move_reversal.py:28
 #, python-format
 msgid "The accounting entry {} is the reversal of another entry ({}). You can not reverse a reversal accounting entry."
 msgstr "La pièce comptable {} est le renversement d’une autre pièce comptable ({}). Vous ne pouvez pas renverser une pièce comptable qui est le renversement d’une autre pièce."

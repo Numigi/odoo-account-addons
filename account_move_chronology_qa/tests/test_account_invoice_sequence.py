@@ -4,9 +4,11 @@
 
 from odoo.exceptions import UserError
 from odoo.tests import Form
-from odoo.addons.account_invoice_constraint_chronology.tests.test_account_invoice_constraint_chronology import (
-    TestAccountInvoiceConstraintChronology,
+from odoo.addons.account_invoice_constraint_chronology.tests import (
+    test_account_invoice_constraint_chronology as taicc,
 )
+
+TestAccountInvoiceConstraintChronology = taicc.TestAccountInvoiceConstraintChronology
 
 
 class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
@@ -14,8 +16,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
         super(TestAccountInvoiceSequence, self).setUp()
         self.AccountAccount = self.env["account.account"]
         self.account_data = self.env.ref("account.data_account_type_revenue")
-        self.account_tag_operating = self.env.ref(
-            "account.account_tag_operating")
+        self.account_tag_operating = self.env.ref("account.account_tag_operating")
         self.account = self.AccountAccount.create(
             {
                 "code": "X2023",
@@ -45,8 +46,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
     def test_01_readonly_check_chronology(self):
         view = self.env.ref("account.view_account_journal_form")
 
-        form = Form(self.env["account.journal"].with_user(
-            self.user2), view=view)
+        form = Form(self.env["account.journal"].with_user(self.user2), view=view)
 
         form.name = "Numigi Journal Test"
         form.type = "general"
@@ -112,8 +112,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
                     "invoice_date": "2023-08-15",
                     "journal_id": journal.id,
                     "invoice_line_ids": [
-                        (0, 0, {"product_id": self.product_a.id,
-                                "price_unit": 1000.0})
+                        (0, 0, {"product_id": self.product_a.id, "price_unit": 1000.0})
                     ],
                 }
             )
@@ -129,8 +128,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
                     "invoice_date": "2023-09-01",
                     "journal_id": journal.id,
                     "invoice_line_ids": [
-                        (0, 0, {"product_id": self.product_a.id,
-                                "price_unit": 1000.0})
+                        (0, 0, {"product_id": self.product_a.id, "price_unit": 1000.0})
                     ],
                 }
             )
@@ -138,7 +136,10 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
         with self.assertRaises(UserError) as exc:
             invoice2.action_post()
 
-        error_msg = """Chronology conflict: A conflicting draft invoice dated before 09/01/2023 exists, please validate it first."""
+        error_msg = (
+            "Chronology conflict: A conflicting draft invoice dated before "
+            "09/01/2023 exists, please validate it first."
+        )
         self.assertEqual(error_msg, str(exc.exception))
 
         # newer_conflicting_invoices
@@ -157,8 +158,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
                     "invoice_date": "2023-08-10",
                     "journal_id": journal.id,
                     "invoice_line_ids": [
-                        (0, 0, {"product_id": self.product_a.id,
-                                "price_unit": 1000.0})
+                        (0, 0, {"product_id": self.product_a.id, "price_unit": 1000.0})
                     ],
                 }
             )
@@ -166,10 +166,13 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
         with self.assertRaises(UserError) as exc:
             invoice3.action_post()
 
-        error_msg = """Chronology conflict: A conflicting validated invoice dated after 08/10/2023 exists."""
+        error_msg = (
+            "Chronology conflict: A conflicting validated invoice dated "
+            "after 08/10/2023 exists."
+        )
         self.assertEqual(error_msg, str(exc.exception))
 
-    # Last scenario test
+        # Last scenario test
         journal1 = (
             self.env["account.journal"]
             .with_user(self.user2)
@@ -194,8 +197,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
                     "invoice_date": "2023-07-20",
                     "journal_id": journal.id,
                     "invoice_line_ids": [
-                        (0, 0, {"product_id": self.product_a.id,
-                                "price_unit": 1000.0})
+                        (0, 0, {"product_id": self.product_a.id, "price_unit": 1000.0})
                     ],
                 }
             )
@@ -211,8 +213,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
                     "invoice_date": "2023-08-23",
                     "journal_id": journal1.id,
                     "invoice_line_ids": [
-                        (0, 0, {"product_id": self.product_a.id,
-                                "price_unit": 1000.0})
+                        (0, 0, {"product_id": self.product_a.id, "price_unit": 1000.0})
                     ],
                 }
             )
@@ -228,8 +229,7 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
                     "invoice_date": "2023-09-04",
                     "journal_id": journal1.id,
                     "invoice_line_ids": [
-                        (0, 0, {"product_id": self.product_a.id,
-                                "price_unit": 1000.0})
+                        (0, 0, {"product_id": self.product_a.id, "price_unit": 1000.0})
                     ],
                 }
             )
@@ -238,8 +238,11 @@ class TestAccountInvoiceSequence(TestAccountInvoiceConstraintChronology):
         invoice6.action_post()
 
         with self.assertRaises(UserError) as exc:
-            invoice5.write({'journal_id': journal.id})
+            invoice5.write({"journal_id": journal.id})
             invoice5.action_post()
 
-        error_msg = """Chronology conflict: A conflicting draft invoice dated before 08/23/2023 exists, please validate it first."""
+        error_msg = (
+            "Chronology conflict: A conflicting draft invoice dated "
+            "before 08/23/2023 exists, please validate it first."
+        )
         self.assertEqual(error_msg, str(exc.exception))

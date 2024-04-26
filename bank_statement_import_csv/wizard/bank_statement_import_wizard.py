@@ -1,7 +1,6 @@
 # © 2022 - Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import json
 from base64 import b64decode
 from io import StringIO
 from odoo import api, fields, models, _
@@ -16,8 +15,7 @@ class BankStatementImportWizard(models.TransientModel):
     _description = "Bank Statement Import Wizard"
 
     journal_id = fields.Many2one(
-        "account.journal",
-        default=lambda self: self._context.get("journal_id")
+        "account.journal", default=lambda self: self._context.get("journal_id")
     )
     config_id = fields.Many2one("bank.statement.import.config", required=True)
 
@@ -52,7 +50,7 @@ class BankStatementImportWizard(models.TransientModel):
     @api.depends("line_ids")
     def _compute_has_error(self):
         for wizard in self:
-            wizard.has_error = any(l.has_error for l in self.line_ids)
+            wizard.has_error = any(line.has_error for line in self.line_ids)
 
     @api.depends("line_ids", "has_error")
     def _compute_is_ready(self):
@@ -144,4 +142,4 @@ class BankStatementImportWizard(models.TransientModel):
 
     def _get_statement_line_vals(self):
         lines = self.line_ids
-        return [(0, 0, l._get_statement_line_vals()) for l in lines]
+        return [(0, 0, line._get_statement_line_vals()) for line in lines]

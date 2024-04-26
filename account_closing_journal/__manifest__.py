@@ -10,7 +10,9 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Allow to define a fiscal year closing journal",
-    "depends": ["account",],
+    "depends": [
+        "account",
+    ],
     "data": [
         "views/account_journal.xml",
         "views/account_move.xml",

@@ -22,7 +22,8 @@
         "account_closing_wizard",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
-        # "account_invoice_constraint_chronology_forced",  # Conflict with TU of account_invoice_constraint_chronology OCA Module
+        # Conflict with TU of account_invoice_constraint_chronology OCA Module
+        # "account_invoice_constraint_chronology_forced",
         "account_invoice_groupby_parent_affiliate",
         "account_move_chronology_qa",
         "account_move_reversal_access",
@@ -51,7 +52,8 @@
         "canada_bank_transfer",
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
-        # "invoice_fiscal_position_required", # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
+        # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
+        # "invoice_fiscal_position_required",
         "invoice_intercompany_compatible",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",
