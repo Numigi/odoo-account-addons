@@ -11,6 +11,8 @@
     "category": "Accounting",
     "summary": "Add the email to the list of customer invoices",
     "depends": ["account"],
-    "data": ["views/account_move.xml",],
+    "data": [
+        "views/account_move.xml",
+    ],
     "installable": True,
 }

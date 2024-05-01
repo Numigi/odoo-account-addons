@@ -11,6 +11,8 @@
     "category": "Accounting",
     "summary": "Easily view supplier payments not sent from list view",
     "depends": ["account"],
-    "data": ["views/account_payment.xml",],
+    "data": [
+        "views/account_payment.xml",
+    ],
     "installable": True,
 }

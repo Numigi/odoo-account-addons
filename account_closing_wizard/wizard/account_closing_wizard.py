@@ -27,9 +27,12 @@ class AccountClosingWizard(models.TransientModel):
     move_id = fields.Many2one("account.move")
 
     def _check_draft_account_move_in_period(self):
-        domain = [("state", "=", "draft"), ("move_type", "=", "entry"),
-                  ("company_id", "=", self.env.company.id),
-                  ("date", "<=", self.date_to)]
+        domain = [
+            ("state", "=", "draft"),
+            ("move_type", "=", "entry"),
+            ("company_id", "=", self.env.company.id),
+            ("date", "<=", self.date_to),
+        ]
         account_ids = self.env["account.move"].search(domain)
         if account_ids:
             raise ValidationError(
@@ -65,7 +68,7 @@ class AccountClosingWizard(models.TransientModel):
         income_lines = self._prepare_income_lines()
         earnings_line = self._prepare_earnings_line()
 
-        balance = sum(l["debit"] - l["credit"] for l in income_lines)
+        balance = sum(line["debit"] - line["credit"] for line in income_lines)
         earnings_line["debit"] = -balance if balance < 0 else 0
         earnings_line["credit"] = balance if balance > 0 else 0
 
@@ -87,7 +90,8 @@ class AccountClosingWizard(models.TransientModel):
         date_from = self.date_from.strftime(DATE_FORMAT)
         date_to = self.date_to.strftime(DATE_FORMAT)
         return _("Period closing from {date_from} to {date_to}").format(
-            date_from=date_from, date_to=date_to,
+            date_from=date_from,
+            date_to=date_to,
         )
 
     def _prepare_earnings_line(self):
@@ -110,7 +114,9 @@ class AccountClosingWizard(models.TransientModel):
                 _(
                     "No account defined under company {company} "
                     "as the default account for retained earnings."
-                ).format(company=self.company_id.display_name,)
+                ).format(
+                    company=self.company_id.display_name,
+                )
             )
 
         return account
@@ -120,7 +126,7 @@ class AccountClosingWizard(models.TransientModel):
             self._prepare_income_line(account)
             for account in self._get_income_accounts()
         )
-        return [l for l in lines if l["debit"] or l["credit"]]
+        return [line for line in lines if line["debit"] or line["credit"]]
 
     def _prepare_income_line(self, account):
         balance = self._get_account_balance(account)

@@ -3,7 +3,10 @@
 
 {
     "name": "Account Move Reversal Access",
-    "summary": "Restricting access to the function of reversing Journal Entries and resetting to draft ().",
+    "summary": """
+        Restricting access to the function of reversing Journal
+        Entries and resetting to draft ().
+    """,
     "version": "14.0.2.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",

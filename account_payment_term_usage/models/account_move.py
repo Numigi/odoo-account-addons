@@ -9,7 +9,10 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     payment_term_usage = fields.Selection(
-        [("sale", "Sales"), ("purchase", "Purchases"),],
+        [
+            ("sale", "Sales"),
+            ("purchase", "Purchases"),
+        ],
         compute="_compute_payment_term_usage",
     )
 

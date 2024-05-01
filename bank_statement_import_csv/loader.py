@@ -158,9 +158,9 @@ class BankStatementLoader:
             currency_amount = self._get_cell_decimal(row, self._currency_amount_index)
 
             if (
-                isinstance(amount, Decimal) and
-                isinstance(currency_amount, Decimal) and
-                _not_same_sign(amount, currency_amount)
+                isinstance(amount, Decimal)
+                and isinstance(currency_amount, Decimal)
+                and _not_same_sign(amount, currency_amount)
             ):
                 currency_amount *= -1
 
@@ -184,7 +184,7 @@ class BankStatementLoader:
     def _iter_rows(self, file):
         reader = csv.reader(file, delimiter=self._delimiter, quotechar=self._quotechar)
 
-        for i in range(self._first_row_index):
+        for __ in range(self._first_row_index):
             next(reader, None)
 
         for row in reader:

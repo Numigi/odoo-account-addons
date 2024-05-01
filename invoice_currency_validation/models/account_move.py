@@ -2,9 +2,8 @@
 # © 2018 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import _, api, models
+from odoo import _, models
 from odoo.exceptions import UserError
-from typing import Optional
 
 
 class AccountMove(models.Model):
@@ -44,7 +43,8 @@ class AccountMove(models.Model):
         invoice_currency = self.currency_id or company_currency
 
         partner_lines = self.line_ids.filtered(
-            lambda l: l.account_id.internal_type in (
+            lambda l: l.account_id.internal_type
+            in (
                 "receivable",
                 "payable",
             )

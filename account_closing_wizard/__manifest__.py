@@ -10,7 +10,10 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Add a wizard to close an accounting exercise",
-    "depends": ["account_closing_journal", "date_range",],
+    "depends": [
+        "account_closing_journal",
+        "date_range",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/account_account.xml",

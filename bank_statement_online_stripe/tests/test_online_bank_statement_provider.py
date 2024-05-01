@@ -9,7 +9,6 @@ from odoo import fields
 from odoo.tests import common
 from odoo.exceptions import ValidationError
 from unittest.mock import patch
-from ..interface import BalanceTransactionInterface
 
 
 class TestStripe(common.SavepointCase):
@@ -98,13 +97,13 @@ class TestStripe(common.SavepointCase):
     def test_no_partner_email(self):
         self.transaction["source"]["billing_details"]["email"] = None
         vals = self.provider._map_stripe_transaction(self.transaction)
-        assert vals["partner_id"] == None
+        self.assertIsNone(vals["partner_id"])
         assert vals["partner_name"] == self.partner_name
 
     def test_partner_not_found(self):
         self.partner.email = "different.email@example.com"
         vals = self.provider._map_stripe_transaction(self.transaction)
-        assert vals["partner_id"] == None
+        self.assertIsNone(vals["partner_id"])
 
     def test_obtain_statement_data(self):
         with self._mock_balance_transaction_list(), self._mock_balance(3000):

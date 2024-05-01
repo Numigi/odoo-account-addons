@@ -50,8 +50,8 @@ msgstr ""
 #: code:addons/account_invoice_constraint_chronology_forced/models/account_journal.py:0
 #, python-format
 msgid ""
-"You cannot change the Type of the Journal because there is At Least One "
-"Account Move linked to the Journal."
+"You cannot change the Type of the Journal because there is "
+"At Least One Account Move linked to the Journal."
 msgstr ""
 "Vous ne pouvez pas modifier le type du journal car au moins "
 "une pièce comptable est associée au journal."

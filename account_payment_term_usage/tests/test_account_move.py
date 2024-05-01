@@ -1,11 +1,8 @@
 # © 2021 - today Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import pytest
-from ddt import ddt, data, unpack
-from datetime import datetime, timedelta
+from ddt import ddt
 from odoo.tests.common import SavepointCase
-from odoo.exceptions import ValidationError
 
 
 @ddt
@@ -14,7 +11,11 @@ class TestAccountMove(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.journal = cls.env["account.journal"].create(
-            {"name": "Journal", "type": "purchase", "code": "SAJ",}
+            {
+                "name": "Journal",
+                "type": "purchase",
+                "code": "SAJ",
+            }
         )
         cls.partner = cls.env["res.partner"].create({"name": "Partner"})
         cls.invoice = cls.env["account.move"].create(

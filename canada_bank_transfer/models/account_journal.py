@@ -1,8 +1,7 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models
 
 
 class AccountJournal(models.Model):
@@ -50,8 +49,7 @@ class AccountJournal(models.Model):
     eft_sequence_id = fields.Many2one(
         "ir.sequence", string="EFT Sequence", ondelete="restrict"
     )
-    transit_account = fields.Many2one(
-        "account.account", string="Transit Account")
+    transit_account = fields.Many2one("account.account", string="Transit Account")
     use_transit_account = fields.Boolean(
         string="Use a transit Account", compute="_get_use_transit_account"
     )
@@ -101,4 +99,5 @@ class AccountJournal(models.Model):
                     "number_increment": 1,
                     "company_id": self.company_id.id,
                     "implementation": "no_gap",
-                })
+                }
+            )

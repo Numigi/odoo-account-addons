@@ -50,7 +50,8 @@
         "canada_bank_transfer",
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
-        # "invoice_fiscal_position_required", # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
+        # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
+        # "invoice_fiscal_position_required",
         "invoice_intercompany_compatible",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",

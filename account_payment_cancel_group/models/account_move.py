@@ -1,7 +1,7 @@
 # © 2019 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, models, _
+from odoo import models, _
 from odoo.exceptions import AccessError
 
 
@@ -19,7 +19,9 @@ class AccountMove(models.Model):
 
     def _check_payment_cancel_authorization(self):
         if self._contains_payments() and not self._user_can_cancel_payments():
-            raise AccessError(_("You are not authorized to reset to draft or cancel payments."))
+            raise AccessError(
+                _("You are not authorized to reset to draft or cancel payments.")
+            )
 
     def _user_can_cancel_payments(self):
         return self.env.user.has_group(

@@ -1,5 +1,5 @@
 FROM quay.io/numigi/odoo-public:14.latest
-MAINTAINER numigi <contact@numigi.com>
+LABEL maintainer="contact@numigi.com"
 
 USER root
 
