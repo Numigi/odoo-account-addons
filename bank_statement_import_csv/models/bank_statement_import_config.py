@@ -1,7 +1,7 @@
 # © 2022 - Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class BankStatementImportConfig(models.Model):
@@ -13,8 +13,7 @@ class BankStatementImportConfig(models.Model):
     active = fields.Boolean(default=True)
 
     first_row = fields.Integer(
-        default=2,
-        help="The position of the first transaction line in the file."
+        default=2, help="The position of the first transaction line in the file."
     )
     reversed_order = fields.Boolean(
         help="Check this box is the lines in the csv files are ordered "
@@ -75,46 +74,62 @@ class BankStatementImportConfig(models.Model):
             "description": {
                 "index": self.description_column - 1,
             },
-            "reference": {
-                "index": self.reference_column - 1,
-            }
-            if self.reference_enabled
-            else None,
-            "partner_name": {
-                "index": self.partner_name_column - 1,
-            }
-            if self.partner_name_enabled
-            else None,
-            "withdraw": {
-                "index": self.withdraw_column - 1,
-                "reverse": self.reverse_withdraw,
-            }
-            if self.withdraw_deposit_enabled
-            else None,
-            "deposit": {
-                "index": self.deposit_column - 1,
-                "reverse": self.reverse_deposit,
-            }
-            if self.withdraw_deposit_enabled
-            else None,
-            "amount": {
-                "index": self.amount_column - 1,
-            }
-            if not self.withdraw_deposit_enabled
-            else None,
-            "balance": {
-                "index": self.balance_column - 1,
-            }
-            if self.balance_enabled
-            else None,
-            "currency": {
-                "index": self.currency_column - 1,
-            }
-            if self.currency_amount_enabled
-            else None,
-            "currency_amount": {
-                "index": self.currency_amount_column - 1,
-            }
-            if self.currency_amount_enabled
-            else None,
+            "reference": (
+                {
+                    "index": self.reference_column - 1,
+                }
+                if self.reference_enabled
+                else None
+            ),
+            "partner_name": (
+                {
+                    "index": self.partner_name_column - 1,
+                }
+                if self.partner_name_enabled
+                else None
+            ),
+            "withdraw": (
+                {
+                    "index": self.withdraw_column - 1,
+                    "reverse": self.reverse_withdraw,
+                }
+                if self.withdraw_deposit_enabled
+                else None
+            ),
+            "deposit": (
+                {
+                    "index": self.deposit_column - 1,
+                    "reverse": self.reverse_deposit,
+                }
+                if self.withdraw_deposit_enabled
+                else None
+            ),
+            "amount": (
+                {
+                    "index": self.amount_column - 1,
+                }
+                if not self.withdraw_deposit_enabled
+                else None
+            ),
+            "balance": (
+                {
+                    "index": self.balance_column - 1,
+                }
+                if self.balance_enabled
+                else None
+            ),
+            "currency": (
+                {
+                    "index": self.currency_column - 1,
+                }
+                if self.currency_amount_enabled
+                else None
+            ),
+            "currency_amount": (
+                {
+                    "index": self.currency_amount_column - 1,
+                }
+                if self.currency_amount_enabled
+                else None
+            ),
         }

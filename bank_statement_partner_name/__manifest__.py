@@ -11,6 +11,8 @@
     "category": "Accounting",
     "summary": "Add the partner name to bank statement lines",
     "depends": ["account"],
-    "data": ["views/bank_statement.xml",],
+    "data": [
+        "views/bank_statement.xml",
+    ],
     "installable": True,
 }

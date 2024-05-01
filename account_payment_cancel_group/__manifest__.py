@@ -10,7 +10,12 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Add a user group allowed to cancel payments",
-    "depends": ["account",],
-    "data": ["security/res_groups.xml", "views/account_payment.xml",],
+    "depends": [
+        "account",
+    ],
+    "data": [
+        "security/res_groups.xml",
+        "views/account_payment.xml",
+    ],
     "installable": True,
 }

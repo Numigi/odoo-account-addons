@@ -22,9 +22,8 @@
         "account_closing_wizard",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
-        # "account_invoice_constraint_chronology_forced",  # Conflict with TU of account_invoice_constraint_chronology OCA Module
+        "account_invoice_constraint_chronology_forced",
         "account_invoice_groupby_parent_affiliate",
-        "account_move_chronology_qa",
         "account_move_reversal_access",
         "account_move_reversed_entry",
         "account_move_unique_reversal",
@@ -44,13 +43,15 @@
         "bank_statement_import_csv",
         "bank_statement_extra_columns",
         "bank_statement_no_reverse",
-        # "bank_statement_online_stripe",  # FIX ME: UT Failed recentely
+        "bank_statement_online_stripe",
+        "bank_statement_partner_mapping",
         "bank_statement_partner_name",
         "canada_account_types",
         "canada_bank_transfer",
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
-        # "invoice_fiscal_position_required", # Conflict with TU of account_invoice_constraint_chronology OCA Module
+        # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
+        # "invoice_fiscal_position_required",
         "invoice_intercompany_compatible",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",

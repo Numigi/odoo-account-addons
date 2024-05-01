@@ -10,7 +10,9 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Add additional groups of accounts",
-    "depends": ["account",],
+    "depends": [
+        "account",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/account_account.xml",

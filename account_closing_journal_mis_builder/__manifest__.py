@@ -14,7 +14,9 @@
         # OCA/mis-builder
         "mis_builder",
     ],
-    "data": ["views/mis_report.xml",],
+    "data": [
+        "views/mis_report.xml",
+    ],
     "installable": True,
     "auto_install": True,
 }

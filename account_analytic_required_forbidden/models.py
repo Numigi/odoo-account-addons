@@ -38,7 +38,8 @@ class AccountMoveLine(models.Model):
             raise ValidationError(
                 _(
                     "The journal entry can not be posted because the line {line} "
-                    "has no analytic account. The account {account} requires an analytic account."
+                    "has no analytic account. The account {account} requires "
+                    "an analytic account."
                 ).format(
                     line=_format_account_move_line(self),
                     account=self.account_id.display_name,

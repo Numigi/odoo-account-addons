@@ -10,7 +10,6 @@ The module `Account Invoice Constraint Chronology  <https://github.com/OCA/accou
 This module adds the following fixes :
 
 * Add French translation of some messages
-* Lock the field check_chronolgy and set it to True for sale type journal
 * Forbids changing the type of a sale journal if it contains accounting moves
 
 Contributors

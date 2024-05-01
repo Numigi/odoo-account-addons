@@ -10,7 +10,9 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Make the account types more user friendly",
-    "depends": ["account",],
+    "depends": [
+        "account",
+    ],
     "data": [
         "views/menu.xml",
         "views/account_account.xml",

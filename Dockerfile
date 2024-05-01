@@ -1,5 +1,5 @@
 FROM quay.io/numigi/odoo-public:14.latest
-MAINTAINER numigi <contact@numigi.com>
+LABEL maintainer="contact@numigi.com"
 
 USER root
 
@@ -30,7 +30,6 @@ COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
 COPY account_invoice_groupby_parent_affiliate /mnt/extra-addons/account_invoice_groupby_parent_affiliate
-COPY account_move_chronology_qa /mnt/extra-addons/account_move_chronology_qa
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
@@ -50,7 +49,8 @@ COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_e
 COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
 COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
-# COPY bank_statement_online_stripe /mnt/extra-addons/bank_statement_online_stripe  # FIXE ME: UT failed
+COPY bank_statement_online_stripe /mnt/extra-addons/bank_statement_online_stripe
+COPY bank_statement_partner_mapping /mnt/extra-addons/bank_statement_partner_mapping
 COPY bank_statement_partner_name /mnt/extra-addons/bank_statement_partner_name
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer

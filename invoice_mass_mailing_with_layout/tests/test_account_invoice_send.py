@@ -9,7 +9,8 @@ class TestAccountInvoice(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.invoices = cls.env["account.move"].search(
-            [("move_type", "=", "out_invoice")])
+            [("move_type", "=", "out_invoice")]
+        )
         cls.template = cls.env.ref("account.email_template_edi_invoice")
         cls.template.auto_delete = False
 
@@ -42,7 +43,10 @@ class TestAccountInvoice(SavepointCase):
 
     def _find_last_email(self, invoice):
         return self.env["mail.mail"].search(
-            [("model", "=", "account.move"), ("res_id", "=", invoice.id),],
+            [
+                ("model", "=", "account.move"),
+                ("res_id", "=", invoice.id),
+            ],
             order="id desc",
             limit=1,
         )
