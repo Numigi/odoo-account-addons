@@ -22,8 +22,8 @@ class AccountJournal(models.Model):
             if moves_count > 0:
                 raise UserError(
                     _(
-                        "You cannot change the Type of the Journal because there is At Least One "
-                        "Account Move linked to the Journal."
+                        "You cannot change the Type of the Journal because there is "
+                        "At Least One Account Move linked to the Journal."
                     )
                 )
 
