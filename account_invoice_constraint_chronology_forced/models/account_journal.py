@@ -1,12 +1,8 @@
-# © 2023 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright 2024 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, models, _
 from odoo.exceptions import UserError
-
-import logging
-
-_logger = logging.getLogger(__name__)
 
 
 class AccountJournal(models.Model):
@@ -14,10 +10,6 @@ class AccountJournal(models.Model):
 
     @api.onchange("type")
     def _onchange_type(self):
-        msg = _(
-            "You cannot change the Type of the Journal because there is At Least One "
-            "Account Move linked to the Journal."
-        )
         super()._onchange_type()
         if self.type == "sale":
             self.check_chronology = True
@@ -28,4 +20,20 @@ class AccountJournal(models.Model):
             ]
             moves_count = self.env["account.move"].search_count(domain)
             if moves_count > 0:
-                raise UserError(msg)
+                raise UserError(
+                    _(
+                        "You cannot change the Type of the Journal because there is At Least One "
+                        "Account Move linked to the Journal."
+                    )
+                )
+
+    @api.model
+    def create(self, vals):
+        if "type" in vals and vals.get("type") == "sale":
+            vals["check_chronology"] = True
+        return super().create(vals)
+
+    def write(self, vals):
+        if "type" in vals and vals.get("type") == "sale":
+            vals["check_chronology"] = True
+        return super().write(vals)
