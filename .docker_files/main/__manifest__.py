@@ -22,7 +22,7 @@
         "account_closing_wizard",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
-        # "account_invoice_constraint_chronology_forced",  # Conflict with UT of account_invoice_constraint_chronology OCA Module
+        "account_invoice_constraint_chronology_forced",
         "account_invoice_groupby_parent_affiliate",
         "account_move_chronology_qa",
         "account_move_reversal_access",
