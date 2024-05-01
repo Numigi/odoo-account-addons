@@ -4,10 +4,6 @@
 from odoo import api, models, _
 from odoo.exceptions import UserError
 
-import logging
-
-_logger = logging.getLogger(__name__)
-
 
 class AccountJournal(models.Model):
     _inherit = "account.journal"
@@ -33,7 +29,11 @@ class AccountJournal(models.Model):
 
     @api.model
     def create(self, vals):
-        # Set check_chronology field to true when journal type is sale
-        if vals.get("type") == "sale":
+        if "type" in vals and vals.get("type") == "sale":
             vals["check_chronology"] = True
         return super().create(vals)
+
+    def write(self, vals):
+        if "type" in vals and vals.get("type") == "sale":
+            vals["check_chronology"] = True
+        return super().write(vals)
