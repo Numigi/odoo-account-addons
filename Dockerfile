@@ -71,6 +71,7 @@ COPY invoice_write_access_purchase /mnt/extra-addons/invoice_write_access_purcha
 COPY invoice_write_access_sale /mnt/extra-addons/invoice_write_access_sale
 COPY mis_builder_automated_report /mnt/extra-addons/mis_builder_automated_report
 COPY old_accounts /mnt/extra-addons/old_accounts
+COPY partner_statement_enhanced /mnt/extra-addons/partner_statement_enhanced
 COPY payment_stripe_not_silenced /mnt/extra-addons/payment_stripe_not_silenced
 COPY vendor_invoice_full_list /mnt/extra-addons/vendor_invoice_full_list
 
