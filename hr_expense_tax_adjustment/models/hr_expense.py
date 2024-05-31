@@ -1,10 +1,8 @@
 # © 2023 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-import logging
-from odoo import api, fields, models
-
-_logger = logging.getLogger(__name__)
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class HrExpense(models.Model):
@@ -40,11 +38,14 @@ class HrExpense(models.Model):
 
         currency = self.currency_id or self.company_id.currency_id
         taxes = self.tax_ids.with_context(round=True).compute_all(
-            self.unit_amount, currency, self.quantity, self.product_id
-        )
-        print("TAXES", taxes)
-
+            self.unit_amount, currency, self.quantity, self.product_id)
         for tax in taxes["taxes"]:
+            if not tax["account_id"]:
+                raise UserError(
+                    _("The tax {tax} has no receivable account.").format(
+                        tax=tax["name"]
+                    )
+                )
             self.tax_line_ids |= self.env["hr.expense.tax"].new(
                 {
                     "amount": tax["amount"],
@@ -53,28 +54,6 @@ class HrExpense(models.Model):
                     "price_include": tax["price_include"],
                 }
             )
-
-    def _move_line_get_using_tax_lines(self):
-        # TODO this function must be fixed and _prepare_move_line value obsolete on v14
-        expense_move_line = self._prepare_move_line_value()
-        expense_move_line["price"] = self.untaxed_amount
-        move_lines = [expense_move_line]
-
-        for line in self.tax_line_ids:
-            move_lines.append(
-                {
-                    "type": "tax",
-                    "name": line.tax_id.name,
-                    "price_unit": line.amount,
-                    "quantity": 1,
-                    "price": line.amount,
-                    "account_id": line.account_id.id,
-                    "tax_line_id": line.tax_id.id,
-                    "expense_id": self.id,
-                }
-            )
-
-        return move_lines
 
     @api.depends(
         "quantity", "unit_amount", "tax_ids", "currency_id", "tax_line_ids.amount"
