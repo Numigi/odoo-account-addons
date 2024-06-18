@@ -2,6 +2,8 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import csv
+import re
+
 from babel.numbers import (
     parse_decimal,
     NumberFormatError,
@@ -174,7 +176,14 @@ class BankStatementLoader:
 
     def _get_cell_decimal(self, row, index):
         amount_str = self._get_cell(row, index)
+        amount_str = self.convert_amount_string_to_decimal_format(amount_str)
         return parse_decimal_or_error(amount_str)
+
+    def convert_amount_string_to_decimal_format(self, input_string):
+        """Convert string amount to decimal with dot and no spaces"""
+        no_spaces = re.sub(r"\s", "", input_string)  # Remove spaces
+        decimal_point = re.sub(r",", ".", no_spaces)  # Replace comma with dot
+        return decimal_point
 
     def _get_cell(self, row, index):
         if index < len(row):
