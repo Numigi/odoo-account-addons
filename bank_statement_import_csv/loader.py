@@ -3,7 +3,6 @@
 
 import csv
 import re
-
 from babel.numbers import (
     parse_decimal,
     NumberFormatError,
