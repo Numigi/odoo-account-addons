@@ -64,15 +64,16 @@ class BankStatementImportConfig(models.Model):
 
     decimal_separator = fields.Char(
         required=True,
-        default=".",
+        default=",",
         help=(
             "The character used to separate the integer part "
-            "from the decimal part of the decimal value."
+            "from the decimal part of the decimal value. By default is comma."
         ),
     )
     thousands_separator = fields.Char(
-        default="",
-        help="The character used to separate the thousands in decimal value.",
+        default=" ",
+        help=("The character used to separate the thousands in decimal value."
+              "By default is space."),
     )
 
     def get_csv_loader_config(self):

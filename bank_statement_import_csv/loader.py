@@ -22,7 +22,6 @@ LOCALE_MAP = {
     (",", ""): "ru",
     (",", " "): "ru",
 }
-SEPARATOR = ["", " ", ","]
 
 
 class BankStatementLoader:
@@ -186,12 +185,8 @@ class BankStatementLoader:
 
     def _get_cell_decimal(self, row, index):
         amount_str = self._get_cell(row, index)
-        thousands_separator = "" if not self._thousands_separator else " "
+        thousands_separator = self._thousands_separator
         locale = LOCALE_MAP.get((self._decimal_separator, thousands_separator), "en_US")
-
-        if self._decimal_separator == "." and self._thousands_separator in SEPARATOR:
-            amount_str = amount_str.replace(" ", "")
-
         return parse_decimal_or_error(amount_str, locale)
 
     def _get_cell(self, row, index):
@@ -233,14 +228,14 @@ def _get_parse_date_error(str_date, format_):
     )
 
 
-def parse_decimal_or_error(value, locale="en_US"):
+def parse_decimal_or_error(value, locale):
     try:
         return _parse_decimal(value, locale)
     except NumberFormatError:
         return _get_decimal_error(value)
 
 
-def _parse_decimal(value, locale):
+def _parse_decimal(value, locale="en_US"):
     return parse_decimal(value, locale) if value else None
 
 

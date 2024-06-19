@@ -23,6 +23,8 @@
                         <group>
                             <field name="first_row"/>
                             <field name="reversed_order"/>
+                            <field name="decimal_separator"/>
+                            <field name="thousands_separator"/>
                         </group>
                         <group>
                             <field name="encoding"/>
@@ -32,10 +34,6 @@
                         <group>
                             <field name="date_column"/>
                             <field name="date_format"/>
-                        </group>
-                        <group>
-                            <field name="decimal_separator"/>
-                            <field name="thousands_separator"/>
                         </group>
                         <group>
                             <field name="description_column"/>

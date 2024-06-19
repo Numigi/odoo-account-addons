@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 04:06+0000\n"
-"PO-Revision-Date: 2024-06-19 04:06+0000\n"
+"POT-Creation-Date: 2024-06-19 16:30+0000\n"
+"PO-Revision-Date: 2024-06-19 16:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -426,19 +426,21 @@ msgstr "Le relevé bancaire est prêt à être créé."
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
 msgid ""
 "The character used to separate the integer part from the decimal part of the"
-" decimal value."
-msgstr "Caractère utilisé pour séparer la partie entière de la partie décimale."
+" decimal value. By default is comma."
+msgstr "Le caractère utilisé pour séparer la partie entière de la partie décimale du valeur décimale. Par défaut, c'est une virgule."
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
-msgid "The character used to separate the thousands in decimal value."
-msgstr "Le caractère utilisé pour séparer les milliers en valeur décimale"
+msgid ""
+"The character used to separate the thousands in decimal value.By default is "
+"space."
+msgstr "Le caractère utilisé pour séparer les milliers dans la valeur décimale. Par défaut, c'est l'espace."
 
 #. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The currrency is required when an amount in foreign currency is given."
-msgstr ""
+msgstr "L'unité de devise est requise lorsque le montant d'une devise étrangère est fourni."
 
 #. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
@@ -455,19 +457,19 @@ msgstr ""
 #: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The given date ({date}) does not match the format {format}."
-msgstr ""
+msgstr "La date donnée ({date}) ne correspond pas au format {format}."
 
 #. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The given value ({}) does not seem to be a valid curency code."
-msgstr ""
+msgstr "La valeur donnée ({}) ne semble pas être un code de devise valide."
 
 #. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The given value ({}) does not seem to be a valid number."
-msgstr ""
+msgstr "La valeur donnée ({}) ne semble pas être un nombre valide."
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__first_row
