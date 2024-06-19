@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import csv
-import re
 from babel.numbers import (
     parse_decimal,
     NumberFormatError,
@@ -15,6 +14,15 @@ from odoo import _
 from .error import BankStatementError
 
 ZERO = Decimal("0")
+LOCALE_MAP = {
+    (".", ""): "en_US",
+    (".", " "): "en_US",
+    (".", ","): "en_US",
+    (",", "."): "de",
+    (",", ""): "ru",
+    (",", " "): "ru",
+}
+SEPARATOR = ["", " ", ","]
 
 
 class BankStatementLoader:
@@ -24,6 +32,9 @@ class BankStatementLoader:
         self._first_row_index = config.get("first_row_index", 0)
         self._delimiter = config.get("delimiter", ",")
         self._quotechar = config.get("quotechar")
+
+        self._decimal_separator = config.get("decimal_separator")
+        self._thousands_separator = config.get("thousands_separator")
 
         self._date_index = self._get_index_of("date")
         self._date_format = self._get_format_of("date")
@@ -175,14 +186,13 @@ class BankStatementLoader:
 
     def _get_cell_decimal(self, row, index):
         amount_str = self._get_cell(row, index)
-        amount_str = self.convert_amount_string_to_decimal_format(amount_str)
-        return parse_decimal_or_error(amount_str)
+        thousands_separator = "" if not self._thousands_separator else " "
+        locale = LOCALE_MAP.get((self._decimal_separator, thousands_separator), "en_US")
 
-    def convert_amount_string_to_decimal_format(self, input_string):
-        """Convert string amount to decimal with dot and no spaces"""
-        no_spaces = re.sub(r"\s", "", input_string)  # Remove spaces
-        decimal_point = re.sub(r",", ".", no_spaces)  # Replace comma with dot
-        return decimal_point
+        if self._decimal_separator == "." and self._thousands_separator in SEPARATOR:
+            amount_str = amount_str.replace(" ", "")
+
+        return parse_decimal_or_error(amount_str, locale)
 
     def _get_cell(self, row, index):
         if index < len(row):
@@ -223,16 +233,15 @@ def _get_parse_date_error(str_date, format_):
     )
 
 
-def parse_decimal_or_error(value):
+def parse_decimal_or_error(value, locale="en_US"):
     try:
-        return _parse_decimal(value)
+        return _parse_decimal(value, locale)
     except NumberFormatError:
         return _get_decimal_error(value)
 
 
-def _parse_decimal(value):
-    value = value.replace(" ", "")
-    return parse_decimal(value) if value else None
+def _parse_decimal(value, locale):
+    return parse_decimal(value, locale) if value else None
 
 
 def _get_decimal_error(value):
