@@ -23,6 +23,8 @@
                         <group>
                             <field name="first_row"/>
                             <field name="reversed_order"/>
+                            <field name="decimal_separator"/>
+                            <field name="thousands_separator"/>
                         </group>
                         <group>
                             <field name="encoding"/>
@@ -97,7 +99,7 @@
                 <field name="name"/>
                 <separator/>
                 <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-           </search>
+            </search>
         </field>
     </record>
 

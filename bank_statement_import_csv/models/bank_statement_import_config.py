@@ -62,11 +62,27 @@ class BankStatementImportConfig(models.Model):
     currency_amount_column = fields.Integer()
     currency_amount_enabled = fields.Boolean()
 
+    decimal_separator = fields.Char(
+        required=True,
+        default=",",
+        help=(
+            "The character used to separate the integer part "
+            "from the decimal part of the decimal value. By default is comma."
+        ),
+    )
+    thousands_separator = fields.Char(
+        default=" ",
+        help=("The character used to separate the thousands in decimal value."
+              "By default is space."),
+    )
+
     def get_csv_loader_config(self):
         return {
             "first_row_index": self.first_row - 1,
             "delimiter": self.delimiter or None,
             "quotechar": self.quotechar or None,
+            "decimal_separator": self.decimal_separator,
+            "thousands_separator": self.thousands_separator,
             "date": {
                 "index": self.date_column - 1,
                 "format": self.date_format,

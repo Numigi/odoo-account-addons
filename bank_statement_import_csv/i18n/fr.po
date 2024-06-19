@@ -4,18 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-09 19:41+0000\n"
-"PO-Revision-Date: 2021-12-09 14:43-0500\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2024-06-19 16:30+0000\n"
+"PO-Revision-Date: 2024-06-19 16:30+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 2.3\n"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__active
@@ -124,7 +122,7 @@ msgstr "Configuration"
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
@@ -173,7 +171,7 @@ msgstr "Colonne devise"
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__date
 msgid "Date"
-msgstr "Date"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_column
@@ -184,6 +182,26 @@ msgstr "Colonne date"
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_format
 msgid "Date Format"
 msgstr "Format de la date"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
+msgid "Decimal Separator"
+msgstr "Séparateur de décimales"
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
+#, python-format
+msgid ""
+"Decimal separator and thousands separator must not be together as comma."
+msgstr ""
+"Le séparateur décimal et le séparateur de milliers ne doivent pas être "
+"ensemble sous forme de virgule."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
+#, python-format
+msgid "Decimal separator must not be empty or filled by spaces."
+msgstr "Le séparateur décimal ne doit pas être vide ni rempli d'espaces."
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__delimiter
@@ -201,6 +219,7 @@ msgid "Description"
 msgstr "Libellé"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal__display_name
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__display_name
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__display_name
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__display_name
@@ -240,11 +259,12 @@ msgid "Has Error"
 msgstr "As des erreurs"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal__id
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__id
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__id
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__is_ready
@@ -255,7 +275,7 @@ msgstr "Est prêt"
 #: model:ir.model,name:bank_statement_import_csv.model_account_journal
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__journal_id
 msgid "Journal"
-msgstr "Journal"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__description_column
@@ -263,6 +283,7 @@ msgid "Label Column"
 msgstr "Colonne libellé"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal____last_update
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config____last_update
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard____last_update
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line____last_update
@@ -299,7 +320,7 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard_line.py:90
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard_line.py:0
 #, python-format
 msgid "No active currency found with the code {}."
 msgstr "Aucune devise active trouvée pour le code {}."
@@ -387,7 +408,6 @@ msgid "Statement"
 msgstr "Relevé"
 
 #. module: bank_statement_import_csv
-#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_bank_statement_import_journal_creation__statement_import_config_id
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal__statement_import_config_id
 msgid "Statement Import Config"
 msgstr "Configuration d'import de relevé"
@@ -403,13 +423,27 @@ msgid "The bank statement is ready to be created."
 msgstr "Le relevé bancaire est prêt à être créé."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:103
-#, python-format
-msgid "The currrency is required when an amount in foreign currency is given."
-msgstr ""
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
+msgid ""
+"The character used to separate the integer part from the decimal part of the"
+" decimal value. By default is comma."
+msgstr "Le caractère utilisé pour séparer la partie entière de la partie décimale du valeur décimale. Par défaut, c'est une virgule."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:101
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
+msgid ""
+"The character used to separate the thousands in decimal value.By default is "
+"space."
+msgstr "Le caractère utilisé pour séparer les milliers dans la valeur décimale. Par défaut, c'est l'espace."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:0
+#, python-format
+msgid "The currrency is required when an amount in foreign currency is given."
+msgstr "L'unité de devise est requise lorsque le montant d'une devise étrangère est fourni."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
 #, python-format
 msgid ""
 "The encoding defined in the configuration ({encoding}) does not match the "
@@ -419,23 +453,23 @@ msgstr ""
 "fichier sélectionné ({filename})."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:81
-#: code:addons/bank_statement_import_csv/loader.py:206
+#: code:addons/bank_statement_import_csv/loader.py:0
+#: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The given date ({date}) does not match the format {format}."
-msgstr ""
+msgstr "La date donnée ({date}) ne correspond pas au format {format}."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:240
+#: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The given value ({}) does not seem to be a valid curency code."
-msgstr ""
+msgstr "La valeur donnée ({}) ne semble pas être un code de devise valide."
 
 #. module: bank_statement_import_csv
-#: code:addons/bank_statement_import_csv/loader.py:225
+#: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The given value ({}) does not seem to be a valid number."
-msgstr ""
+msgstr "La valeur donnée ({}) ne semble pas être un nombre valide."
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__first_row
@@ -460,6 +494,11 @@ msgstr ""
 " - latin-1"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
+msgid "Thousands Separator"
+msgstr "Séparateur des milliers"
+
+#. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
 msgid "Validate"
 msgstr "Valider"
@@ -482,7 +521,4 @@ msgstr "Retrait / dépôt activé"
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__wizard_id
 msgid "Wizard"
-msgstr "Wizard"
-
-#~ msgid "Bank Statement Line"
-#~ msgstr "Ligne de relevé bancaire"
+msgstr ""

@@ -109,6 +109,21 @@ class BankStatementImportWizard(models.TransientModel):
 
     def _get_loader(self):
         config = self._get_csv_loader_config()
+        if not self.config_id.decimal_separator.strip():
+            # Field is already required but this avoid when calling function separately
+            raise ValidationError(
+                _("Decimal separator must not be empty or filled by spaces.")
+            )
+        if (
+            self.config_id.decimal_separator == ","
+            and self.config_id.thousands_separator == ","
+        ):
+            raise ValidationError(
+                _(
+                    "Decimal separator and thousands separator "
+                    "must not be together as comma."
+                )
+            )
         return BankStatementLoader(config)
 
     def _get_csv_loader_config(self):
