@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 03:50+0000\n"
-"PO-Revision-Date: 2024-06-19 03:50+0000\n"
+"POT-Creation-Date: 2024-06-19 04:06+0000\n"
+"PO-Revision-Date: 2024-06-19 04:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgstr "Configuration"
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
@@ -171,7 +171,7 @@ msgstr "Colonne devise"
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__date
 msgid "Date"
-msgstr "Date"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_column
@@ -184,12 +184,18 @@ msgid "Date Format"
 msgstr "Format de la date"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
+msgid "Decimal Separator"
+msgstr "Séparateur de décimales"
+
+#. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
 #, python-format
 msgid ""
 "Decimal separator and thousands separator must not be together as comma."
 msgstr ""
-"Le séparateur décimal et le séparateur de milliers ne doivent pas être ensemble sous forme de virgule."
+"Le séparateur décimal et le séparateur de milliers ne doivent pas être "
+"ensemble sous forme de virgule."
 
 #. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
@@ -258,7 +264,7 @@ msgstr "As des erreurs"
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__id
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__is_ready
@@ -269,7 +275,7 @@ msgstr "Est prêt"
 #: model:ir.model,name:bank_statement_import_csv.model_account_journal
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__journal_id
 msgid "Journal"
-msgstr "Journal"
+msgstr ""
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__description_column
@@ -417,6 +423,18 @@ msgid "The bank statement is ready to be created."
 msgstr "Le relevé bancaire est prêt à être créé."
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
+msgid ""
+"The character used to separate the integer part from the decimal part of the"
+" decimal value."
+msgstr "Caractère utilisé pour séparer la partie entière de la partie décimale."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
+msgid "The character used to separate the thousands in decimal value."
+msgstr "Le caractère utilisé pour séparer les milliers en valeur décimale"
+
+#. module: bank_statement_import_csv
 #: code:addons/bank_statement_import_csv/loader.py:0
 #, python-format
 msgid "The currrency is required when an amount in foreign currency is given."
@@ -474,6 +492,11 @@ msgstr ""
 " - latin-1"
 
 #. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
+msgid "Thousands Separator"
+msgstr "Séparateur des milliers"
+
+#. module: bank_statement_import_csv
 #: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
 msgid "Validate"
 msgstr "Valider"
@@ -496,4 +519,4 @@ msgstr "Retrait / dépôt activé"
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__wizard_id
 msgid "Wizard"
-msgstr "Wizard"
+msgstr ""

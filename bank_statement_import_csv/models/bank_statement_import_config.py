@@ -65,7 +65,10 @@ class BankStatementImportConfig(models.Model):
     decimal_separator = fields.Char(
         required=True,
         default=".",
-        help="The character used to separate the integer part from the decimal part of the decimal value.",
+        help=(
+            "The character used to separate the integer part "
+            "from the decimal part of the decimal value."
+        ),
     )
     thousands_separator = fields.Char(
         default="",
