@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-
-    <record id="account.data_unaffected_earnings" model="account.account.type">
-        <field name="is_unaffected_earnings" eval="True"/>
-    </record>
-
-</odoo>

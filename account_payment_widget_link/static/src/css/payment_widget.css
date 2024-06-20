@@ -1,6 +1,0 @@
-/**
- * Adjust the width of the widget so that journal entry references are more easily readable.
- */
-.o_outstanding_credits_debits_widget {
-    min-width: 300px;
-}
