@@ -2,17 +2,21 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
-    "name": "Main Module",
-    "version": "1.0.0",
+    "name": "Account Closing Journal",
+    "version": "16.0.1.0.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://www.numigi.com",
     "license": "LGPL-3",
-    "category": "Other",
-    "summary": "Install all addons required for testing.",
+    "category": "Accounting",
+    "summary": "Allow to define a fiscal year closing journal",
     "depends": [
         "account",
-        "account_closing_journal",
+    ],
+    "data": [
+        "views/account_journal.xml",
+        "views/account_move.xml",
+        "views/account_move_line.xml",
     ],
     "installable": True,
 }
