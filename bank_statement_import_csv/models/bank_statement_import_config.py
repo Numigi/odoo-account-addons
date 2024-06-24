@@ -20,7 +20,7 @@ class BankStatementImportConfig(models.Model):
         "starting with the latest transaction."
     )
     delimiter = fields.Char(default=",", required=True)
-    quotechar = fields.Char()
+    quotechar = fields.Char(default='"')
     encoding = fields.Char(
         required=True,
         default="utf-8",
