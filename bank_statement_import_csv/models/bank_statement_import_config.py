@@ -72,8 +72,11 @@ class BankStatementImportConfig(models.Model):
     )
     thousands_separator = fields.Char(
         default=" ",
-        help=("The character used to separate the thousands in decimal value."
-              "By default is space."),
+        help=(
+            "The character used to separate the thousands in decimal value. "
+            "By default is space."
+        ),
+        trim=False,
     )
 
     def get_csv_loader_config(self):
@@ -82,7 +85,7 @@ class BankStatementImportConfig(models.Model):
             "delimiter": self.delimiter or None,
             "quotechar": self.quotechar or None,
             "decimal_separator": self.decimal_separator,
-            "thousands_separator": self.thousands_separator,
+            "thousands_separator": self.thousands_separator or "",
             "date": {
                 "index": self.date_column - 1,
                 "format": self.date_format,
