@@ -206,7 +206,7 @@ msgstr "Le séparateur décimal ne doit pas être vide ni rempli d'espaces."
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__delimiter
 msgid "Delimiter"
-msgstr "Délimiteur"
+msgstr "Délimiteur de colonne"
 
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__deposit_column
@@ -432,7 +432,7 @@ msgstr "Le caractère utilisé pour séparer la partie entière de la partie dé
 #. module: bank_statement_import_csv
 #: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
 msgid ""
-"The character used to separate the thousands in decimal value.By default is "
+"The character used to separate the thousands in decimal value. By default is "
 "space."
 msgstr "Le caractère utilisé pour séparer les milliers dans la valeur décimale. Par défaut, c'est l'espace."
 
