@@ -11,7 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
-        "account",
+        "account_invoice_constraint_chronology_forced",
     ],
     "installable": True,
 }
