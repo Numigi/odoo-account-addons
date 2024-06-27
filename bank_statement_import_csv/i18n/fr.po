@@ -1,0 +1,524 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bank_statement_import_csv
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-19 16:30+0000\n"
+"PO-Revision-Date: 2024-06-19 16:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__amount
+msgid "Amount"
+msgstr "Montant"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__amount_column
+msgid "Amount Column"
+msgstr "Colonne montant"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Amount Foreign Currency"
+msgstr "Montant devise étrangère"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__balance
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Balance"
+msgstr "Solde"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_column
+msgid "Balance Column"
+msgstr "Colonne solde"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__balance_enabled
+msgid "Balance Enabled"
+msgstr "Solde activé"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Bank Statement Import"
+msgstr "Import de relevé bancaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model,name:bank_statement_import_csv.model_bank_statement_import_config
+msgid "Bank Statement Import Config"
+msgstr "Configuration import de relevé bancaire"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Bank Statement Import Configuration"
+msgstr "Configuration import de relevé bancaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.actions.act_window,name:bank_statement_import_csv.action_bank_statement_import_config
+#: model:ir.ui.menu,name:bank_statement_import_csv.menu_config_bank_statement_import_config
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_list
+msgid "Bank Statement Import Configurations"
+msgstr "Configurations import de relevé bancaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model,name:bank_statement_import_csv.model_bank_statement_import_wizard
+msgid "Bank Statement Import Wizard"
+msgstr "Wizard d'import de relevé bancaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model,name:bank_statement_import_csv.model_bank_statement_import_wizard_line
+msgid "Bank Statement Import Wizard Line"
+msgstr "Ligne de wizard d'import de relevé bancaire"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__reverse_deposit
+msgid "Check this box if the deposit column contains negative amounts."
+msgstr ""
+"Cocher cette case si la colonne de dépôts contient des montants négatifs."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__reverse_withdraw
+msgid "Check this box if the withdraw column contains negative amounts."
+msgstr ""
+"Cocher cette case si la colonne de retraits contient des montants négatifs."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__reversed_order
+msgid ""
+"Check this box is the lines in the csv files are ordered starting with the "
+"latest transaction."
+msgstr ""
+"Cochez cette case si les lignes des fichiers csv sont ordonnancés en "
+"commençant par la transaction la plus récente."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__config_id
+msgid "Config"
+msgstr "Configuration"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Configuration"
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__create_uid
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__create_uid
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__create_date
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__create_date
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__currency
+msgid "Currency"
+msgstr "Devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__currency_amount
+msgid "Currency Amount"
+msgstr "Montant en devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_column
+msgid "Currency Amount Column"
+msgstr "Colonne montant en devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_amount_enabled
+msgid "Currency Amount Enabled"
+msgstr "Montant en devise activé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__currency_column
+msgid "Currency Column"
+msgstr "Colonne devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__date
+msgid "Date"
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_column
+msgid "Date Column"
+msgstr "Colonne date"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__date_format
+msgid "Date Format"
+msgstr "Format de la date"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
+msgid "Decimal Separator"
+msgstr "Séparateur de décimales"
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
+#, python-format
+msgid ""
+"Decimal separator and thousands separator must not be together as comma."
+msgstr ""
+"Le séparateur décimal et le séparateur de milliers ne doivent pas être "
+"ensemble sous forme de virgule."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
+#, python-format
+msgid "Decimal separator must not be empty or filled by spaces."
+msgstr "Le séparateur décimal ne doit pas être vide ni rempli d'espaces."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__delimiter
+msgid "Delimiter"
+msgstr "Délimiteur de colonne"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__deposit_column
+msgid "Deposit Column"
+msgstr "Colonne dépôt"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__description
+msgid "Description"
+msgstr "Libellé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal__display_name
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__display_name
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__display_name
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__encoding
+msgid "Encoding"
+msgstr "Encodage"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Errors where found while loading the selected file."
+msgstr ""
+"Des erreurs on été trouvées durant du chargement du fichier sélectionné."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__file
+msgid "File"
+msgstr "Fichier"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__filename
+msgid "File Name"
+msgstr "Nom du fichier"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__first_row
+msgid "First Row"
+msgstr "Première ligne"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__has_error
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__has_error
+msgid "Has Error"
+msgstr "As des erreurs"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal__id
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__id
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__id
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__id
+msgid "ID"
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__is_ready
+msgid "Is Ready"
+msgstr "Est prêt"
+
+#. module: bank_statement_import_csv
+#: model:ir.model,name:bank_statement_import_csv.model_account_journal
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__description_column
+msgid "Label Column"
+msgstr "Colonne libellé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal____last_update
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config____last_update
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard____last_update
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__write_uid
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__write_uid
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__write_date
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__write_date
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__line_ids
+msgid "Line"
+msgstr "Ligne"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Load File"
+msgstr "Charger le fichier"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard_line.py:0
+#, python-format
+msgid "No active currency found with the code {}."
+msgstr "Aucune devise active trouvée pour le code {}."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__partner_name
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Partner Name"
+msgstr "Nom du partenaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__partner_name_column
+msgid "Partner Name Column"
+msgstr "Colonne nom du partenaire"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__partner_name_enabled
+msgid "Partner Name Enabled"
+msgstr "Nom du partenaire activé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__quotechar
+msgid "Quotechar"
+msgstr "Délimiteur de texte"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__reference
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Reference"
+msgstr "Référence"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_column
+msgid "Reference Column"
+msgstr "Colonne référence"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reference_enabled
+msgid "Reference Enabled"
+msgstr "Référence activée"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reverse_deposit
+msgid "Reverse Deposit"
+msgstr "Dépôt inversé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reverse_withdraw
+msgid "Reverse Withdraw"
+msgstr "Retrait inversé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__reversed_order
+msgid "Reversed Order"
+msgstr "Ordre inversé"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_search
+msgid "Search Statement Import Configuration"
+msgstr "Chercher des configuration d'import de relevé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_balance
+msgid "Show Balance"
+msgstr "Montrer la balance"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_currency_amount
+msgid "Show Currency Amount"
+msgstr "Montrer le montant en devise"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_partner_name
+msgid "Show Partner Name"
+msgstr ""
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__show_reference
+msgid "Show Reference"
+msgstr "Montrer la référence"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard__statement_id
+msgid "Statement"
+msgstr "Relevé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_account_journal__statement_import_config_id
+msgid "Statement Import Config"
+msgstr "Configuration d'import de relevé"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.account_journal_form
+msgid "Statement Import Configuration"
+msgstr "Configuration d'import de relevé"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "The bank statement is ready to be created."
+msgstr "Le relevé bancaire est prêt à être créé."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__decimal_separator
+msgid ""
+"The character used to separate the integer part from the decimal part of the"
+" decimal value. By default is comma."
+msgstr "Le caractère utilisé pour séparer la partie entière de la partie décimale du valeur décimale. Par défaut, c'est une virgule."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
+msgid ""
+"The character used to separate the thousands in decimal value. By default is "
+"space."
+msgstr "Le caractère utilisé pour séparer les milliers dans la valeur décimale. Par défaut, c'est l'espace."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:0
+#, python-format
+msgid "The currrency is required when an amount in foreign currency is given."
+msgstr "L'unité de devise est requise lorsque le montant d'une devise étrangère est fourni."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/wizard/bank_statement_import_wizard.py:0
+#, python-format
+msgid ""
+"The encoding defined in the configuration ({encoding}) does not match the "
+"selected file ({filename})."
+msgstr ""
+"L'encodage défini dans la configuration ({encoding}) ne correspond pas au "
+"fichier sélectionné ({filename})."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:0
+#: code:addons/bank_statement_import_csv/loader.py:0
+#, python-format
+msgid "The given date ({date}) does not match the format {format}."
+msgstr "La date donnée ({date}) ne correspond pas au format {format}."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:0
+#, python-format
+msgid "The given value ({}) does not seem to be a valid curency code."
+msgstr "La valeur donnée ({}) ne semble pas être un code de devise valide."
+
+#. module: bank_statement_import_csv
+#: code:addons/bank_statement_import_csv/loader.py:0
+#, python-format
+msgid "The given value ({}) does not seem to be a valid number."
+msgstr "La valeur donnée ({}) ne semble pas être un nombre valide."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__first_row
+msgid "The position of the first transaction line in the file."
+msgstr "L'indice de la première ligne de transaction dans le fichier."
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,help:bank_statement_import_csv.field_bank_statement_import_config__encoding
+msgid ""
+"The technical code of the file encoding. \n"
+"\n"
+"Typical values:\n"
+" - utf-8\n"
+" - cp1252\n"
+" - latin-1"
+msgstr ""
+"Le code technique de l'encodage du fichier.\n"
+"\n"
+"Les valeurs typiques comprennent:\n"
+" - utf-8\n"
+" - cp1252\n"
+" - latin-1"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__thousands_separator
+msgid "Thousands Separator"
+msgstr "Séparateur des milliers"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_wizard_form
+msgid "Validate"
+msgstr "Valider"
+
+#. module: bank_statement_import_csv
+#: model_terms:ir.ui.view,arch_db:bank_statement_import_csv.bank_statement_import_config_form
+msgid "Withdraw / Deposit Columns"
+msgstr "Colonnes retrait / dépôt"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_column
+msgid "Withdraw Column"
+msgstr "Colonne retrait"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_config__withdraw_deposit_enabled
+msgid "Withdraw Deposit Enabled"
+msgstr "Retrait / dépôt activé"
+
+#. module: bank_statement_import_csv
+#: model:ir.model.fields,field_description:bank_statement_import_csv.field_bank_statement_import_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
