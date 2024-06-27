@@ -59,6 +59,7 @@ COPY bank_statement_reconciliation_report /mnt/extra-addons/bank_statement_recon
 COPY budget_analysis_account_move_line /mnt/extra-addons/budget_analysis_account_move_line
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
+COPY check_vat_ca /mnt/extra-addons/check_vat_ca
 COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
 COPY invoice_currency_validation /mnt/extra-addons/invoice_currency_validation
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
