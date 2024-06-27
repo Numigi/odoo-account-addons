@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account",
+        "account_show_full_features",
     ],
     "installable": True,
 }
