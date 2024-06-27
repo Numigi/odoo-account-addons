@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+    <record id="account.group_account_user" model="res.groups">
+        <field name="category_id" ref="base.module_category_accounting_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+    </record>
+
+    <record id="account.group_account_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('account.group_account_user'))]"/>
+    </record>
+
+    <function name="rename" model="res.groups">
+        <value type="char">account.group_account_user</value>
+        <value type="char">en_US</value>
+        <value type="char">Accountant</value>
+    </function>
+
+    <function name="rename" model="res.groups">
+        <value type="char">account.group_account_user</value>
+        <value type="char">fr_FR</value>
+        <value type="char">Comptable</value>
+    </function>
+
+    <function name="rename" model="res.groups">
+        <value type="char">account.group_account_manager</value>
+        <value type="char">en_US</value>
+        <value type="char">Manager</value>
+    </function>
+
+    <function name="rename" model="res.groups">
+        <value type="char">account.group_account_manager</value>
+        <value type="char">fr_FR</value>
+        <value type="char">Gestionnaire</value>
+    </function>
+
+</data>
