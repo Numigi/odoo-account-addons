@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
 
-    <function name="rename" model="ir.ui.menu">
-        <value type="char">account.menu_finance</value>
-        <value type="char">fr_FR</value>
-        <value type="char">Comptabilité</value>
+
+    <function model="ir.ui.menu" name="write">
+            <value eval="ref('account.menu_finance')"/>
+            <value eval="{'name': 'Accounting'}"/>
     </function>
 
-    <function name="rename" model="ir.ui.menu">
-        <value type="char">account.menu_finance</value>
-        <value type="char">en_US</value>
-        <value type="char">Accounting</value>
-    </function>
+
 
     <!-- Make the list of account.move.line available without debug mode -->
     <record id="account.menu_action_account_moves_all" model="ir.ui.menu">

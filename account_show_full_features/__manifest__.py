@@ -11,7 +11,6 @@
     'category': 'Accounting',
     'summary': 'Show the accounting features hidden in Odoo community',
     'depends': [
-        'base_xml_rename',
         'account',
     ],
     'data': [
