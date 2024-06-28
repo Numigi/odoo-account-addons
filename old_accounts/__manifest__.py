@@ -3,11 +3,11 @@
 
 {
     'name': 'old_accounts',
-    'version': '12.0.1.0',
+    'version': '0.1.0',
     'category': 'Accounting',
     'summary': "Add a field 'Old Accounts' on accounts.",
     'author': 'Numigi',
     'depends': ['account'],
-    'data': ['account.xml'],
+    'data': ['views/account.xml'],
     'license': 'LGPL-3',
 }
