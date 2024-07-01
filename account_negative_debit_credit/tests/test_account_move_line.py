@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from datetime import datetime
+from odoo.tests import common
 
 
 class TestAccountMoveLine(common.SavepointCase):
