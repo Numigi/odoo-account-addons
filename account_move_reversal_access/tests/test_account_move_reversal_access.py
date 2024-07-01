@@ -1,27 +1,21 @@
 # Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from ddt import data, ddt
-
 from odoo import fields
 from odoo.exceptions import ValidationError
-from odoo.tests import common
+from odoo.tests import tagged
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-@ddt
-class TestAccountMoveReversalAccess(common.SavepointCase):
+@tagged("post_install")
+class TestAccountMoveReversalAccess(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.journal_general = cls.env["account.journal"].create(
-            {"name": "journal_general", "code": "journal_general", "type": "general"}
-        )
-        cls.journal_cash = cls.env["account.journal"].create(
-            {"name": "journal_cash", "code": "journal_cash", "type": "cash"}
-        )
-        cls.journal_bank = cls.env["account.journal"].create(
-            {"name": "journal_bank", "code": "journal_bank", "type": "bank"}
-        )
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
+
+        cls.general_journal = cls.company_data["default_journal_misc"]
+        cls.journal_cash = cls.company_data["default_journal_cash"]
+        cls.journal_bank = cls.company_data["default_journal_bank"]
 
         cls.account_1 = cls.env["account.account"].create(
             {
@@ -60,28 +54,37 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
                 "groups_id": [(4, group_account_finance_billing.id)],
             }
         )
+        cls.journals = [
+            cls.general_journal,
+            cls.journal_bank,
+            cls.journal_cash,
+        ]
 
-    @data("journal_general")
-    def test_can_post_move_is_reversal_has_group(self, journal_type):
-        self.__create_reversal_move(journal_type, self.user_with_group)
+    def test_can_post_move_is_reversal_has_group(self):
+        self.__create_reversal_move(self.general_journal, self.user_with_group)
 
-    @data("journal_general", "journal_bank", "journal_cash")
-    def test_can_post_move_normal_has_group(self, journal_type):
-        self.__create_normal_move(journal_type, self.user_with_group)
+    def test_can_post_move_normal_has_group(self):
+        # Apply to "journal_general", "journal_bank" and "journal_cash"
+        for journal_type in self.journals:
+            self.__create_normal_move(journal_type, self.user_with_group)
 
-    @data("journal_general", "journal_bank", "journal_cash")
-    def test_can_post_move_normal_no_group(self, journal_type):
-        self.__create_normal_move(journal_type, self.user_without_group)
+    def test_can_post_move_normal_no_group(self):
+        # Apply to "journal_general", "journal_bank" and "journal_cash"
+        for journal_type in self.journals:
+            self.__create_normal_move(journal_type, self.user_without_group)
 
-    @data("journal_bank", "journal_cash")
-    def test_cannot_post_move_is_reversal_has_group(self, journal_type):
-        with self.assertRaises(ValidationError):
-            self.__create_reversal_move(journal_type, self.user_with_group)
+    def test_cannot_post_move_is_reversal_has_group(self):
+        # Apply only with "journal_bank" and "journal_cash"
+        journals = self.journals[1:]
+        for journal_type in journals:
+            with self.assertRaises(ValidationError):
+                self.__create_reversal_move(journal_type, self.user_with_group)
 
-    @data("journal_general", "journal_bank", "journal_cash")
-    def test_cannot_post_move_is_reversal_no_group(self, journal_type):
-        with self.assertRaises(ValidationError):
-            self.__create_reversal_move(journal_type, self.user_without_group)
+    def test_cannot_post_move_is_reversal_no_group(self):
+        # Apply to "journal_general", "journal_bank" and "journal_cash"
+        for journal_type in self.journals:
+            with self.assertRaises(ValidationError):
+                self.__create_reversal_move(journal_type, self.user_without_group)
 
     def __create_reversal_move(self, journal_type, user):
         move = self.__create_move(journal_type, user)
@@ -89,18 +92,19 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
         wizard = self.env["account.move.reversal"].with_context(
             active_ids=[move.id], active_model="account.move"
         )
-        wizard.sudo(user).create({"date": today}).sudo(user).reverse_moves()
+        wizard.with_user(user).create(
+            {"date": today, "journal_id": journal_type.id}
+        ).with_user(user).reverse_moves()
         return move.reversal_move_id
 
     def __create_normal_move(self, journal_type, user):
         move = self.__create_move(journal_type, user)
         return move
 
-    def __create_move(self, journal_type, user):
-        journal = getattr(self, journal_type)
+    def __create_move(self, journal, user):
         move = (
             self.env["account.move"]
-            .sudo(user)
+            .with_user(user)
             .create(
                 {
                     "journal_id": journal.id,
@@ -136,5 +140,5 @@ class TestAccountMoveReversalAccess(common.SavepointCase):
                 }
             )
         )
-        move.post()
+        move._post()
         return move
