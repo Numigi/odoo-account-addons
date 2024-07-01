@@ -1,0 +1,2 @@
+ignore:
+  - "expression-has-no-effect"
