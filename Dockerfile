@@ -19,6 +19,7 @@ RUN gitoo install-all --conf_file /gitoo.yml --destination "${THIRD_PARTY_ADDONS
 
 USER odoo
 
+COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY old_accounts /mnt/extra-addons/old_accounts
 
 COPY .docker_files/main /mnt/extra-addons/main
