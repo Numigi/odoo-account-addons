@@ -11,6 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
+        "account_fiscalyear_end_on_company",
         "old_accounts",
     ],
     "installable": True,
