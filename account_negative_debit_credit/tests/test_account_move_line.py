@@ -2,7 +2,8 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from datetime import datetime
-from odoo.tests import common
+from odoo.tests import common, new_test_user
+from odoo.tests.common import Form
 
 
 class TestAccountMoveLine(common.SavepointCase):
@@ -22,7 +23,7 @@ class TestAccountMoveLine(common.SavepointCase):
             {
                 "account_type": "expense",
                 "name": "Revenus",
-                "code": "400001 - test",
+                "code": "400001",
             }
         )
 
@@ -30,7 +31,7 @@ class TestAccountMoveLine(common.SavepointCase):
             {
                 "account_type": "asset_current",
                 "name": "Assets",
-                "code": "100001 - test",
+                "code": "100001",
             }
         )
 
@@ -143,16 +144,18 @@ class TestAccountMoveLine(common.SavepointCase):
                 ),
             ]
         )
+        lines = move.line_ids.sorted()
         move.write(
             {
                 "line_ids": [
-                    (1, move.line_ids[0].id, {"debit": -10, "credit": 0}),
-                    (1, move.line_ids[1].id, {"debit": 0, "credit": -10}),
-                ]
+                    (1, lines[0].id, {"credit": -10}),
+                    (1, lines[1].id, {"debit": -10}),
+                ],
             }
         )
-        assert move.line_ids[0].credit == 10
-        assert move.line_ids[1].debit == 10
+
+        assert move.line_ids[1].credit == 10
+        assert move.line_ids[0].debit == 10
 
     def _create_move(self, line_vals):
         return self.env["account.move"].create(
