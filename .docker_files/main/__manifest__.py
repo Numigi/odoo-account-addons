@@ -11,7 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
-        "account",
+        "account_bank_menu",
     ],
     "installable": True,
 }
