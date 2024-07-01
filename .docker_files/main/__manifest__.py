@@ -11,7 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
-        "account",
+        "old_accounts",
     ],
     "installable": True,
 }
