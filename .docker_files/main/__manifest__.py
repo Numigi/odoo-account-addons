@@ -11,6 +11,7 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
+        "account_move_unique_reversal",
         "old_accounts",
     ],
     "installable": True,
