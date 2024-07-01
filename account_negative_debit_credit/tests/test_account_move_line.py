@@ -18,12 +18,9 @@ class TestAccountMoveLine(common.SavepointCase):
             }
         )
 
-        cls.expense_type = cls.env.ref("account.data_account_type_expenses")
-        cls.asset_type = cls.env.ref("account.data_account_type_current_assets")
-
         cls.expense = cls.env["account.account"].create(
             {
-                "user_type_id": cls.expense_type.id,
+                "account_type": "expense",
                 "name": "Revenus",
                 "code": "400001 - test",
             }
@@ -31,7 +28,7 @@ class TestAccountMoveLine(common.SavepointCase):
 
         cls.asset = cls.env["account.account"].create(
             {
-                "user_type_id": cls.asset_type.id,
+                "account_type": "asset_current",
                 "name": "Assets",
                 "code": "100001 - test",
             }
