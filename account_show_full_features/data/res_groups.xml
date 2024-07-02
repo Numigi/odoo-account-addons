@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+
+    <record id="account.group_account_user" model="res.groups">
+        <field name="category_id" ref="base.module_category_accounting_accounting"/>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_invoice'))]"/>
+    </record>
+
+    <record id="account.group_account_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('account.group_account_user'))]"/>
+    </record>
+
+
+    <function model="res.groups" name="write">
+            <value eval="ref('account.group_account_user')"/>
+            <value eval="{'name': 'Accountant'}"/>
+    </function>
+
+    <function model="res.groups" name="write">
+            <value eval="ref('account.group_account_manager')"/>
+            <value eval="{'name': 'Manager'}"/>
+    </function>
+
+
+</data>
