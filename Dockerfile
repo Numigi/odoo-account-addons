@@ -18,6 +18,7 @@ USER odoo
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_closing_journal /mnt/extra-addons/account_closing_journal
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
+COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier

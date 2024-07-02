@@ -15,6 +15,7 @@
         "account_bank_menu",
         "account_closing_journal",
         "account_invoice_constraint_chronology_forced",
+        "account_negative_debit_credit",
         "account_payment_cancel_group",
         "account_show_full_features",
         "invoice_refund_not_earlier",
