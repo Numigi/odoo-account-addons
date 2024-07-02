@@ -14,6 +14,7 @@
         "account",
         "account_bank_menu",
         "account_closing_journal",
+        "account_invoice_constraint_chronology_forced",
         "account_show_full_features",
         "old_accounts",
     ],

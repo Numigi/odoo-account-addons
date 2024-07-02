@@ -15,6 +15,7 @@ USER odoo
 
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_closing_journal /mnt/extra-addons/account_closing_journal
+COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY old_accounts /mnt/extra-addons/old_accounts
 
