@@ -55,10 +55,3 @@ msgid ""
 msgstr ""
 "Vous ne pouvez pas modifier le type du journal car au moins "
 "une pièce comptable est associée au journal."
-
-
-
-
-
-
-
