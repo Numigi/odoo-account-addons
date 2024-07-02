@@ -1,3 +1,5 @@
 unidecode==1.0.23
 odoo_test_helper
 stripe==4.1.0
+freezegun==0.3.4
+ddt==1.4.2
