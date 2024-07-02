@@ -1,0 +1,21 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account
+#
+
+#. module: account_show_full_features
+#: model:ir.ui.menu,name:account.menu_finance
+msgid "Invoicing"
+msgstr "Comptabilité"
+
+
+#. module: account_show_full_features
+#: model:res.groups,name:account.group_account_manager
+msgid "Billing Administrator"
+msgstr "Gestionnaire"
+
+
+#. module: account_show_full_features
+#: model:res.groups,name:account.group_account_user
+msgid "Billing"
+msgstr "Comptable"
