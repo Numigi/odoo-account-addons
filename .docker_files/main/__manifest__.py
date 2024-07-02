@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account",
+        "account_bank_menu",
         "old_accounts",
     ],
     "installable": True,
