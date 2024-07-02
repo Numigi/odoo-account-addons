@@ -17,6 +17,7 @@
         "account_fiscalyear_end_on_company",
         "account_invoice_constraint_chronology_forced",
         "account_move_reversal_access",
+        "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
         "account_show_full_features",
