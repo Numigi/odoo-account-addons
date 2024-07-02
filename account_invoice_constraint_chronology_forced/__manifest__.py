@@ -1,4 +1,4 @@
-# © 20123 Numigi
+# Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
@@ -14,6 +14,6 @@
         'account_invoice_constraint_chronology',
     ],
     "data": ["views/account_journal.xml"],
-    'installable': True,
+    "installable": True,
     "post_init_hook": "sale_journals_check_chronology",
 }
