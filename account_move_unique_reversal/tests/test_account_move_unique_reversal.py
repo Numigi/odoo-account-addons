@@ -104,4 +104,6 @@ class TestAccountMoveUniqueReversal(common.SavepointCase):
         wizard_env = wizard_env.with_context(
             active_ids=[move.id], active_model="account.move"
         )
-        return wizard_env.create({"date": self.today}).reverse_moves()
+        return wizard_env.create(
+            {"date": self.today, "journal_id": move.journal_id.id}
+        ).reverse_moves()
