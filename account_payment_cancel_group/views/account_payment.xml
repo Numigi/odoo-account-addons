@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_form" model="ir.ui.view">
+        <field name="name">Payment Form: restrict Cancel button</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="attributes">
+                <attribute name="groups">account_payment_cancel_group.group_cancel_payments</attribute>
+            </button>
+            <button name="action_draft" position="attributes">
+                <attribute name="groups">account_payment_cancel_group.group_cancel_payments</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>
