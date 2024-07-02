@@ -16,6 +16,7 @@
         "account_closing_journal",
         "account_invoice_constraint_chronology_forced",
         "account_show_full_features",
+        "invoice_refund_not_earlier",
         "old_accounts",
     ],
     "installable": True,
