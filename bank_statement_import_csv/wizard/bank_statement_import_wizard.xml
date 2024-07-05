@@ -88,7 +88,7 @@
         </field>
     </record>
 
-    <record id="account_statement_import.account_statement_import_action" model="ir.actions.act_window">
+    <record id="account_statement_import_file.account_statement_import_action" model="ir.actions.act_window">
         <field name="res_model">bank.statement.import.wizard</field>
         <field name="view_id" ref="bank_statement_import_wizard_form"/>
     </record>
