@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.account</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <label for="fiscalyear_last_day" string="Fiscal Year End" />
+                <div>
+                    <field name="fiscalyear_last_month" class="oe_inline" />
+                    <span> &amp;nbsp;</span>
+                    <field name="fiscalyear_last_day" class="oe_inline" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
