@@ -55,6 +55,7 @@
         "invoice_intercompany_compatible",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",
+        "invoice_per_delivery",
         "invoice_refund_not_earlier",
         "lang_fr_activated",
         "old_accounts",
