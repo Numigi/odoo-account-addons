@@ -14,6 +14,11 @@ class SaleOrderLine(models.Model):
         """
         self.ensure_one()
         picking_id = self._context.get("picking_id", False)
-        qty_to_invoice = self.move_ids.filtered(lambda m: m.picking_id == picking_id).quantity_done
-        res = super()._prepare_invoice_line(quantity=qty_to_invoice)
+        if picking_id:
+            qty_to_invoice = self.move_ids.filtered(
+                lambda m: m.picking_id == picking_id
+            ).quantity_done
+            res = super()._prepare_invoice_line(quantity=qty_to_invoice)
+        else:
+            res = super()._prepare_invoice_line()
         return res
