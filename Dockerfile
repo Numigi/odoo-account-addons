@@ -60,6 +60,7 @@ COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_
 COPY invoice_intercompany_compatible  /mnt/extra-addons/invoice_intercompany_compatible
 COPY invoice_list_email /mnt/extra-addons/invoice_list_email
 COPY invoice_mass_mailing_with_layout /mnt/extra-addons/invoice_mass_mailing_with_layout
+COPY invoice_per_delivery /mnt/extra-addons/invoice_per_delivery
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
 COPY payment_list_not_sent /mnt/extra-addons/payment_list_not_sent
