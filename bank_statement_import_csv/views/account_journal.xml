@@ -4,10 +4,10 @@
     <record id="account_journal_form" model="ir.ui.view">
         <field name="name">Account Journal: add statement import config</field>
         <field name="model">account.journal</field>
-        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
         <field name="arch" type="xml">
             <group name="bank_account_number" position="inside">
-                <field name="statement_import_config_id" string="Statement Import Configuration"/>
+                <field name="statement_import_config_id" string="Statement Import Configuration" />
             </group>
         </field>
     </record>

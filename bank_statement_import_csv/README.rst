@@ -1,3 +1,4 @@
+=========================
 Bank Statement Import CSV
 =========================
 
@@ -48,8 +49,8 @@ than the header labels.
 
 Configuration
 -------------
-As member of ``Accounting / Manager``, I go to
-``Accounting / Configuration / Bank Statement Import Configurations``.
+As member of ``Invoicing / Billing Administrator``, I go to
+``Invoicing / Configuration / Accounting / Bank Statement Import Configurations``.
 
 .. image:: static/description/import_config_menu.png
 
@@ -87,7 +88,12 @@ Typical values include:
 
 Delimiter
 ~~~~~~~~~
-The field ``Delimiter`` must contain the character used to seperate fields in the csv file.
+The field ``Delimiter`` must contain the character used to separate fields in the csv file.
+
+Decimal Separator
+~~~~~~~~~~~~~~~~~
+The field ``Decimal Separator`` must contain the character used to separate the integer part from the decimal part of the decimal value.
+By default is comma.
 
 Quotechar
 ~~~~~~~~~
@@ -127,7 +133,7 @@ It is mapped to the field ``Reference`` (ref) of the bank statement line.
 
 Partner Name
 ************
-Since version ``1.1.0`` of the module, it is possible to enter the ``Partner Name``.
+It is possible to enter the ``Partner Name``.
 
 .. image:: static/description/import_config_partner_name.png
 
@@ -159,7 +165,7 @@ Reversed Widthdraw / Deposit
 It is possible that your bank proposes the CSV statements with negative amounts in the withdraw columns
 and positive amounts in the deposit columns (or vice versa).
 
-Since version ``1.2.0`` of the module, it is possible to reverse the amounts contained in the withdraw and deposit columns.
+Also, it is possible to reverse the amounts contained in the withdraw and deposit columns.
 
 .. image:: static/description/import_config_reversed_amounts.png
 
@@ -197,7 +203,7 @@ In the tab ``Bank Account``, I select my statement import configuration.
 
 Usage
 -----
-I go to the accounting dashboard and click on ``Import Statements``.
+I go to the invoicing dashboard and click on ``Import Statements``.
 
 .. image:: static/description/accounting_dashboard.png
 
@@ -237,11 +243,7 @@ After clicking on the button, the new bank statement is displayed.
 I notice that the transaction lines where properly created.
 
 I also notice that the initial and ending balances are properly set.
-
-File Name
----------
-Since version ``1.1.0`` of the module, the name of the generated bank statement is
-the name of the imported file.
+And, the name of the generated bank statement is the name of the imported file.
 
 .. image:: static/description/bank_statement_with_name.png
 

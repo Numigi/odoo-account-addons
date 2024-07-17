@@ -10,6 +10,7 @@ from ..loader import (
     parse_date_or_error,
 )
 from ..error import is_bank_statement_error
+from ..loader import LOCALE_MAP
 
 
 class BankStatementImportWizardLine(models.TransientModel):
@@ -45,7 +46,10 @@ class BankStatementImportWizardLine(models.TransientModel):
     def _validate_line_amount(self, field):
         value = self[field]
         if value:
-            parsed_value = parse_decimal_or_error(value)
+            thousands_separator = self.wizard_id.config_id.thousands_separator
+            decimal_separator = self.wizard_id.config_id.decimal_separator
+            locale = LOCALE_MAP.get((decimal_separator, thousands_separator), "en_US")
+            parsed_value = parse_decimal_or_error(value, locale)
             self._raise_if_is_bank_statement_error(parsed_value)
 
     def _validate_line_date(self):
@@ -60,8 +64,7 @@ class BankStatementImportWizardLine(models.TransientModel):
 
     def _raise_if_is_bank_statement_error(self, value):
         if is_bank_statement_error(value):
-            raise ValidationError(_(value.msg).format(
-                *value.args, **value.kwargs))
+            raise ValidationError(_(value.msg).format(*value.args, **value.kwargs))
 
     def _get_statement_line_vals(self):
         currency = self._get_currency()
@@ -73,6 +76,7 @@ class BankStatementImportWizardLine(models.TransientModel):
             "amount": float(self.amount) if self.amount else None,
             "amount_currency": float(self.currency_amount) if currency else None,
             "foreign_currency_id": currency.id if currency else None,
+            "journal_id": self.wizard_id.journal_id.id,
         }
 
     def _get_currency(self):

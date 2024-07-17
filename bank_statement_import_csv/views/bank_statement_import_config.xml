@@ -16,63 +16,63 @@
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="name"/>
+                            <field name="name" />
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="first_row"/>
-                            <field name="reversed_order"/>
-                            <field name="decimal_separator"/>
-                            <field name="thousands_separator"/>
+                            <field name="first_row" />
+                            <field name="reversed_order" />
+                            <field name="decimal_separator" />
+                            <field name="thousands_separator" />
                         </group>
                         <group>
-                            <field name="encoding"/>
-                            <field name="delimiter"/>
-                            <field name="quotechar"/>
+                            <field name="encoding" />
+                            <field name="delimiter" />
+                            <field name="quotechar" />
                         </group>
                         <group>
-                            <field name="date_column"/>
-                            <field name="date_format"/>
+                            <field name="date_column" />
+                            <field name="date_format" />
                         </group>
                         <group>
-                            <field name="description_column"/>
+                            <field name="description_column" />
                         </group>
                         <group>
-                            <field name="partner_name_enabled" string="Partner Name"/>
+                            <field name="partner_name_enabled" string="Partner Name" />
                             <field name="partner_name_column"
-                                attrs="{'invisible': [('partner_name_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('partner_name_enabled', '=', False)]}" />
                         </group>
                         <group>
-                            <field name="reference_enabled" string="Reference"/>
+                            <field name="reference_enabled" string="Reference" />
                             <field name="reference_column"
-                                attrs="{'invisible': [('reference_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('reference_enabled', '=', False)]}" />
                         </group>
                         <group>
                             <field name="withdraw_deposit_enabled"
-                                string="Withdraw / Deposit Columns"/>
+                                string="Withdraw / Deposit Columns" />
                             <field name="withdraw_column"
-                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}" />
                             <field name="reverse_withdraw"
-                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}" />
                             <field name="deposit_column"
-                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}" />
                             <field name="amount_column"
-                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', True)]}"/>
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', True)]}" />
                             <field name="reverse_deposit"
-                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('withdraw_deposit_enabled', '=', False)]}" />
                         </group>
                         <group>
-                            <field name="balance_enabled" string="Balance"/>
+                            <field name="balance_enabled" string="Balance" />
                             <field name="balance_column"
-                                attrs="{'invisible': [('balance_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('balance_enabled', '=', False)]}" />
                         </group>
                         <group>
-                            <field name="currency_amount_enabled" string="Amount Foreign Currency"/>
+                            <field name="currency_amount_enabled" string="Amount Foreign Currency" />
                             <field name="currency_column"
-                                attrs="{'invisible': [('currency_amount_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('currency_amount_enabled', '=', False)]}" />
                             <field name="currency_amount_column"
-                                attrs="{'invisible': [('currency_amount_enabled', '=', False)]}"/>
+                                attrs="{'invisible': [('currency_amount_enabled', '=', False)]}" />
                         </group>
                     </group>
                 </sheet>
@@ -85,8 +85,8 @@
         <field name="model">bank.statement.import.config</field>
         <field name="arch" type="xml">
             <tree string="Bank Statement Import Configurations">
-                <field name="name"/>
-                <field name="active"/>
+                <field name="name" />
+                <field name="active" />
             </tree>
         </field>
     </record>
@@ -96,9 +96,9 @@
         <field name="model">bank.statement.import.config</field>
         <field name="arch" type="xml">
             <search string="Search Statement Import Configuration">
-                <field name="name"/>
+                <field name="name" />
                 <separator/>
-                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
             </search>
         </field>
     </record>
@@ -108,8 +108,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">bank.statement.import.config</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="bank_statement_import_config_list"/>
-        <field name="search_view_id" ref="bank_statement_import_config_search"/>
+        <field name="view_id" ref="bank_statement_import_config_list" />
+        <field name="search_view_id" ref="bank_statement_import_config_search" />
     </record>
 
     <menuitem
