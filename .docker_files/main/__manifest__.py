@@ -14,6 +14,7 @@
         "account",
         "account_bank_menu",
         "account_closing_journal",
+        "account_closing_journal_mis_builder",
         "account_fiscalyear_end_on_company",
         "account_invoice_constraint_chronology_forced",
         "account_move_reversal_access",
