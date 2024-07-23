@@ -11,3 +11,6 @@ class ResPartner(models.Model):
     invoice_per_delivery = fields.Boolean(
         string="Invoicing per delivery",
     )
+
+    def _commercial_fields(self):
+        return super(ResPartner, self)._commercial_fields() + ["invoice_per_delivery"]

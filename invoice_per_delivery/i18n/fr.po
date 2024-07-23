@@ -56,7 +56,7 @@ msgstr "Facture"
 #: model:ir.model.fields,field_description:invoice_per_delivery.field_res_partner__invoice_per_delivery
 #: model:ir.model.fields,field_description:invoice_per_delivery.field_res_users__invoice_per_delivery
 msgid "Invoicing per delivery"
-msgstr "Factration par livraison"
+msgstr "Facturation par livraison"
 
 #. module: invoice_per_delivery
 #: model:ir.model,name:invoice_per_delivery.model_account_move
