@@ -22,6 +22,7 @@
         "account_negative_debit_credit",
         "account_payment_cancel_group",
         "account_show_full_features",
+        "bank_statement_import_csv",
         "canada_account_types",
         "invoice_refund_not_earlier",
         "old_accounts",
