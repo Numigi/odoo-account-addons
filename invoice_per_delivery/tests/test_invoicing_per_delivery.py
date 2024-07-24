@@ -10,7 +10,7 @@ class TestSaleStock(TestSaleCommon):
 
     def test_00_sale_stock_invoice(self):
         self.partner_a.write({"invoice_per_delivery": True})
-        self.product = self.company_data["product_delivery_no"]
+        self.product = self.company_data["product_delivery_sales_price"]
         so_vals = {
             "partner_id": self.partner_a.id,
             "partner_invoice_id": self.partner_a.id,
@@ -48,25 +48,21 @@ class TestSaleStock(TestSaleCommon):
         wiz.process()
 
         self.assertTrue(
-            pick.invoice_id,
-            "No invoice is created after validating the delivery order",
-        )
-        self.assertEqual(
-            pick.invoice_id.state,
-            "draft",
-            "Invoice created in draft status after validating the delivery order",
-        )
-        self.assertTrue(
-            pick.invoice_id.picking_id,
-            "No piking is linked to the invoice after validating the delivery order",
-        )
-        self.assertTrue(
             self.so.invoice_ids,
             "No invoice is liked to the so after validating the delivery order",
+        )
+        self.assertEqual(
+            self.so.invoice_ids[0].state,
+            "draft",
+            "Invoice created in draft status after validating the delivery order",
         )
         self.assertEqual(
             self.so.invoice_status,
             "no",
             'so invoice_status should be "no" instead of "%s"'
             % self.so.invoice_status,
+        )
+        self.assertTrue(
+            self.so.invoice_ids.mapped("picking_ids"),
+            "No piking is linked to the invoice after validating the delivery order",
         )

@@ -29,6 +29,11 @@
   includes:
     - date_range
 
+- url: https://github.com/OCA/stock-logistics-workflow
+  branch: "14.0"
+  includes:
+    - stock_picking_invoice_link
+
 - url: https://github.com/OCA/web
   branch: "14.0"
   includes:
