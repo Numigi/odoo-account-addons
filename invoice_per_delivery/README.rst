@@ -2,12 +2,19 @@ Invoice Per Delivery
 ====================
 This module provides the possibility to create an invoice per delivery order for specific partners.
 
+This module depends of the module `stock_picking_invoice_link <https://github.com/OCA/stock-logistics-workflow/tree/14.0/stock_picking_invoice_link>`_ to add a link between pickings and invoices as well as on the lines.
+
+With this module, you can find back which deliveries an invoice relates to.
+
+Note that the links are only for products with an invoicing policy set on delivery.
+
 .. contents:: Table of Contents
 
 Usage
 -----
 
-From a contact form view, you can now check the checkbox Invoicing per delivery to generate an invoice for each delivery order of this client:
+From a contact form view, you can now check the checkbox Invoicing per delivery
+to generate an invoice for each delivery order of this client:
 
 .. image:: static/description/invoicing_per_delivery_checkbox.png
 
@@ -18,12 +25,12 @@ From a contact form view, you can now check the checkbox Invoicing per delivery 
 
 .. image:: static/description/delivery_order_form_view.png
 
-- Validate your delivery order and then create a backorder for the remaining quantities. A smart button `Invoice` appears in the form view.
+- Validate your delivery order and then create a backorder for the remaining quantities. A smart button `Invoices` appears in the form view.
 
 .. image:: static/description/delivery_order_invoice_button.png
 
-- Click on the smart button to see the draft `Invoice` created from the delivery order.
-- You can go to the delivery order that generated this Invoice through the smart button `Delivery`
+- Click on the smart button to see the draft `Invoices` created from the delivery order.
+- You can go to the delivery order that generated this Invoice through the smart button `Pickins`
 
 .. image:: static/description/draft_invoice.png
 

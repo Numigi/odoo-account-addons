@@ -10,11 +10,9 @@
     "license": "LGPL-3",
     "category": "Accounting",
     "summary": "Create invoice per delivary for some partners",
-    "depends": ["stock_account", "sale_stock"],
+    "depends": ["stock_account", "sale_stock", "stock_picking_invoice_link"],
     "data": [
-        "views/account_move.xml",
         "views/res_partner.xml",
-        "views/stock_picking.xml",
     ],
     "installable": True,
     "application": False,
