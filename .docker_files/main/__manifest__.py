@@ -24,6 +24,7 @@
         "account_show_full_features",
         "bank_statement_import_csv",
         "canada_account_types",
+        "canada_mis_report",
         "canada_vat_label",
         "invoice_refund_not_earlier",
         "old_accounts",
