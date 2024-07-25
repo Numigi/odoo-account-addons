@@ -21,6 +21,7 @@
     "data": [
         "data/mis_report_style.xml",
         "data/mis_report.xml",
+        "views/mis_report_views.xml",
     ],
     "installable": True,
 }

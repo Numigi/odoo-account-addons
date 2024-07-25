@@ -39,6 +39,14 @@ In production, it is possible to customize the report templates.
 
 When updating the system, any change to these templates will not be overrided.
 
+Load Report Translation
+------------------------
+
+Since version 1.2.0, a server action is added to the Mis Report Models to reload translation if not well loaded.
+
+.. image:: static/description/translate_reports_action.png
+
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)

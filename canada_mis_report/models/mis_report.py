@@ -1,4 +1,4 @@
-# Copyright 2020 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © 2020 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import api, models
@@ -50,7 +50,7 @@ kpi_descriptions = [
     ("TAXES", "Impôts"),
     ("TITLE_ASSETS", "Actif"),
     ("TITLE_EQUITY", "Capitaux propres"),
-    ("TITLE_LIABILITIES", "‘Passif’"),
+    ("TITLE_LIABILITIES", "Passif"),
     ("TOTAL_ASSETS", "Total actif"),
     ("TOTAL_CURRENT_ASSETS", "Total actif courant"),
     ("TOTAL_EQUITY", "Total capitaux propres"),
@@ -101,14 +101,7 @@ class MisReport(models.Model):
                 _with_lang_fr(kpi).description = fr_term
 
     def _translate_canada_kpi(self, kpi_name, fr_term):
-        reports = (
-            self.env.ref("canada_mis_report.income_statement_summary")
-            | self.env.ref("canada_mis_report.income_statement_detailed")
-            | self.env.ref("canada_mis_report.balance_sheet_summary")
-            | self.env.ref("canada_mis_report.balance_sheet_detailed")
-            | self.env.ref("canada_mis_report.bank_reconciliation")
-            | self.env.ref("canada_mis_report.tax_report")
-        )
+        reports = self.env["mis.report"].search([])
         self._checking_done_translation(reports, kpi_name, fr_term)
 
 
