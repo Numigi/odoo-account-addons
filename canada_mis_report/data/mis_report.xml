@@ -4,7 +4,6 @@
     <record id="income_statement_summary" model="mis.report">
         <field name="name">Income Statement (Summary)</field>
         <field name="description">Income statement without details</field>
-        <field name="exclude_closing_entries" eval="True"/>
         <field name="kpi_ids" eval="[
             (5, 0),
             (0, 0, {
@@ -123,7 +122,6 @@
     <record id="income_statement_detailed" model="mis.report">
         <field name="name">Income Statement (Detailed)</field>
         <field name="description">Income statement with details</field>
-        <field name="exclude_closing_entries" eval="True"/>
         <field name="kpi_ids" eval="[
             (5, 0),
             (0, 0, {
