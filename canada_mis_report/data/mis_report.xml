@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo noupdate="1">
+<odoo noupdate="0">
 
     <record id="income_statement_summary" model="mis.report">
         <field name="name">Income Statement (Summary)</field>
@@ -40,7 +40,7 @@
             (0, 0, {
                 'name': 'INDIRECT_COSTS',
                 'description': 'Indirect Costs',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;in&#34;, &#34;expense&#34;, &#34;expense_depreciation&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;in&#34;, (&#34;expense&#34;, &#34;expense_depreciation&#34;))][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -161,7 +161,7 @@
             (0, 0, {
                 'name': 'INDIRECT_COSTS',
                 'description': 'Indirect Costs',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;in&#34;, &#34;expenses&#34;, &#34;expense_depreciation&#34;))][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;in&#34;, (&#34;expenses&#34;, &#34;expense_depreciation&#34;))][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -829,7 +829,7 @@
                 'model_id': ref('account.model_account_bank_statement_line'),
                 'field_ids': [(4, ref('account.field_account_bank_statement_line__amount'))],
                 'date_field': ref('account.field_account_bank_statement_line__date'),
-                'domain': '[(&#34;journal_entry_ids&#34;, &#34;=&#34;, False)]',
+                'domain': '[(&#34;line_ids&#34;, &#34;=&#34;, False)]',
                 'aggregate': 'sum',
             }),
         ]"/>
@@ -873,7 +873,7 @@
             (0, 0, {
                 'name': 'GST_SALE',
                 'description': 'GST collected on sales',
-                'expression': '-bal[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart2131_en&#34;)][]',
+                'expression': '-bal[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart2131_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -883,7 +883,7 @@
             (0, 0, {
                 'name': 'GST_PURC',
                 'description': 'GST paid on Purchases',
-                'expression': 'bal[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart1181_en&#34;)][]',
+                'expression': 'bal[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart1181_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -923,7 +923,7 @@
             (0, 0, {
                 'name': 'QST_SALE',
                 'description': 'QST collected on sales',
-                'expression': '-bal[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart2132_en&#34;)][]',
+                'expression': '-bal[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart2132_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -933,7 +933,7 @@
             (0, 0, {
                 'name': 'QST_PURC',
                 'description': 'QST paid on Purchases',
-                'expression': 'bal[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart1182_en&#34;)][]',
+                'expression': 'bal[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart1182_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -1013,7 +1013,7 @@
             (0, 0, {
                 'name': 'CTRL_GST_SALE',
                 'description': 'Accumulated balance - GST collected',
-                'expression': '-bale[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart2131_en&#34;)][]',
+                'expression': '-bale[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart2131_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -1023,7 +1023,7 @@
             (0, 0, {
                 'name': 'CTRL_GST_PURC',
                 'description': 'Accumulated balance - GST paid',
-                'expression': 'bale[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart1181_en&#34;)][]',
+                'expression': 'bale[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart1181_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -1063,7 +1063,7 @@
             (0, 0, {
                 'name': 'CTRL_QST_SALE',
                 'description': 'Accumulated balance - QST collected',
-                'expression': '-bale[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart2132_en&#34;)][]',
+                'expression': '-bale[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart2132_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -1073,7 +1073,7 @@
             (0, 0, {
                 'name': 'CTRL_QST_PURC',
                 'description': 'Accumulated balance - QST paid',
-                'expression': 'bale[(&#34;id&#34;, &#34;=&#34;, &#34;l10n_ca.chart1182_en&#34;)][]',
+                'expression': 'bale[(&#34;id&#34;, &#34;=&#34;, ref(&#34;l10n_ca.chart1182_en&#34;).id)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
