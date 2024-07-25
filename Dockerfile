@@ -16,8 +16,6 @@ RUN if [ -s /gitoo.yml ]; then \
 USER odoo
 
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
-COPY account_closing_journal /mnt/extra-addons/account_closing_journal
-COPY account_closing_journal_mis_builder  /mnt/extra-addons/account_closing_journal_mis_builder
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
