@@ -63,3 +63,12 @@ msgid ""
 msgstr ""
 "Conflit de chronologie : Une facture avec une sequence plus grande {highest_name} existe "
 "avant le {date_invoice}"
+
+#. module: account_invoice_constraint_chronology
+#. odoo-python
+#: code:addons/account_invoice_constraint_chronology/model/account_move.py:0
+#, python-format
+msgid ""
+"Chronology conflict: Invoice {name} cannot be {time} invoice {inv_name}."
+msgstr ""
+"Conflit de chronologie : La facture {name} ne peut pas être une facture {time} {inv_name}."
