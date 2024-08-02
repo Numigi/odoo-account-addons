@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="journal_dashboard_with_bank_reconciliation_term" model="ir.ui.view">
+        <field name="name">Journal Dashboard: replace term `Reconciliation` with `Bank Reconciliation`</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_kanban_manage_reconciliation')]/div[1]/span" position="replace">
+                <span role="separator">Bank Reconciliation</span>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
