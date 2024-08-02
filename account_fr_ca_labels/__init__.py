@@ -68,7 +68,6 @@ def _get_credit_note_translations():
 
 
 def _get_aged_balance_translations():
-    """Update the term `Balance âgée` to `Âge des comptes`."""
     mapping = [
         ("Balance agée des clients", "Âge des comptes clients"),
         ("Balance agée des fournisseurs", "Âge des comptes fournisseurs"),
@@ -80,7 +79,6 @@ def _get_aged_balance_translations():
 
 
 def _get_reconciliation_translations():
-    """Update the term `Lettrage` to `Conciliation`."""
     mapping = [
         ("Modèles de lettrage", "Modèles de conciliation bancaire"),
         ("de lettrage", "de conciliation"),
