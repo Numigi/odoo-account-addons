@@ -1,21 +1,36 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account
 #
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-30 12:07+0000\n"
+"PO-Revision-Date: 2024-07-30 12:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account
+#: model:res.groups,name:account.group_account_user
+msgid "Accountant"
+msgstr "Comptable"
 
 #. module: account_show_full_features
 #: model:ir.ui.menu,name:account.menu_finance
 msgid "Invoicing"
 msgstr "Comptabilité"
 
-
 #. module: account_show_full_features
 #: model:res.groups,name:account.group_account_manager
 msgid "Billing Administrator"
 msgstr "Gestionnaire"
 
-
 #. module: account_show_full_features
 #: model:res.groups,name:account.group_account_user
 msgid "Billing"
 msgstr "Comptable"
+
