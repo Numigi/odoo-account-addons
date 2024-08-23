@@ -17,49 +17,6 @@ msgstr ""
 
 
 
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_non_current
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_non_current
-msgid "Non-current Liabilities"
-msgstr "Passifs non courants"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__asset_prepayments
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__asset_prepayments
-msgid "Prepayments"
-msgstr "Accomptes"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__equity
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__equity
-msgid "Equity"
-msgstr "Fonds propres"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__off_balance
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__off_balance
-msgid "Off-Balance Sheet"
-msgstr "Hors bilan"
-
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__equity_unaffected
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__equity_unaffected
-msgid "Current Year Earnings"
-msgstr "Bénéfices de l'année en cours"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_payable
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_payable
-msgid "Payable"
-msgstr "Dette fournisseur"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_credit_card
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_credit_card
-msgid "Credit Card"
-msgstr "Carte de crédit"
-
 #. module: canada_account_types
 #: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__interest_expenses
 #: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__interest_expenses
@@ -97,6 +54,13 @@ msgstr "Autres actifs non courants"
 #: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_current
 msgid "Other Current Liabilities"
 msgstr "Autres passifs courants"
+
+
+#. module: account
+#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_non_current
+#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_non_current
+msgid "Non-current Liabilities"
+msgstr "Passifs non courants"
 
 #. module: canada_account_types
 #: model:ir.model.fields.selection,name:account.selection__account_account__account_type__income
