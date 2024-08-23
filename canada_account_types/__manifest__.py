@@ -11,6 +11,8 @@
     "category": "Accounting",
     "summary": "Add account types for Canada.",
     "depends": ["account"],
-    "data": [],
+    "data": [
+        "views/account_account_views.xml",
+    ],
     "installable": True,
 }
