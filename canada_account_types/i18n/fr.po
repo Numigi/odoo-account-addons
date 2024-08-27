@@ -15,113 +15,21 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_non_current
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_non_current
-msgid "Non-current Liabilities"
-msgstr "Passifs non courants"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__asset_prepayments
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__asset_prepayments
-msgid "Prepayments"
-msgstr "Accomptes"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__equity
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__equity
-msgid "Equity"
-msgstr "Fonds propres"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__off_balance
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__off_balance
-msgid "Off-Balance Sheet"
-msgstr "Hors bilan"
-
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__equity_unaffected
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__equity_unaffected
-msgid "Current Year Earnings"
-msgstr "Bénéfices de l'année en cours"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_payable
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_payable
-msgid "Payable"
-msgstr "Dette fournisseur"
-
-#. module: account
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_credit_card
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_credit_card
-msgid "Credit Card"
-msgstr "Carte de crédit"
-
 #. module: canada_account_types
-#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__interest_expenses
-#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__interest_expenses
+#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__expense_interest
+#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__expense_interest
 msgid "Interest Expenses"
 msgstr "Charges d'intérêts"
 
 #. module: canada_account_types
-#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__one_time_expenses
-#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__one_time_expenses
+#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__expense_one_time_expenses
+#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__expense_one_time_expenses
 msgid "One-time Expenses"
 msgstr "Charges ponctuelles"
 
 #. module: canada_account_types
-#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__tax_expenses
-#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__tax_expenses
+#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__expense_tax
+#: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__expense_tax
 msgid "Tax Expenses"
 msgstr "Charges d'impôts"
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__asset_current
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__asset_current
-msgid "Other Current Assets"
-msgstr "Autres actifs courants"
-
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__asset_non_current
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__asset_non_current
-msgid "Other Non-current Assets"
-msgstr "Autres actifs non courants"
-
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__liability_current
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__liability_current
-msgid "Other Current Liabilities"
-msgstr "Autres passifs courants"
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__income
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__income
-msgid "Revenues"
-msgstr "Revenus"
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__income_other
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__income_other
-msgid "One-time Revenues"
-msgstr "Revenus ponctuels"
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__expense_direct_cost
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__expense_direct_cost
-msgid "Direct Costs"
-msgstr "Coûts directs"
-
-
-#. module: canada_account_types
-#: model:ir.model.fields.selection,name:account.selection__account_account__account_type__expense
-#: model:ir.model.fields.selection,name:account.selection__account_account_template__account_type__expense
-msgid "Indirect Costs"
-msgstr "Coûts indirects"
-
-
 

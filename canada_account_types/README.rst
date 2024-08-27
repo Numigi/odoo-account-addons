@@ -53,9 +53,6 @@ Income Statement
 * One-time Expenses
 * Tax Expenses
 
-New Categories
---------------
-
 Interest Expenses
 ~~~~~~~~~~~~~~~~~
 In french, this category is named ``Charges d'intérêts``.
