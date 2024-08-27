@@ -15,7 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-
 #. module: canada_account_types
 #: model:ir.model.fields.selection,name:canada_account_types.selection__account_account__account_type__expense_interest
 #: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__expense_interest
@@ -33,3 +32,4 @@ msgstr "Charges ponctuelles"
 #: model:ir.model.fields.selection,name:canada_account_types.selection__account_account_template__account_type__expense_tax
 msgid "Tax Expenses"
 msgstr "Charges d'impôts"
+
