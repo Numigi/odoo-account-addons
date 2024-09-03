@@ -26,7 +26,6 @@ COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
 COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_mis_report /mnt/extra-addons/canada_mis_report
-COPY canada_vat_label /mnt/extra-addons/canada_vat_label
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
 
