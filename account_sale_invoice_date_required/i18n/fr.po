@@ -38,5 +38,5 @@ msgstr "Dernière modification le"
 #. module: account_sale_invoice_date_required
 #: code:addons/account_sale_invoice_date_required/models/account_move.py:0
 #, python-format
-msgid "The invoice date is required to validate this document."
-msgstr "La datede facturation est requise pour valider ce document."
+msgid "The invoice/refund date is required to validate this document."
+msgstr "La date de facturation/remboursement est requise pour valider ce document."

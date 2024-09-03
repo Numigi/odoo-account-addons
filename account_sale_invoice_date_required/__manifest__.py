@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Account sale invoice date required",
-    "summary": "Raise an error posting customer invoice without invoice date.",
+    "name": "Account Sale Invoice Date Required",
+    "summary": "Raise an error when posting customer invoice without invoice date.",
     "version": "14.0.1.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
