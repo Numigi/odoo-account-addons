@@ -61,6 +61,7 @@
         "old_accounts",
         "payment_list_not_sent",
         "payment_stripe_not_silenced",
+        "account_sale_invoice_date_required"
     ],
     "installable": True,
 }
