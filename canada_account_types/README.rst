@@ -9,15 +9,15 @@ This module attempts to alleviate some ambiguity caused by these differences.
 
 The module also attemps to make the types of account more explicit, even in english.
 
-The final goal of this module is to have the required categories for
-the balance sheet and the income statement.
+The final goal of this module is to have the required types for the balance sheet and the income statement.
 
 Summary
 -------
+Here is the list of ``Account Types`` available in Odoo vanilla in French (using the language with ISO Code "fr") and English (using the language with ISO Code "en")
 
-.. image:: static/description/account_types_french.png
+.. image:: static/description/account_types_fr.png
 
-.. image:: static/description/account_types_english.png
+.. image:: static/description/account_types_en.png
 
 Balance Sheet
 ~~~~~~~~~~~~~
@@ -53,47 +53,49 @@ Income Statement
 * One-time Expenses
 * Tax Expenses
 
+New Account Types
+--------------
 Interest Expenses
 ~~~~~~~~~~~~~~~~~
-In french, this category is named ``Charges d'intérêts``.
+In french, this type is named ``Charges d'intérêts``.
 
 It goes between the ``Earnings Before Interest & Taxes (EBIT)`` and the ``Earnings Before Taxes (EBT)`` in the income statement.
 
 One-time Expenses
 ~~~~~~~~~~~~~~~~~
-This category contains extraordinary expenses that should be presented distinctly from the operating income.
+This type contains extraordinary expenses that should be presented distinctly from the operating income.
 
 It goes between the ``Earnings Before Interest & Taxes (EBIT)`` and the ``Earnings Before Taxes (EBT)`` in the income statement.
 
 Tax Expenses
 ~~~~~~~~~~~~
-In french, this category is named ``Charges d'impôts``.
+In french, this type is named ``Charges d'impôts``.
 
 It goes between the ``Earnings Before Taxes (EBT)`` and the ``Net Profit`` in the income statement.
 
-Renamed Categories
+Renamed Account Types
 ------------------
 Below is the details regarding which term has been renamed and why.
 
 Other Current Assets
 ~~~~~~~~~~~~~~~~~~~~
-The category ``Current Assets`` is renamed ``Other Current Assets``.
+The type ``Current Assets`` is renamed ``Other Current Assets``.
 
 The reason is that there are already categories for ``Receivable``, ``Prepayments`` and ``Bank and Cash``.
 These are current assets as well.
 
-In french, the category is renamed ``Autres actifs courants``.
+In french, the type is renamed ``Autres actifs courants``.
 
 Fixed Assets
 ~~~~~~~~~~~~
-The category ``Fixed Assets`` is translated to ``Actifs immobilisés`` in french.
+The type ``Fixed Assets`` is translated to ``Actifs immobilisés`` in french.
 
 This is a term usually used in France, but not in Canada.
-The module renames the category to ``Immobilisations``.
+The module renames the type to ``Immobilisations``.
 
 Non-current Assets
 ~~~~~~~~~~~~~~~~~~
-The category ``Non-current Assets`` is renamed to ``Other Non-current Assets``.
+The type ``Non-current Assets`` is renamed to ``Other Non-current Assets``.
 
 This is because a fixed asset is also a kind of non-current asset.
 
@@ -101,35 +103,48 @@ In french, the term is renamed ``Autres actifs non-courants``.
 
 Other Current Liabilities
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-The category ``Current Liabilities`` is renamed ``Other Current Liabilities``.
+The type ``Current Liabilities`` is renamed ``Other Current Liabilities``.
 
 The reason is the same as for ``Current Assets``.
 
-In french, the category is renamed ``Autres passifs courants``.
+In french, the type is renamed ``Autres passifs courants``.
 
 Revenue
 ~~~~~~~
-The category ``Income`` is renamed to ``Revenue``.
+The type ``Income`` is renamed to ``Revenue``.
 This is usually the term used in Canada.
 
 One-time Revenue
 ~~~~~~~~~~~~~~~~
-The category ``Other Income`` is renamed ``One-time Revenue``.
+The type ``Other Income`` is renamed ``One-time Revenue``.
 
 It is unusual to have 2 categories for revenues in the computation of the operating income.
 
 However, ``One-time Revenues`` can be displayed between the ``Earnings Before Interest & Taxes (EBIT)`` and the ``Earnings Before Taxes (EBT)`` in the income statement.
 
+In french, the type is renamed ``Revenus ponctuels``.
+
 Other Indirect Costs
 ~~~~~~~~~~~~~~~~~~~~
-The category ``Expenses`` is renamed ``Other Indirect Costs``.
+The type ``Expenses`` is renamed ``Other Indirect Costs``.
 
-There is already a category for direct costs named ``Cost of Revenue``.
+There is already a type for direct costs named ``Cost of Revenue``.
 
-The category ``Depreciation`` is also a kind of indirect costs.
+The type ``Depreciation`` is also a kind of indirect costs.
 
-Therefore, we renamed the category ``Other Indirect Costs`` so that it contains indirect costs
+Therefore, we renamed the type ``Other Indirect Costs`` so that it contains indirect costs
 except for ``Depreciation`` (amortization).
+
+Renamed Account Categories
+-------------------------
+Assets
+~~~~~~~
+In French, the category ``Assets`` is renamed from ``Immobilisations`` to ``Actifs``.
+
+Equity
+~~~~~~~
+In French, the category ``Equity`` is renamed from ``Fonds propres`` to ``Capitaux propres``.
+
 
 Contributors
 ------------
