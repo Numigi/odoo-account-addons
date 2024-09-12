@@ -11,12 +11,14 @@
     'category': 'Accounting',
     'summary': 'Sanitize the accounting terms for Canada French',
     'depends': [
-        'account',
+        'base',
         'lang_fr_activated',
     ],
     'data': [
-        'views/journal.xml',
+        'security/ir.model.access.csv',
+        #'views/journal.xml',
+        'views/translate_term_fr_ca.xml',
     ],
-    'post_init_hook': '_update_fr_ca_terms',
+   # 'post_init_hook': '_update_fr_ca_terms',
     'installable': True,
 }
