@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo noupdate="1">
 
+    <record id="label_account_type_asset_receivable_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_receivable</field>
+        <field name="term">Comptes clients</field>
+    </record>
+
+    <record id="label_account_type_liability_non_current_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">liability_non_current</field>
+        <field name="term">Passifs non courants</field>
+    </record>
+
+    <record id="label_account_type_equity_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">equity</field>
+        <field name="term">Capitaux propres</field>
+    </record>
+
     <record id="label_account_type_asset_current_english" model="web.custom.label">
         <field name="lang">en_US</field>
         <field name="model_ids"
@@ -64,7 +97,7 @@
         <field name="position">selection</field>
         <field name="reference">account_type</field>
         <field name="key">asset_non_current</field>
-        <field name="term">Autres actifs non courants</field>
+        <field name="term">Autres actifs non-courants</field>
     </record>
 
     <record id="label_account_type_liability_current_english" model="web.custom.label">

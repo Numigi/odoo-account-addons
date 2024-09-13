@@ -103,6 +103,7 @@ In french, the term is renamed ``Autres actifs non-courants``.
 
 Other Current Liabilities
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The type ``Current Liabilities`` is renamed ``Other Current Liabilities``.
 
 The reason is the same as for ``Current Assets``.
@@ -134,16 +135,6 @@ The type ``Depreciation`` is also a kind of indirect costs.
 
 Therefore, we renamed the type ``Other Indirect Costs`` so that it contains indirect costs
 except for ``Depreciation`` (amortization).
-
-Renamed Account Categories
--------------------------
-Assets
-~~~~~~~
-In French, the category ``Assets`` is renamed from ``Immobilisations`` to ``Actifs``.
-
-Equity
-~~~~~~~
-In French, the category ``Equity`` is renamed from ``Fonds propres`` to ``Capitaux propres``.
 
 
 Contributors
