@@ -22,7 +22,10 @@
         <menuitem id="menu_translate_term_fr_ca"
                   name="CA Accouting Terms"
                   action="action_translate_term_fr_ca"
-                  parent="account.account_account_menu"
+                  parent="base.menu_translation"
+                  sequence="100"
         />
+
+
     </data>
 </odoo>

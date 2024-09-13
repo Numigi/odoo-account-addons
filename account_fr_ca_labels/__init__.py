@@ -19,12 +19,6 @@ from . import models
 #     lang = 'fr_FR'
 #     format = 'po'
 #     mapping = _get_credit_note_translations()
-#     alias = CodeTranslations()
-#     # for term in mapping:
-#     #     source=term[0]
-#     #     print("mapping",term[0])
-#     #     print(alias.get_python_translations("account", "en_US").get(source,source))
-#     # print(n)
 #     mapping = mapping + _get_aged_balance_translations()
 #     mapping = mapping + _get_reconciliation_translations()
 #     mapping = mapping + _get_payment_translations()
