@@ -20,7 +20,7 @@
         <field name="position">selection</field>
         <field name="reference">account_type</field>
         <field name="key">liability_non_current</field>
-        <field name="term">Passifs non courants</field>
+        <field name="term">Passifs non-courants</field>
     </record>
 
     <record id="label_account_type_equity_french" model="web.custom.label">
