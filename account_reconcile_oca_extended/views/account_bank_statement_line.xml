@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    # © 2024 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+-->
+
+
+<odoo>
+    <record model="ir.ui.view" id="bank_statement_line_form_reconcile_view">
+        <field name="name">account.bank.statement.line.reconcile</field>
+        <field name="model">account.bank.statement.line</field>
+        <field
+            name="inherit_id"
+            ref="account_reconcile_oca.bank_statement_line_form_reconcile_view"
+        />
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='add_account_move_line_id']" position="replace">
+                <field
+                    name="add_account_move_line_id"
+                    widget="account_reconcile_oca_match"
+                    domain="[('journal_id','=',journal_id),('parent_state', '=', 'posted'),('amount_residual', '!=', 0),('account_id.reconcile', '=', True), ('company_id', '=', company_id), ('statement_line_id', '!=', id)]"
+                    context="{'search_default_partner_id': partner_id, 'tree_view_ref': 'account_reconcile_oca.account_move_line_tree_reconcile_view', 'search_view_ref': 'account_reconcile_oca.account_move_line_search_reconcile_view'}"
+                        />
+            </xpath>
+        </field>
+    </record>
+</odoo>
