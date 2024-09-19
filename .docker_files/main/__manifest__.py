@@ -13,6 +13,7 @@
     "depends": [
         "account",
         "account_bank_menu",
+        "account_bank_statement_status",
         "account_fiscalyear_end_on_company",
         "account_invoice_constraint_chronology_forced",
         "account_move_reversal_access",
