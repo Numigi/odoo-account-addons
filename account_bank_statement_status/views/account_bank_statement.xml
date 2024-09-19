@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    # © 2024 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+    # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+-->
+
+
+<odoo>
+    <record model="ir.ui.view" id="view_bank_statement_form">
+        <field name="name">account.bank.statement.form.state</field>
+        <field name="model">account.bank.statement</field>
+        <field
+            name="inherit_id"
+            ref="account_statement_base.view_bank_statement_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr='//sheet' position="before">
+                <header>
+
+                    <button
+                        name="action_confirm_statement"
+                        string="Confirm Statement"
+                        type="object"
+                        class="btn-primary"
+                        states="open"
+                    />
+
+                    <field name="state" widget="statusbar" />
+                </header>
+            </xpath>
+            <xpath expr="//form" position="inside">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

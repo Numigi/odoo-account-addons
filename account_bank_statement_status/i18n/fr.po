@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_constraint_chronology
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-16 10:18+0000\n"
+"PO-Revision-Date: 2023-08-16 10:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+
+#. module: account_bank_statement_status
+#: model:ir.model.fields.selection,name:account_bank_statement_status.selection__account_bank_statement__state__open
+msgid "Open"
+msgstr "Ouvert"
+
+
+#. module: account_bank_statement_status
+#: model:ir.model.fields.selection,name:account_bank_statement_status.selection__account_bank_statement__state__confirmed
+msgid "Confirmed"
+msgstr "Confirmé"
+
+#. module: account_bank_statement_status
+#. odoo-python
+#: code:addons/account_bank_statement_status/models/account_bank_statement.py:0
+#, python-format
+msgid ""
+"Starting balance must match the ending balance of the previous statement."
+msgstr "Le solde de départ doit correspondre au solde de clôture du relevé précédent."
+
+#. module: account_bank_statement_status
+#. odoo-python
+#: code:addons/account_bank_statement_status/models/account_bank_statement.py:0
+#, python-format
+msgid "All statement lines must be reconciled."
+msgstr "Toutes les lignes de relevé doivent être rapprochées"
+
+#. module: account_bank_statement_status
+#. odoo-python
+#: code:addons/account_bank_statement_status/models/account_bank_statement.py:0
+#, python-format
+msgid ""
+"Sum of statement lines must equal to the difference between start and end "
+"balance"
+msgstr "La somme des lignes de relevé doit être égale à la différence entre le solde "
+"de départ et le solde de clôture."
+
+#. module: account_bank_statement_status
+#: model:ir.model.fields,help:account_bank_statement_status.field_account_bank_statement__state
+msgid ""
+"The status is set to Open, when a statement is created."
+"When the statement is approved , the status is set Confirmed."
+msgstr "Le statut est défini sur Ouvert lorsqu'un relevé est créé."
+"Lorsque le relevé est approuvé, le statut est défini sur Confirmé."
