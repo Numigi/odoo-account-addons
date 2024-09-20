@@ -4,7 +4,9 @@ Account Statement Base Extended
 Description
 -----------
 
-This module fixes some issues with the account_statemen_base module.
+This module fixes some issues with the account_statement_base module :
+
+- Fix the issue of adding a new line in the account bank statement line tree view.
 
 
 Configuration
