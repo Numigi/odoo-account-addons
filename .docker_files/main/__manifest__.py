@@ -13,7 +13,6 @@
     "depends": [
         "account",
         "account_bank_menu",
-        "account_closing_journal",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
         "account_invoice_constraint_chronology_forced",
@@ -22,6 +21,9 @@
         "account_negative_debit_credit",
         "account_payment_cancel_group",
         "account_show_full_features",
+        "bank_statement_import_csv",
+        "canada_account_types",
+        "canada_mis_report",
         "invoice_refund_not_earlier",
         "old_accounts",
     ],

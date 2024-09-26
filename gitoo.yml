@@ -27,10 +27,16 @@
   branch: "16.0"
   includes:
     - account_statement_import
-    - account_statement_import_online
     - account_statement_import_base
+    - account_statement_import_file
+    - account_statement_import_online
     - account_statement_import_txt_xlsx
     - account_statement_import_paypal
+
+- url: https://github.com/OCA/account-reconcile
+  branch: "16.0"
+  includes:
+    - account_statement_base
 
 - url: https://github.com/OCA/account-financial-tools
   branch: "16.0"
@@ -42,3 +48,8 @@
   branch: "16.0"
   includes:
     - lang_fr_activated
+
+- url: https://github.com/Numigi/odoo-web-addons
+  branch: "16.0"
+  includes:
+    - web_custom_label

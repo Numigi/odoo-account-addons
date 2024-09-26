@@ -16,7 +16,6 @@ RUN if [ -s /gitoo.yml ]; then \
 USER odoo
 
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
-COPY account_closing_journal /mnt/extra-addons/account_closing_journal
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
@@ -25,6 +24,9 @@ COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
+COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
+COPY canada_account_types /mnt/extra-addons/canada_account_types
+COPY canada_mis_report /mnt/extra-addons/canada_mis_report
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
 
