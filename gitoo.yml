@@ -53,3 +53,4 @@
   branch: "16.0"
   includes:
     - web_custom_label
+    - web_search_date_range
