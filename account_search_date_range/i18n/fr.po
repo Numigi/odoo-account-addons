@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* web_search_date_range_account
+# 	* account_search_date_range
 #
 msgid ""
 msgstr ""
@@ -17,32 +17,32 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 2.0.6\n"
 
-#. module: web_search_date_range_account
-#: model:search.date.range,label:web_search_date_range_account.range_current_trimester
+#. module: account_search_date_range
+#: model:search.date.range,label:account_search_date_range.range_current_trimester
 msgid "Current Fiscal Trimester"
 msgstr "Trimestre fiscal courant"
 
-#. module: web_search_date_range_account
-#: model:search.date.range,label:web_search_date_range_account.range_current_fiscal_year
+#. module: account_search_date_range
+#: model:search.date.range,label:account_search_date_range.range_current_fiscal_year
 msgid "Current Fiscal Year"
 msgstr "Année fiscale courante"
 
-#. module: web_search_date_range_account
-#: model:search.date.range,label:web_search_date_range_account.range_next_trimester
+#. module: account_search_date_range
+#: model:search.date.range,label:account_search_date_range.range_next_trimester
 msgid "Next Fiscal Trimester"
 msgstr "Trimestre fiscal suivant"
 
-#. module: web_search_date_range_account
-#: model:search.date.range,label:web_search_date_range_account.range_next_fiscal_year
+#. module: account_search_date_range
+#: model:search.date.range,label:account_search_date_range.range_next_fiscal_year
 msgid "Next Fiscal Year"
 msgstr "Année fiscale suivante"
 
-#. module: web_search_date_range_account
-#: model:search.date.range,label:web_search_date_range_account.range_previous_trimester
+#. module: account_search_date_range
+#: model:search.date.range,label:account_search_date_range.range_previous_trimester
 msgid "Previous Fiscal Trimester"
 msgstr "Trimestre fiscal précédent"
 
-#. module: web_search_date_range_account
-#: model:search.date.range,label:web_search_date_range_account.range_previous_fiscal_year
+#. module: account_search_date_range
+#: model:search.date.range,label:account_search_date_range.range_previous_fiscal_year
 msgid "Previous Fiscal Year"
 msgstr "Année fiscale précédente"
