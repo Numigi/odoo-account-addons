@@ -25,7 +25,7 @@
                   parent="base.menu_translation"
                   sequence="100"
         />
-
-
+    
     </data>
+    
 </odoo>

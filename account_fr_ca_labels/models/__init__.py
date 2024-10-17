@@ -2,3 +2,4 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from . import translate_term_fr_ca
+from . import translate
