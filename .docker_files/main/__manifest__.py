@@ -20,6 +20,7 @@
         "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
+        "account_search_date_range",
         "account_show_full_features",
         "bank_statement_import_csv",
         "canada_account_types",
