@@ -42,9 +42,7 @@ class TranslationImporter(BaseTranslationImporter):
             if term_model in self.env.registry.models
             else {}
         )
-
         original_load(self, reader, lang, xmlids)
-
         if mapping_dict:
             self.model_translations = replace_vals(
                 self.model_translations, mapping_dict

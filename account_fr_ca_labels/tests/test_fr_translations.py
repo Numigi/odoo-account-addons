@@ -35,7 +35,7 @@ class TestTranslation(TransactionCase):
         Test if the field's description is correctly translated based on the provided language.
         """
         field_name, expected_translation = data
-
+        self.activate_language(self.lang)
         result = (
             self.env["ir.model.fields"]
             .with_context(self.context)
