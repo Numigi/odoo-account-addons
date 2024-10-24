@@ -10,7 +10,7 @@
     'license': 'LGPL-3',
     'category': 'Accounting',
     'summary': 'Sanitize the accounting terms for Canada French',
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'lang_fr_activated'],
     'data': [
         'data/translate.term.fr_ca.csv',
         'security/ir.model.access.csv',
