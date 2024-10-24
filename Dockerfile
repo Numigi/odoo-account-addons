@@ -17,6 +17,7 @@ USER odoo
 
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
+COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal

@@ -14,6 +14,7 @@
         "account",
         "account_bank_menu",
         "account_fiscalyear_end_on_company",
+        "account_fr_ca_labels",
         "account_invoice_constraint_chronology_forced",
         "account_move_reversal_access",
         "account_move_unique_reversal",
