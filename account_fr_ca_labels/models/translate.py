@@ -33,23 +33,27 @@ class TranslationImporter(BaseTranslationImporter):
         """
         Load and apply language-specific term replacements.
         """
-        term_model = "translate.term.fr_ca"
-        mapping_dict = (
-            {
-                record.term_fr: record.term_ca
-                for record in self.env[term_model].search([])
-            }
-            if term_model in self.env.registry.models
-            else {}
-        )
+
         original_load(self, reader, lang, xmlids)
-        if mapping_dict:
-            self.model_translations = replace_vals(
-                self.model_translations, mapping_dict
+
+        if lang == "fr_FR":
+            term_model = "translate.term.fr_ca"
+            mapping_dict = (
+                {
+                    record.term_fr: record.term_ca
+                    for record in self.env[term_model].search([])
+                }
+                if term_model in self.env.registry.models
+                else {}
             )
-            self.model_terms_translations = replace_vals(
-                self.model_terms_translations, mapping_dict
-            )
+
+            if mapping_dict:
+                self.model_translations = replace_vals(
+                    self.model_translations, mapping_dict
+                )
+                self.model_terms_translations = replace_vals(
+                    self.model_terms_translations, mapping_dict
+                )
 
 
 BaseTranslationImporter._load = TranslationImporter.load_terms
