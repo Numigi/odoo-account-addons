@@ -1,20 +1,36 @@
 # Copyright 2024 Numigi and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import SUPERUSER_ID
+
+"""
+Important Note:
+
+This file overrides certain functions from the Odoo native tools/translate.py module.
+To ensure compatibility with future Odoo updates, the original implementations of the
+functions are retained and called within each overridden function. The original functions
+are assigned to the following variables:
+- base_get_python_translations
+- base_get_web_translations
+- base_load_translation
+
+This approach allows us to customize the functionality while preserving the ability
+to integrate updates from Odoo without losing any enhancements made in this module.
+"""
+
+import threading
+from odoo import api, SUPERUSER_ID, sql_db
 from odoo.tools.translate import TranslationImporter as BaseTranslationImporter
-from odoo.tools.translate import GettextAlias as BaseGettextAlias
+from odoo.tools.translate import CodeTranslations as BaseCodeTranslations
 
-import odoo
+base_load_translation = BaseTranslationImporter._load
+base_get_web_translations = BaseCodeTranslations.get_web_translations
+base_get_python_translations = BaseCodeTranslations.get_python_translations
 
-_base_load_translation = BaseTranslationImporter._load
-_base_get_translation = BaseGettextAlias._get_translation
 
-
-def replace_vals(data, mapping, lang="fr_FR"):
+def replace_values(data_dict, mapping, lang="fr_FR"):
     """
-    Replace strings in the given dict `data` based on the `mapping`
-    provided for a specific language key.
+    Replace strings in the given dictionary based on
+    the mapping provided for a specific language key.
     """
 
     def recursive_replace(current_dict):
@@ -22,13 +38,45 @@ def replace_vals(data, mapping, lang="fr_FR"):
             if isinstance(value, dict):
                 recursive_replace(value)
             elif key == lang and isinstance(value, str):
-                for old, new in mapping.items():
-                    if old in value:
-                        current_dict[key] = value.replace(old, new)
+                for old_term, new_term in mapping.items():
+                    if old_term in value:
+                        current_dict[key] = value.replace(old_term, new_term)
                         break
 
-    recursive_replace(data)
-    return data
+    recursive_replace(data_dict)
+    return data_dict
+
+
+def get_odoo_environment():
+    """
+    Retrieve the Odoo environment with a database cursor.
+    """
+    db_name = getattr(threading.current_thread(), "dbname", None)
+    db_cursor = None
+    environment = None
+    if db_name:
+        database = sql_db.db_connect(db_name)
+        if database is not None:
+            db_cursor = database.cursor()
+            environment = api.Environment(db_cursor, SUPERUSER_ID, {})
+    if environment is None or db_cursor is None:
+        raise RuntimeError(
+            "Failed to retrieve the Odoo environment or database cursor."
+        )
+    return environment, db_cursor
+
+
+def get_translation_mapping(environment, term_model):
+    """
+    Retrieve the mapping dictionary from the specified term model.
+    """
+    mapping_dict = {}
+    if term_model in environment.registry.models:
+        mapping_dict = {
+            record.term_fr: record.term_ca
+            for record in environment[term_model].search([])
+        }
+    return mapping_dict
 
 
 class TranslationImporter(BaseTranslationImporter):
@@ -37,57 +85,68 @@ class TranslationImporter(BaseTranslationImporter):
         """
         Load and apply language-specific term replacements.
         """
-
-        _base_load_translation(self, reader, lang, xmlids)
+        base_load_translation(self, reader, lang, xmlids)
 
         if lang == "fr_FR":
             term_model = "translate.term.fr_ca"
             mapping_dict = (
-                {
-                    record.term_fr: record.term_ca
-                    for record in self.env[term_model].search([])
-                }
+                get_translation_mapping(self.env, term_model)
                 if term_model in self.env.registry.models
                 else {}
             )
 
             if mapping_dict:
-                self.model_translations = replace_vals(
+                self.model_translations = replace_values(
                     self.model_translations, mapping_dict
                 )
-                self.model_terms_translations = replace_vals(
+                self.model_terms_translations = replace_values(
                     self.model_terms_translations, mapping_dict
                 )
 
 
-class GettextAlias(BaseGettextAlias):
-    def _get_translation(self, source, module=None):
-        res = _base_get_translation(self, source, module=None)
-        db = self._get_db()
-        cr = False
-        if db is not None:
-            cr = db.cursor()
-        if cr:
-            env = odoo.api.Environment(cr, SUPERUSER_ID, {})
-            lang = env["res.users"].context_get()["lang"]
-            if lang == "fr_FR":
+class CodeTranslations(BaseCodeTranslations):
+
+    def get_web_translations(self, module_name, lang):
+        BaseCodeTranslations._load_web_translations(self, module_name, lang)
+        translations = base_get_web_translations(self, module_name, lang)
+        if lang == "fr_FR":
+            environment, db_cursor = get_odoo_environment()
+            if environment:
                 term_model = "translate.term.fr_ca"
-                mapping_dict = (
-                    {
-                        record.term_fr: record.term_ca
-                        for record in env[term_model].search([])
-                    }
-                    if term_model in env.registry.models
-                    else {}
-                )
+                mapping_dict = get_translation_mapping(environment, term_model)
 
-                for old, new in mapping_dict.items():
-                    if old in res:
-                        res = res.replace(old, new)
-                        break
+                for source, translated in translations.items():
+                    for old_term, new_term in mapping_dict.items():
+                        if old_term in translated:
+                            translations[source] = translated.replace(
+                                old_term, new_term
+                            )
+            if db_cursor:
+                db_cursor.close()
 
-        return res
+        return translations
+
+    def get_python_translations(self, module_name, lang):
+        BaseCodeTranslations._load_python_translations(self, module_name, lang)
+        translations = base_get_python_translations(self, module_name, lang)
+
+        if lang == "fr_FR":
+            environment, db_cursor = get_odoo_environment()
+            if environment:
+                term_model = "translate.term.fr_ca"
+                mapping_dict = get_translation_mapping(environment, term_model)
+
+                for source, translated in translations.items():
+                    for old_term, new_term in mapping_dict.items():
+                        if old_term in translated:
+                            translations[source] = translated.replace(
+                                old_term, new_term
+                            )
+            if db_cursor:
+                db_cursor.close()
+        return translations
 
 
 BaseTranslationImporter._load = TranslationImporter._load
-BaseGettextAlias._get_translation = GettextAlias._get_translation
+BaseCodeTranslations.get_web_translations = CodeTranslations.get_web_translations
+BaseCodeTranslations.get_python_translations = CodeTranslations.get_python_translations
