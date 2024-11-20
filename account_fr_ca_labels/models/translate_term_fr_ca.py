@@ -7,6 +7,7 @@ from odoo import fields, models
 class TranslateTermFrCA(models.Model):
 
     _name = "translate.term.fr_ca"
+    _description = "Translation Term Mapping"
 
-    term_fr = fields.Char(string="Term Fr")
-    term_ca = fields.Char(string="Term CA")
+    term_fr = fields.Char("Term (French)", required=True)
+    term_ca = fields.Char("Term (Canadian French)", required=True)
