@@ -18,6 +18,8 @@ to integrate updates from Odoo without losing any enhancements made in this modu
 """
 
 import threading
+import psycopg2
+
 from odoo import api, SUPERUSER_ID, sql_db
 from odoo.tools.translate import TranslationImporter as BaseTranslationImporter
 from odoo.tools.translate import CodeTranslations as BaseCodeTranslations
@@ -66,16 +68,22 @@ def get_odoo_environment():
     return environment, db_cursor
 
 
-def get_translation_mapping(environment, term_model):
+def get_translation_mapping(environment, term_model="translate.term.fr_ca"):
     """
     Retrieve the mapping dictionary from the specified term model.
     """
     mapping_dict = {}
     if term_model in environment.registry.models:
-        mapping_dict = {
-            record.term_fr: record.term_ca
-            for record in environment[term_model].search([])
-        }
+        try:
+            mapping_dict = {
+                record.term_fr: record.term_ca
+                for record in environment[term_model].search([])
+            }
+        except psycopg2.errors.UndefinedTable:
+            # Skip if the mapping table is not yet created
+            # (e.g., during initial module installation)
+            pass
+
     return mapping_dict
 
 
@@ -88,12 +96,7 @@ class TranslationImporter(BaseTranslationImporter):
         base_load_translation(self, reader, lang, xmlids)
 
         if lang == "fr_FR":
-            term_model = "translate.term.fr_ca"
-            mapping_dict = (
-                get_translation_mapping(self.env, term_model)
-                if term_model in self.env.registry.models
-                else {}
-            )
+            mapping_dict = get_translation_mapping(self.env)
 
             if mapping_dict:
                 self.model_translations = replace_values(
@@ -112,8 +115,7 @@ class CodeTranslations(BaseCodeTranslations):
         if lang == "fr_FR":
             environment, db_cursor = get_odoo_environment()
             if environment:
-                term_model = "translate.term.fr_ca"
-                mapping_dict = get_translation_mapping(environment, term_model)
+                mapping_dict = get_translation_mapping(environment)
 
                 for source, translated in translations.items():
                     for old_term, new_term in mapping_dict.items():
@@ -133,8 +135,7 @@ class CodeTranslations(BaseCodeTranslations):
         if lang == "fr_FR":
             environment, db_cursor = get_odoo_environment()
             if environment:
-                term_model = "translate.term.fr_ca"
-                mapping_dict = get_translation_mapping(environment, term_model)
+                mapping_dict = get_translation_mapping(environment)
 
                 for source, translated in translations.items():
                     for old_term, new_term in mapping_dict.items():
