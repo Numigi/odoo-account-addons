@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-
-
     <function model="ir.ui.menu" name="write">
-            <value eval="ref('account.menu_finance')"/>
-            <value eval="{'name': 'Accounting'}"/>
+        <value eval="ref('account.menu_finance')" />
+        <value eval="{'name': 'Accounting'}" />
     </function>
-
-
 
     <!-- Make the list of account.move.line available without debug mode -->
     <record id="account.menu_action_account_moves_all" model="ir.ui.menu">
-        <field name="groups_id" eval="[(5, 0)]"/>
+        <field name="groups_id" eval="[(5, 0)]" />
     </record>
 
+    <record id="account.menu_finance_entries" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user')])]" />
+    </record>
 </data>

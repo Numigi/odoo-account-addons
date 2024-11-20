@@ -10,23 +10,15 @@ class Account(models.Model):
 
     account_type = fields.Selection(
         selection_add=[
-            ('interest_expenses', 'Interest Expenses'),
-            ('one_time_expenses', 'One-time Expenses'),
-            ('tax_expenses', 'Tax Expenses'),
-            ('asset_current', 'Other Current Assets'),
-            ('asset_fixed', 'Immobilisations'),
-            ('asset_non_current', 'Other Non-current Assets'),
-            ('liability_current', 'Other Current Liabilities'),
-            ('income', 'Revenues'),
-            ('income_other', 'One-time Revenues'),
-            ('expense_direct_cost', 'Direct Costs'),
-            ('expense', 'Indirect Costs'),
+            ("expense_interest", "Interest Expenses"),
+            ("expense_one_time_expenses", "One-time Expenses"),
+            ("expense_tax", "Tax Expenses"),
         ],
         ondelete={
-            'interest_expenses': lambda rec: rec._compute_account_type(),
-            'one_time_expenses': lambda rec: rec._compute_account_type(),
-            'tax_expenses': lambda rec: rec._compute_account_type(),
-        }
+            "expense_interest": lambda rec: rec._compute_account_type(),
+            "expense_one_time_expenses": lambda rec: rec._compute_account_type(),
+            "expense_tax": lambda rec: rec._compute_account_type(),
+        },
     )
 
 
@@ -36,16 +28,8 @@ class AccountTemplate(models.Model):
 
     account_type = fields.Selection(
         selection_add=[
-            ('interest_expenses', 'Interest Expenses'),
-            ('one_time_expenses', 'One-time Expenses'),
-            ('tax_expenses', 'Tax Expenses'),
-            ('asset_current', 'Other Current Assets'),
-            ('asset_fixed', 'Immobilisations'),
-            ('asset_non_current', 'Other Non-current Assets'),
-            ('liability_current', 'Other Current Liabilities'),
-            ('income', 'Revenues'),
-            ('income_other', 'One-time Revenues'),
-            ('expense_direct_cost', 'Direct Costs'),
-            ('expense', 'Indirect Costs'),
+            ("expense_interest", "Interest Expenses"),
+            ("expense_one_time_expenses", "One-time Expenses"),
+            ("expense_tax", "Tax Expenses"),
         ],
     )
