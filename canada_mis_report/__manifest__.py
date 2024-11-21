@@ -12,10 +12,10 @@
     "depends": [
         # Numigi/odoo-account-addons
         "canada_account_types",
-        
+
         # OCA/mis-builder
         "mis_builder",
-        
+
         # Odoo/odoo
         "l10n_ca",
     ],
