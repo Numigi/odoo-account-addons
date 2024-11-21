@@ -48,6 +48,11 @@
     - account_statement_import_txt_xlsx
     - account_statement_import_paypal
 
+- url: https://github.com/OCA/account-financial-reporting
+  branch: "14.0"
+  includes:
+    - account_financial_report
+
 - url: https://github.com/OCA/account-financial-tools
   branch: "14.0"
   includes:

@@ -1,0 +1,85 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* aged_payables_receivables_foreign_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-21 03:09+0000\n"
+"PO-Revision-Date: 2024-11-21 03:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model:ir.model,name:aged_payables_receivables_foreign_currency.model_report_account_financial_report_aged_partner_balance
+msgid "Aged Partner Balance Report"
+msgstr "Balance âgée des tiers"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model:ir.model,name:aged_payables_receivables_foreign_currency.model_report_a_f_r_report_aged_partner_balance_xlsx
+msgid "Aged Partner Balance XLSL Report"
+msgstr "Balance âgée des tiers XLSX"
+
+#. module: aged_payables_receivables_foreign_currency
+#: code:addons/aged_payables_receivables_foreign_currency/report/aged_partner_balance_xlsx.py:0
+#: code:addons/aged_payables_receivables_foreign_currency/report/aged_partner_balance_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_lines_header
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_move_lines
+#, python-format
+msgid "Amount Currency"
+msgstr "Montant en devise"
+
+#. module: aged_payables_receivables_foreign_currency
+#: code:addons/aged_payables_receivables_foreign_currency/report/aged_partner_balance_xlsx.py:0
+#: code:addons/aged_payables_receivables_foreign_currency/report/aged_partner_balance_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_lines_header
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_move_lines
+#, python-format
+msgid "Currency"
+msgstr "Devise"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model:ir.model.fields,field_description:aged_payables_receivables_foreign_currency.field_report_a_f_r_report_aged_partner_balance_xlsx__display_name
+#: model:ir.model.fields,field_description:aged_payables_receivables_foreign_currency.field_report_account_financial_report_aged_partner_balance__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_move_lines
+msgid ""
+"Due\n"
+"                        date"
+msgstr ""
+"Échéance\n"
+"                        date"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model:ir.model.fields,field_description:aged_payables_receivables_foreign_currency.field_report_a_f_r_report_aged_partner_balance_xlsx__id
+#: model:ir.model.fields,field_description:aged_payables_receivables_foreign_currency.field_report_account_financial_report_aged_partner_balance__id
+msgid "ID"
+msgstr ""
+
+#. module: aged_payables_receivables_foreign_currency
+#: model:ir.model.fields,field_description:aged_payables_receivables_foreign_currency.field_report_a_f_r_report_aged_partner_balance_xlsx____last_update
+#: model:ir.model.fields,field_description:aged_payables_receivables_foreign_currency.field_report_account_financial_report_aged_partner_balance____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_lines_header
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: aged_payables_receivables_foreign_currency
+#: model_terms:ir.ui.view,arch_db:aged_payables_receivables_foreign_currency.report_aged_partner_balance_move_lines
+msgid ""
+"Ref -\n"
+"                        Label"
+msgstr ""
+"Ref -\n"
+"                        Libellé"

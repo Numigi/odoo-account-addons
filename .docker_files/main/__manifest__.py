@@ -40,6 +40,7 @@
         "account_type_archive",
         "account_type_sane",
         "account_unaffected_earnings_disabled",
+        "aged_payables_receivables_foreign_currency",
         "bank_statement_import_csv",
         "bank_statement_extra_columns",
         "bank_statement_no_reverse",
@@ -61,7 +62,7 @@
         "old_accounts",
         "payment_list_not_sent",
         "payment_stripe_not_silenced",
-        "account_sale_invoice_date_required"
+        "account_sale_invoice_date_required",
     ],
     "installable": True,
 }

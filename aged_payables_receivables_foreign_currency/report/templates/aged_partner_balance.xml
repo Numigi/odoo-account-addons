@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Move line details shown -->
+    <template id="report_aged_partner_balance_move_lines" inherit_id="account_financial_report.report_aged_partner_balance_move_lines">
+        <xpath expr="//div[hasclass('act_as_table')]/div/div/div[6]" position="replace">
+                <div class="act_as_cell" style="width: 10.00%;">
+                        Ref -
+                        Label
+                    </div>
+        </xpath>
+        <xpath expr="//div[hasclass('act_as_table')]/div/div/div[7]" position="replace">
+                <div class="act_as_cell" style="width: 4.36%;">
+                        Due
+                        date
+                </div>
+                <div class="act_as_cell" style="width: 3.64%;">Currency</div>
+                <div class="act_as_cell" style="width: 6.00%;">Amount Currency</div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('act_as_table')]/t/div/div[7]" position="after">
+            <div class="act_as_cell">
+                <span
+                    t-esc="request.env['res.currency'].search([('id','=',line['currency_id'][0])]).name"
+                />
+            </div>
+
+            <div class="act_as_cell amount">
+                <t t-if="line['amount_currency'] == 0">
+                    <span
+                        t-esc="line['amount_currency']"
+                        t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
+                    />
+                </t>
+                <t t-else="">
+                    <span
+                        domain="[('id', 'in', (line['line_rec'] | line['line_rec'].matched_debit_ids.mapped('debit_move_id') | line['line_rec'].matched_credit_ids.mapped('credit_move_id')).ids)]"
+                        res-model="account.move.line"
+                    >
+                    <t 
+                        t-raw="line['amount_currency']"
+                        t-options="{'widget': 'monetary', 'display_currency': request.env['res.currency'].search([('id','=',partner['currency_id'])])}"
+                    />
+                    </span>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- Move line details not shown -->
+    <template id="report_aged_partner_balance_lines_header" inherit_id="account_financial_report.report_aged_partner_balance_lines_header">
+        <xpath expr="//div[hasclass('act_as_row')]/div[1]" position="replace">
+                <div class="act_as_cell" style="width: 19.24%;">Partner</div>
+                <div class="act_as_cell" style="width: 3.64%;">Currency</div>
+                <div class="act_as_cell" style="width: 9.64%;">Amount Currency</div>
+        </xpath>
+    </template>
+
+    <template id="report_aged_partner_balance_lines" inherit_id="account_financial_report.report_aged_partner_balance_lines">
+        <xpath expr="//div[hasclass('act_as_row')]/div[1]" position="after">
+            <div class="act_as_cell">
+                <span
+                    t-esc="request.env['res.currency'].search([('id','=',partner['currency_id'])]).name"
+                />
+            </div>
+            <div class="act_as_cell amount">
+                <span
+                    t-esc="partner['amount_currency']"
+                    t-options="{'widget': 'monetary', 'display_currency': request.env['res.currency'].search([('id','=',partner['currency_id'])])}"
+                />
+            </div>
+        </xpath>
+    </template>
+</odoo>
