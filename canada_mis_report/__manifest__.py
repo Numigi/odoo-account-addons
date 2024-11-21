@@ -12,13 +12,10 @@
     "depends": [
         # Numigi/odoo-account-addons
         "canada_account_types",
-       # "account_closing_journal_mis_builder",
-
+        
         # OCA/mis-builder
         "mis_builder",
-
-        # Numigi/odoo-base
-        "lang_fr_activated",
+        
         # Odoo/odoo
         "l10n_ca",
     ],
