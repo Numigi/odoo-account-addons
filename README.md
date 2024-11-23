@@ -1,2 +1,2 @@
-# account-addons
+# account-addons.
 Account related addons
