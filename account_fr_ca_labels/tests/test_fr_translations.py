@@ -15,6 +15,23 @@ class TranslationCase(common.TransactionCase):
             ]
         )
 
+    @staticmethod
+    def is_enterprise(env):
+        # List of modules exclusive to Odoo Enterprise
+        enterprise_modules = [
+            'web_enterprise',
+            'hr_payroll',
+            'account_accountant',
+            'account_reports',
+            # Add more enterprise-specific modules as needed
+        ]
+
+        # Check if any of the enterprise modules are installed
+        installed_modules = env['ir.module.module'].search(
+            [('name', 'in', enterprise_modules), ('state', '=', 'installed')]
+        )
+        return bool(installed_modules)
+
 
 @ddt
 class TestCreditNote(TranslationCase):
@@ -48,13 +65,31 @@ class TestAgedBalance(TranslationCase):
         assert not self._find_translation(data[0], data[1])
 
     # Terms only available on account_reports in odoo-enterprise
-    # @data(
-    #     ('Aged Receivable', 'Âge des comptes clients'),
-    #     ('Aged Payable', 'Âge des comptes fournisseurs'),
-    #     ('Aged Partner Balances', 'Âge des comptes'),
-    # )
-    # def test_translations_found_with_correct_term(self, data):
-    #     assert self._find_translation(data[0], data[1])
+    @data(
+        ('Aged Receivable', 'Âge des comptes clients'),
+        ('Aged Payable', 'Âge des comptes fournisseurs'),
+        ('Aged Partner Balances', 'Âge des comptes'),
+    )
+    def test_translations_found_with_correct_term(self, data):
+        if self.is_enterprise():
+            assert self._find_translation(data[0], data[1])
+
+    # @classmethod
+    # def is_enterprise(cls):
+    #     # List of modules exclusive to Odoo Enterprise
+    #     enterprise_modules = [
+    #         'web_enterprise',
+    #         'hr_payroll',
+    #         'account_accountant',
+    #         'account_reports',
+    #         # Add more enterprise-specific modules as needed
+    #     ]
+
+    #     # Check if any of the enterprise modules are installed
+    #     installed_modules = cls.env['ir.module.module'].search(
+    #         [('name', 'in', enterprise_modules), ('state', '=', 'installed')]
+    #     )
+    #     return bool(installed_modules)
 
 
 @ddt
@@ -74,10 +109,32 @@ class TestReconciliation(TranslationCase):
         ('Unreconcile', 'Annuler la conciliation'),
         ('Reconciliation Models', 'Modèles de conciliation bancaire'),
         # Terms only available in enterprise version
-        # ('Reconciliation', 'Conciliation'),
+        ('Reconciliation', 'Conciliation'),
     )
     def test_translations_found_with_correct_term(self, data):
-        assert self._find_translation(data[0], data[1])
+        term, translation = data
+        if term == 'Reconciliation':
+            if self.is_enterprise:
+                assert self._find_translation(term, translation)
+        else:
+            assert self._find_translation(term, translation)
+
+    # @classmethod
+    # def is_enterprise(cls):
+    #     # List of modules exclusive to Odoo Enterprise
+    #     enterprise_modules = [
+    #         'web_enterprise',
+    #         'hr_payroll',
+    #         'account_accountant',
+    #         'account_reports',
+    #         # Add more enterprise-specific modules as needed
+    #     ]
+
+    #     # Check if any of the enterprise modules are installed
+    #     installed_modules = cls.env['ir.module.module'].search(
+    #         [('name', 'in', enterprise_modules), ('state', '=', 'installed')]
+    #     )
+    #     return bool(installed_modules)
 
 
 @ddt
