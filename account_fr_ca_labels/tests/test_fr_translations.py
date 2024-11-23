@@ -71,7 +71,7 @@ class TestAgedBalance(TranslationCase):
         ('Aged Partner Balances', 'Âge des comptes'),
     )
     def test_translations_found_with_correct_term(self, data):
-        if self.is_enterprise():
+        if self.is_enterprise(self.env):
             assert self._find_translation(data[0], data[1])
 
     # @classmethod
@@ -114,7 +114,7 @@ class TestReconciliation(TranslationCase):
     def test_translations_found_with_correct_term(self, data):
         term, translation = data
         if term == 'Reconciliation':
-            if self.is_enterprise:
+            if self.is_enterprise(self.env):
                 assert self._find_translation(term, translation)
         else:
             assert self._find_translation(term, translation)
