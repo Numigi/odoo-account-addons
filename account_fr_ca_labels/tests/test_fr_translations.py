@@ -8,10 +8,12 @@ from odoo.tests import common
 class TranslationCase(common.TransactionCase):
 
     def _find_translation(self, source, value):
-        return self.env['ir.translation'].search([
-            ('src', '=', source),
-            ('value', '=', value),
-        ])
+        return self.env['ir.translation'].search(
+            [
+                ('src', '=', source),
+                ('value', '=', value),
+            ]
+        )
 
 
 @ddt
@@ -45,13 +47,14 @@ class TestAgedBalance(TranslationCase):
     def test_no_translation_found_with_wrong_term(self, data):
         assert not self._find_translation(data[0], data[1])
 
-    @data(
-        ('Aged Receivable', 'Âge des comptes clients'),
-        ('Aged Payable', 'Âge des comptes fournisseurs'),
-        ('Aged Partner Balances', 'Âge des comptes'),
-    )
-    def test_translations_found_with_correct_term(self, data):
-        assert self._find_translation(data[0], data[1])
+    # Terms only available on account_reports in odoo-enterprise
+    # @data(
+    #     ('Aged Receivable', 'Âge des comptes clients'),
+    #     ('Aged Payable', 'Âge des comptes fournisseurs'),
+    #     ('Aged Partner Balances', 'Âge des comptes'),
+    # )
+    # def test_translations_found_with_correct_term(self, data):
+    #     assert self._find_translation(data[0], data[1])
 
 
 @ddt
@@ -70,7 +73,8 @@ class TestReconciliation(TranslationCase):
         ('Reconcile', 'Réconcilier'),
         ('Unreconcile', 'Annuler la conciliation'),
         ('Reconciliation Models', 'Modèles de conciliation bancaire'),
-        ('Reconciliation', 'Conciliation'),
+        # Terms only available in enterprise version
+        # ('Reconciliation', 'Conciliation'),
     )
     def test_translations_found_with_correct_term(self, data):
         assert self._find_translation(data[0], data[1])
