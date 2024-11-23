@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 19:35+0000\n"
-"PO-Revision-Date: 2024-11-20 19:35+0000\n"
+"POT-Creation-Date: 2024-11-22 23:45+0000\n"
+"PO-Revision-Date: 2024-11-22 23:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr ""
 #: code:addons/canada_bank_transfer/wizard/eft_confirmation.py:0
 #, python-format
 msgid " - Deposit"
-msgstr ""
+msgstr " - Dépôt"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_user_long_name
@@ -73,17 +73,17 @@ msgstr "Action requise"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__207
 msgid "Adjustment Pay"
-msgstr ""
+msgstr "Ajustement de paie"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__240
 msgid "Annuity"
-msgstr ""
+msgstr "Rente"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__204
 msgid "Anticipated Pay"
-msgstr ""
+msgstr "Paie anticipée"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
@@ -98,7 +98,7 @@ msgstr "Approuver l'EFT"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_eft__state__approved
 msgid "Approved"
-msgstr ""
+msgstr "Approuvé"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__message_attachment_count
@@ -124,12 +124,12 @@ msgstr "Annuler"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_eft__state__cancelled
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulé"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__205
 msgid "Commission Pay"
-msgstr ""
+msgstr "Paie de commission"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_confirmation_line__completed
@@ -174,7 +174,7 @@ msgstr "Devise"
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__deposit_account_move_id
 msgid "Deposit Account Move"
-msgstr ""
+msgstr "Compte de dépôt"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.view_account_journal_form
@@ -198,27 +198,27 @@ msgstr "Nom affiché"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__250
 msgid "Dividend"
-msgstr ""
+msgstr "Dividende"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__251
 msgid "Dividend, Ordinary Shares"
-msgstr ""
+msgstr "Dividende, actions ordinaires"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__252
 msgid "Dividende, Preferred Shares"
-msgstr ""
+msgstr "Dividende, action prévilégiées"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_eft__state__done
 msgid "Done"
-msgstr ""
+msgstr "Terminé"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_eft__state__draft
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: canada_bank_transfer
 #: model:account.payment.method,name:canada_bank_transfer.payment_method_eft
@@ -255,7 +255,7 @@ msgstr "Wizard de confirmation de l'EFT"
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_journal__eft_destination
 msgid "EFT Destination"
-msgstr ""
+msgstr "EFT Destination"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
@@ -400,7 +400,7 @@ msgstr "Paiements en échec"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__231
 msgid "Federal Pension"
-msgstr ""
+msgstr "Pension fédérale"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__content_binary
@@ -483,12 +483,12 @@ msgstr "Numéro d'institution"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__280
 msgid "Interest"
-msgstr ""
+msgstr "Intérêt"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__260
 msgid "Investment"
-msgstr ""
+msgstr "Investissement"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_payment__is_eft_payment
@@ -554,7 +554,7 @@ msgstr "Ligne"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__281
 msgid "Lottery Payment"
-msgstr ""
+msgstr "Paiement de lotterie"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__message_main_attachment_id
@@ -569,17 +569,17 @@ msgstr "Erreur livraison de messages"
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Messages"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__450
 msgid "Miscellaneous Payment"
-msgstr ""
+msgstr "Paiement divers"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__261
 msgid "Mutual Fund"
-msgstr ""
+msgstr "Fond mutuel"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__name
@@ -591,7 +591,7 @@ msgstr "Nom"
 #: code:addons/canada_bank_transfer/models/account_eft.py:0
 #, python-format
 msgid "New EFT"
-msgstr ""
+msgstr "Nouveau EFT"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.payment_search_with_eft_filter
@@ -606,7 +606,7 @@ msgstr "Nombre d'actions"
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Nombre d'erreurs"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_eft__message_needaction_counter
@@ -675,17 +675,17 @@ msgstr "Paiements"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__200
 msgid "Payroll Deposit List"
-msgstr ""
+msgstr "Liste de dépôt de paie"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__230
 msgid "Pension"
-msgstr ""
+msgstr "Pension"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__206
 msgid "Premium Pay"
-msgstr ""
+msgstr "Payement de prime"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__233
@@ -695,17 +695,17 @@ msgstr ""
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__232
 msgid "Provincial Pension"
-msgstr ""
+msgstr "Pension privée"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__274
 msgid "RDP Contribution"
-msgstr ""
+msgstr "Contribution REEI"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_eft__state__ready
 msgid "Ready"
-msgstr ""
+msgstr "Prêt"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_confirmation_line__partner_bank_account_id
@@ -715,17 +715,17 @@ msgstr "Compte bancaire du destinataire"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__266
 msgid "Registered Education Savings Plans Contribution"
-msgstr ""
+msgstr "Contribution REEE"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__271
 msgid "Registered Savings Plans"
-msgstr ""
+msgstr "Fonds de revenu de retraite"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__272
 msgid "Retirement Savings Plans"
-msgstr ""
+msgstr "Envoyer les avis de paiement"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__message_has_sms_error
@@ -736,6 +736,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
 msgid "Send Payment Notices"
 msgstr "Envoyer les avis de paiement"
+
+#. module: canada_bank_transfer
+#: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
+msgid "Sent"
+msgstr "Envoyé"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__sequence
@@ -751,12 +756,12 @@ msgstr "Mettre à brouillon"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__201
 msgid "Special Payroll Deposit List"
-msgstr ""
+msgstr "Liste de paye spéciale"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__265
 msgid "Spouse Retirement Plan"
-msgstr ""
+msgstr "Régime au profit du Conjoint"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__state
@@ -766,7 +771,7 @@ msgstr "État"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__273
 msgid "Tax-Free Savings Account"
-msgstr ""
+msgstr "Compte d'épargne libre d'impôt"
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_destination
@@ -895,6 +900,9 @@ msgid ""
 "\n"
 "{}"
 msgstr ""
+"Les paiements suivants ne peuvent pas être utilisés pour générer un EFT car ils sont déjà envoyés :\n"
+"\n"
+"{}"
 
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/payment_validation.py:0
@@ -930,19 +938,19 @@ msgstr "Le numéro d'institution `{}` doit contenir seulement des digits."
 #: code:addons/canada_bank_transfer/models/res_bank.py:0
 #, python-format
 msgid "The institution number must contain 3 digits. Got `{}`."
-msgstr ""
+msgstr "Le numéro d'établissement doit contenir 3 chiffres. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_eft_confirmation_line__currency_id
 msgid "The payment's currency."
-msgstr ""
+msgstr "La devise du paiement."
 
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/models/account_eft.py:0
 #, python-format
 msgid ""
 "The sequence number of an EFT must strictly be an integer. Got {value}."
-msgstr ""
+msgstr "Le numéro de séquence d'un EFT doit être strictement un entier. La valeur obtenue est {value}."
 
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/generate_eft.py:0
@@ -961,7 +969,7 @@ msgstr "Le numéro de transit `{}` doit contenir seulement des digits."
 #: code:addons/canada_bank_transfer/models/res_partner_bank.py:0
 #, python-format
 msgid "The transit number must contain 5 digits. Got `{}`."
-msgstr ""
+msgstr "Le numéro de transit doit contenir 5 chiffres. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,help:canada_bank_transfer.field_account_journal__eft_user_number
@@ -1013,7 +1021,7 @@ msgstr "Nombre de messages non lus"
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_res_config_settings__use_transit_account
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.res_config_settings_view_form_inherit_canada_bank_transfer
 msgid "Use a transit Account"
-msgstr ""
+msgstr "Utiliser un compte de transit"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.view_account_journal_form
@@ -1033,7 +1041,7 @@ msgstr "Nom court de l'usager"
 #. module: canada_bank_transfer
 #: model:ir.model.fields.selection,name:canada_bank_transfer.selection__account_payment__eft_transaction_type__202
 msgid "Vacation Pay"
-msgstr ""
+msgstr "Paie de vacances"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.eft_form
@@ -1071,13 +1079,14 @@ msgstr ""
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/models/account_payment.py:0
 #, python-format
-msgid "You cannot cancel a payment linked to an Electronic Funds Transfer."
+msgid ""
+"You cannot reset to draft a payment linked to an Electronic Funds Transfer."
 msgstr ""
-"Vous ne pouvez pas annuler un paiement associé à un Transfert de Fonds "
+"Vous ne pouvez pas mettre à brouillon un paiement associé à un Transfert de Fonds "
 "Électronique."
 
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/models/account_eft.py:0
 #, python-format
 msgid "You may not delete an EFT that is not draft."
-msgstr ""
+msgstr "Vous ne pouvez pas supprimer un EFT qui n’est pas un brouillon."
