@@ -74,23 +74,6 @@ class TestAgedBalance(TranslationCase):
         if self.is_enterprise(self.env):
             assert self._find_translation(data[0], data[1])
 
-    # @classmethod
-    # def is_enterprise(cls):
-    #     # List of modules exclusive to Odoo Enterprise
-    #     enterprise_modules = [
-    #         'web_enterprise',
-    #         'hr_payroll',
-    #         'account_accountant',
-    #         'account_reports',
-    #         # Add more enterprise-specific modules as needed
-    #     ]
-
-    #     # Check if any of the enterprise modules are installed
-    #     installed_modules = cls.env['ir.module.module'].search(
-    #         [('name', 'in', enterprise_modules), ('state', '=', 'installed')]
-    #     )
-    #     return bool(installed_modules)
-
 
 @ddt
 class TestReconciliation(TranslationCase):
@@ -118,23 +101,6 @@ class TestReconciliation(TranslationCase):
                 assert self._find_translation(term, translation)
         else:
             assert self._find_translation(term, translation)
-
-    # @classmethod
-    # def is_enterprise(cls):
-    #     # List of modules exclusive to Odoo Enterprise
-    #     enterprise_modules = [
-    #         'web_enterprise',
-    #         'hr_payroll',
-    #         'account_accountant',
-    #         'account_reports',
-    #         # Add more enterprise-specific modules as needed
-    #     ]
-
-    #     # Check if any of the enterprise modules are installed
-    #     installed_modules = cls.env['ir.module.module'].search(
-    #         [('name', 'in', enterprise_modules), ('state', '=', 'installed')]
-    #     )
-    #     return bool(installed_modules)
 
 
 @ddt
