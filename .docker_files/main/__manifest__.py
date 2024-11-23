@@ -33,7 +33,6 @@
         "account_payment_term_usage_purchase",
         "account_payment_term_usage_sale",
         "account_payment_widget_link",
-        "account_report_line_menu",
         "account_report_trial_balance",
         "account_search_by_amount",
         "account_show_full_features",
@@ -61,7 +60,7 @@
         "old_accounts",
         "payment_list_not_sent",
         "payment_stripe_not_silenced",
-        "account_sale_invoice_date_required"
+        "account_sale_invoice_date_required",
     ],
     "installable": True,
 }
