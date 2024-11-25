@@ -10,6 +10,10 @@
                 <separator/>
                 <filter string="EFT" name="eft" domain="[('is_eft_payment', '=', True)]"/>
             </filter>
+            <filter name="state_sent" position="after">
+                <filter string="Not Sent" name="state_not_sent" domain="[('is_move_sent', '=', False)]"/>
+            </filter>
+        
         </field>
     </record>
 
