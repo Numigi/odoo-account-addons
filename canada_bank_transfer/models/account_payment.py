@@ -51,7 +51,8 @@ class AccountPayment(models.Model):
 
     def action_draft(self):
         for payment in self:
-            if payment.eft_ids and payment.state in ['posted', 'sent', 'reconciled']:
+            if payment.eft_ids and payment.state == 'posted':
                 raise UserError(
-                    _('You cannot cancel a payment linked to an Electronic Funds Transfer.'))
+                    _("You cannot reset to draft a payment linked to "
+                      "an Electronic Funds Transfer."))
         super().action_draft()
