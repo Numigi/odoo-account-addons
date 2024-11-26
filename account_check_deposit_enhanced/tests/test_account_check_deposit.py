@@ -17,13 +17,14 @@ class TestAccountCheckDeposit(SavepointCase):
                 "code": "210110",
                 "reconcile": True,
                 "user_type_id": cls.env.ref("account.data_account_type_payable").id,
-                "company_id": self.main_company.id,
+                "company_id": cls.main_company.id,
             }
         )
         cls.partner = cls.env["res.partner"].create(
             {
                 "name": "Partner",
                 "property_account_payable_id": cls.payable.id,
+                "company_id": cls.main_company.id,
             }
         )
 
@@ -32,7 +33,7 @@ class TestAccountCheckDeposit(SavepointCase):
                 "name": "Check Journal",
                 "type": "bank",
                 "code": "CH",
-                "company_id": self.main_company.id,
+                "company_id": cls.main_company.id,
             }
         )
         cls.bank_journal = cls.env["account.journal"].create(
@@ -40,7 +41,7 @@ class TestAccountCheckDeposit(SavepointCase):
                 "name": "Bank Journal",
                 "type": "bank",
                 "code": "BNK",
-                "company_id": self.main_company.id,
+                "company_id": cls.main_company.id,
             }
         )
         cls.payment = cls.env["account.payment"].create(
