@@ -3,7 +3,7 @@
 
 {
     "name": "Account Check Deposit Enhanced",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "category": "Accounting",
     "license": "AGPL-3",
     "summary": "Enhance check deposits",
