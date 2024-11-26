@@ -73,4 +73,4 @@ class TestAccountCheckDeposit(SavepointCase):
         debit = self.deposit.line_ids.filtered(lambda l: l.debit)
         assert debit.partner_id == self.deposit.company_id.partner_id
         credit = self.deposit.line_ids.filtered(lambda l: l.credit)
-        assert credit.partner_id == self.partner
+        assert not credit.partner_id
