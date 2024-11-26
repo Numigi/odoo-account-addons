@@ -10,5 +10,6 @@ class AccountCheckDeposit(models.Model):
     def _prepare_move_vals(self):
         vals = super()._prepare_move_vals()
         for line in vals["line_ids"]:
-            line[2]['partner_id'] = self.company_id.partner_id.id
+            if line[2]['debit'] > 0:
+                line[2]['partner_id'] = self.company_id.partner_id.id
         return vals
