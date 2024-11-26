@@ -17,12 +17,14 @@ class TestAccountCheckDeposit(SavepointCase):
                 "code": "210110",
                 "reconcile": True,
                 "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "company_id": cls.main_company.id,
             }
         )
         cls.partner = cls.env["res.partner"].create(
             {
                 "name": "Partner",
                 "property_account_payable_id": cls.payable.id,
+                "company_id": cls.main_company.id,
             }
         )
 
@@ -31,6 +33,7 @@ class TestAccountCheckDeposit(SavepointCase):
                 "name": "Check Journal",
                 "type": "bank",
                 "code": "CH",
+                "company_id": cls.main_company.id,
             }
         )
         cls.bank_journal = cls.env["account.journal"].create(
@@ -38,6 +41,7 @@ class TestAccountCheckDeposit(SavepointCase):
                 "name": "Bank Journal",
                 "type": "bank",
                 "code": "BNK",
+                "company_id": cls.main_company.id,
             }
         )
         cls.payment = cls.env["account.payment"].create(
@@ -70,7 +74,7 @@ class TestAccountCheckDeposit(SavepointCase):
 
     def test_debit_move_line_has_company(self):
         self.deposit.validate_deposit()
-        debit = self.deposit.line_ids.filtered(lambda l: l.debit)
+        debit = self.deposit.move_id.line_ids.filtered(lambda l: l.debit)
         assert debit.partner_id == self.env.user.company_id.partner_id
-        credit = self.deposit.line_ids.filtered(lambda l: l.credit)
+        credit = self.deposit.move_id.line_ids.filtered(lambda l: l.credit)
         assert credit.partner_id == self.partner
