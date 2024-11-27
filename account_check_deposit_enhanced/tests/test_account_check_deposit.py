@@ -68,7 +68,7 @@ class TestAccountCheckDeposit(SavepointCase):
             }
         )
 
-    def test_debit_move_line_has_company(self):
+    def test_deposit_line_ids_partner_id(self):
         self.deposit.validate_deposit()
         debit = self.deposit.line_ids.filtered(lambda l: l.debit)
         assert debit.partner_id == self.deposit.company_id.partner_id
