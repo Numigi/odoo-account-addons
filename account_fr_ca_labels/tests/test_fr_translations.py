@@ -8,29 +8,10 @@ from odoo.tests import common
 class TranslationCase(common.TransactionCase):
 
     def _find_translation(self, source, value):
-        return self.env['ir.translation'].search(
-            [
-                ('src', '=', source),
-                ('value', '=', value),
-            ]
-        )
-
-    @staticmethod
-    def is_enterprise(env):
-        # List of modules exclusive to Odoo Enterprise
-        enterprise_modules = [
-            'web_enterprise',
-            'hr_payroll',
-            'account_accountant',
-            'account_reports',
-            # Add more enterprise-specific modules as needed
-        ]
-
-        # Check if any of the enterprise modules are installed
-        installed_modules = env['ir.module.module'].search(
-            [('name', 'in', enterprise_modules), ('state', '=', 'installed')]
-        )
-        return bool(installed_modules)
+        return self.env['ir.translation'].search([
+            ('src', '=', source),
+            ('value', '=', value),
+        ])
 
 
 @ddt
@@ -64,15 +45,13 @@ class TestAgedBalance(TranslationCase):
     def test_no_translation_found_with_wrong_term(self, data):
         assert not self._find_translation(data[0], data[1])
 
-    # Terms only available on account_reports in odoo-enterprise
     @data(
         ('Aged Receivable', 'Âge des comptes clients'),
         ('Aged Payable', 'Âge des comptes fournisseurs'),
         ('Aged Partner Balances', 'Âge des comptes'),
     )
     def test_translations_found_with_correct_term(self, data):
-        if self.is_enterprise(self.env):
-            assert self._find_translation(data[0], data[1])
+        assert self._find_translation(data[0], data[1])
 
 
 @ddt
@@ -91,16 +70,10 @@ class TestReconciliation(TranslationCase):
         ('Reconcile', 'Réconcilier'),
         ('Unreconcile', 'Annuler la conciliation'),
         ('Reconciliation Models', 'Modèles de conciliation bancaire'),
-        # Terms only available in enterprise version
         ('Reconciliation', 'Conciliation'),
     )
     def test_translations_found_with_correct_term(self, data):
-        term, translation = data
-        if term == 'Reconciliation':
-            if self.is_enterprise(self.env):
-                assert self._find_translation(term, translation)
-        else:
-            assert self._find_translation(term, translation)
+        assert self._find_translation(data[0], data[1])
 
 
 @ddt
