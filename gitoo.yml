@@ -1,6 +1,3 @@
-- url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-enterprise
-  branch: "14.0"
-
 - url: https://github.com/Numigi/odoo-base-addons
   branch: "14.0"
 
@@ -8,6 +5,16 @@
   branch: "14.0"
   includes:
     - partner_affiliate_extended
+
+- url: https://github.com/OCA/account-financial-reporting
+  branch: "14.0"
+  includes:
+    - account_financial_report
+
+- url: https://github.com/OCA/account-reconcile
+  branch: "14.0"
+  includes:
+    - account_reconciliation_widget
 
 - url: https://github.com/OCA/mis-builder
   branch: "14.0"
