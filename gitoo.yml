@@ -6,6 +6,16 @@
   includes:
     - partner_affiliate_extended
 
+- url: https://github.com/OCA/account-financial-reporting
+  branch: "14.0"
+  includes:
+    - account_financial_report
+
+- url: https://github.com/OCA/account-reconcile
+  branch: "14.0"
+  includes:
+    - account_reconciliation_widget
+
 - url: https://github.com/OCA/mis-builder
   branch: "14.0"
   includes:

@@ -11,7 +11,6 @@
     "category": "Other",
     "summary": "Install all addons required for testing.",
     "depends": [
-        "account_accountant",  # Used for testing account_fr_ca_labels
         "l10n_generic_coa",  # Used for testing addons
         "account_additional_group",
         "account_analytic_required_forbidden",
@@ -20,6 +19,7 @@
         "account_closing_journal",
         "account_closing_journal_mis_builder",
         "account_closing_wizard",
+        "account_financial_report",  # Used for testing account_fr_ca_labels
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
         "account_invoice_constraint_chronology_forced",
@@ -33,6 +33,7 @@
         "account_payment_term_usage_purchase",
         "account_payment_term_usage_sale",
         "account_payment_widget_link",
+        "account_reconciliation_widget",  # Used for testing account_fr_ca_labels
         "account_report_trial_balance",
         "account_search_by_amount",
         "account_show_full_features",
