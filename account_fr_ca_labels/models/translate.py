@@ -88,7 +88,6 @@ def get_translation_mapping(environment, term_model="translate.term.fr_ca"):
 
 
 class TranslationImporter(BaseTranslationImporter):
-
     def _load(self, reader, lang, xmlids=None):
         """
         Load and apply language-specific term replacements.
@@ -108,7 +107,6 @@ class TranslationImporter(BaseTranslationImporter):
 
 
 class CodeTranslations(BaseCodeTranslations):
-
     def get_web_translations(self, module_name, lang):
         BaseCodeTranslations._load_web_translations(self, module_name, lang)
         translations = base_get_web_translations(self, module_name, lang)

@@ -5,6 +5,6 @@ from odoo import SUPERUSER_ID, api
 
 def sale_journals_check_chronology(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    sale_journal_ids = env["account.journal"].search([('type', '=', 'sale')])
+    sale_journal_ids = env["account.journal"].search([("type", "=", "sale")])
     for journal in sale_journal_ids:
         journal.check_chronology = True

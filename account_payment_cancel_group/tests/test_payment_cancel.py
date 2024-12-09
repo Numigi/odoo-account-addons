@@ -7,7 +7,6 @@ from odoo.exceptions import AccessError
 
 
 class TestPaymentCancel(common.SavepointCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

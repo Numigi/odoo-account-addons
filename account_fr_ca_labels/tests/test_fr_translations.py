@@ -7,7 +7,6 @@ from odoo.tests.common import TransactionCase
 
 @ddt
 class TestTranslation(TransactionCase):
-
     def setUp(self):
         """
         Set up context and initial data for tests, including creating translation terms.
