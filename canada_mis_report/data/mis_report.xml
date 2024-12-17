@@ -59,7 +59,7 @@
             (0, 0, {
                 'name': 'INTEREST',
                 'description': 'Interests',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;interest_expenses&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;expense_interest&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -69,7 +69,7 @@
             (0, 0, {
                 'name': 'ONE_TIME_CHARGES',
                 'description': 'One-time Charges',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;one_time_expenses&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;expense_one_time_expenses&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -99,7 +99,7 @@
             (0, 0, {
                 'name': 'TAXES',
                 'description': 'Taxes',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;tax_expenses&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;expense_tax&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -180,7 +180,7 @@
             (0, 0, {
                 'name': 'INTEREST',
                 'description': 'Interests',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;interest_expenses&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;expense_interest&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -191,7 +191,7 @@
             (0, 0, {
                 'name': 'ONE_TIME_CHARGES',
                 'description': 'One-time Charges',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;one_time_expenses&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;expense_one_time_expenses&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -223,7 +223,7 @@
             (0, 0, {
                 'name': 'TAXES',
                 'description': 'Taxes',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;tax_expenses&#34;)][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;=&#34;, &#34;expense_tax&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',

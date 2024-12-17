@@ -3,7 +3,7 @@
 
 {
     "name": "Canada MIS Builder Reports",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "LGPL-3",
@@ -12,10 +12,10 @@
     "depends": [
         # Numigi/odoo-account-addons
         "canada_account_types",
+
         # OCA/mis-builder
         "mis_builder",
-        # Numigi/odoo-base
-        "lang_fr_activated",
+
         # Odoo/odoo
         "l10n_ca",
     ],
