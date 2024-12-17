@@ -13,8 +13,10 @@ class AccountMove(models.Model):
         for i, move in enumerate(self):
             date = default_values_list[i].get("date")
             if date and date < move.date:
-                raise ValidationError(_(
-                    "The date of the reversal entry ({reversal_date}) "
-                    "can not be prior to the original move date ({move_date})."
-                ).format(reversal_date=date, move_date=move.date))
+                raise ValidationError(
+                    _(
+                        "The date of the reversal entry ({reversal_date}) "
+                        "can not be prior to the original move date ({move_date})."
+                    ).format(reversal_date=date, move_date=move.date)
+                )
         return super()._reverse_moves(default_values_list, cancel)
