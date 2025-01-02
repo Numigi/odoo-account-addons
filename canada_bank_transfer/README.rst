@@ -7,13 +7,11 @@ This module enables to generate credit transfer files for transactions between b
 
 Configuration
 -------------
-As member of `Accounting / Manager`, I go to the list view of accounting journals.
-
-.. image:: static/description/journal_list.png
+As member of `Invoicing / Billing Administrator`, I go to the list view of journals (`Configuration / Journals`).
 
 I open the form view of my bank journal.
 
-In the 'Advanced Settings' tab, I see a checkbox `EFT`.
+In the `Payements Configuration` tab, I see a checkbox `EFT`.
 
 .. image:: static/description/journal_form_eft_checkbox.png
 
@@ -27,6 +25,10 @@ User Short Name
 ~~~~~~~~~~~~~~~
 This is a short version of your company name.
 It must be composed of maximum 15 alphanumeric caracters.
+
+User Long Name
+~~~~~~~~~~~~~~~
+This is a long version of your company name.
 
 User Number
 ~~~~~~~~~~~
@@ -67,23 +69,19 @@ Therefore, when generating a new EFT, this number will be used.
 
 Bank Account Configuration
 --------------------------
-Next, I go to the `Bank Account` tab.
+Next, I go to the `Jounal Entries` tab.
 
 This tab contains the information related to my company's bank account.
 
 .. image:: static/description/journal_form_bank_account_tab.png
 
-In the field `Bank Account`, I click on "Create and Edit".
-
-.. image:: static/description/journal_form_bank_account_field.png
+In the field `Account Number`, I create a bank account.
 
 I fill my bank account number. It is composed from 7 to 12 digits.
 
 .. image:: static/description/bank_account_number.png
 
-In the field `Bank`, I click on "Create and Edit".
-
-.. image:: static/description/bank_account_bank_field.png
+In the field `Bank`, I create a bank.
 
 I fill the name of the bank and its institution number, then I click on `Save`.
 
@@ -99,28 +97,26 @@ The configuration of my journal is now complete, I click on `Save`.
 
 Preparing the Payments
 ----------------------
-As member of `Accounting / Billing`, I go to `Accounting / Vendors / Payments`.
+As member of `Invoicing / Billing`, I go to `Invoicing / Vendors / Payments`.
 Then I click on `Create`.
-
-.. image:: static/description/vendor_payment_list.png
-
 I fill the partner and the payment amount. I check `EFT` as payment method.
 
 .. image:: static/description/payment_form.png
 
 I click on `Save`, then I click on `Confirm`.
 
-.. image:: static/description/payment_form_confirm.png
-
 The payment is now `Posted`. At this stage, it is ready to be selected for an EFT transfer.
 
-.. image:: static/description/payment_form_posted.png
+Since version 1.3.0 of this module:
+A new filter `Not Sent` is added in payments.
+
+.. image:: static/description/payment_not_sent_filter.png
 
 Preparing the EFT
 -----------------
 Once I have multiple EFT payments posted, I go back to the list of vendor payments.
 
-I check both the `Posted` and `EFT` filters.
+I check both the `Posted`, `Not Sent` and `EFT` filters.
 
 .. image:: static/description/vendor_payment_list_filtered.png
 
@@ -129,8 +125,6 @@ I select my payments and click on `Generate EFT` in the action menu.
 .. image:: static/description/vendor_payment_list_generate_eft.png
 
 A draft EFT is created.
-
-.. image:: static/description/eft_draft.png
 
 For each payment, I select the recipient bank account.
 
@@ -152,19 +146,13 @@ The bank must have an institution number (3 digits).
 
 Once all the destination bank accounts are selected, I click on `Validate`.
 
-.. image:: static/description/eft_validate.png
-
 An error message appears. One of my bank accounts is not properly filled.
 
 .. image:: static/description/eft_validate_error.png
 
 I fix the account number, then I click again on `Validate`.
 
-.. image:: static/description/eft_fixed_validate.png
-
 The EFT is now `Ready`.
-
-.. image:: static/description/eft_ready.png
 
 EFT Approval
 ------------
@@ -173,31 +161,26 @@ This group is intended for the financial director or controller of your company.
 
 .. image:: static/description/eft_approval_group.png
 
-As member of `Approve EFT`, I go to the EFT form view.
-
-.. image:: static/description/eft_list.png
+As member of `Approve EFT`, I go to the EFT form view (`Invoicing / Vendors / EFT`).
 
 I verify that the payments are accurate.
 If any payment seems odd, I can click on the line and dilldown to the invoices.
 
-Then I click on `Approve`.
-
-.. image:: static/description/eft_approve.png
-
-The `EFT` is now approved.
+Then I click on `Approve`. The `EFT` is now approved.
 
 .. image:: static/description/eft_approved.png
 
 Restriction on Canceling Payment
 --------------------------------
-Once I have payment with EFT linked to it, and the payment is in the following state : `POSTED`, `SENT`, and `RECONCILED`,
-I can not cancel the payment anymore. If I still try to cancel it, I get the following message:
+Once I have payment with EFT linked to it, and the payment is in `POSTED` state,
+I can not reste to draft the payment anymore. If I still try to cancel it, I get the following message:
 
-.. image:: static/description/cancel_payment_usererror.png
+.. image:: static/description/reset_to_draft_payment_usererror.png
 
 Generating The File
 -------------------
-The current step can be done by a member of the group `Accounting / Billing`.
+The current step can be done by a member of the group `Invoicing / Billing`.
+In the EFT form view, I click on `Generate File`:
 
 .. image:: static/description/eft_generate_file_button.png
 
@@ -224,7 +207,7 @@ Otherwise, even if the file was accepted by your bank, some payments may be reje
 In such case, the module allows you to identify which payments were successfully transmitted to the recipient account
 and which were not.
 
-As member of the group `Accounting / Billing`, I click on `Confirm Sending`.
+As member of the group `Invoicing / Billing`, I click on `Confirm Sending`.
 
 .. image:: static/description/eft_confirm_sending.png
 
@@ -240,11 +223,10 @@ Multiple changes were applied to the `EFT`.
 
 (1) The EFT is now `Done`.
 
-(2) The 2 succeeding payments are at the status `Sent`.
+(2) The 2 succeeding payments are the ckeckbox `Sent` checked.
     The payment dates were updated to match the EFT date.
 
-(3) The failed payment is still at the status `Posted`.
-    This payment can be corrected later and selected into another EFT batch.
+(3) The failed payment with checkbox `Sent` Unchecked can be corrected later and selected into another EFT batch.
 
 (4) A new button `Send Payment Notices` appears.
     This button allows to notice the recipients by email.

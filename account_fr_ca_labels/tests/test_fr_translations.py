@@ -35,26 +35,6 @@ class TestCreditNote(TranslationCase):
 
 
 @ddt
-class TestAgedBalance(TranslationCase):
-
-    @data(
-        ('Aged Receivable', 'Balance agée clients'),
-        ('Aged Payable', 'Balance agée fournisseurs'),
-        ('Aged Partner Balances', 'Balances agées des tiers'),
-    )
-    def test_no_translation_found_with_wrong_term(self, data):
-        assert not self._find_translation(data[0], data[1])
-
-    @data(
-        ('Aged Receivable', 'Âge des comptes clients'),
-        ('Aged Payable', 'Âge des comptes fournisseurs'),
-        ('Aged Partner Balances', 'Âge des comptes'),
-    )
-    def test_translations_found_with_correct_term(self, data):
-        assert self._find_translation(data[0], data[1])
-
-
-@ddt
 class TestReconciliation(TranslationCase):
 
     @data(

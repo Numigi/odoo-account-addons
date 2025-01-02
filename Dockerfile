@@ -39,7 +39,6 @@ COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_usage_purchase
 COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usage_sale
 COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
-COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
 COPY account_sale_invoice_date_required /mnt/extra-addons/account_sale_invoice_date_required
 COPY account_search_by_amount /mnt/extra-addons/account_search_by_amount
