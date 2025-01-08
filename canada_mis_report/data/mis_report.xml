@@ -159,7 +159,7 @@
             (0, 0, {
                 'name': 'INDIRECT_COSTS',
                 'description': 'Indirect Costs',
-                'expression': '-bal[(&#34;account_type&#34;, &#34;in&#34;, (&#34;expenses&#34;, &#34;expense_depreciation&#34;))][]',
+                'expression': '-bal[(&#34;account_type&#34;, &#34;in&#34;, (&#34;expense&#34;, &#34;expense_depreciation&#34;))][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
