@@ -36,6 +36,7 @@
 - url: https://github.com/OCA/account-reconcile
   branch: "16.0"
   includes:
+    - account_reconcile_oca
     - account_statement_base
 
 - url: https://github.com/OCA/account-financial-tools

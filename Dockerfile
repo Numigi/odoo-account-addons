@@ -23,6 +23,7 @@ COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
+COPY account_reconcile_safe_change /mnt/extra-addons/account_reconcile_safe_change
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_search_date_range /mnt/extra-addons/account_search_date_range
 COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
