@@ -26,6 +26,7 @@
         "canada_account_types",
         "canada_mis_report",
         "invoice_refund_not_earlier",
+        "hr_expense_tax_adjustment",
         "old_accounts",
     ],
     "installable": True,
