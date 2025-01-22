@@ -25,6 +25,7 @@
         "bank_statement_import_csv",
         "canada_account_types",
         "canada_mis_report",
+        "invoice_fiscal_position_required",
         "invoice_refund_not_earlier",
         "old_accounts",
     ],
