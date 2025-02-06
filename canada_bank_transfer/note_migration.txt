@@ -1,0 +1,6 @@
+PYTHON
+outbound_payment_method_ids replaced with available_payment_method_ids
+dependency : payment changed to account_payment
+
+
+XML

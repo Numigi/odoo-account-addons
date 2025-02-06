@@ -58,7 +58,7 @@ class EFTCase(common.TransactionCase):
                 "eft_user_short_name": USER_SHORT_NAME,
                 "eft_user_number": USER_NUMBER,
                 "eft_destination": DESTINATION,
-                "outbound_payment_method_ids": [(4, cls.eft_method.id)],
+                "available_payment_method_ids": [(4, cls.eft_method.id)],
             }
         )
 

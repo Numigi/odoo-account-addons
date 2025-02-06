@@ -54,7 +54,7 @@ class AccountJournal(models.Model):
         string="Use a transit Account", compute="_compute_use_transit_account"
     )
 
-    @api.depends("outbound_payment_method_ids")
+    @api.depends("outbound_payment_method_line_ids")
     def _compute_eft_enabled(self):
         """Compute the field eft_enabled.
 
@@ -66,7 +66,7 @@ class AccountJournal(models.Model):
         )
         for journal in self:
             journal.eft_enabled = (
-                eft_method and eft_method.id in journal.outbound_payment_method_ids.ids
+                eft_method and eft_method.id in journal.outbound_payment_method_line_ids.mapped("payment_method_id").ids
             )
 
     def _compute_use_transit_account(self):
@@ -85,7 +85,7 @@ class AccountJournal(models.Model):
 
     def write(self, vals):
         super().write(vals)
-        if "outbound_payment_method_ids" in vals:
+        if "available_payment_method_ids" in vals:
             for journal in self:
                 journal._setup_eft_sequence()
         return True

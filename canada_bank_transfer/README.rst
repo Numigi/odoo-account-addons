@@ -11,15 +11,15 @@ As member of `Invoicing / Billing Administrator`, I go to the list view of journ
 
 I open the form view of my bank journal.
 
-In the `Payements Configuration` tab, I see a checkbox `EFT`.
+In the `Outgoing Payments` tab, I see a that `EFT` can be selected as payment method.
 
-.. image:: static/description/journal_form_eft_checkbox.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/journal_form_eft_selection.png
 
-Once checked, a new section `EFT` appears bellow.
+Once selected, a new section `EFT` appears bellow.
 
-.. image:: static/description/journal_form_eft_fields.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/journal_form_eft_fields.png
 
-This section contains 3 fields.
+This section contains 5 fields.
 
 User Short Name
 ~~~~~~~~~~~~~~~
@@ -42,14 +42,14 @@ This is a technical value of 5 digits used in the EFT file.
 It indicates the data processing center that will handle your tranfers.
 The value depends on the bank and the location of your company.
 
-.. image:: static/description/journal_form_eft_fields_filled.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/journal_form_eft_fields_filled.png
 
 Sequence
 ~~~~~~~~
-Since version ``1.2.0`` of the module, each journal (with EFT enabled)
+Each journal (with EFT enabled)
 has its own distinct sequence for the EFT.
 
-.. image:: static/description/journal_form_eft_sequence.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/journal_form_eft_sequence.png
 
 This sequence number is used by the bank to identify your payment batch.
 
@@ -61,11 +61,11 @@ If you let the field empty, the system will automatically create it when saving 
 
 You may edit the next number of the sequence.
 
-.. image:: static/description/eft_sequence_form.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_sequence_form.png
 
 Therefore, when generating a new EFT, this number will be used.
 
-.. image:: static/description/eft_with_file_sequence_number.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_with_file_sequence_number.png
 
 Bank Account Configuration
 --------------------------
@@ -73,27 +73,27 @@ Next, I go to the `Jounal Entries` tab.
 
 This tab contains the information related to my company's bank account.
 
-.. image:: static/description/journal_form_bank_account_tab.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/journal_form_bank_account_tab.png
 
 In the field `Account Number`, I create a bank account.
 
 I fill my bank account number. It is composed from 7 to 12 digits.
 
-.. image:: static/description/bank_account_number.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/bank_account_number.png
 
 In the field `Bank`, I create a bank.
 
 I fill the name of the bank and its institution number, then I click on `Save`.
 
-.. image:: static/description/bank_fields.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/bank_fields.png
 
 Back in the form view of my bank account, I fill the transit (branch) then I click on `Save`.
 
-.. image:: static/description/bank_account_transit.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/bank_account_transit.png
 
 The configuration of my journal is now complete, I click on `Save`.
 
-.. image:: static/description/journal_form_save.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/journal_form_save.png
 
 Preparing the Payments
 ----------------------
@@ -101,16 +101,15 @@ As member of `Invoicing / Billing`, I go to `Invoicing / Vendors / Payments`.
 Then I click on `Create`.
 I fill the partner and the payment amount. I check `EFT` as payment method.
 
-.. image:: static/description/payment_form.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/payment_form.png
 
 I click on `Save`, then I click on `Confirm`.
 
 The payment is now `Posted`. At this stage, it is ready to be selected for an EFT transfer.
 
-Since version 1.3.0 of this module:
-A new filter `Not Sent` is added in payments.
+Also, a new filter `Not Sent` is added in payments.
 
-.. image:: static/description/payment_not_sent_filter.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/payment_not_sent_filter.png
 
 Preparing the EFT
 -----------------
@@ -118,11 +117,11 @@ Once I have multiple EFT payments posted, I go back to the list of vendor paymen
 
 I check both the `Posted`, `Not Sent` and `EFT` filters.
 
-.. image:: static/description/vendor_payment_list_filtered.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/vendor_payment_list_filtered.png
 
 I select my payments and click on `Generate EFT` in the action menu.
 
-.. image:: static/description/vendor_payment_list_generate_eft.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/vendor_payment_list_generate_eft.png
 
 A draft EFT is created.
 
@@ -130,7 +129,7 @@ For each payment, I select the recipient bank account.
 
 If the bank account is not already defined for a given partner, I may create and edit a new one.
 
-.. image:: static/description/eft_bank_account_field.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_bank_account_field.png
 
 A recipient bank account required the same fields as my company's bank account.
 
@@ -138,28 +137,30 @@ A recipient bank account required the same fields as my company's bank account.
 * The bank
 * The transit/branch number (5 digits)
 
-.. image:: static/description/partner_bank_account_form.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/partner_bank_account_form.png
 
 The bank must have an institution number (3 digits).
 
-.. image:: static/description/partner_bank_form.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/partner_bank_form.png
 
 Once all the destination bank accounts are selected, I click on `Validate`.
 
-An error message appears. One of my bank accounts is not properly filled.
+An error message appears if one of my bank accounts is not properly filled.
 
-.. image:: static/description/eft_validate_error.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_validate_error.png
 
 I fix the account number, then I click again on `Validate`.
 
 The EFT is now `Ready`.
+
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_validate_to_ready.png
 
 EFT Approval
 ------------
 The group `Approve EFT` allows to approve the EFT.
 This group is intended for the financial director or controller of your company.
 
-.. image:: static/description/eft_approval_group.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_approval_group.png
 
 As member of `Approve EFT`, I go to the EFT form view (`Invoicing / Vendors / EFT`).
 
@@ -168,29 +169,25 @@ If any payment seems odd, I can click on the line and dilldown to the invoices.
 
 Then I click on `Approve`. The `EFT` is now approved.
 
-.. image:: static/description/eft_approved.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_approved.png
 
 Restriction on Canceling Payment
 --------------------------------
 Once I have payment with EFT linked to it, and the payment is in `POSTED` state,
 I can not reste to draft the payment anymore. If I still try to cancel it, I get the following message:
 
-.. image:: static/description/reset_to_draft_payment_usererror.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/reset_to_draft_payment_usererror.png
 
 Generating The File
 -------------------
 The current step can be done by a member of the group `Invoicing / Billing`.
-In the EFT form view, I click on `Generate File`:
+In the EFT form view, I click on `Generate File` and a new field `File` appears.
 
-.. image:: static/description/eft_generate_file_button.png
-
-A new field `File` appears.
-
-.. image:: static/description/eft_file_generated.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_generate_file_button.png
 
 I click on the file name to download the file to my computer.
 
-.. image:: static/description/eft_file_open.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_file_open.png
 
 Using The EFT File
 ------------------
@@ -209,17 +206,17 @@ and which were not.
 
 As member of the group `Invoicing / Billing`, I click on `Confirm Sending`.
 
-.. image:: static/description/eft_confirm_sending.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_confirm_sending.png
 
 Let's suppose the payment of 1000.00$CAD to `Ready Mat` bounced back.
 
 I uncheck the `Completed` box under `Ready Mat`. Then I click on `Validate`.
 
-.. image:: static/description/eft_confirmation.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_confirmation.png
 
 Multiple changes were applied to the `EFT`.
 
-.. image:: static/description/eft_done.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_done.png
 
 (1) The EFT is now `Done`.
 
@@ -238,11 +235,11 @@ It is optional because you may or may not want to notice your suppliers by email
 
 I click on `Send Payment Notices`.
 
-.. image:: static/description/eft_send_payment_notices.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_send_payment_notices.png
 
 I verify that the email message is properly set. Then, I click on `Send`.
 
-.. image:: static/description/eft_payment_notices_sent.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/canada_bank_transfer/static/description/eft_payment_notices_sent.png
 
 The payment notices are now sent.
 

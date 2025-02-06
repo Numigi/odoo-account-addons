@@ -18,5 +18,5 @@ class TestAccountJournal(EFTCase):
             }
         )
         assert not journal.eft_sequence_id
-        journal.outbound_payment_method_ids = self.eft_method
+        journal.available_payment_method_ids = self.eft_method
         assert journal.eft_sequence_id

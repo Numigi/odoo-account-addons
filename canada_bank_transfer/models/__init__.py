@@ -3,6 +3,7 @@
 
 from . import (
     account_eft,
+    account_payment_method,
     account_journal,
     account_move,
     account_payment,

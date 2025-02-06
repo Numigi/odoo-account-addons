@@ -15,7 +15,7 @@
         between bank accounts in Canada.
     """,
     "depends": [
-        "payment",
+        "account_payment",
     ],
     "data": [
         "security/ir.model.access.csv",

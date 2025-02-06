@@ -244,7 +244,8 @@ def _get_account_holder_name(account):
 
 
 def _get_commercial_partner_name(payment):
-    return payment.partner_id.commercial_partner_id.name
+    test= payment.partner_id.commercial_partner_id.name
+    return test
 
 
 def _format_credit_detail_segment(payment):
@@ -278,6 +279,13 @@ def _format_credit_detail_segment(payment):
     destinator_name = _get_account_holder_name(
         destination_account
     ) or _get_commercial_partner_name(payment)
+
+    if not destinator_name:
+        raise ValidationError(
+            _("Please set account holder name on {} or set commercial partner on payment {}.").format(
+                destination_account.display_name, payment.display_name
+            )
+        )
 
     transaction_type = payment.eft_transaction_type or DEFAULT_TRANSACTION_TYPE
 

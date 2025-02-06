@@ -19,7 +19,7 @@
     <record id="view_account_payment_form" model="ir.ui.view">
         <field name="name">account.payment.form</field>
         <field name="model">account.payment</field>
-        <field name="inherit_id" ref="payment.view_account_payment_form_inherit_payment" />
+        <field name="inherit_id" ref="account_payment.view_account_payment_form_inherit_payment" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <field name="eft_count" invisible="1" />
