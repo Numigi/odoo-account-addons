@@ -136,7 +136,9 @@ def _verify_institution_number(institution_number, context):
 
     if not institution_number.isdigit():
         raise ValidationError(
-            _("The institution number `{}` must contain only digits.").format(number)
+            _("The institution number `{}` must contain only digits.").format(
+                institution_number
+            )
         )
 
 
@@ -148,7 +150,7 @@ def _verify_transit(transit, context):
 
     if not transit.isdigit():
         raise ValidationError(
-            _("The transit number `{}` must contain only digits.").format(number)
+            _("The transit number `{}` must contain only digits.").format(transit)
         )
 
 
@@ -228,9 +230,9 @@ def _verify_transaction_type(transaction_type, context):
 def _verify_payment_amount(amount, context):
     if amount >= 10000000:
         raise ValidationError(
-            _("EFT transfers support only payments below ten millions.").format(
-                transaction_type
-            )
+            _(
+                "EFT transfers support only payments below ten millions. Got `{}`."
+            ).format(amount)
         )
 
 
@@ -244,7 +246,7 @@ def _get_account_holder_name(account):
 
 
 def _get_commercial_partner_name(payment):
-    test= payment.partner_id.commercial_partner_id.name
+    test = payment.partner_id.commercial_partner_id.name
     return test
 
 
@@ -282,9 +284,9 @@ def _format_credit_detail_segment(payment):
 
     if not destinator_name:
         raise ValidationError(
-            _("Please set account holder name on {} or set commercial partner on payment {}.").format(
-                destination_account.display_name, payment.display_name
-            )
+            _(
+                "Please set account holder name on {} or set commercial partner on payment {}."
+            ).format(destination_account.display_name, payment.display_name)
         )
 
     transaction_type = payment.eft_transaction_type or DEFAULT_TRANSACTION_TYPE

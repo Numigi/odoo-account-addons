@@ -295,8 +295,8 @@ msgstr "EFT Nom court de l'usager"
 #. module: canada_bank_transfer
 #: code:addons/canada_bank_transfer/tools/generate_eft.py:0
 #, python-format
-msgid "EFT transfers support only payments below ten millions."
-msgstr "L'EFT ne supporte que les paiements en dessous de 10 millions."
+msgid "EFT transfers support only payments below ten millions. Got `{}`."
+msgstr "L'EFT ne supporte que les paiements en dessous de 10 millions. La valeur obtenue est `{}`."
 
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft_confirmation_wizard__eft_id

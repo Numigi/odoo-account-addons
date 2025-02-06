@@ -66,7 +66,11 @@ class AccountJournal(models.Model):
         )
         for journal in self:
             journal.eft_enabled = (
-                eft_method and eft_method.id in journal.outbound_payment_method_line_ids.mapped("payment_method_id").ids
+                eft_method
+                and eft_method.id
+                in journal.outbound_payment_method_line_ids.mapped(
+                    "payment_method_id"
+                ).ids
             )
 
     def _compute_use_transit_account(self):
