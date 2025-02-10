@@ -56,9 +56,9 @@ class TestAccountMove(TransactionCase):
                         0,
                         {
                             "product_id": self.product.id,
-                            "quantity": 1.0,
+                            "quantity": 2.0,
                             "name": "product test 1",
-                            "price_unit": 13.3,
+                            "price_unit": 14.3,
                         },
                     )
                 ],

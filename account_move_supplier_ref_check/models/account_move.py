@@ -13,6 +13,10 @@ class AccountMove(models.Model):
         """This function enhances the duplicate vendor bill constraint
         by modifying the reference check to validate duplicates
         based solely on `partner_id` and `ref`.
+
+        This have wider condition scope comparing to the original function :
+        _check_duplicate_supplier_reference().
+
         """
 
         moves = self.filtered(
