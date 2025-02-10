@@ -9,7 +9,7 @@
     "website": "https://bit.ly/numigi-com",
     "license": "LGPL-3",
     "category": "Accounting",
-    "summary": "",
+    "summary": "Check supplier reference on account move for unicity.",
     "depends": ["account"],
     "installable": True,
     "application": False,

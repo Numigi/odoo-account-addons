@@ -1,7 +1,8 @@
 Account Move Supplier Ref Check
 ===============================
 
-This module modifies the duplicate vendor reference check to only validate based on `partner_id` and `partner_ref`, instead of the default three fields. 
+This module does a check to only validate account moves for suppliers based on `partner_id` (Partner) and `ref` (Reference),
+instead of the default three fields : `partner_id` (Partner), `ref` (Reference) and `invoice_date` (Invoice/Bill Date).
 
 It ensures that the system does not allow vendor bills with the same reference and partner, even if they have different invoice dates.
 
