@@ -9,7 +9,6 @@ DESTINATION = "00610"
 
 
 class EFTCase(common.TransactionCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

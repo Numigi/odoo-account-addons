@@ -10,7 +10,6 @@ from .common import EFTCase
 
 
 class AccountEFTCase(EFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -91,7 +90,6 @@ class TestCreateEFTFromPayments(AccountEFTCase):
 
 
 class TestGenerateEFTFile(AccountEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -149,7 +147,6 @@ class TestGenerateEFTFile(AccountEFTCase):
 
 
 class TestEFTConfirmationWizard(AccountEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -225,7 +222,6 @@ class TestEFTConfirmationWizard(AccountEFTCase):
 
 
 class TestEFTWorkflow(AccountEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

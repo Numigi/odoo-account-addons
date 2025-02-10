@@ -54,7 +54,6 @@ def test_format_total_amount(number, expected_value):
 
 @ddt
 class TestFormatEFTHeader(EFTCase):
-
     def test_record_type_is_a(self):
         header = format_header(self.journal, 1)
         assert header[0] == "A"
@@ -132,7 +131,6 @@ class TestFormatEFTHeader(EFTCase):
 
 @ddt
 class TestEFTCreditDetails(EFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -306,13 +304,11 @@ class TestEFTCreditDetails(EFTCase):
 
 @ddt
 class TestEFTCreditDetailsWith6Payments(EFTCase):
-    """Test a credit details group with 6 payments.
-
-    6 is the maximum of payments inside a credit details group.
-    """
-
     @classmethod
     def setUpClass(cls):
+        """Test a credit details group with 6 payments.
+        6 is the maximum of payments inside a credit details group.
+        """
         super().setUpClass()
         cls.pmt_1 = cls.generate_payment(cls.td_account, 111.11)
         cls.pmt_2 = cls.generate_payment(cls.rbc_account, 222.22)
@@ -344,7 +340,6 @@ class TestEFTCreditDetailsWith6Payments(EFTCase):
 
 @ddt
 class TestEFTTrailer(EFTCase):
-
     def test_trailer_length(self):
         trailer = format_trailer(self.journal, 1, 1, 1, 1)
         assert len(trailer) == 1464
@@ -383,7 +378,6 @@ class TestEFTTrailer(EFTCase):
 
 
 class CompleteEFTCase(EFTCase):
-
     @classmethod
     def _generate_payments(cls, number_of_payments):
         payments = cls.env["account.payment"]
@@ -394,7 +388,6 @@ class CompleteEFTCase(EFTCase):
 
 @ddt
 class TestCompleteEFTLength(CompleteEFTCase):
-
     @data(1, 5, 6)
     def test_eft_length_with_6_payments_or_less(self, number_of_payments):
         payments = self._generate_payments(number_of_payments)
@@ -422,7 +415,6 @@ class TestCompleteEFTLength(CompleteEFTCase):
 
 @ddt
 class TestCompleteEFTAmountPosition(CompleteEFTCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

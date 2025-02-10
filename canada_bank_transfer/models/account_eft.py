@@ -30,19 +30,15 @@ class EFT(models.Model):
 
     name = fields.Char("Name", compute="_compute_name", store=True, copy=False)
     sequence = fields.Integer(tracking=True, copy=False)
-
     payment_date = fields.Date(
         "Payment Date",
         required=True,
         default=fields.Date.context_today,
         tracking=True,
     )
-
     filename = fields.Char("File Name", readonly=True, copy=False)
-
     content = fields.Text(copy=False)
     content_binary = fields.Binary("File", readonly=True, copy=False)
-
     payment_ids = fields.Many2many(
         comodel_name="account.payment",
         relation="account_eft_payment_rel",
@@ -52,7 +48,6 @@ class EFT(models.Model):
         tracking=True,
         copy=False,
     )
-
     failed_payment_ids = fields.Many2many(
         comodel_name="account.payment",
         relation="account_eft_failed_payment_rel",
@@ -62,16 +57,13 @@ class EFT(models.Model):
         tracking=True,
         copy=False,
     )
-
     total = fields.Monetary("Total", compute="_compute_total")
-
     journal_id = fields.Many2one(
         "account.journal", "Journal", required=True, tracking=True
     )
     currency_id = fields.Many2one(
         "res.currency", "Currency", compute="_compute_currency_id"
     )
-
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -86,9 +78,7 @@ class EFT(models.Model):
         tracking=True,
         copy=False,
     )
-
     payment_notices_sent = fields.Boolean(copy=False)
-
     deposit_account_move_id = fields.Many2one(
         "account.move", string="Deposit Account Move", readonly=1
     )
