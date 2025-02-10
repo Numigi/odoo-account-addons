@@ -3,16 +3,17 @@
 
 
 {
-    "name": "Account Move Supllier Ref Required",
-    "summary": "",
-    "version": "14.0.1.0.1",
+    "name": "Account Move Supplier Ref Required",
+    "version": "14.0.1.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",
+    "summary": "Enforce that a bill reference is required on vendor bill.",
     "depends": ["account"],
     "data": [
         "views/account_move_views.xml",
     ],
     "installable": True,
+    "application": False,
 }

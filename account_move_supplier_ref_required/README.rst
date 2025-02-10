@@ -1,9 +1,9 @@
 Account Move Supplier Ref Required
 ==================================
 
-This module makes the ref field on account.move required from the form view.
+This module makes the `Bill Reference` is required on the `Vendor Bill` form view.
 
-.. image:: static/description/account_move_form.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/14.0/account_move_supplier_ref_required/static/description/account_move_form.png
 
 Configuration
 -------------
