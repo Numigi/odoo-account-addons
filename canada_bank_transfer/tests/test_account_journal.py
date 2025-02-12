@@ -5,7 +5,6 @@ from .common import EFTCase
 
 
 class TestAccountJournal(EFTCase):
-
     def test_eft_sequence(self):
         assert self.journal.eft_sequence_id
 

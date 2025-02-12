@@ -7,7 +7,6 @@ from .common import (
 
 
 class TestFormatEFTHeader(EFTCase):
-
     def test_canada_bank_account_display_name(self):
         account = self.env["res.partner.bank"].create(
             {

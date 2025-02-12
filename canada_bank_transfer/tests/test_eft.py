@@ -20,7 +20,6 @@ class AccountEFTCase(EFTCase):
 
 
 class TestCreateEFTFromPayments(AccountEFTCase):
-
     def _create_eft_from_payments(self):
         action = self.env["account.eft"].create_eft_from_payments(self.payments)
         return self.env["account.eft"].browse(action["res_id"])
@@ -183,7 +182,9 @@ class TestEFTConfirmationWizard(AccountEFTCase):
 
     def test_on_eft_confirmation__failed_payments_are_not_sent(self):
         wizard = self._open_confirmation_wizard()
-        wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
+        wizard.line_ids.filtered(
+            lambda line: line.payment_id == self.pmt_1
+        ).completed = False
         wizard.action_validate()
         assert not self.pmt_1.is_move_sent
         assert self.pmt_2.is_move_sent
@@ -215,7 +216,9 @@ class TestEFTConfirmationWizard(AccountEFTCase):
 
     def test_on_eft_confirmation__failed_payment_date_is_not_set_to_eft_date(self):
         wizard = self._open_confirmation_wizard()
-        wizard.line_ids.filtered(lambda l: l.payment_id == self.pmt_1).completed = False
+        wizard.line_ids.filtered(
+            lambda line: line.payment_id == self.pmt_1
+        ).completed = False
         wizard.action_validate()
         assert self.pmt_1.date != self.eft_date
         assert self.pmt_2.date == self.eft_date
