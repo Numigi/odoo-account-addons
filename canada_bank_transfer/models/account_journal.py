@@ -90,7 +90,7 @@ class AccountJournal(models.Model):
 
     def write(self, vals):
         super().write(vals)
-        if "available_payment_method_ids" in vals:
+        if "outbound_payment_method_line_ids" in vals:
             for journal in self:
                 journal._setup_eft_sequence()
         return True

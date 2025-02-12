@@ -14,7 +14,7 @@ class AccountPaymentMethod(models.Model):
         methods_info = super()._get_payment_method_information()
         methods_info.update(
             {
-                "eft": {"mode": "multi", "domain": [("type", "in", ("bank"))]},
+                "eft": {"mode": "multi", "domain": [("type", "=", "bank")]},
             }
         )
         return methods_info

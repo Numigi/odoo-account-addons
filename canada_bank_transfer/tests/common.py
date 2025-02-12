@@ -1,6 +1,7 @@
 # Copyright 2019 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+from odoo import Command
 from odoo.tests import common
 
 USER_SHORT_NAME = "YOUR COMPANY"
@@ -47,6 +48,8 @@ class EFTCase(common.TransactionCase):
         )
 
         cls.eft_method = cls.env.ref("canada_bank_transfer.payment_method_eft")
+        cad_currency = cls.env.ref("base.CAD")
+        cad_currency.write({"active": True})
 
         cls.journal = cls.env["account.journal"].create(
             {
@@ -54,11 +57,13 @@ class EFTCase(common.TransactionCase):
                 "type": "bank",
                 "code": "NBC",
                 "bank_account_id": cls.nbc_account.id,
-                "currency_id": cls.env.ref("base.CAD").id,
+                "currency_id": cad_currency.id,
                 "eft_user_short_name": USER_SHORT_NAME,
                 "eft_user_number": USER_NUMBER,
                 "eft_destination": DESTINATION,
-                "available_payment_method_ids": [(4, cls.eft_method.id)],
+                "outbound_payment_method_line_ids": [
+                    Command.create({"payment_method_id": cls.eft_method.id}),
+                ],
             }
         )
 

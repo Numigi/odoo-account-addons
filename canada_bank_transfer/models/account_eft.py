@@ -215,7 +215,7 @@ class EFT(models.Model):
             {
                 "filename": "{}-{}.txt".format(self.name, self.sequence),
                 "content": content,
-                "content_binary": base64.encodestring(content.encode("utf-8")),
+                "content_binary": base64.encodebytes(content.encode("utf-8")),
             }
         )
         return True
