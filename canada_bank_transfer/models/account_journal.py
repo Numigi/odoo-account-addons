@@ -81,11 +81,12 @@ class AccountJournal(models.Model):
                 .get_param("canada_bank_transfer.use_transit_account")
             )
 
-    @api.model
-    def create(self, vals):
-        journal = super().create(vals)
-        journal._setup_eft_sequence()
-        return journal
+    @api.model_create_multi
+    def create(self, vals_list):
+        journals = super().create(vals_list)
+        for journal in journals:
+            journal._setup_eft_sequence()
+        return journals
 
     def write(self, vals):
         super().write(vals)
