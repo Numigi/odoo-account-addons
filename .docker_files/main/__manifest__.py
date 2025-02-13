@@ -27,6 +27,7 @@
         "account_move_reversal_access",
         "account_move_reversed_entry",
         "account_move_supplier_ref_required",
+        "account_move_supplier_ref_check",
         "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
