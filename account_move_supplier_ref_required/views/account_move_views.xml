@@ -6,10 +6,10 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='ref'][1]" position="attributes">
-                <attribute name="required">1</attribute>
+                <attribute name="attrs">{"invisible": [('move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund'))], "required": [('move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund'))]}</attribute>
             </xpath>
             <xpath expr="//field[@name='ref'][2]" position="attributes">
-                <attribute name="required">1</attribute>
+                <attribute name="attrs">{"invisible": [('move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund'))], "required": [('move_type', 'not in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund'))]}</attribute>
             </xpath>
         </field>
     </record>
