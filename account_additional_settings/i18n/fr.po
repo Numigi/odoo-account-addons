@@ -1,0 +1,145 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_additional_settings
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-14 13:47+0000\n"
+"PO-Revision-Date: 2025-02-14 13:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_additional_settings
+#: model_terms:ir.ui.view,arch_db:account_additional_settings.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Fiscal Year</span>"
+msgstr "<span class=\"o_form_label\">Exercice fiscal</span>"
+
+#. module: account_additional_settings
+#: model_terms:ir.ui.view,arch_db:account_additional_settings.res_config_settings_view_form
+msgid ""
+"<span class=\"o_form_label\">The following default accounts are used\n"
+"                                    with certain features.</span>"
+msgstr ""
+"<span class=\"o_form_label\">Les comptes par défaut suivants sont utilisés "
+"avec certaines fonctionnalités.</span>"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,help:account_additional_settings.field_res_config_settings__account_journal_suspense_account_id
+msgid ""
+"Bank statements transactions will be posted on the suspense account until "
+"the final reconciliation allowing finding the right account."
+msgstr ""
+"Les mouvements bancaires seront comptabilisés sur le compte d'attente "
+"jusqu'au rapprochement définitif qui permettra de lettrer le mouvement sur "
+"le compte définitif."
+
+
+#. module: account_additional_settings
+#: model:ir.model,name:account_additional_settings.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,help:account_additional_settings.field_res_config_settings__property_stock_account_input_categ_id
+msgid ""
+"Counterpart journal items for all incoming stock moves will be posted in this account, unless there is a specific valuation account\n"
+"        set on the source location. This is the default value for all products in this category. It can also directly be set on each product."
+msgstr ""
+"Les écritures de contrepartie de tous les mouvements de stock entrants seront comptabilisées sur ce compte, sauf si un compte de valorisation est spécifiquement \n"
+"précisé pour l'emplacement d'origine. C'est la valeur par défaut pour tous les produits de cette catégorie. Il est également possible de la préciser directement sur chaque produit."
+
+#. module: account_additional_settings
+#: model_terms:ir.ui.view,arch_db:account_additional_settings.res_config_settings_view_form
+msgid "Default Accounts"
+msgstr "Comptes par défaut"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__fiscalyear_last_day
+msgid "Fiscalyear Last Day"
+msgstr "Dernier jour de l'exercice fiscal"
+
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__fiscalyear_last_month
+msgid "Fiscalyear Last Month"
+msgstr "Dernier mois de l'exercice fiscal"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: account_additional_settings
+#: model:ir.model.fields,help:account_additional_settings.field_res_config_settings__transfer_account_id
+msgid ""
+"Intermediary account used when moving money from a liquidity account to "
+"another"
+msgstr ""
+"Compte intermédiaire utilisé pour déplacer de l'argent d'un compte de "
+"trésorerie vers un autre"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__account_journal_suspense_account_id
+msgid "Journal Suspense Account"
+msgstr "Compte d'attente du journal"
+
+#. module: account_additional_settings
+#: model_terms:ir.ui.view,arch_db:account_additional_settings.res_config_settings_view_form
+msgid "Last Day"
+msgstr "Dernier jour"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__property_stock_account_input_categ_id
+msgid "Stock Input Account"
+msgstr "Compte d'entrée en stock"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__property_stock_account_output_categ_id
+msgid "Stock Output Account"
+msgstr "Compte de sortie de stock"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__property_stock_valuation_account_id
+msgid "Stock Valuation Account"
+msgstr "Compte de valorisation de stock"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,field_description:account_additional_settings.field_res_config_settings__transfer_account_id
+msgid "Transfer Account"
+msgstr "Compte de transfert"
+
+#. module: account_additional_settings
+#: model:ir.model.fields,help:account_additional_settings.field_res_config_settings__property_stock_valuation_account_id
+msgid ""
+"When automated inventory valuation is enabled on a product, this account "
+"will hold the current value of the products."
+msgstr ""
+"Quand la valorisation d'inventaire automatique est activée sur un article, "
+"ce compte contient la valeur actuelle des articles."
+
+#. module: account_additional_settings
+#: model:ir.model.fields,help:account_additional_settings.field_res_config_settings__property_stock_account_output_categ_id
+msgid ""
+"When doing automated inventory valuation, counterpart journal items for all outgoing stock moves will be posted in this account,\n"
+"                unless there is a specific valuation account set on the destination location. This is the default value for all products in this category.\n"
+"                It can also directly be set on each product."
+msgstr ""
+"Quand la valorisation d'inventaire est autmatique, les entrées comptables de contre-partie pour les sorties de stock seront postées dans ce compte,\n"
+"                à moins qu'un compte de valorisation spécifique ne soit indiqué sur l'emplacement de destination. C'est la valeur par défaut pour tous les articles de cette catégorie.\n"
+"                Elle peut aussi être spécifiée directement sur chaque article."

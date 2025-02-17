@@ -13,6 +13,7 @@
     "depends": [
         "l10n_generic_coa",  # Used for testing addons
         "account_additional_group",
+        "account_additional_settings",
         "account_analytic_required_forbidden",
         "account_bank_menu",
         "account_check_deposit_enhanced",
