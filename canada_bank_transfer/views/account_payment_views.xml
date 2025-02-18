@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_search_with_eft_filter" model="ir.ui.view">
+        <field name="name">Payment Search: add EFT filter</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search" />
+        <field name="arch" type="xml">
+            <filter name="reconciled" position="after">
+                <separator/>
+                <filter string="EFT" name="eft" domain="[('is_eft_payment', '=', True)]" />
+            </filter>
+            <filter name="state_sent" position="after">
+                <filter string="Not Sent" name="state_not_sent" domain="[('is_move_sent', '=', False)]" />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_account_payment_form" model="ir.ui.view">
+        <field name="name">account.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account_payment.view_account_payment_form_inherit_payment" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <field name="eft_count" invisible="1" />
+                <button name="%(action_view_payment_eft)d"
+                        string="EFT"
+                        type="action"
+                        class="oe_stat_button"
+                        icon="fa-bars"
+                        attrs="{'invisible': [('eft_count', '=', 0)]}" />
+            </div>
+        </field>
+    </record>
+
+</odoo>

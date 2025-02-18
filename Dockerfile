@@ -27,8 +27,10 @@ COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_search_date_range /mnt/extra-addons/account_search_date_range
 COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
 COPY canada_account_types /mnt/extra-addons/canada_account_types
+COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
 COPY canada_mis_report /mnt/extra-addons/canada_mis_report
 COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
+COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
 
