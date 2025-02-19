@@ -30,11 +30,10 @@ class HrExpense(models.Model):
         if self.quantity and self.unit_amount and self.tax_ids:
             self._setup_tax_lines()
         else:
-            self.tax_line_ids = self.env["hr.expense.tax"]
+            self.tax_line_ids = False
 
     def _setup_tax_lines(self):
         """Setup the taxes on the expense."""
-        self.tax_line_ids = self.env["hr.expense.tax"]
 
         currency = self.currency_id or self.company_id.currency_id
         taxes = self.tax_ids.with_context(round=True).compute_all(
@@ -62,16 +61,13 @@ class HrExpense(models.Model):
     def _compute_amount(self):
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_ids)
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)
-
         for expense in expenses_with_tax_lines:
             included_tax_amount = sum(
                 line.amount for line in expense.tax_line_ids if line.price_include
             )
             tax_amount = sum(line.amount for line in expense.tax_line_ids)
-
             expense.untaxed_amount = (
                 expense.unit_amount * expense.quantity - included_tax_amount
             )
             expense.total_amount = expense.untaxed_amount + tax_amount
-
         super(HrExpense, expenses_without_tax_lines)._compute_amount()
