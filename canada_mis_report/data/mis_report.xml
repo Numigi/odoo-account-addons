@@ -446,7 +446,7 @@
             (0, 0, {
                 'name': 'EQUITY',
                 'description': 'Equity and Previous Years Retained Earnings',
-                'expression': '-bale[(&#34;account_type&#34;, &#34;in&#34;, (&#34;equity&#34;, &#34;equity_unaffected&#34;))][]',
+                'expression': '-bale[(&#34;account_type&#34;, &#34;=&#34;, &#34;equity&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
@@ -719,7 +719,7 @@
             (0, 0, {
                 'name': 'EQUITY',
                 'description': 'Equity and Previous Years Retained Earnings',
-                'expression': '-bale[(&#34;account_type&#34;, &#34;in&#34;, (&#34;equity&#34;, &#34;equity_unaffected&#34;))][]',
+                'expression': '-bale[(&#34;account_type&#34;, &#34;=&#34;, &#34;equity&#34;)][]',
                 'style_id': ref('canada_mis_report.style_h3'),
                 'accumulation_method': 'sum',
                 'compare_method': 'pct',
