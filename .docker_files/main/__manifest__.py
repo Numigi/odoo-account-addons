@@ -22,6 +22,7 @@
         "account_closing_wizard",
         "account_fr_ca_labels",
         "account_invoice_unified_payment",
+        "account_mail_autosubscribe",
         "account_manual_entry_restricted",
         "account_move_chatter",
         "account_move_reversal_access",

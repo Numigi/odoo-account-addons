@@ -32,6 +32,7 @@ COPY account_dashboard_onboarding_state /mnt/extra-addons/account_dashboard_onbo
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_unified_payment /mnt/extra-addons/account_invoice_unified_payment
+COPY account_mail_autosubscribe /mnt/extra-addons/account_mail_autosubscribe
 COPY account_manual_entry_restricted /mnt/extra-addons/account_manual_entry_restricted
 COPY account_move_chatter /mnt/extra-addons/account_move_chatter
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
