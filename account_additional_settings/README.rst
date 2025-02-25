@@ -27,7 +27,7 @@ Some key fields included:
 - Transfer Account
 - Stock Valuation Account
 
-.. image:: static/description/default_accounts.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/14.0/account_additional_settings/static/description/default_accounts.png
 
 Fiscal Periods
 ~~~~~~~~~~~~~~
@@ -36,7 +36,7 @@ A dedicated section **Fiscal Periods** is also introduced to manage financial pe
 - Last Day
 - Last Month
 
-.. image:: static/description/fiscal_periods.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/14.0/account_additional_settings/static/description/fiscal_periods.png
 
 Community Version Only
 ----------------------

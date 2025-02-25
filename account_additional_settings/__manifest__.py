@@ -1,5 +1,5 @@
-# Copyright 2025- today Numigi
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright 2025 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Account Additional Settings",
@@ -7,7 +7,7 @@
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://www.numigi.com",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "category": "Accounting",
     "summary": "Add additional settings of accounts",
     "depends": ["account"],

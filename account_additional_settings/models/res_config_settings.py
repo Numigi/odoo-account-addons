@@ -1,5 +1,5 @@
-# Copyright 2025- today Numigi
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# Copyright 2025 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
 
@@ -21,7 +21,8 @@ class ResConfigSettings(models.TransientModel):
                 self.env.ref("account.data_account_type_current_assets").id,
             ),
         ],
-        help="Intermediary account used when moving money from a liquidity account to another",
+        help="Intermediary account used when moving money from a liquidity account "
+        "to another",
     )
 
     property_stock_valuation_account_id = fields.Many2one(
@@ -53,11 +54,13 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.property_stock_account_output_categ_id",
         string="Stock Output Account",
         check_company=True,
-        help="""When doing automated inventory valuation, counterpart journal
-        items for all outgoing stock moves will be posted in this account,
-        unless there is a specific valuation account set on the
-        destination location. This is the default value for all products in this category.
-        It can also directly be set on each product.""",
+        help=(
+            "When doing automated inventory valuation, counterpart journal items "
+            "for all outgoing stock moves will be posted in this account, unless "
+            "there is a specific valuation account set on the destination location. "
+            "This is the default value for all products in this category. It can "
+            "also directly be set on each product."
+        ),
     )
 
     account_journal_suspense_account_id = fields.Many2one(
