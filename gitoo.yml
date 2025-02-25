@@ -1,6 +1,11 @@
 - url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-enterprise
   branch: "12.0"
 
+- url: https://github.com/Numigi/odoo-mail-addons
+  branch: "12.0"
+  includes:
+    - mail_autosubscribe
+
 - url: https://{{GIT_TOKEN}}@github.com/Numigi/odoo-base-addons
   branch: "12.0"
 
