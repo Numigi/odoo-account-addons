@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account.accountant</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="fiscalyear" position="replace">
+                <div class="col-12 col-lg-6" id="fiscalyear"
+                    style="padding-left: 0; padding-right: 0;">
+                    <div class="col-12 col-lg-12 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Fiscal Year</span>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="fiscalyear_last_month" string="Last Day"
+                                        class="col-lg-3 o_light_label" />
+                                    <field name="fiscalyear_last_month"
+                                        style="width: 100px; margin-right: 8px;" />
+                                    <field name="fiscalyear_last_day" class="oe_inline" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <xpath expr="//div[@name='default_taxes_setting_container']" position="after">
+                <t groups="account.group_account_user">
+                    <h2>Default Accounts</h2>
+                    <div class="row mt16 o_settings_container" id="default_accounts">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_panel"></div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">The following default accounts are used
+                                    with certain features.</span>
+                                <div class="content-group">
+                                    <div class="row mt8">
+                                        <label for="account_journal_suspense_account_id"
+                                            class="col-lg-5 o_light_label" />
+                                        <field name="account_journal_suspense_account_id" />
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="property_stock_account_input_categ_id"
+                                            class="col-lg-5 o_light_label" />
+                                        <field name="property_stock_account_input_categ_id" />
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="property_stock_account_output_categ_id"
+                                            class="col-lg-5 o_light_label" />
+                                        <field name="property_stock_account_output_categ_id" />
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="transfer_account_id"
+                                            class="col-lg-5 o_light_label" />
+                                        <field name="transfer_account_id" />
+                                    </div>
+                                    <div class="row mt8">
+                                        <label
+                                            for="property_stock_valuation_account_id"
+                                            class="col-lg-5 o_light_label" />
+                                        <field
+                                            name="property_stock_valuation_account_id" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
