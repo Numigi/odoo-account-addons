@@ -17,18 +17,14 @@ class TestManualEntryRestriction(common.TransactionCase):
             {
                 "name": "Account 1",
                 "code": "111111",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_fixed_assets"
-                ).id,
+                "account_type": "asset_current",
             }
         )
         cls.account_2 = cls.env["account.account"].create(
             {
                 "name": "Account 2",
                 "code": "111112",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_fixed_assets"
-                ).id,
+                "account_type": "asset_current",
             }
         )
         cls.move = cls.env["account.move"].create(
@@ -81,5 +77,5 @@ class TestManualEntryRestriction(common.TransactionCase):
     def test_if_post_called_directly__constraint_not_raised(self):
         """Test that automatic entries are not restricted."""
         self.account_1.manual_entry_group_ids = self.group_1
-        self.move.post()
+        self.move._post()
         assert self.move.state == "posted"
