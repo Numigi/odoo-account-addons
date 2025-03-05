@@ -31,6 +31,7 @@ COPY canada_account_types /mnt/extra-addons/canada_account_types
 COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
 COPY canada_mis_report /mnt/extra-addons/canada_mis_report
 COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
+COPY invoice_intercompany_compatible /mnt/extra-addons/invoice_intercompany_compatible
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
 COPY old_accounts /mnt/extra-addons/old_accounts
 
