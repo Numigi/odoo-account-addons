@@ -24,6 +24,7 @@
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
         "account_invoice_constraint_chronology_forced",
+        "account_invoice_date_default",
         "account_invoice_groupby_parent_affiliate",
         "account_move_reversal_access",
         "account_move_reversed_entry",
