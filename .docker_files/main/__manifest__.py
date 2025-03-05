@@ -28,6 +28,7 @@
         "canada_bank_transfer",
         "canada_mis_report",
         "invoice_fiscal_position_required",
+        "invoice_intercompany_compatible",
         "invoice_refund_not_earlier",
         "old_accounts",
     ],
