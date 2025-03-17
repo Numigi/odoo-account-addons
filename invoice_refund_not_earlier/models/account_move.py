@@ -1,12 +1,11 @@
-# Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
+# Copyright 2023-today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import models, _
+from odoo import _, models
 from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
