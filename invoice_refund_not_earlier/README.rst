@@ -10,12 +10,12 @@ As member of the group `Accounting / Billing`, I go to the form view of an invoi
 
 I click `ADD CREDIT NOTE` to create a refund.
 
-.. image:: static/description/invoice_form_with_date.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/invoice_refund_not_earlier/static/description/invoice_form_with_date.png
 
 I select a refund date prior to the invoice date, then I click on ``Reverse``.
 A blocking message appears:
 
-.. image:: static/description/invoice_reverse_with_error.png
+.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/invoice_refund_not_earlier/static/description/invoice_reverse_with_error.png
 
 Journal Entries
 ---------------
