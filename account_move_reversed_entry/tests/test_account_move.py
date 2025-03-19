@@ -40,6 +40,13 @@ class TestAccountMove(common.TransactionCase):
         cls.today = fields.date.today()
 
     def test_reversed_entry(self):
-        self.move._reverse_moves()
+        default_values_list = [
+            {
+                "ref": "Reversal",
+                "date": fields.Date.today(),
+            }
+        ]
+        self.move.action_post()
+        self.move._reverse_moves(default_values_list)
         reversal_entry = self.move.reverse_entry_id
         assert reversal_entry.reversed_entry_id == self.move
