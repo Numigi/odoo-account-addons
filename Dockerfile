@@ -20,6 +20,7 @@ COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
 COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
+COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_search_by_amount /mnt/extra-addons/account_search_by_amount
