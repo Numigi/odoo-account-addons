@@ -35,3 +35,6 @@ A blocking message appears.
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+
+
+.. image:: static/description/wh.jpeg
