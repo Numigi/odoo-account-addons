@@ -15,7 +15,7 @@ I click `ADD CREDIT NOTE` to create a refund.
 I select a refund date prior to the invoice date, then I click on ``Reverse``.
 A blocking message appears:
 
-.. image:: /static/description/invoice_reverse_with_error_16.png
+.. image:: static/description/invoice_reverse_with_error_16.png
 
 Journal Entries
 ---------------
@@ -35,6 +35,3 @@ A blocking message appears.
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
-
-
-.. image:: static/description/wh.jpeg
