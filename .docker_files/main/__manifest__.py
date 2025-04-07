@@ -53,6 +53,7 @@
         "bank_statement_partner_name",
         "canada_account_types",
         "canada_bank_transfer",
+        "check_vat_ca",
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
         # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
