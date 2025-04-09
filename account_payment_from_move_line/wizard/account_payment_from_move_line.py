@@ -74,11 +74,11 @@ class PaymentFromMoveLineWizard(models.TransientModel):
         for wizard in self:
             if wizard.move_lines_currency_id == wizard.company_currency_id:
                 wizard.move_lines_residual_amount = sum(
-                    l.amount_residual for l in wizard.move_line_ids
+                    line.amount_residual for line in wizard.move_line_ids
                 )
             else:
                 wizard.move_lines_residual_amount = sum(
-                    l.amount_residual_currency for l in wizard.move_line_ids
+                    line.amount_residual_currency for line in wizard.move_line_ids
                 )
 
     currency_id = fields.Many2one("res.currency", "Currency")
@@ -148,7 +148,7 @@ class PaymentFromMoveLineWizard(models.TransientModel):
         self.currency_id = self.move_lines_currency_id
 
     def compute_communication(self):
-        lines_with_reference = self.move_line_ids.filtered(lambda l: l.ref)
+        lines_with_reference = self.move_line_ids.filtered(lambda line: line.ref)
         self.communication = " ".join(sorted(lines_with_reference.mapped("ref")))
 
     def _get_payment_vals(self):
@@ -171,7 +171,7 @@ class PaymentFromMoveLineWizard(models.TransientModel):
 
     def _reconcile_payment(self, payment):
         payment_move_line = payment.move_line_ids.filtered(
-            lambda l: l.account_id == self.counterpart_account_id
+            lambda line: line.account_id == self.counterpart_account_id
         )
         lines_to_reconcile = self.move_line_ids | payment_move_line
 

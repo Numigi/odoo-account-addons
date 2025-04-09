@@ -4,10 +4,10 @@
 import pytest
 from ddt import ddt, data
 from odoo.exceptions import UserError
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class PaymentWizardCase(SavepointCase):
+class PaymentWizardCase(TransactionCase):
 
     @classmethod
     def setUpClass(cls):
@@ -144,7 +144,9 @@ class PaymentWizardCase(SavepointCase):
             }
         )
         move.post()
-        return move.line_ids.filtered(lambda l: l.account_id == receivable_account)
+        return move.line_ids.filtered(
+            lambda line: line.account_id == receivable_account
+        )
 
     def _open_wizard(self, move_lines):
         action = move_lines.open_payment_from_move_line_wizard()
