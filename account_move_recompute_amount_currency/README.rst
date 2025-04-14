@@ -1,0 +1,19 @@
+Account Move Reversed Entry
+===========================
+
+Context
+-------
+In vanilla Odoo, _get_fields_onchange_subtotal_model method is used to recompute the values of 'amount_currency'
+
+
+Overview
+--------
+After installing this module, amount_currency will be 0 for exchange stock valuation moves generated from the invoice
+
+Contributors
+------------
+* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+
+More information
+----------------
+* Meet us at https://bit.ly/numigi-com
