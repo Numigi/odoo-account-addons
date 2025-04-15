@@ -19,7 +19,7 @@ class TestStockForeignValuation(SavepointCase):
 
 
         cls.partner = cls.env['res.partner'].create({
-            'name': 'Foreign Vendor',
+            'name': 'US Vendor',
             'property_purchase_currency_id': cls.usd.id,
             'supplier_rank': 1,
         })
