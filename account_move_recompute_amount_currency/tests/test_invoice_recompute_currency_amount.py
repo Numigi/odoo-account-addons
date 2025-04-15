@@ -14,9 +14,9 @@ class TestStockForeignValuation(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.env.company.currency_id = cls.env.ref('base.EUR')
+
         cls.usd = cls.env.ref('base.USD')
-        cls.eur = cls.env.ref('base.EUR')
+
 
         cls.partner = cls.env['res.partner'].create({
             'name': 'Foreign Vendor',
