@@ -14,17 +14,13 @@ class TestStockForeignValuation(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
 
-
         cls.usd = cls.env.ref('base.USD')
-
 
         cls.partner = cls.env['res.partner'].create({
             'name': 'US Vendor',
             'property_purchase_currency_id': cls.usd.id,
             'supplier_rank': 1,
         })
-
-        # Comptes
         cls.acc_input, cls.acc_output, cls.acc_valuation, cls.acc_expense, cls.journal = _create_accounting_data(cls.env)
 
         cls.categ = cls.env['product.category'].create({
@@ -49,7 +45,6 @@ class TestStockForeignValuation(SavepointCase):
         })
 
     def test_valuation_with_currency_change_and_reconciliation(self):
-        # Create PO
         po = self.env['purchase.order'].create({
             'partner_id': self.partner.id,
             'currency_id': self.usd.id,
