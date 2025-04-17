@@ -67,7 +67,8 @@ class TestStockForeignValuation(SavepointCase):
         self.usd.write({'rate': 2.0})
 
         # Invoice validation
-        invoice = po.action_create_invoice()
+        po.action_create_invoice()
+        invoice = po.invoice_ids
         invoice.write({'invoice_date': fields.Date.today()})
         invoice.action_post()
 
