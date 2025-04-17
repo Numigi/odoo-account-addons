@@ -8,7 +8,7 @@ In vanilla Odoo, _get_fields_onchange_subtotal_model method is used to recompute
 
 Overview
 --------
-After installing this module, amount_currency will be 0 for exchange stock valuation moves generated from the invoice
+After installing this module, amount_currency will be null for exchange stock valuation moves generated from the invoice
 
 Contributors
 ------------
