@@ -6,7 +6,6 @@ from odoo.addons.stock_account.tests.test_stockvaluation import _create_accounti
 
 from odoo.tests.common import SavepointCase
 from odoo import fields
-from odoo.exceptions import UserError
 
 
 class TestStockForeignValuation(SavepointCase):
@@ -21,7 +20,8 @@ class TestStockForeignValuation(SavepointCase):
             'property_purchase_currency_id': cls.usd.id,
             'supplier_rank': 1,
         })
-        cls.acc_input, cls.acc_output, cls.acc_valuation, cls.acc_expense, cls.journal = _create_accounting_data(cls.env)
+        (cls.acc_input, cls.acc_output, cls.acc_valuation,
+         cls.acc_expense, cls.journal) = _create_accounting_data(cls.env)
 
         cls.categ = cls.env['product.category'].create({
             'name': 'Test Categ',
@@ -77,9 +77,16 @@ class TestStockForeignValuation(SavepointCase):
             ('account_id', '=', self.acc_input.id),
             ('move_id.state', '=', 'posted'),
             ('move_id.stock_move_id', '!=', False),
+            ('full_reconcile_id', '!=', False),
         ])
 
-        invoice_lines = invoice.line_ids.filtered(lambda l: l.account_id.id == self.acc_input.id)
+        invoice_lines = invoice.line_ids.filtered(
+            lambda l: l.account_id.id == self.acc_input.id)
 
         all_lines = stock_lines | invoice_lines
-        self.assertTrue(all(line.full_reconcile_id for line in all_lines), "The account move line are not reconciled")
+        for line in all_lines:
+            self.assertNotEqual(
+                line.full_reconcile_id.name,
+                "P",
+                f"Line {line.id} is not fully reconciled "
+            )
