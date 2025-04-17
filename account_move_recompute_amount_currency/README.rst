@@ -1,5 +1,5 @@
-Account Move Reversed Entry
-===========================
+Account Move Recompute Amount Currency
+======================================
 
 Context
 -------
