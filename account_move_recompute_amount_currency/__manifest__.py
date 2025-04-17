@@ -7,8 +7,9 @@
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
-    "summary": "Add the field Reversed Entry on journal entries",
+    "summary": "Recomputes amount currency on account move.",
     "license": "AGPL-3",
+    "category": "Accounting",
     "depends": ["account"],
     "installable": True,
 }
