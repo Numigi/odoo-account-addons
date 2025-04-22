@@ -17,3 +17,4 @@ class AccountMoveLine(models.Model):
                 not in self._context.keys()):
             res['amount_currency'] = 0.0
         return res
+
