@@ -8,11 +8,10 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     @api.model
-    def _get_fields_onchange_subtotal_model(
-        self, price_subtotal, move_type, currency, company, date
-    ):
+    def _get_fields_onchange_subtotal_model(self, price_subtotal, move_type, currency,
+                                            company, date):
         res = super()._get_fields_onchange_subtotal_model(
-            price_subtotal, move_type, currency, company, date
-        )
-        res["amount_currency"] = 0.0
+            price_subtotal, move_type, currency, company, date)
+        if self.move_id.invoice_line_ids :
+            res['amount_currency'] = 0.0
         return res
