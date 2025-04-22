@@ -12,5 +12,6 @@ class AccountMoveLine(models.Model):
                                             company, date):
         res = super()._get_fields_onchange_subtotal_model(
             price_subtotal, move_type, currency, company, date)
-        res['amount_currency'] = 0.0
+        if self.move_id.invoice_line_ids :
+            res['amount_currency'] = 0.0
         return res
