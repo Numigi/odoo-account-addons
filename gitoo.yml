@@ -38,6 +38,7 @@
   branch: "14.0"
   includes:
     - date_range
+    - multi_step_wizard
 
 - url: https://github.com/OCA/stock-logistics-workflow
   branch: "14.0"
