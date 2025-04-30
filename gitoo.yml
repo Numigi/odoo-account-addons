@@ -44,6 +44,11 @@
     - account_check_deposit
     - account_invoice_constraint_chronology
 
+- url: https://github.com/OCA/multi-company
+  branch: "16.0"
+  includes:
+    - account_invoice_inter_company
+
 - url: https://github.com/Numigi/odoo-base-addons
   branch: "16.0"
   includes:

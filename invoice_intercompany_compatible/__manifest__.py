@@ -3,7 +3,7 @@
 
 {
     "name": "Invoice Intercompany Compatible",
-    "version": "16.0.1.0.0",
+    "version": "16.0.2.0.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://www.numigi.com",
@@ -11,7 +11,7 @@
     "category": "Accounting",
     "summary": "Make invoices compatible for multi-company",
     "depends": [
-        "account",
+        "account_invoice_inter_company",
     ],
     "installable": True,
     "application": False,
