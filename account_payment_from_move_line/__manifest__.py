@@ -14,6 +14,7 @@
         "account",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/account_move_line.xml",
         "wizard/account_payment_from_move_line.xml",
     ],

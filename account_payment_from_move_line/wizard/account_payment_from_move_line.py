@@ -87,8 +87,13 @@ class PaymentFromMoveLineWizard(models.TransientModel):
         string="Payment Journal",
         domain=[("type", "in", ("bank", "cash"))],
     )
-    payment_method_id = fields.Many2one("account.payment.method", "Payment Method")
-    communication = fields.Char("Memo")
+    payment_method_id = fields.Many2one(
+        "account.payment.method",
+        "Payment Method",
+        compute="_get_filtered_payment_methods",
+        store=True,
+    )
+    ref = fields.Char("Memo")
     payment_date = fields.Date(string="Payment Date", default=fields.Date.context_today)
 
     payment_difference = fields.Monetary(compute="_compute_payment_difference")
@@ -110,14 +115,34 @@ class PaymentFromMoveLineWizard(models.TransientModel):
         default="Write-Off",
     )
 
-    def _get_available_payment_methods(self):
-        return self.journal_id.inbound_payment_method_ids
+    # payment_method_id_domain = fields.Char(
+    #     string="Payment Method Domain"
+    # )
 
-    @api.onchange("journal_id")
-    def _onchange_journal_set_available_payment_methods(self):
-        available_methods = self._get_available_payment_methods()
+    def _get_available_payment_methods(self):
+        return self.journal_id.inbound_payment_method_line_ids
+
+    # @api.onchange("journal_id")
+    # def _onchange_journal_set_available_payment_methods(self):
+    #     available_methods = self._get_available_payment_methods().mapped("available_payment_method_ids")
+    #     self.payment_method_id = available_methods and available_methods[0] or False
+    #     # return {"domain": {"payment_method_id": [("id", "in", available_methods.ids)]}}
+    #     # self.payment_method_id_domain = available_methods
+    #     """
+    #     todo :
+    #     THE PREVIOUS RETURN MUST BE HANDLE WITH COMPUTE THEN PUT IN CHAR FIELD
+    #     , THEN FILTER WITH CONDITION IN XML VIEW
+    #
+    #
+    #     """
+
+    @api.depends("journal_id")
+    def _get_filtered_payment_methods(self):
+        """Filter the payment methods based on the selected journal."""
+        available_methods = self._get_available_payment_methods().mapped(
+            "available_payment_method_ids"
+        )
         self.payment_method_id = available_methods and available_methods[0] or False
-        return {"domain": {"payment_method_id": [("id", "in", available_methods.ids)]}}
 
     @api.depends("move_line_ids", "amount", "payment_date", "currency_id")
     def _compute_payment_difference(self):
@@ -147,44 +172,29 @@ class PaymentFromMoveLineWizard(models.TransientModel):
         self.amount = self.move_lines_residual_amount
         self.currency_id = self.move_lines_currency_id
 
-    def compute_communication(self):
+    def compute_ref(self):
         lines_with_reference = self.move_line_ids.filtered(lambda line: line.ref)
-        self.communication = " ".join(sorted(lines_with_reference.mapped("ref")))
-
-    def _get_payment_vals(self):
-        return {
-            "amount": self.amount,
-            "currency_id": self.currency_id.id,
-            "journal_id": self.journal_id.id,
-            "partner_id": self.partner_id.id,
-            "partner_type": "customer",
-            "payment_method_id": self.payment_method_id.id,
-            "payment_type": "inbound",
-            "communication": self.communication,
-            "payment_date": self.payment_date,
-        }
+        self.ref = " ".join(sorted(lines_with_reference.mapped("ref")))
 
     def _get_payment_post_context(self):
         return {
             "force_payment_destination_account_id": self.counterpart_account_id.id,
         }
 
-    def _reconcile_payment(self, payment):
-        payment_move_line = payment.move_line_ids.filtered(
-            lambda line: line.account_id == self.counterpart_account_id
-        )
-        lines_to_reconcile = self.move_line_ids | payment_move_line
-
-        if self.payment_difference and self.payment_difference_handling == "reconcile":
-            lines_to_reconcile.reconcile(
-                writeoff_acc_id=self.writeoff_account_id,
-                writeoff_journal_id=self.journal_id,
-            )
-        else:
-            lines_to_reconcile.reconcile()
-
     def validate(self):
-        payment = self.env["account.payment"].create(self._get_payment_vals())
-        payment.with_context(**self._get_payment_post_context()).post()
-        self._reconcile_payment(payment)
-        return payment.get_formview_action()
+        move_ids = self.move_line_ids.mapped("move_id").ids
+        (
+            self.env["account.payment.register"]
+            .with_context(active_model="account.move", active_ids=move_ids)
+            .create(
+                {
+                    "currency_id": self.currency_id.id,
+                    "amount": self.amount,
+                    "payment_difference_handling": "reconcile",
+                    "writeoff_account_id": self.writeoff_account_id.id,
+                    "writeoff_label": "writeoff",
+                }
+            )
+            ._create_payments()
+        )
+        return True

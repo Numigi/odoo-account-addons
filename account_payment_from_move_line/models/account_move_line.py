@@ -11,7 +11,7 @@ def _check_has_partner(line: "account.move.line", context: dict):
 
 
 def _check_has_receivable_account(line: "account.move.line", context: dict):
-    if line.account_id.internal_type != "receivable":
+    if line.account_id.account_type != "asset_receivable":
         raise UserError(
             _(
                 "Only journal items with a receivable account "
@@ -129,7 +129,7 @@ class AccountMoveLine(models.Model):
         wizard = self.env["account.payment.from.move.line"].create({})
         wizard.move_line_ids = self
         wizard.compute_amount_and_currency()
-        wizard.compute_communication()
+        wizard.compute_ref()
 
         action = wizard.get_formview_action()
         action["target"] = "new"
