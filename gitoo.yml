@@ -26,6 +26,11 @@
   includes:
     - partner_affiliate
 
+- url: https://github.com/OCA/product-attribute
+  branch: "14.0"
+  includes:
+    - product_pricelist_direct_print_company_group
+
 - url: https://github.com/OCA/reporting-engine
   branch: "14.0"
   includes:
