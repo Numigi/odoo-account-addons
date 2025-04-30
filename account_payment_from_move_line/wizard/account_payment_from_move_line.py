@@ -122,20 +122,6 @@ class PaymentFromMoveLineWizard(models.TransientModel):
     def _get_available_payment_methods(self):
         return self.journal_id.inbound_payment_method_line_ids
 
-    # @api.onchange("journal_id")
-    # def _onchange_journal_set_available_payment_methods(self):
-    #     available_methods = self._get_available_payment_methods().mapped("available_payment_method_ids")
-    #     self.payment_method_id = available_methods and available_methods[0] or False
-    #     # return {"domain": {"payment_method_id": [("id", "in", available_methods.ids)]}}
-    #     # self.payment_method_id_domain = available_methods
-    #     """
-    #     todo :
-    #     THE PREVIOUS RETURN MUST BE HANDLE WITH COMPUTE THEN PUT IN CHAR FIELD
-    #     , THEN FILTER WITH CONDITION IN XML VIEW
-    #
-    #
-    #     """
-
     @api.depends("journal_id")
     def _get_filtered_payment_methods(self):
         """Filter the payment methods based on the selected journal."""
