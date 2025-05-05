@@ -265,16 +265,19 @@ class EFT(models.Model):
         }
 
 
-def auto_assign_bank_account_to_payments(payments):
-    """Automatically assign a bank account to the given payments.
-
-    If the partner on the payment has one bank account, then
-    assign that account.
-
-    Otherwise, do nothing. We let the user decide what destination
-    bank account to use.
-    """
-    for payment in payments:
-        partner_account = payment.partner_id.bank_ids
-        if len(partner_account) == 1:
-            payment.partner_bank_id = partner_account
+    def auto_assign_bank_account_to_payments(payments):
+        """Automatically assign a bank account to the given payments.
+    
+        If the partner on the payment has one bank account, then
+        assign that account.
+    
+        Otherwise, do nothing. We let the user decide what destination
+        bank account to use.
+        """
+        for payment in payments:
+            partner_account = payment.partner_id.bank_ids
+    
+            if len(partner_account) == 1:
+                payment.with_context(
+                    skip_account_move_synchronization=True
+                ).partner_bank_id = partner_account
