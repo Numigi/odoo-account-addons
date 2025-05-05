@@ -28,6 +28,7 @@
   branch: "14.0"
   includes:
     - partner_affiliate
+    - partner_company_group
 
 - url: https://github.com/OCA/product-attribute
   branch: "14.0"
