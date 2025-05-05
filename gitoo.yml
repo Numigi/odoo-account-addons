@@ -1,6 +1,9 @@
 - url: https://github.com/Numigi/odoo-base-addons
   branch: "14.0"
-
+  includes:
+    - base_xml_rename
+    - lang_fr_activated
+  
 - url: https://github.com/Numigi/odoo-partner-addons
   branch: "14.0"
   includes:
@@ -25,10 +28,12 @@
   branch: "14.0"
   includes:
     - partner_affiliate
+    - partner_company_group
 
 - url: https://github.com/OCA/product-attribute
   branch: "14.0"
   includes:
+    - product_pricelist_direct_print
     - product_pricelist_direct_print_company_group
 
 - url: https://github.com/OCA/reporting-engine
@@ -40,6 +45,7 @@
   branch: "14.0"
   includes:
     - date_range
+    - multi_step_wizard
 
 - url: https://github.com/OCA/stock-logistics-workflow
   branch: "14.0"
