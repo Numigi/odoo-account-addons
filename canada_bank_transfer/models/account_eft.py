@@ -277,4 +277,6 @@ def auto_assign_bank_account_to_payments(payments):
     for payment in payments:
         partner_account = payment.partner_id.bank_ids
         if len(partner_account) == 1:
-            payment.partner_bank_id = partner_account
+            payment.with_context(
+                skip_account_move_synchronization=True
+            ).partner_bank_id = partner_account
