@@ -11,8 +11,7 @@ def change_payment_date(payment, new_date):
 
     Super user priviledges are used to prevent access right errors.
     """
-    payment_sudo = payment.sudo().with_context(
-                skip_account_move_synchronization=True)
+    payment_sudo = payment.sudo().with_context(skip_account_move_synchronization=True)
     account_move = payment_sudo.mapped("move_id")
     account_move.write(
         {
