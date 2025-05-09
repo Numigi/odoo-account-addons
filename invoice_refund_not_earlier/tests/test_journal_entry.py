@@ -1,16 +1,19 @@
-# © 2019 Numigi
+# Copyright 2023-today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytest
 from datetime import datetime, timedelta
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 from odoo.exceptions import ValidationError
 
 
-class TestAccountMove(SavepointCase):
+class TestAccountMove(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.default_plan = cls.env["account.analytic.plan"].create(
+            {"name": "Default", "company_id": False}
+        )
         cls.journal = cls.env["account.journal"].create(
             {
                 "name": "Test",
@@ -18,25 +21,18 @@ class TestAccountMove(SavepointCase):
                 "type": "general",
             }
         )
-        cls.default_plan = cls.env["account.analytic.plan"].create(
-            {"name": "Default", "company_id": False}
-        )
         cls.analytic = cls.env["account.analytic.account"].create(
-            {"name": "test", "plan_id": cls.default_plan.id}
+            {"name": "test", "plan_id": cls.default_plan.id, "company_id": False}
         )
         cls.account_1 = cls.env["account.account"].create(
             {
                 "name": "Account 1",
                 "code": "501001",
-                "account_type": "asset_fixed",
+                "account_type": "expense",
             }
         )
         cls.account_2 = cls.env["account.account"].create(
-            {
-                "name": "Account 2",
-                "code": "101001",
-                "account_type": "expense",
-            }
+            {"name": "Account 2", "code": "101001", "account_type": "asset_fixed"}
         )
 
         cls.today = datetime.now().date()
