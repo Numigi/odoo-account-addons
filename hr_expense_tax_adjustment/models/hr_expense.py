@@ -66,8 +66,22 @@ class HrExpense(models.Model):
                 line.amount for line in expense.tax_line_ids if line.price_include
             )
             tax_amount = sum(line.amount for line in expense.tax_line_ids)
+            untaxed_amount = (
+                expense.unit_amount * expense.quantity - included_tax_amount
+            )
+            expense.total_amount = untaxed_amount + tax_amount
+        super(HrExpense, expenses_without_tax_lines)._compute_amount()
+
+    @api.depends('total_amount', 'tax_ids', 'currency_id')
+    def _compute_amount_tax(self):
+        expenses_with_tax_lines = self.filtered(lambda e: e.tax_ids)
+        expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)
+        for expense in expenses_with_tax_lines:
+            included_tax_amount = sum(
+                line.amount for line in expense.tax_line_ids if line.price_include
+            )
             expense.untaxed_amount = (
                 expense.unit_amount * expense.quantity - included_tax_amount
             )
-            expense.total_amount = expense.untaxed_amount + tax_amount
-        super(HrExpense, expenses_without_tax_lines)._compute_amount()
+
+        super(HrExpense, expenses_without_tax_lines)._compute_amount_tax()
