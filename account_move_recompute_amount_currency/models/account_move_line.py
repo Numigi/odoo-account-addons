@@ -13,7 +13,13 @@ class AccountMoveLine(models.Model):
         res = super()._get_fields_onchange_subtotal_model(
             price_subtotal, move_type, currency, company, date
         )
-        if (self.move_id.invoice_line_ids and "recursive_onchanges"
-                not in self._context.keys()):
-            res['amount_currency'] = 0.0
+        excluded_keys = {
+            "recursive_onchanges",
+            "append_type_to_tax_name",
+            "skip_account_move_synchronization",
+            "line_ids",
+        }
+        if self.move_id.invoice_line_ids and not any(
+                key in self._context for key in excluded_keys):
+            res["amount_currency"] = 0.0
         return res

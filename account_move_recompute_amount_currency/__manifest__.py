@@ -3,7 +3,7 @@
 
 {
     "name": "Account Move Recompute Amount Currency",
-    "version": "14.0.1.1.0",
+    "version": "14.0.2.0.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
