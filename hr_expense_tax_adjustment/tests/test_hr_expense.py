@@ -182,40 +182,6 @@ class TestAccountMoveLine(TransactionCase):
         self.assertAlmostEqual(tax_2.debit, base * 0.09975, 2)
         self.assertAlmostEqual(payable.credit, 700, 2)
 
-    #
-    # def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(
-    #     self,
-    # ):
-    #     self.tax_1.amount = 5
-    #     self.tax_1.price_include = False
-    #     self.tax_2.price_include = False
-    #     self.tax_1.is_base_affected = False
-    #     self.tax_2.is_base_affected = False
-
-    #     self.expense._onchange_amount_setup_tax_lines()
-
-    #     self.sheet.action_submit_sheet()
-    #     self.sheet.approve_expense_sheets()
-    #     self.sheet.action_sheet_move_create()
-
-    #     move_lines = self.sheet.account_move_id.line_ids
-    #     self.assertEqual(len(move_lines), 4)
-
-    #     tax_1 = move_lines.filtered(lambda line: line.account_id == self.tax_account)
-    #     tax_2 = move_lines.filtered(lambda line: line.account_id == self.tax_account_2)
-    #     payable = move_lines.filtered(lambda line: line.account_id == self.payable)
-
-    #     # FIXME : Units testing failed
-
-    #     # --- This is just for debugging, and it PASSED ---
-    #     # lines = self.expense.tax_line_ids
-    #     # self.assertEqual(len(lines), 2)
-    #     # self.assertAlmostEqual(lines[0].amount, 700 * 0.05, 2)
-    #     # self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
-
-    #     self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
-    #     self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-    #     self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
 
     def test_ifTaxesAreIncludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(
         self,
@@ -233,45 +199,6 @@ class TestAccountMoveLine(TransactionCase):
         self.assertAlmostEqual(tax_1.debit, 700 * (0.045465 / 1.145215), 2)
         self.assertAlmostEqual(tax_2.debit, 700 * (0.09975 / 1.145215), 2)
         self.assertAlmostEqual(payable.credit, 700)
-
-    # def test_ifTaxesAreExcludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(
-    #     self,
-    # ):
-    #     self.tax_1.amount = 5
-    #     self.tax_1.price_include = False
-    #     self.tax_2.price_include = False
-
-    #     self.sheet.action_submit_sheet()
-    #     self.sheet.approve_expense_sheets()
-    #     self.sheet.action_sheet_move_create()
-
-    #     move_lines = self.sheet.account_move_id.line_ids
-    #     self.assertEqual(len(move_lines), 4)
-
-    #     tax_1 = move_lines.filtered(lambda line: line.account_id == self.tax_account)
-    #     tax_2 = move_lines.filtered(lambda line: line.account_id == self.tax_account_2)
-    #     payable = move_lines.filtered(lambda line: line.account_id == self.payable)
-
-    #     # FIXME : Units testing failed
-
-    #     self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
-    #     self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-    #     self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
-
-    def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
-        self.expense._onchange_amount_setup_tax_lines()
-
-        expense_2 = self.expense.copy()
-        expense_2.unit_amount = 500
-        expense_2._onchange_amount_setup_tax_lines()
-        expense_2._compute_amount()
-        self.expense._compute_amount()
-
-        self.assertEqual(self.expense.total_amount, 700)
-
-        self.assertEqual(expense_2.total_amount, 500)
-        # self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.145215, 2)
-        # self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.145215, 2)
 
     def test_withMultipleExpenseLines_taxesAreCorrectlyAccounted(self):
         self.expense._onchange_amount_setup_tax_lines()
@@ -300,3 +227,77 @@ class TestAccountMoveLine(TransactionCase):
             sum(tax_2.mapped("debit")), total_amount * (0.09975 / 1.145215), 0
         )
         self.assertAlmostEqual(sum(payable.mapped("credit")), total_amount, 0)
+
+    def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
+        self.expense._onchange_amount_setup_tax_lines()
+
+        expense_2 = self.expense.copy()
+        expense_2.unit_amount = 500
+        expense_2._onchange_amount_setup_tax_lines()
+        expense_2._compute_amount()
+        self.expense._compute_amount()
+
+        self.assertEqual(self.expense.total_amount, 700)
+
+        self.assertEqual(expense_2.total_amount, 500)
+        
+        # !FIXME : Units testing failed
+        
+        self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.145215, 2)
+        self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.145215, 2)
+
+    
+    def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(
+        self,
+    ):
+        self.tax_1.amount = 5
+        self.tax_1.price_include = False
+        self.tax_2.price_include = False
+        self.tax_1.is_base_affected = False
+        self.tax_2.is_base_affected = False
+
+        self.expense._onchange_amount_setup_tax_lines()
+
+        self.sheet.action_submit_sheet()
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
+
+        move_lines = self.sheet.account_move_id.line_ids
+        self.assertEqual(len(move_lines), 4)
+
+        tax_1 = move_lines.filtered(lambda line: line.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(lambda line: line.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda line: line.account_id == self.payable)
+
+        # !FIXME : Units testing failed
+        lines = self.expense.tax_line_ids
+        self.assertEqual(len(lines), 2)
+        self.assertAlmostEqual(lines[0].amount, 700 * 0.05, 2)
+        self.assertAlmostEqual(tax_1.debit, 700 * (0.05 / 1.14975), 2)
+
+        self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
+        self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
+
+    def test_ifTaxesAreExcludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(
+        self,
+    ):
+        self.tax_1.amount = 5
+        self.tax_1.price_include = False
+        self.tax_2.price_include = False
+
+        self.sheet.action_submit_sheet()
+        self.sheet.approve_expense_sheets()
+        self.sheet.action_sheet_move_create()
+
+        move_lines = self.sheet.account_move_id.line_ids
+        self.assertEqual(len(move_lines), 4)
+
+        tax_1 = move_lines.filtered(lambda line: line.account_id == self.tax_account)
+        tax_2 = move_lines.filtered(lambda line: line.account_id == self.tax_account_2)
+        payable = move_lines.filtered(lambda line: line.account_id == self.payable)
+
+        # !FIXME : Units testing failed
+        self.assertAlmostEqual(tax_1.debit, 700 * 0.05, 2)
+        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
+        self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
