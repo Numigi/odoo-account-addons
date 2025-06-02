@@ -72,7 +72,7 @@ class HrExpense(models.Model):
             expense.total_amount = untaxed_amount + tax_amount
         super(HrExpense, expenses_without_tax_lines)._compute_amount()
 
-    @api.depends('total_amount', 'tax_ids', 'currency_id')
+    @api.depends("total_amount", "tax_ids", "currency_id")
     def _compute_amount_tax(self):
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_ids)
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)

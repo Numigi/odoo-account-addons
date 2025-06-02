@@ -182,7 +182,6 @@ class TestAccountMoveLine(TransactionCase):
         self.assertAlmostEqual(tax_2.debit, base * 0.09975, 2)
         self.assertAlmostEqual(payable.credit, 700, 2)
 
-
     def test_ifTaxesAreIncludedAndExpenseHasNoTaxeLines_thenTaxesAreCorrectlyAccounted(
         self,
     ):
@@ -240,13 +239,12 @@ class TestAccountMoveLine(TransactionCase):
         self.assertEqual(self.expense.total_amount, 700)
 
         self.assertEqual(expense_2.total_amount, 500)
-        
+
         # !FIXME : Units testing failed
-        
+
         self.assertAlmostEqual(self.expense.untaxed_amount, 700 / 1.145215, 2)
         self.assertAlmostEqual(expense_2.untaxed_amount, 500 / 1.145215, 2)
 
-    
     def test_whenValidatingExpenseWithExcludedTaxes_thenTaxesAreCorrectlyAccounted(
         self,
     ):
