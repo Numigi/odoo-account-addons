@@ -15,8 +15,8 @@ Overview
 After installing this module, amount_currency will be null for exchange stock valuation moves generated from the invoice
 
 Limits 
-
-It causes prices and tax amounts to reset to zero during updates.
+------
+It leads to prices and tax amounts being reset to zero during updates, preventing the user from confirming their invoice
 
 Contributors
 ------------
