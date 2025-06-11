@@ -14,6 +14,10 @@ Overview
 --------
 After installing this module, amount_currency will be null for exchange stock valuation moves generated from the invoice
 
+Limits 
+
+It causes prices and tax amounts to reset to zero during updates.
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
