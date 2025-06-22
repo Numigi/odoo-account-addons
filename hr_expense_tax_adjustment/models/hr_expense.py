@@ -34,6 +34,8 @@ class HrExpense(models.Model):
 
     def _setup_tax_lines(self):
         """Setup the taxes on the expense."""
+        # Reset values
+        self.tax_line_ids = False
 
         currency = self.currency_id or self.company_id.currency_id
         taxes = self.tax_ids.with_context(round=True).compute_all(
@@ -69,19 +71,34 @@ class HrExpense(models.Model):
             untaxed_amount = (
                 expense.unit_amount * expense.quantity - included_tax_amount
             )
-            expense.total_amount = untaxed_amount + tax_amount
+            expense.with_context(skip_inverse_total_amount=True).total_amount = (
+                untaxed_amount + tax_amount
+            )
         super(HrExpense, expenses_without_tax_lines)._compute_amount()
 
     @api.depends("total_amount", "tax_ids", "currency_id")
     def _compute_amount_tax(self):
+        # Filter expenses with tax lines
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_ids)
+        # Filter expenses without tax lines
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)
+        # Loop through expenses with tax lines
         for expense in expenses_with_tax_lines:
+            # Calculate the amount of tax included in the price
             included_tax_amount = sum(
                 line.amount for line in expense.tax_line_ids if line.price_include
             )
+            # Calculate the untaxed amount
             expense.untaxed_amount = (
                 expense.unit_amount * expense.quantity - included_tax_amount
             )
 
+        # Call the parent class method to compute the amount tax for expenses without tax lines
         super(HrExpense, expenses_without_tax_lines)._compute_amount_tax()
+
+    # Then modify the inverse method in hr_expense (through inheritance):
+    def _inverse_total_amount(self):
+        if self.env.context.get("skip_inverse_total_amount"):
+            return
+        # Original inverse logic here
+        super()._inverse_total_amount()
