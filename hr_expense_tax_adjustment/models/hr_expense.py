@@ -24,7 +24,12 @@ class HrExpense(models.Model):
     )
 
     @api.onchange(
-        "product_id", "quantity", "unit_amount", "tax_ids", "company_id", "currency_id"
+        "product_id",
+        "quantity",
+        "unit_amount",
+        "tax_ids",
+        "company_id",
+        "currency_id",
     )
     def _onchange_amount_setup_tax_lines(self):
         if self.quantity and self.unit_amount and self.tax_ids:
@@ -32,6 +37,7 @@ class HrExpense(models.Model):
         else:
             self.tax_line_ids = False
 
+    #
     def _setup_tax_lines(self):
         """Setup the taxes on the expense."""
         # Reset values
@@ -57,6 +63,26 @@ class HrExpense(models.Model):
                 }
             )
 
+        # for expense in self:
+        #     included_tax_amount = sum(
+        #         line.amount for line in expense.tax_line_ids if line.price_include
+        #     )
+        #     tax_amount = sum(line.amount for line in expense.tax_line_ids)
+        #     untaxed_amount = (
+        #         expense.unit_amount * expense.quantity - included_tax_amount
+        #     )
+        #     expense.total_amount = untaxed_amount + tax_amount
+
+    # @api.depends(
+    #     "quantity", "unit_amount", "tax_ids", "currency_id", "tax_line_ids.amount"
+    # )
+    # @api.depends("tax_ids", "tax_line_ids.amount"
+    # )
+    # def _compute_tax_expense(self):
+    #     for expense in self:
+    #         expense.amount_tax = 10
+    #     super(HrExpense, self)._compute_amount()
+
     @api.depends(
         "quantity", "unit_amount", "tax_ids", "currency_id", "tax_line_ids.amount"
     )
@@ -76,29 +102,37 @@ class HrExpense(models.Model):
             )
         super(HrExpense, expenses_without_tax_lines)._compute_amount()
 
-    @api.depends("total_amount", "tax_ids", "currency_id")
+    @api.depends("total_amount", "tax_ids", "currency_id", "tax_line_ids.amount")
     def _compute_amount_tax(self):
-        # Filter expenses with tax lines
         expenses_with_tax_lines = self.filtered(lambda e: e.tax_ids)
-        # Filter expenses without tax lines
         expenses_without_tax_lines = self.filtered(lambda e: not e.tax_ids)
-        # Loop through expenses with tax lines
         for expense in expenses_with_tax_lines:
-            # Calculate the amount of tax included in the price
             included_tax_amount = sum(
                 line.amount for line in expense.tax_line_ids if line.price_include
             )
-            # Calculate the untaxed amount
             expense.untaxed_amount = (
                 expense.unit_amount * expense.quantity - included_tax_amount
             )
-
-        # Call the parent class method to compute the amount tax for expenses without tax lines
+            expense.amount_tax = sum(line.amount for line in expense.tax_line_ids)
         super(HrExpense, expenses_without_tax_lines)._compute_amount_tax()
 
-    # Then modify the inverse method in hr_expense (through inheritance):
     def _inverse_total_amount(self):
-        if self.env.context.get("skip_inverse_total_amount"):
+        if (
+            self.env.context.get("skip_inverse_total_amount")
+            or self.tax_line_ids
+            or (not self.product_id.standard_price and self.unit_amount)
+        ):
             return
         # Original inverse logic here
         super()._inverse_total_amount()
+
+    # in some case, unit_amount change too in the original compute
+
+    # @api.depends('product_id.standard_price')
+    # def _compute_product_has_cost(self):
+    #     """Override to ensure that the product has a cost before computing the total amount."""
+    #     for expense in self:
+    #         previous_unit_amount = expense.unit_amount
+    #         super()._compute_product_has_cost()
+    #         if not expense.product_has_cost and expense.state == 'draft' and previous_unit_amount != 0:
+    #             expense.unit_amount = previous_unit_amount
