@@ -15,7 +15,7 @@ When a purchase invoice is generated from a company A, the matching sale invoice
 Because of a missing ``onchange`` function, the bank account of company A (the buyer) is set on the sale invoice,
 instead of the bank account of company B.
 
-When validating the purchase/ customer invoice, you get a blocking error message:
+When validating the purchase or customer invoice, you get a blocking error message:
 
 .. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/invoice_intercompany_compatible/static/description/wrong_bank_account_error.png
 
