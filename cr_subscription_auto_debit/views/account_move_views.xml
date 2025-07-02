@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+    <field name="name">account.move.form.inherit.auto_debit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_shipping_id']" position="after">
+            <field name="cr_auto_debit"/>
+        </xpath>
+    </field>
+    </record>
+</odoo>
