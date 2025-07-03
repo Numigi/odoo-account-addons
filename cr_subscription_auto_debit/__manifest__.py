@@ -200,7 +200,8 @@
     "depends": [
         "base",
         "mail",
-        "account"
+        "account",
+        "sale",
     ],
     "data": [
         "views/account_move_views.xml"
