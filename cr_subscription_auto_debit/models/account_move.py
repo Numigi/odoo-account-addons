@@ -90,7 +90,8 @@ class AccountMove(models.Model):
 
     def _handle_payment_failure(self, invoice):
         """
-        Handle payment failure by logging the error, notifying the customer, and marking the invoice.
+        Handle payment failure by logging the error, notifying the customer,
+        and marking the invoice.
         """
         error_message = _("Auto-debit payment failed for invoice %s.", invoice.name)
         invoice.message_post(body=error_message)
@@ -100,31 +101,34 @@ class AccountMove(models.Model):
                 'subject': _("Payment Failed for Invoice %s" % invoice.name),
                 'email_from': invoice.company_id.email or self.env.user.email,
                 'email_to': invoice.partner_id.email,
-                'body_html': """
-                    <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                        <p>Dear {partner_name},</p>
-                        <p>We regret to inform you that we were unable to process the auto-debit 
-                        payment for your invoice <strong>{invoice_name}</strong>.</p>
-                        <p><strong>Invoice Details:</strong></p>
-                        <ul>
-                            <li><strong>Invoice Number:</strong> {invoice_name}</li>
-                            <li><strong>Amount Due:</strong> {amount} {currency}</li>
-                            <li><strong>Due Date:</strong> {due_date}</li>
-                        </ul>
-                        <p>Please update your payment method and try again. 
-                        If you need assistance, feel free to contact us at 
-                        <a href="mailto:{email}">{email}</a>.</p>
-                        <p>Thank you for your understanding.</p>
-                        <p>Best regards,<br/>{company}</p>
-                    </div>
-                """.format(
-                    partner_name=invoice.partner_id.name,
-                    invoice_name=invoice.name,
-                    amount=invoice.amount_total,
-                    currency=invoice.currency_id.symbol,
-                    due_date=invoice.invoice_date_due or _("N/A"),
-                    email=invoice.company_id.email or self.env.user.email,
-                    company=invoice.company_id.name,
+                'body_html': (
+                    '<div style="font-family: Arial, sans-serif; font-size: 14px; color'
+                    ': #333;">'
+                    '<p>Dear %s,</p>'
+                    '<p>We regret to inform you that we were unable to process the '
+                    'auto-debit payment for your invoice <strong>%s</strong>.</p>'
+                    '<p><strong>Invoice Details:</strong></p>'
+                    '<ul>'
+                    '<li><strong>Invoice Number:</strong> %s</li>'
+                    '<li><strong>Amount Due:</strong> %s %s</li>'
+                    '<li><strong>Due Date:</strong> %s</li>'
+                    '</ul>'
+                    '<p>Please update your payment method and try again. '
+                    'If you need assistance, feel free to contact us at '
+                    '<a href="mailto:%s">%s</a>.</p>'
+                    '<p>Thank you for your understanding.</p>'
+                    '<p>Best regards,<br/>%s</p>'
+                    '</div>'
+                ) % (
+                    invoice.partner_id.name,
+                    invoice.name,
+                    invoice.name,
+                    invoice.amount_total,
+                    invoice.currency_id.symbol,
+                    invoice.invoice_date_due or _("N/A"),
+                    invoice.company_id.email or self.env.user.email,
+                    invoice.company_id.email or self.env.user.email,
+                    invoice.company_id.name,
                 ),
             }
 
