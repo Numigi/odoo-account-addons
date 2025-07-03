@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Creyox Technologies
+
 from odoo import models, fields, _
 
 
@@ -9,17 +10,18 @@ class AccountMove(models.Model):
     cr_auto_debit = fields.Boolean(string="Auto Debit?")
 
     def action_post(self):
-        """ Override action_post to trigger auto debit payment when the invoice is posted. """
+        """Override action_post to trigger auto debit payment when the invoice is posted."""
         res = super().action_post()
 
         for invoice in self:
             if invoice.cr_auto_debit:
-                provide = self.env['payment.provider'].search([
+                provider = self.env['payment.provider'].search([
                     ('code', 'ilike', 'Stripe'),
                 ], limit=1)
+
                 saved_token = self.env['payment.token'].search([
                     ('partner_id', '=', invoice.partner_id.id),
-                    ('provider_id', '=', provide.id),
+                    ('provider_id', '=', provider.id),
                     ('active', '=', True)
                 ], limit=1)
 
@@ -29,10 +31,11 @@ class AccountMove(models.Model):
                         invoice.payment_state = 'paid'
                     else:
                         self._handle_payment_failure(invoice)
+
         return res
 
     def _process_auto_debit_payment(self, saved_token):
-        """ Process automatic payment using the saved payment token. """
+        """Process automatic payment using the saved payment token."""
         try:
             stripe_provider = self.env['payment.provider'].search([
                 ('code', 'ilike', 'Stripe'),
@@ -42,6 +45,7 @@ class AccountMove(models.Model):
                 self._handle_payment_failure(self)
 
             stripe_journal = stripe_provider.journal_id
+
             stripe_payment_method = self.env['account.payment.method.line'].search([
                 ('name', 'ilike', 'Stripe')
             ], limit=1)
@@ -56,16 +60,20 @@ class AccountMove(models.Model):
                 'payment_reference': self.name,
                 'payment_token_id': saved_token.id,
             }
+
             payment = self.env['account.payment'].create(payment_vals)
             payment.action_post()
+
             if payment and payment.state == 'posted':
                 move_lines = self.line_ids.filtered(
-                    lambda line: line.account_id.account_type == 'asset_receivable' and not line.reconciled
+                    lambda line: line.account_id.account_type == 'asset_receivable'
+                    and not line.reconciled
                 )
                 payment_lines = payment.move_id.line_ids.filtered(
                     lambda line: line.account_id.account_type == 'asset_receivable'
                 )
                 (move_lines + payment_lines).reconcile()
+
                 transaction = self.env['payment.transaction'].search([
                     ('partner_id', '=', self.partner_id.id),
                     ('provider_id', '=', stripe_provider.id)
@@ -75,7 +83,8 @@ class AccountMove(models.Model):
                     self.transaction_ids = [(4, transaction.id)]
 
             return payment
-        except Exception as e:
+
+        except Exception:
             self._handle_payment_failure(self)
             return False
 
@@ -93,28 +102,29 @@ class AccountMove(models.Model):
                 'email_to': invoice.partner_id.email,
                 'body_html': """
                     <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                        <p>Dear %s,</p>
-                        <p>We regret to inform you that we were unable to process the auto-debit payment for your invoice <strong>%s</strong>.</p>
+                        <p>Dear {partner_name},</p>
+                        <p>We regret to inform you that we were unable to process the auto-debit 
+                        payment for your invoice <strong>{invoice_name}</strong>.</p>
                         <p><strong>Invoice Details:</strong></p>
                         <ul>
-                            <li><strong>Invoice Number:</strong> %s</li>
-                            <li><strong>Amount Due:</strong> %s %s</li>
-                            <li><strong>Due Date:</strong> %s</li>
+                            <li><strong>Invoice Number:</strong> {invoice_name}</li>
+                            <li><strong>Amount Due:</strong> {amount} {currency}</li>
+                            <li><strong>Due Date:</strong> {due_date}</li>
                         </ul>
-                        <p>Please update your payment method and try again. If you need assistance, feel free to contact us at <a href="mailto:%s">%s</a>.</p>
+                        <p>Please update your payment method and try again. 
+                        If you need assistance, feel free to contact us at 
+                        <a href="mailto:{email}">{email}</a>.</p>
                         <p>Thank you for your understanding.</p>
-                        <p>Best regards,<br/>%s</p>
+                        <p>Best regards,<br/>{company}</p>
                     </div>
-                """ % (
-                    invoice.partner_id.name,
-                    invoice.name,
-                    invoice.name,
-                    invoice.amount_total,
-                    invoice.currency_id.symbol,
-                    invoice.invoice_date_due or _("N/A"),
-                    invoice.company_id.email or self.env.user.email,
-                    invoice.company_id.email or self.env.user.email,
-                    invoice.company_id.name,
+                """.format(
+                    partner_name=invoice.partner_id.name,
+                    invoice_name=invoice.name,
+                    amount=invoice.amount_total,
+                    currency=invoice.currency_id.symbol,
+                    due_date=invoice.invoice_date_due or _("N/A"),
+                    email=invoice.company_id.email or self.env.user.email,
+                    company=invoice.company_id.name,
                 ),
             }
 

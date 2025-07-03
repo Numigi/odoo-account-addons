@@ -24,6 +24,7 @@ COPY account_additional_settings /mnt/extra-addons/account_additional_settings
 COPY account_analytic_required_forbidden /mnt/extra-addons/account_analytic_required_forbidden
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_check_deposit_enhanced /mnt/extra-addons/account_check_deposit_enhanced
+COPY cr_subscription_auto_debit /mnt/extra-addons/cr_subscription_auto_debit
 COPY account_closing_journal /mnt/extra-addons/account_closing_journal
 COPY account_closing_journal_mis_builder /mnt/extra-addons/account_closing_journal_mis_builder
 COPY account_closing_wizard /mnt/extra-addons/account_closing_wizard
