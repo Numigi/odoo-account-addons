@@ -2,6 +2,7 @@
 # Part of Creyox Technologies
 from odoo import models, fields, _
 
+
 class AccountMove(models.Model):
     _inherit = "account.move"
 
@@ -28,17 +29,14 @@ class AccountMove(models.Model):
                         invoice.payment_state = 'paid'
                     else:
                         self._handle_payment_failure(invoice)
-                # else:#No action required if no token
-                #     self._handle_payment_failure(invoice)
-                #     invoice.state = 'draft'
         return res
 
     def _process_auto_debit_payment(self, saved_token):
         """ Process automatic payment using the saved payment token. """
         try:
-            stripe_provider =self.env['payment.provider'].search([
-                    ('code', 'ilike', 'Stripe'),
-                ], limit=1)
+            stripe_provider = self.env['payment.provider'].search([
+                ('code', 'ilike', 'Stripe'),
+            ], limit=1)
 
             if not stripe_provider or not stripe_provider.payment_method_ids:
                 self._handle_payment_failure(self)
@@ -61,14 +59,12 @@ class AccountMove(models.Model):
             payment = self.env['account.payment'].create(payment_vals)
             payment.action_post()
             if payment and payment.state == 'posted':
-
                 move_lines = self.line_ids.filtered(
                     lambda line: line.account_id.account_type == 'asset_receivable' and not line.reconciled
                 )
                 payment_lines = payment.move_id.line_ids.filtered(
                     lambda line: line.account_id.account_type == 'asset_receivable'
                 )
-
                 (move_lines + payment_lines).reconcile()
                 transaction = self.env['payment.transaction'].search([
                     ('partner_id', '=', self.partner_id.id),
@@ -89,7 +85,6 @@ class AccountMove(models.Model):
         """
         error_message = _("Auto-debit payment failed for invoice %s.", invoice.name)
         invoice.message_post(body=error_message)
-
 
         if invoice.partner_id.email:
             mail_values = {
@@ -126,4 +121,4 @@ class AccountMove(models.Model):
             mail = self.env['mail.mail'].create(mail_values)
             mail.send()
 
-        invoice.write({'payment_state': 'not_paid',})
+        invoice.write({'payment_state': 'not_paid'})
