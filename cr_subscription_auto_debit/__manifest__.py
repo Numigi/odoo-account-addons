@@ -127,4 +127,90 @@
 
         Failed Payment Handling – Automatically retries failed payments and sends alerts.
 
-        Odoo Accounting Integration –
+        Odoo Accounting Integration – Syncs all transactions with Odoo’s financial system.
+
+        Multi-Currency Support – Accepts payments in different currencies.
+
+        User-Friendly Setup – Simple configuration with minimal effort.
+
+        Secure Transactions – Uses Stripe’s encryption and PCI-compliant security.
+
+        Better Customer Experience – Hassle-free payments without manual renewals.
+
+        Stripe Auto Debit Subscription
+        Stripe Odoo Auto Payment
+        Stripe Recurring Payments Pro
+        Stripe Subscription Billing
+        Stripe Smart Subscription Billing
+        Stripe Auto Debit for Odoo
+        Stripe Seamless Recurring Payments
+        Stripe Odoo Subscription Pay
+        Stripe Automated Payments
+        Stripe Auto Charge for Odoo
+        Stripe Odoo Subscription Auto Pay
+        Stripe Easy Recurring Payments
+        Stripe Smart Billing
+        Stripe Auto Charge Pro for Odoo
+        Stripe Odoo Subscription Debit
+        Stripe Payment Automation
+        Stripe Recurring Billing for Odoo
+        Stripe Odoo PayFlow
+        Stripe AutoPay for Odoo Subscriptions
+
+        How to set auto payments in Odoo?
+
+        Can Odoo use Stripe for subscriptions?
+
+        How does auto debit work in Odoo?
+
+        Why use Stripe for Odoo payments?
+
+        How to check failed payments in Odoo?
+
+        Can I set different billing times in Odoo?
+
+        How to link Stripe with Odoo?
+
+        Does this module support many currencies?
+
+        How does this module save time?
+
+        Is Stripe payment safe in Odoo?
+
+        How to make Stripe charge customers automatically?
+
+        Can Odoo handle monthly payments?
+
+        How to stop a subscription in Odoo?
+
+        Does Odoo send payment failure alerts?
+
+        Can customers update their payment details?
+
+        How to see payment history in Odoo?
+
+        Does this module work in all countries?
+
+        Can I use Stripe with different Odoo versions?
+
+        How to add multiple payment methods in Odoo?
+
+        Does this module create invoices automatically?
+    """,
+    "depends": [
+        "base",
+        "mail",
+        "account"
+    ],
+    "data": [
+        "views/account_move_views.xml"
+    ],
+    "installable": True,
+    "auto_install": False,
+    "application": True,
+    "images": [
+        "static/description/banner.png"
+    ],
+    "price": 40,
+    "currency": "USD",
+}
