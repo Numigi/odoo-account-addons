@@ -200,7 +200,7 @@
     "depends": [
         "base",
         "mail",
-        "account",
+        "payment_stripe",
         "sale",
     ],
     "data": [

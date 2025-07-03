@@ -15,13 +15,13 @@ class AccountMove(models.Model):
 
         for invoice in self:
             if invoice.cr_auto_debit:
-                provider = self.env['payment.provider'].search([
-                    ('code', 'ilike', 'Stripe'),
+                acquirer_id = self.env['payment.acquirer'].search([
+                    ('provider', '=', 'stripe'),
                 ], limit=1)
 
                 saved_token = self.env['payment.token'].search([
                     ('partner_id', '=', invoice.partner_id.id),
-                    ('provider_id', '=', provider.id),
+                    ('acquirer_id', '=', acquirer_id.id),
                     ('active', '=', True)
                 ], limit=1)
 
@@ -37,16 +37,16 @@ class AccountMove(models.Model):
     def _process_auto_debit_payment(self, saved_token):
         """Process automatic payment using the saved payment token."""
         try:
-            stripe_provider = self.env['payment.provider'].search([
-                ('code', 'ilike', 'Stripe'),
+            stripe_provider = self.env['payment.acquirer'].search([
+                    ('provider', '=', 'stripe'),
             ], limit=1)
 
-            if not stripe_provider or not stripe_provider.payment_method_ids:
+            if not stripe_provider or not stripe_provider.inbound_payment_method_ids:
                 self._handle_payment_failure(self)
 
             stripe_journal = stripe_provider.journal_id
 
-            stripe_payment_method = self.env['account.payment.method.line'].search([
+            stripe_payment_method = self.env['account.payment.method'].search([
                 ('name', 'ilike', 'Stripe')
             ], limit=1)
 
@@ -56,7 +56,8 @@ class AccountMove(models.Model):
                 'partner_id': self.partner_id.id,
                 'journal_id': stripe_journal.id,
                 'payment_type': 'inbound',
-                'payment_method_line_id': stripe_payment_method.id,
+                # TODO: Add payment method or tocken method
+                #'payment_method_id': stripe_payment_method.id,
                 'payment_reference': self.name,
                 'payment_token_id': saved_token.id,
             }
