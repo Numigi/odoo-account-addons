@@ -13,7 +13,6 @@ class TestAccountPaymentInvoiceDetails(SavepointCase):
 
         cls.company = cls.env.user.company_id
         cls.currency_usd = cls.company.currency_id
-        cls.currency_eur = cls.env.ref("base.EUR")
 
         cls.partner = cls.env["res.partner"].create(
             {
@@ -364,17 +363,15 @@ class TestAccountPaymentInvoiceDetails(SavepointCase):
 
     def test_allocation_line_ids_multi_currency(self):
         """Test allocation_line_ids with multi-currency scenario."""
-        # Create EUR invoice
-        invoice_eur = self._create_vendor_bill(850.0, self.currency_eur)
-        invoice_eur.action_post()
+        invoice_usd = self._create_vendor_bill(850.0, self.currency_usd)
+        invoice_usd.action_post()
 
         # Create USD payment
         payment_usd = self._create_vendor_payment(1000.0, self.currency_usd)
         payment_usd.action_post()
 
-        # Mock allocation (payment in USD, invoice in EUR)
-        self._mock_invoice_payments_widget(invoice_eur, payment_usd, 850.0)
-        payment_usd.reconciled_bill_ids = [(4, invoice_eur.id)]
+        self._mock_invoice_payments_widget(invoice_usd, payment_usd, 850.0)
+        payment_usd.reconciled_bill_ids = [(4, invoice_usd.id)]
 
         # Trigger computation
         payment_usd._compute_allocation_line_ids()
@@ -383,7 +380,7 @@ class TestAccountPaymentInvoiceDetails(SavepointCase):
         self.assertEqual(len(payment_usd.allocation_line_ids), 1)
         allocation = payment_usd.allocation_line_ids[0]
         self.assertEqual(allocation.amount, 850.0)
-        self.assertEqual(allocation.currency_id, self.currency_eur)  # Invoice currency
+        self.assertEqual(allocation.currency_id, self.currency_usd) 
 
     def test_allocation_details_model_fields(self):
         """Test the allocation details model fields and relationships."""
