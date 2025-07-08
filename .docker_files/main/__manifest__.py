@@ -34,6 +34,7 @@
         "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
+        "account_payment_invoice_details",
         "account_payment_term_usage",
         "account_payment_term_usage_purchase",
         "account_payment_term_usage_sale",
