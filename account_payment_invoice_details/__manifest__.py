@@ -9,7 +9,7 @@
     "author": "Numigi",
     "maintainer": "Numigi",
     "summary": "Technical module providing vendor bill payment allocation "
-               "details for reports.",
+    "details for reports.",
     "license": "AGPL-3",
     "category": "Accounting",
     "depends": ["account"],
