@@ -13,7 +13,7 @@ class AccountPayment(models.Model):
         Get detailed payment allocation information for vendor bills only.
         This function specifically works with vendor bill payments (supplier invoices)
         by iterating through reconciled_bill_id.
-        
+
         Returns: list
         """
         details = []
@@ -34,7 +34,7 @@ class AccountPayment(models.Model):
     def _get_allocated_amount_for_invoice(self, invoice):
         """
         Extract allocated amount from invoice_payments_widget for this payment.
-        Returns: float: 
+        Returns: float:
         """
         if not invoice.invoice_payments_widget:
             return 0.0
