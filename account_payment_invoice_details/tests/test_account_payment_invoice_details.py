@@ -380,7 +380,7 @@ class TestAccountPaymentInvoiceDetails(SavepointCase):
         self.assertEqual(len(payment_usd.allocation_line_ids), 1)
         allocation = payment_usd.allocation_line_ids[0]
         self.assertEqual(allocation.amount, 850.0)
-        self.assertEqual(allocation.currency_id, self.currency_usd) 
+        self.assertEqual(allocation.currency_id, self.currency_usd)
 
     def test_allocation_details_model_fields(self):
         """Test the allocation details model fields and relationships."""
