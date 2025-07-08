@@ -1,4 +1,5 @@
-# Copyright 2025 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# Copyright 2025 - today Numigi (tm) and all its contributors
+# (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from . import test_account_payment_allocation
+from . import test_account_payment_invoice_details

@@ -5,13 +5,16 @@
 {
     "name": "Account Payment Invoice Details",
     "version": "14.0.1.0.0",
-    "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
-    "summary": "Technical module providing vendor bill payment allocation "
-    "details for reports.",
+    "website": "https://bit.ly/numigi-com",
     "license": "AGPL-3",
     "category": "Accounting",
+    "summary": "Display detailed payment allocation for vendor invoices",
     "depends": ["account"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/account_payment_views.xml",
+    ],
     "installable": True,
 }
