@@ -23,6 +23,7 @@ class AccountPayment(models.Model):
                 details.append(
                     {
                         "invoice_id": invoice.id,
+                        "amount_total": invoice.amount_total,
                         "invoice": invoice.name,
                         "invoice_date": invoice.invoice_date,
                         "amount": allocated_amount,

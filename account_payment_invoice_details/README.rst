@@ -32,7 +32,9 @@ Call the `_get_account_payment_details()` method on any **vendor payment** recor
     #         'invoice_id': 123,
     #         'invoice': 'BILL/2025/001',
     #         'amount': 1500.0,
-    #         'currency_id': 'USD'
+    #         'currency_id': 'USD',
+    #         'invoice_date': '2025-01-15',
+    #         'amount_total': 1500.0,
     #     },
     #     ...
     # ]
