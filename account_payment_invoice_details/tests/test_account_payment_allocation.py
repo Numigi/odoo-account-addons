@@ -153,22 +153,22 @@ class TestAccountPaymentAllocation(SavepointCase):
         # Check that we get dictionaries with invoice objects and amounts
         self.assertIsInstance(details[0], dict)
         self.assertIsInstance(details[1], dict)
-        
+
         # Verify the structure of returned data
         self.assertIn("invoice", details[0])
         self.assertIn("amount", details[0])
         self.assertIn("invoice", details[1])
         self.assertIn("amount", details[1])
-        
+
         # Check that invoice objects are correct
         invoices_in_details = [detail["invoice"] for detail in details]
         self.assertIn(invoice1, invoices_in_details)
         self.assertIn(invoice2, invoices_in_details)
-        
+
         # Verify the allocated amounts are correct
         detail1 = next(d for d in details if d["invoice"] == invoice1)
         detail2 = next(d for d in details if d["invoice"] == invoice2)
-        
+
         self.assertEqual(detail1["amount"], 1000.0)
         self.assertEqual(detail2["amount"], 500.0)
 
