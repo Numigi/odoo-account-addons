@@ -147,20 +147,30 @@ class TestAccountPaymentAllocation(SavepointCase):
 
         self.assertEqual(len(details), 2)
 
-        # Sort by amount for consistent testing
-        details.sort(key=lambda x: x["amount"], reverse=True)
+        # Sort by invoice id for consistent testing
+        details.sort(key=lambda x: x["invoice"].id)
 
-        # Check first invoice details
-        self.assertEqual(details[0]["invoice_id"], invoice1.id)
-        self.assertEqual(details[0]["invoice"], invoice1.name)
-        self.assertEqual(details[0]["amount"], 1000.0)
-        self.assertEqual(details[0]["currency_id"], self.currency.name)
+        # Check that we get dictionaries with invoice objects and amounts
+        self.assertIsInstance(details[0], dict)
+        self.assertIsInstance(details[1], dict)
 
-        # Check second invoice details
-        self.assertEqual(details[1]["invoice_id"], invoice2.id)
-        self.assertEqual(details[1]["invoice"], invoice2.name)
-        self.assertEqual(details[1]["amount"], 500.0)
-        self.assertEqual(details[1]["currency_id"], self.currency.name)
+        # Verify the structure of returned data
+        self.assertIn("invoice", details[0])
+        self.assertIn("amount", details[0])
+        self.assertIn("invoice", details[1])
+        self.assertIn("amount", details[1])
+
+        # Check that invoice objects are correct
+        invoices_in_details = [detail["invoice"] for detail in details]
+        self.assertIn(invoice1, invoices_in_details)
+        self.assertIn(invoice2, invoices_in_details)
+
+        # Verify the allocated amounts are correct
+        detail1 = next(d for d in details if d["invoice"] == invoice1)
+        detail2 = next(d for d in details if d["invoice"] == invoice2)
+
+        self.assertEqual(detail1["amount"], 1000.0)
+        self.assertEqual(detail2["amount"], 500.0)
 
     def test_get_allocated_amount_for_invoice(self):
         """Test the _get_allocated_amount_for_invoice method"""
@@ -457,5 +467,8 @@ class TestAccountPaymentAllocation(SavepointCase):
 
         details = payment._get_account_payment_details()
         self.assertEqual(len(details), 1)
-        self.assertEqual(details[0]["invoice_id"], vendor_bill.id)
+        self.assertIsInstance(details[0], dict)
+        self.assertIn("invoice", details[0])
+        self.assertIn("amount", details[0])
+        self.assertEqual(details[0]["invoice"].id, vendor_bill.id)
         self.assertEqual(details[0]["amount"], 500.0)

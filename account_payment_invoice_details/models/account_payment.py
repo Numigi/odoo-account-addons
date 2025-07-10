@@ -22,12 +22,8 @@ class AccountPayment(models.Model):
             if allocated_amount:
                 details.append(
                     {
-                        "invoice_id": invoice.id,
-                        "amount_total": invoice.amount_total,
-                        "invoice": invoice.name,
-                        "invoice_date": invoice.invoice_date,
+                        "invoice": invoice,
                         "amount": allocated_amount,
-                        "currency_id": invoice.currency_id.name,
                     }
                 )
         return details

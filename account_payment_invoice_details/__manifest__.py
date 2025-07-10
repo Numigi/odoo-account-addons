@@ -4,7 +4,7 @@
 
 {
     "name": "Account Payment Invoice Details",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
