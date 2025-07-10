@@ -20,16 +20,7 @@ class AccountPayment(models.Model):
         for invoice in self.reconciled_bill_ids:
             allocated_amount = self._get_allocated_amount_for_invoice(invoice)
             if allocated_amount:
-                details.append(
-                    {
-                        "invoice_id": invoice.id,
-                        "amount_total": invoice.amount_total,
-                        "invoice": invoice.name,
-                        "invoice_date": invoice.invoice_date,
-                        "amount": allocated_amount,
-                        "currency_id": invoice.currency_id.name,
-                    }
-                )
+                details.append(invoice)
         return details
 
     def _get_allocated_amount_for_invoice(self, invoice):

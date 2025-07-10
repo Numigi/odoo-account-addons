@@ -13,7 +13,7 @@ Features
 
 * Provides `_get_account_payment_details()` function on payment records
 * Extracts allocation amounts from `invoice_payments_widget` JSON field for vendor bills
-* Returns structured data for report generation
+* Returns invoice objects for report generation
 * Pure technical module without UI components
 * **Works exclusively with vendor bills (move_type='in_invoice')**
 
@@ -26,18 +26,13 @@ Call the `_get_account_payment_details()` method on any **vendor payment** recor
 
     # Only works with vendor payments (payment_type='outbound', partner_type='supplier')
     vendor_payment = self.env['account.payment'].browse(payment_id)
-    details = vendor_payment._get_account_payment_details()
-    # Returns: [
-    #     {
-    #         'invoice_id': 123,
-    #         'invoice': 'BILL/2025/001',
-    #         'amount': 1500.0,
-    #         'currency_id': 'USD',
-    #         'invoice_date': '2025-01-15',
-    #         'amount_total': 1500.0,
-    #     },
-    #     ...
-    # ]
+    invoices = vendor_payment._get_account_payment_details()
+    for invoice in invoices:
+        allocated_amount = vendor_payment._get_allocated_amount_for_invoice(invoice)
+        print(f"Invoice: {invoice.name}, Allocated Amount: {allocated_amount}")
+        # Result :
+        # Invoice: BILL/2025/001, Allocated Amount: 100.00
+
 
 Contributors
 ------------

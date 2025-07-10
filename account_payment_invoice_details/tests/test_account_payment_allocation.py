@@ -147,20 +147,18 @@ class TestAccountPaymentAllocation(SavepointCase):
 
         self.assertEqual(len(details), 2)
 
-        # Sort by amount for consistent testing
-        details.sort(key=lambda x: x["amount"], reverse=True)
+        # Sort by id for consistent testing
+        details.sort(key=lambda x: x.id)
 
-        # Check first invoice details
-        self.assertEqual(details[0]["invoice_id"], invoice1.id)
-        self.assertEqual(details[0]["invoice"], invoice1.name)
-        self.assertEqual(details[0]["amount"], 1000.0)
-        self.assertEqual(details[0]["currency_id"], self.currency.name)
+        # Check that we get invoice objects, not dictionaries
+        self.assertIn(invoice1, details)
+        self.assertIn(invoice2, details)
 
-        # Check second invoice details
-        self.assertEqual(details[1]["invoice_id"], invoice2.id)
-        self.assertEqual(details[1]["invoice"], invoice2.name)
-        self.assertEqual(details[1]["amount"], 500.0)
-        self.assertEqual(details[1]["currency_id"], self.currency.name)
+        # Verify the allocated amounts can be retrieved
+        amount1 = payment._get_allocated_amount_for_invoice(invoice1)
+        amount2 = payment._get_allocated_amount_for_invoice(invoice2)
+        self.assertEqual(amount1, 1000.0)
+        self.assertEqual(amount2, 500.0)
 
     def test_get_allocated_amount_for_invoice(self):
         """Test the _get_allocated_amount_for_invoice method"""
@@ -457,5 +455,6 @@ class TestAccountPaymentAllocation(SavepointCase):
 
         details = payment._get_account_payment_details()
         self.assertEqual(len(details), 1)
-        self.assertEqual(details[0]["invoice_id"], vendor_bill.id)
-        self.assertEqual(details[0]["amount"], 500.0)
+        self.assertEqual(details[0].id, vendor_bill.id)
+        allocated_amount = payment._get_allocated_amount_for_invoice(details[0])
+        self.assertEqual(allocated_amount, 500.0)
