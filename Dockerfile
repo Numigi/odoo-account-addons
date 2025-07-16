@@ -41,6 +41,7 @@ COPY account_move_supplier_ref_check /mnt/extra-addons/account_move_supplier_ref
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
+COPY account_payment_invoice_details /mnt/extra-addons/account_payment_invoice_details
 COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_usage_purchase
 COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usage_sale
