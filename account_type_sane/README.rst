@@ -37,4 +37,5 @@ On accounts, I notice that the account type field is a standard manyone selector
 
 Contributors
 ------------
-* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+
+The `Numigi <https://numigi.com/r/home>`_ team is the contributor to this project. We help Quebec companies implement Odoo and Konvergo ERP.

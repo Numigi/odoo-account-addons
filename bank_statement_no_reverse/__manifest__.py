@@ -1,4 +1,4 @@
-# © 2021 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -6,7 +6,7 @@
     "summary": "Blocks the users from reconciling a bank statement line with reversed "
     "or reversal journal items",
     "version": "12.0.1.0.0",
-    "website": "https://bit.ly/numigi-com",
+    "website": "https://numigi.com/r/home",
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",

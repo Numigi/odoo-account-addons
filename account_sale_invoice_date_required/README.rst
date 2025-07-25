@@ -13,8 +13,7 @@ This module triggers an error when posting a customer invoice that does not have
 
 Contributors
 ------------
-* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 
-More information
-----------------
-* Meet us at https://bit.ly/numigi-com
+The `Numigi <https://numigi.com/r/home>`_ team is the contributor to this project. We help Quebec companies implement Odoo and Konvergo ERP.
+
+

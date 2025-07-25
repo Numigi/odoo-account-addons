@@ -1,10 +1,10 @@
-# Copyright 2025 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Account Move Recompute Amount Currency",
     "version": "14.0.2.0.0",
-    "website": "https://bit.ly/numigi-com",
+    "website": "https://numigi.com/r/home",
     "author": "Numigi",
     "maintainer": "Numigi",
     "summary": "Recomputes amount currency on account move.",
