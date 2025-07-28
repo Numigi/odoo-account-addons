@@ -32,6 +32,7 @@
         "invoice_fiscal_position_required",
         "invoice_intercompany_compatible",
         "invoice_refund_not_earlier",
+        "hr_expense_tax_adjustment",
         "old_accounts",
     ],
     "installable": True,
