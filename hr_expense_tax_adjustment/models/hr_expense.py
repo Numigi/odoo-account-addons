@@ -130,9 +130,11 @@ class HrExpense(models.Model):
 
     # @api.depends('product_id.standard_price')
     # def _compute_product_has_cost(self):
-    #     """Override to ensure that the product has a cost before computing the total amount."""
+    #     """Override to ensure that the product has a cost
+    #  before computing the total amount."""
     #     for expense in self:
     #         previous_unit_amount = expense.unit_amount
     #         super()._compute_product_has_cost()
-    #         if not expense.product_has_cost and expense.state == 'draft' and previous_unit_amount != 0:
+    #         if not expense.product_has_cost and expense.state == 'draft' \
+    # and previous_unit_amount != 0:
     #             expense.unit_amount = previous_unit_amount
