@@ -1,4 +1,5 @@
-# © Numigi (tm) and all its contributors (https://numigi.com/r/home)# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# © Numigi (tm) and all its contributors (https://numigi.com/r/home)
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from datetime import datetime, timedelta
 from odoo.tests import common
@@ -12,17 +13,27 @@ class TestReport(common.SavepointCase):
         cls.today = datetime.now().date()
         cls.date_from = cls.today - timedelta(30)
         cls.date_to = cls.today - timedelta(1)
-        cls.report = cls.env["mis.report"].create({
-            "name": "Income Statement",
-            "description": "/",
-        })
-        cls.instance = cls.env["mis.report.instance"].create({
-            "name": "2021",
-            "report_id": cls.report.id,
-            "period_ids": [(0, 0, {
-                "name": "January",
-            })]
-        })
+        cls.report = cls.env["mis.report"].create(
+            {
+                "name": "Income Statement",
+                "description": "/",
+            }
+        )
+        cls.instance = cls.env["mis.report.instance"].create(
+            {
+                "name": "2021",
+                "report_id": cls.report.id,
+                "period_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "January",
+                        },
+                    )
+                ],
+            }
+        )
 
     def test_checkbox_not_checked(self):
         domain = self.instance.period_ids._get_additional_move_line_filter()
