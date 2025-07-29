@@ -248,5 +248,6 @@ The payment notices are now sent.
 
 Contributors
 ------------
+
+* The `Numigi <https://numigi.com/r/home>`_ team is the contributor to this project. We help Quebec companies implement Odoo and Konvergo ERP.
 * Savoir-faire Linux
-* Numigi (tm) and all its contributors (https://bit.ly/numigiens)

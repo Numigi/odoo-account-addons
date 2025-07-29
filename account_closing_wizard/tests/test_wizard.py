@@ -1,4 +1,4 @@
-# © 2021 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import pytest
@@ -12,8 +12,7 @@ class TestWizard(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.company = cls.env["res.company"].create(
-            {"name": "My Compan Testy"})
+        cls.company = cls.env["res.company"].create({"name": "My Compan Testy"})
         cls.today = datetime.now().date()
         cls.date_from = cls.today - timedelta(30)
         cls.date_to = cls.today - timedelta(1)
@@ -80,10 +79,8 @@ class TestWizard(common.SavepointCase):
                 "code": "50000",
             }
         )
-        cls.move_1 = cls._make_move(
-            cls.receivable_account, cls.revenue_account, 300)
-        cls.move_2 = cls._make_move(
-            cls.expense_account, cls.payable_account, 200)
+        cls.move_1 = cls._make_move(cls.receivable_account, cls.revenue_account, 300)
+        cls.move_2 = cls._make_move(cls.expense_account, cls.payable_account, 200)
         cls.move_1.company_id = cls.move_2.company_id = cls.company.id
 
         cls.wizard = cls.env["account.closing.wizard"].create(
@@ -125,10 +122,12 @@ class TestWizard(common.SavepointCase):
 
     def test_confirm__no_posted_entry(self):
         company_user = self.env.user.company_id
-        self.env.user.write({
-            'company_id': self.company.id,
-            'company_ids': [(4, self.company.id), (4, company_user.id)],
-        })
+        self.env.user.write(
+            {
+                "company_id": self.company.id,
+                "company_ids": [(4, self.company.id), (4, company_user.id)],
+            }
+        )
         with pytest.raises(ValidationError):
             self.wizard.confirm()
         move = self.wizard.move_id
@@ -168,19 +167,23 @@ class TestWizard(common.SavepointCase):
 
     def test_account_move_close_draft_in_period_multi_comp(self):
         company_user = self.env.user.company_id
-        self.env.user.write({
-            'company_id': self.company.id,
-            'company_ids': [(4, self.company.id), (4, company_user.id)],
-        })
+        self.env.user.write(
+            {
+                "company_id": self.company.id,
+                "company_ids": [(4, self.company.id), (4, company_user.id)],
+            }
+        )
         with pytest.raises(ValidationError):
             self.wizard.confirm()
 
     def test_account_move_close_draft_in_period_multi_comp_raising_exception(self):
         company_user = self.env.user.company_id
-        self.env.user.write({
-            'company_id': self.company.id,
-            'company_ids': [(4, self.company.id), (4, company_user.id)],
-        })
+        self.env.user.write(
+            {
+                "company_id": self.company.id,
+                "company_ids": [(4, self.company.id), (4, company_user.id)],
+            }
+        )
         with pytest.raises(ValidationError):
             self.wizard.confirm()
 
@@ -188,9 +191,12 @@ class TestWizard(common.SavepointCase):
         self.wizard.confirm()
 
     def test_account_move_close_draft_in_period_no_record(self):
-        domain = [("state", "=", "draft"), ("move_type", "=", "entry"),
-                  ("company_id", "=", self.env.company.id),
-                  ("date", "<=", self.date_to)]
+        domain = [
+            ("state", "=", "draft"),
+            ("move_type", "=", "entry"),
+            ("company_id", "=", self.env.company.id),
+            ("date", "<=", self.date_to),
+        ]
         account_ids = self.env["account.move"].search(domain)
         assert len(account_ids.ids) == 0
 

@@ -7,7 +7,7 @@
     "version": "14.0.1.5.0",
     "author": "Savoir-faire Linux,Numigi",
     "maintainer": "Numigi",
-    "website": "https://bit.ly/numigi-com",
+    "website": "https://numigi.com/r/home",
     "license": "LGPL-3",
     "category": "Accounting",
     "depends": [
