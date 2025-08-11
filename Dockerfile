@@ -15,6 +15,7 @@ RUN if [ -s /gitoo.yml ]; then \
 
 USER odoo
 
+COPY account_additional_settings /mnt/extra-addons/account_additional_settings
 COPY account_bank_menu /mnt/extra-addons/account_bank_menu
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
