@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account",
+        "account_additional_settings",
         "account_bank_menu",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
