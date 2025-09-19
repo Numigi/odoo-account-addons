@@ -32,7 +32,7 @@ class EFTConfirmationWizard(models.TransientModel):
         for payment in completed_payments:
             change_payment_date(payment, self.eft_id.payment_date)
 
-        completed_payments.mark_as_sent()
+        completed_payments.reconciled_bill_ids.write({'is_move_sent': False})
 
         failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped(
             "payment_id"
