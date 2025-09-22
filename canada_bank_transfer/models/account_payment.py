@@ -2,12 +2,11 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError, UserError
 from ..transaction_types import TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE
-from odoo.exceptions import UserError
 
 
 class AccountPayment(models.Model):
-
     _inherit = "account.payment"
 
     eft_ids = fields.Many2many(
@@ -23,12 +22,14 @@ class AccountPayment(models.Model):
 
     eft_transaction_type = fields.Selection(
         TRANSACTION_TYPES,
-        "EFT Transaction Type",
+        string="EFT Transaction Type",
         default=DEFAULT_TRANSACTION_TYPE,
     )
 
     is_eft_payment = fields.Boolean(
-        compute="_compute_is_eft_payment", store=True)
+        compute="_compute_is_eft_payment",
+        store=True,
+    )
 
     def _compute_eft_count(self):
         for payment in self:
@@ -42,7 +43,8 @@ class AccountPayment(models.Model):
         before the xml ID was loaded in the system.
         """
         eft_method = self.env.ref(
-            "canada_bank_transfer.payment_method_eft", raise_if_not_found=False
+            "canada_bank_transfer.payment_method_eft",
+            raise_if_not_found=False,
         )
         for payment in self:
             payment.is_eft_payment = (
@@ -51,8 +53,60 @@ class AccountPayment(models.Model):
 
     def action_draft(self):
         for payment in self:
-            if payment.eft_ids and payment.state == 'posted':
+            if payment.eft_ids and payment.state == "posted":
                 raise UserError(
-                    _("You cannot reset to draft a payment linked to "
-                      "an Electronic Funds Transfer."))
-        super().action_draft()
+                    _(
+                        "You cannot reset to draft a payment linked to "
+                        "an Electronic Funds Transfer."
+                    )
+                )
+        return super().action_draft()
+
+    def _prepare_move_line_default_vals(self, write_off_line_vals=None):
+        vals = super()._prepare_move_line_default_vals(write_off_line_vals)
+        if (
+            self.journal_id.use_transit_account
+            and self.payment_method_id
+            == self.env.ref("canada_bank_transfer.payment_method_eft")
+        ):
+            if not self.journal_id.transit_account:
+                raise ValidationError(
+                    _(
+                        "You must choose a Transit Account in Journal %s."
+                    )
+                    % self.journal_id.name
+                )
+            vals[0].update({"account_id": self.journal_id.transit_account.id})
+        return vals
+
+    def _seek_for_lines(self):
+        """Helper used to dispatch the journal items between:
+        - The lines using the temporary liquidity account.
+        - The lines using the counterpart account.
+        - The lines being the write-off lines.
+
+        :return: (liquidity_lines, counterpart_lines, writeoff_lines)
+        """
+        self.ensure_one()
+
+        liquidity_lines = self.env["account.move.line"]
+        counterpart_lines = self.env["account.move.line"]
+        writeoff_lines = self.env["account.move.line"]
+
+        for line in self.move_id.line_ids:
+            if line.account_id in (
+                self.journal_id.default_account_id,
+                self.journal_id.payment_debit_account_id,
+                self.journal_id.payment_credit_account_id,
+                self.journal_id.transit_account,
+            ):
+                liquidity_lines += line
+            elif (
+                line.account_id.internal_type in ("receivable", "payable")
+                or line.account_id == line.company_id.transfer_account_id
+            ):
+                counterpart_lines += line
+            else:
+                writeoff_lines += line
+
+        return liquidity_lines, counterpart_lines, writeoff_lines
