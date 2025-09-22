@@ -40,6 +40,7 @@
                                         ('state', '=', 'posted'),
                                         ('is_eft_payment', '=', True),
                                         ('eft_ids', '=', False),
+
                                         ]">
                             <tree editable="bottom">
                                 <field name="date" readonly="True"/>
