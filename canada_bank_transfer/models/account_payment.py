@@ -3,12 +3,13 @@
 
 from odoo import _, api, fields, models
 from ..transaction_types import TRANSACTION_TYPES, DEFAULT_TRANSACTION_TYPE
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError, UserError
 
 
 class AccountPayment(models.Model):
 
     _inherit = "account.payment"
+
 
     eft_ids = fields.Many2many(
         "account.eft",
@@ -34,6 +35,7 @@ class AccountPayment(models.Model):
         for payment in self:
             payment.eft_count = len(payment.eft_ids)
 
+
     @api.depends("payment_method_id")
     def _compute_is_eft_payment(self):
         """Compute the field is_eft_payment.
@@ -56,3 +58,42 @@ class AccountPayment(models.Model):
                     _("You cannot reset to draft a payment linked to "
                       "an Electronic Funds Transfer."))
         super().action_draft()
+
+    def _prepare_move_line_default_vals(self ,  write_off_line_vals=None):
+        vals = super()._prepare_move_line_default_vals( write_off_line_vals)
+        if self.journal_id.use_transit_account and self.payment_method_id == self.env.ref("canada_bank_transfer.payment_method_eft"):
+            if not self.journal_id.transit_account:
+                 raise ValidationError(
+                     _("You must choose an Transit Account in Journal %s.") % self.journal_id.name)
+            else:
+                 vals[0].update({"account_id": self.journal_id.transit_account.id})
+        return vals
+
+
+    def _seek_for_lines(self):
+        ''' Helper used to dispatch the journal items between:
+        - The lines using the temporary liquidity account.
+        - The lines using the counterpart account.
+        - The lines being the write-off lines.
+        :return: (liquidity_lines, counterpart_lines, writeoff_lines)
+        '''
+        self.ensure_one()
+
+        liquidity_lines = self.env['account.move.line']
+        counterpart_lines = self.env['account.move.line']
+        writeoff_lines = self.env['account.move.line']
+
+        for line in self.move_id.line_ids:
+            if line.account_id in (
+                    self.journal_id.default_account_id,
+                    self.journal_id.payment_debit_account_id,
+                    self.journal_id.payment_credit_account_id,
+                    self.journal_id.transit_account,
+            ):
+                liquidity_lines += line
+            elif line.account_id.internal_type in ('receivable', 'payable') or line.account_id == line.company_id.transfer_account_id:
+                counterpart_lines += line
+            else:
+                writeoff_lines += line
+
+        return liquidity_lines, counterpart_lines, writeoff_lines

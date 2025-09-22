@@ -8,5 +8,6 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
+
     def _constrains_date_sequence(self):
         pass

@@ -31,8 +31,7 @@ class EFTConfirmationWizard(models.TransientModel):
         )
         for payment in completed_payments:
             change_payment_date(payment, self.eft_id.payment_date)
-
-        completed_payments.reconciled_bill_ids.write({'is_move_sent': False})
+            payment.is_move_sent = True
 
         failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped(
             "payment_id"
@@ -43,19 +42,36 @@ class EFTConfirmationWizard(models.TransientModel):
 
         # Creation of journal Entries
         if self.eft_id.use_transit_account:
-            invoice_vals = self._prepare_account_move_values()
-            deposit_account_move = self.env["account.move"].create(invoice_vals)
-            deposit_account_move.post()
+            move_vals = self._prepare_account_move_values()
+            deposit_account_move = self.env["account.move"].create(move_vals)
+            deposit_account_move.action_post()
+            self._reconcile_deposit_move(deposit_account_move)
             self.eft_id.deposit_account_move_id = deposit_account_move.id
 
-        # Update payment move lines accounts when using transit account
-        self._update_payment_move_accounts()
-
-        # Create EFTGROUP journal entry when using transit account
-        # if self.eft_id.use_transit_account:
-        #     self._create_eftgroup_journal_entry()
-
         return True
+
+    def _reconcile_deposit_move(self, move):
+        for line in move.line_ids.filtered("debit"):
+            if not line.matching_number:
+                self._reconcile_deposit_move_line(line)
+
+    def _reconcile_deposit_move_line(self, deposit_line):
+        payment = self._get_payment_matching_deposit_line(deposit_line)
+        payment_line = self._get_payment_move_line(payment)
+        (payment_line | deposit_line).reconcile()
+
+    def _get_payment_matching_deposit_line(self, line):
+            payments = self.mapped("line_ids.payment_id")
+            for pay in payments:
+                for aml in pay.line_ids :
+                    if aml.credit == line.debit and aml.account_id == self.eft_id.journal_id.transit_account:
+                        return pay
+
+
+    def _get_payment_move_line(self, payment):
+        return payment.line_ids.filtered("credit")[0]
+
+
 
     def _prepare_account_move_values(self):
         """Prepare values of EFT Entries."""
@@ -73,7 +89,6 @@ class EFTConfirmationWizard(models.TransientModel):
         vals_account_move_lines = []
         for line in self.line_ids.filtered(lambda line: line.completed):
             vals_account_move_lines.append((0, 0, self._get_payment_line_vals(line)))
-
         vals_account_move_lines.append(
             (
                 0,
@@ -101,115 +116,11 @@ class EFTConfirmationWizard(models.TransientModel):
             "name": self.eft_id.name + _(" - Deposit"),
         }
 
-    def _update_payment_move_accounts(self):
-        """Update payment move line accounts when using transit account."""
-        # Check if use_transit_account is activated
-        if not self.eft_id.use_transit_account:
-            return
-
-        journal = self.eft_id.journal_id
-        payment_credit_account = journal.payment_credit_account_id
-        transit_account = journal.transit_account
-
-        # Validate that both accounts are set
-        if not payment_credit_account or not transit_account:
-            return
-
-        # Browse all payments in payment_ids
-        for payment in self.eft_id.payment_ids:
-            # Browse the move_id related to the payment
-            if not payment.move_id:
-                continue
-
-            move = payment.move_id
-
-            # Cancel the move before making changes to avoid validation errors
-            if move.state == "posted":
-                move.button_cancel()
-
-            # Browse the line_ids in move_id and update accounts
-            # Use context to skip payment synchronization validation
-            for move_line in move.line_ids:
-                # Replace account if it matches payment_credit_account_id
-                if move_line.account_id == payment_credit_account:
-                    move_line.with_context(
-                        skip_account_move_synchronization=True,
-                        check_move_validity=False,
-                    ).write({"account_id": transit_account.id})
-
-            # Re-post the move after making changes
-            if move.state == "cancel":
-                move.button_draft()
-                move.action_post()
-
-    def _create_eftgroup_journal_entry(self):
-        """Create EFTGROUP journal entry for transit account movements."""
-        journal = self.eft_id.journal_id
-        transit_account = journal.transit_account
-
-        # Prepare the move lines
-        line_vals = []
-        total_debit = 0.0
-
-        # Create debit lines from each payment's transit account credit lines
-        for payment in self.eft_id.payment_ids:
-            if not payment.move_id:
-                continue
-
-            # Find credit lines with transit account in payment moves
-            for move_line in payment.move_id.line_ids:
-                if move_line.account_id == transit_account and move_line.credit > 0:
-
-                    # Create corresponding debit line
-                    line_vals.append(
-                        (
-                            0,
-                            0,
-                            {
-                                "account_id": transit_account.id,
-                                "partner_id": payment.partner_id.id,
-                                "debit": move_line.credit,
-                                "credit": 0.0,
-                                "name": "EFTGROUP - " + payment.name,
-                            },
-                        )
-                    )
-                    total_debit += move_line.credit
-
-        # Add outstanding account credit line for balancing
-        if total_debit > 0:
-            outstanding_account = journal.default_account_id
-            line_vals.append(
-                (
-                    0,
-                    0,
-                    {
-                        "account_id": outstanding_account.id,
-                        "partner_id": journal.company_id.partner_id.id,
-                        "debit": 0.0,
-                        "credit": total_debit,
-                        "name": "EFTGROUP - Bank Outstanding",
-                    },
-                )
-            )
-
-            # Create the journal entry
-            eftgroup_move = self.env["account.move"].create(
-                {
-                    "ref": "EFTGROUP",
-                    "journal_id": journal.id,
-                    "date": fields.Date.today(),
-                    "move_type": "entry",
-                    "line_ids": line_vals,
-                }
-            )
-
-            # Post the journal entry
-            eftgroup_move.action_post()
-
-            return eftgroup_move
-
-        return False
+    def _get_counterpart_move_vals(self):
+        return {"partner_id": self.eft_id.journal_id.company_id.partner_id.id,
+            "credit": self._get_counterpart_move_amount(),
+            "account_id": self.eft_id.journal_id.default_debit_account_id.id,
+            "name": self.eft_id.name + _(" - Deposit"), }
 
 
 class EFTConfirmationLine(models.TransientModel):
