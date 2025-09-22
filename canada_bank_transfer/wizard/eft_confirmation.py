@@ -7,7 +7,6 @@ from ..change_payment_date import change_payment_date
 
 
 class EFTConfirmationWizard(models.TransientModel):
-
     _name = "account.eft.confirmation.wizard"
     _description = "EFT Confirmation Wizard"
 
@@ -20,27 +19,26 @@ class EFTConfirmationWizard(models.TransientModel):
         * Update the state of the EFT to `done`.
         * Update the state of completed payments to sent.
         * Attach the EFT file to each completed payments.
-        * Move the paiments not marked as `completed` to the `Failed Payments`
-        * section in the form view of the EFT.
-        * Creation journal Entries.
+        * Move the payments not marked as `completed` to `Failed Payments`.
+        * Create journal entries.
         """
         self.eft_id.state = "done"
 
-        completed_payments = self.line_ids.filtered(lambda l: l.completed).mapped(
-            "payment_id"
-        )
+        completed_payments = self.line_ids.filtered(
+            lambda l: l.completed
+        ).mapped("payment_id")
         for payment in completed_payments:
             change_payment_date(payment, self.eft_id.payment_date)
             payment.is_move_sent = True
 
-        failed_payments = self.line_ids.filtered(lambda l: not l.completed).mapped(
-            "payment_id"
-        )
+        failed_payments = self.line_ids.filtered(
+            lambda l: not l.completed
+        ).mapped("payment_id")
 
         self.eft_id.payment_ids = completed_payments
         self.eft_id.failed_payment_ids = failed_payments
 
-        # Creation of journal Entries
+        # Creation of journal entries
         if self.eft_id.use_transit_account:
             move_vals = self._prepare_account_move_values()
             deposit_account_move = self.env["account.move"].create(move_vals)
@@ -61,34 +59,35 @@ class EFTConfirmationWizard(models.TransientModel):
         (payment_line | deposit_line).reconcile()
 
     def _get_payment_matching_deposit_line(self, line):
-            payments = self.mapped("line_ids.payment_id")
-            for pay in payments:
-                for aml in pay.line_ids :
-                    if aml.credit == line.debit and aml.account_id == self.eft_id.journal_id.transit_account:
-                        return pay
-
+        payments = self.mapped("line_ids.payment_id")
+        for pay in payments:
+            for aml in pay.line_ids:
+                if (
+                    aml.credit == line.debit
+                    and aml.account_id == self.eft_id.journal_id.transit_account
+                ):
+                    return pay
 
     def _get_payment_move_line(self, payment):
         return payment.line_ids.filtered("credit")[0]
 
-
-
     def _prepare_account_move_values(self):
-        """Prepare values of EFT Entries."""
-        account_move_vals = {
-            "ref": self.eft_id.name + _(" - Deposit"),
+        """Prepare values of EFT entries."""
+        return {
+            "ref": f"{self.eft_id.name}{_(' - Deposit')}",
             "move_type": "entry",
             "date": fields.Date.today(),
             "journal_id": self.eft_id.journal_id.id,
             "line_ids": self._prepare_account_move_line_vals(),
         }
-        return account_move_vals
 
     def _prepare_account_move_line_vals(self):
-        """Prepare line values of EFT Entries."""
+        """Prepare line values of EFT entries."""
         vals_account_move_lines = []
-        for line in self.line_ids.filtered(lambda line: line.completed):
-            vals_account_move_lines.append((0, 0, self._get_payment_line_vals(line)))
+        for line in self.line_ids.filtered(lambda l: l.completed):
+            vals_account_move_lines.append(
+                (0, 0, self._get_payment_line_vals(line))
+            )
         vals_account_move_lines.append(
             (
                 0,
@@ -96,35 +95,35 @@ class EFTConfirmationWizard(models.TransientModel):
                 {
                     "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
                     "credit": sum(
-                        self.line_ids.filtered(lambda line: line.completed).mapped(
-                            "amount"
-                        )
+                        self.line_ids.filtered(lambda l: l.completed).mapped("amount")
                     ),
                     "account_id": self.eft_id.journal_id.payment_credit_account_id.id,
-                    "name": self.eft_id.name + _(" - Deposit"),
+                    "name": f"{self.eft_id.name}{_(' - Deposit')}",
                 },
             )
         )
         return vals_account_move_lines
 
     def _get_payment_line_vals(self, line):
-        """Prepare line values of EFT Entries from Payments."""
+        """Prepare line values of EFT entries from Payments."""
         return {
             "partner_id": line.partner_id.id,
             "debit": line.amount,
             "account_id": self.eft_id.journal_id.transit_account.id,
-            "name": self.eft_id.name + _(" - Deposit"),
+            "name": f"{self.eft_id.name}{_(' - Deposit')}",
         }
 
     def _get_counterpart_move_vals(self):
-        return {"partner_id": self.eft_id.journal_id.company_id.partner_id.id,
+        """Prepare the counterpart move values."""
+        return {
+            "partner_id": self.eft_id.journal_id.company_id.partner_id.id,
             "credit": self._get_counterpart_move_amount(),
             "account_id": self.eft_id.journal_id.default_debit_account_id.id,
-            "name": self.eft_id.name + _(" - Deposit"), }
+            "name": f"{self.eft_id.name}{_(' - Deposit')}",
+        }
 
 
 class EFTConfirmationLine(models.TransientModel):
-
     _name = "account.eft.confirmation.line"
     _description = "EFT Confirmation Line"
 
