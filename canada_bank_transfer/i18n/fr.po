@@ -174,7 +174,7 @@ msgstr "Devise"
 #. module: canada_bank_transfer
 #: model:ir.model.fields,field_description:canada_bank_transfer.field_account_eft__deposit_account_move_id
 msgid "Deposit Account Move"
-msgstr "Compte de dépôt"
+msgstr "Pièce comptable de dépôt"
 
 #. module: canada_bank_transfer
 #: model_terms:ir.ui.view,arch_db:canada_bank_transfer.view_account_journal_form
