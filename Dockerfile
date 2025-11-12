@@ -40,7 +40,7 @@ COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
-COPY account_payment_check_number /mnt/extra-addons/account_payment_check_number
+COPY payment_check_number /mnt/extra-addons/payment_check_number
 COPY account_payment_from_move_line /mnt/extra-addons/account_payment_from_move_line
 COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_usage_purchase

@@ -1,7 +1,7 @@
 # Copyright 2025 Numigi
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
-    'name': "Account Payment Check Number",
+    'name': "Payment Check Number",
     'summary': """
         Adds the 'check_number' field to the supplier payment tree view and a search filter.
     """,

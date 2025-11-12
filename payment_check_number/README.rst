@@ -1,4 +1,4 @@
-Account Payment Check Number
+Payment Check Number
 ============================
 This module adds the check number to the list view of payments.
 
