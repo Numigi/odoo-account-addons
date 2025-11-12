@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_payment_check_number
+# 	* payment_check_number
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 2.0.6\n"
 
-#. module: account_payment_check_number
-#: model_terms:ir.ui.view,arch_db:account_payment_check_number.odoo_studio_account__ef690022-061e-4ec0-9807-246916224ee3
+#. module: payment_check_number
+#: model_terms:ir.ui.view,arch_db:payment_check_number.odoo_studio_account__ef690022-061e-4ec0-9807-246916224ee3
 msgid "Checks"
 msgstr "Chèques"
