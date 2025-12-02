@@ -66,6 +66,7 @@
         "invoice_refund_not_earlier",
         "lang_fr_activated",
         "old_accounts",
+        "mis_builder_query_ignore_date_from",
         "payment_list_not_sent",
         "payment_stripe_not_silenced",
         "account_sale_invoice_date_required",
