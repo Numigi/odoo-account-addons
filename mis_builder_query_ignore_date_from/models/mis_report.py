@@ -8,8 +8,13 @@
 import logging
 import datetime
 import pytz
-from odoo import _, api, fields, models
-from odoo.tools.safe_eval import safe_eval, time as safe_time, datetime as safe_datetime, dateutil as safe_dateutil
+from odoo import fields, models
+from odoo.tools.safe_eval import (
+    safe_eval,
+    time as safe_time,
+    datetime as safe_datetime,
+    dateutil as safe_dateutil
+)
 
 # Import aggregation functions from the original module to avoid code duplication logic
 from odoo.addons.mis_builder.models.aggregate import _avg, _max, _min, _sum
@@ -19,7 +24,8 @@ _logger = logging.getLogger(__name__)
 
 
 class AutoStruct(object):
-    """ Simple wrapper to access dict keys as attributes, similar to the original one in mis_builder. """
+    """ Simple wrapper to access dict keys as attributes,
+    similar to the original one in mis_builder. """
 
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
@@ -40,12 +46,65 @@ class MisReportQuery(models.Model):
 
     ignore_date_from = fields.Boolean(
         string="Ignore Start Date",
-        help="If checked, the query will fetch all data up to the end date, ignoring the report start date."
+        help=(
+            "If checked, the query will fetch all data up to the end date, "
+            "ignoring the report start date."
+        ),
     )
 
 
 class MisReport(models.Model):
     _inherit = "mis.report"
+
+    def _fetch_query_result(self, query, model, domain):
+        """Fetches and aggregates data for a single query."""
+        field_names = [f.name for f in query.field_ids]
+        all_stored = all([model._fields[f].store for f in field_names])
+
+        # Standard data fetching logic (same as original)
+        if not query.aggregate:
+            data = model.search_read(domain, field_names)
+            return [AutoStruct(**d) for d in data]
+        elif query.aggregate == "sum" and all_stored:
+            # Use read_group for optimization if aggregation is 'sum' and fields are stored
+            data = model.read_group(domain, field_names, [])
+            # Handle case where read_group returns empty result
+            count = data[0]["__count"] if data else 0
+            s = AutoStruct(count=count)
+
+            if data:
+                for field_name in field_names:
+                    try:
+                        v = data[0][field_name]
+                    except KeyError:
+                        _logger.error(
+                            "field %s not found in read_group for %s; not summable?",
+                            field_name,
+                            model._name,
+                        )
+                        v = AccountingNone
+                    setattr(s, field_name, v)
+            else:
+                # Initialize with 0/None if no data
+                for field_name in field_names:
+                    setattr(s, field_name, 0.0)
+
+            return s
+        else:
+            # Fallback to Python aggregation
+            data = model.search_read(domain, field_names)
+            s = AutoStruct(count=len(data))
+            if query.aggregate == "min":
+                agg = _min
+            elif query.aggregate == "max":
+                agg = _max
+            elif query.aggregate == "avg":
+                agg = _avg
+            elif query.aggregate == "sum":
+                agg = _sum
+            for field_name in field_names:
+                setattr(s, field_name, agg([d[field_name] for d in data]))
+            return s
 
     def _fetch_queries(self, date_from, date_to, get_additional_query_filter=None):
         """
@@ -78,7 +137,6 @@ class MisReport(models.Model):
                     domain.append((query.date_field.name, ">=", date_from))
                 # Always add the end date filter
                 domain.append((query.date_field.name, "<=", date_to))
-                print("Query %s - Domain %s" % (query.name, domain))
 
             else:  # datetime case
                 tz = str(self.env["ir.fields.converter"]._input_tz())
@@ -93,52 +151,6 @@ class MisReport(models.Model):
                 domain.append((query.date_field.name, "<", datetime_to))
             # --- MODIFIED LOGIC END ---
 
-            field_names = [f.name for f in query.field_ids]
-            all_stored = all([model._fields[f].store for f in field_names])
-
-            # Standard data fetching logic (same as original)
-            if not query.aggregate:
-                data = model.search_read(domain, field_names)
-                res[query.name] = [AutoStruct(**d) for d in data]
-            elif query.aggregate == "sum" and all_stored:
-                # Use read_group for optimization if aggregation is 'sum' and fields are stored
-                data = model.read_group(domain, field_names, [])
-                # Handle case where read_group returns empty result
-                count = data[0]["__count"] if data else 0
-                s = AutoStruct(count=count)
-
-                if data:
-                    for field_name in field_names:
-                        try:
-                            v = data[0][field_name]
-                        except KeyError:
-                            _logger.error(
-                                "field %s not found in read_group for %s; not summable?",
-                                field_name,
-                                model._name,
-                            )
-                            v = AccountingNone
-                        setattr(s, field_name, v)
-                else:
-                    # Initialize with 0/None if no data
-                    for field_name in field_names:
-                        setattr(s, field_name, 0.0)  # Or AccountingNone depending on needs
-
-                res[query.name] = s
-            else:
-                # Fallback to Python aggregation
-                data = model.search_read(domain, field_names)
-                s = AutoStruct(count=len(data))
-                if query.aggregate == "min":
-                    agg = _min
-                elif query.aggregate == "max":
-                    agg = _max
-                elif query.aggregate == "avg":
-                    agg = _avg
-                elif query.aggregate == "sum":
-                    agg = _sum
-                for field_name in field_names:
-                    setattr(s, field_name, agg([d[field_name] for d in data]))
-                res[query.name] = s
+            res[query.name] = self._fetch_query_result(query, model, domain)
 
         return res
