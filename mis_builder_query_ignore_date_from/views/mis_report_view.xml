@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mis_report_view_form_inherit_ignore_date" model="ir.ui.view">
+        <field name="name">mis.report.view.form.inherit.ignore.date</field>
+        <field name="model">mis.report</field>
+        <field name="inherit_id" ref="mis_builder.mis_report_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='query_ids']/tree/field[@name='domain']" position="after">
+                <field name="ignore_date_from" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

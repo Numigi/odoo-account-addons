@@ -70,6 +70,7 @@ COPY invoice_list_email /mnt/extra-addons/invoice_list_email
 COPY invoice_mass_mailing_with_layout /mnt/extra-addons/invoice_mass_mailing_with_layout
 COPY invoice_per_delivery /mnt/extra-addons/invoice_per_delivery
 COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
+COPY mis_builder_query_ignore_date_from /mnt/extra-addons/mis_builder_query_ignore_date_from
 COPY old_accounts /mnt/extra-addons/old_accounts
 COPY payment_list_not_sent /mnt/extra-addons/payment_list_not_sent
 COPY payment_stripe_not_silenced /mnt/extra-addons/payment_stripe_not_silenced
