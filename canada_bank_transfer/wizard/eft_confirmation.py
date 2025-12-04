@@ -61,10 +61,13 @@ class EFTConfirmationWizard(models.TransientModel):
     def _get_payment_matching_deposit_line(self, line):
         payments = self.mapped("line_ids.payment_id")
         for pay in payments:
+            if pay.partner_id != line.partner_id:
+                continue
             for aml in pay.line_ids:
                 if (
                     aml.credit == line.debit
                     and aml.account_id == self.eft_id.journal_id.transit_account
+                    and not aml.reconciled
                 ):
                     return pay
 
