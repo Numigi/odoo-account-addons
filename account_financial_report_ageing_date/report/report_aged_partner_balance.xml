@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_aged_partner_balance_filters_inherit" inherit_id="account_financial_report.report_aged_partner_balance_filters">
+        <xpath expr="//div[contains(@class, 'act_as_row') and contains(@class, 'labels')]/div[last()]" position="after">
+            <div class="act_as_cell">Ageing Method</div>
+        </xpath>
+
+        <xpath expr="//div[contains(@class, 'data_table')]/div[last()]/div[last()]" position="after">
+            <div class="act_as_cell">
+                <span t-if="o.ageing_method == 'date'">Invoice Date</span>
+                <span t-if="o.ageing_method == 'date_due'">Due Date</span>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_aged_partner_balance_lines_header_inherit" inherit_id="account_financial_report.report_aged_partner_balance_lines_header">
+        <xpath expr="//div[contains(@class, 'act_as_row') and contains(@class, 'labels')]" position="replace">
+            <div class="act_as_row labels">
+
+                <t t-if="o.ageing_method != 'date'">
+                    <div class="act_as_cell" style="width: 32.52%;">Partner</div>
+                    <div class="act_as_cell" style="width: 9.64%;">Residual</div>
+                    <div class="act_as_cell" style="width: 9.64%;">Not due</div>
+                    <div class="act_as_cell" style="width: 9.64%;">1 - 30 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">31 - 60 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">61 - 90 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">91 - 120 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">Older</div>
+                </t>
+
+                <t t-if="o.ageing_method == 'date'">
+                    <div class="act_as_cell" style="width: 42.16%;">Partner</div>
+                    <div class="act_as_cell" style="width: 9.64%;">1 - 30 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">31 - 60 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">61 - 90 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">91 - 120 d</div>
+                    <div class="act_as_cell" style="width: 9.64%;">Older</div>
+                    <div class="act_as_cell" style="width: 9.64%;">Total</div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_aged_partner_balance_lines_inherit" inherit_id="account_financial_report.report_aged_partner_balance_lines">
+        <xpath expr="//div[contains(@class, 'act_as_row') and contains(@class, 'lines')]" position="replace">
+            <div class="act_as_row lines">
+
+                <t t-if="o.ageing_method != 'date'">
+                    <div class="act_as_cell left" style="width: 32.52%;"><span t-field="line.partner"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.amount_residual" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.current" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_30_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_60_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_90_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_120_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.older" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                </t>
+
+                <t t-if="o.ageing_method == 'date'">
+                    <div class="act_as_cell left" style="width: 42.16%;"><span t-field="line.partner"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_30_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_60_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_90_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.age_120_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.older" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="line.amount_residual" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_aged_partner_balance_account_ending_cumul_inherit" inherit_id="account_financial_report.report_aged_partner_balance_account_ending_cumul">
+        <xpath expr="//div[contains(@class, 'list_table')]/div[contains(@class, 'lines')]" position="replace">
+            <div class="act_as_row lines" style="font-weight: bold;">
+                <t t-if="not show_move_line_details">
+
+                    <t t-if="o.ageing_method != 'date'">
+                        <div class="act_as_cell right" style="width: 32.52%;">Total</div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_amount_residual" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_current" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_30_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_60_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_90_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_120_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_older" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    </t>
+
+                    <t t-if="o.ageing_method == 'date'">
+                        <div class="act_as_cell right" style="width: 42.16%;">Total</div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_30_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_60_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_90_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_age_120_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_older" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                        <div class="act_as_cell amount" style="width: 9.64%;"><span t-field="account.cumul_amount_residual" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                    </t>
+                </t>
+
+                <t t-if="show_move_line_details">
+                     <div class="act_as_cell right" style="width: 52.00%;">Total</div>
+                     <div class="act_as_cell" style="width: 6.00%;"/>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_amount_residual" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_current" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_age_30_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_age_60_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_age_90_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_age_120_days" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                     <div class="act_as_cell amount" style="width: 6.00%"><span t-field="account.cumul_older" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

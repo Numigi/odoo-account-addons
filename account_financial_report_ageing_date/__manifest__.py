@@ -14,6 +14,7 @@
     ],
     'data': [
         'views/aged_partner_balance_wizard_view.xml',
+        'report/report_aged_partner_balance.xml',
     ],
     'installable': True,
     'license': 'AGPL-3',

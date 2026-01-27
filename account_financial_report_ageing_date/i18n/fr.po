@@ -1,0 +1,113 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_financial_report_ageing_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-27 15:49+0000\n"
+"PO-Revision-Date: 2026-01-27 15:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "1 - 30 d"
+msgstr "1 - 30 j"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "31 - 60 d"
+msgstr "31 - 60 j"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "61 - 90 d"
+msgstr "61 - 90 j"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "91 - 120 d"
+msgstr "91 - 120 j"
+
+#. module: account_financial_report_ageing_date
+#: model:ir.model,name:account_financial_report_ageing_date.model_aged_partner_balance_wizard
+msgid "Aged Partner Balance Wizard"
+msgstr "Assistant balance âgée des tiers"
+
+#. module: account_financial_report_ageing_date
+#: model:ir.model.fields,field_description:account_financial_report_ageing_date.field_aged_partner_balance_wizard__ageing_method
+#: model:ir.model.fields,field_description:account_financial_report_ageing_date.field_report_aged_partner_balance__ageing_method
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_filters_inherit
+msgid "Ageing Method"
+msgstr "Méthode de calcul"
+
+#. module: account_financial_report_ageing_date
+#: model:ir.model.fields,help:account_financial_report_ageing_date.field_aged_partner_balance_wizard__ageing_method
+msgid "Choose 'Due Date' for collection analysis or 'Invoice Date' for financial analysis."
+msgstr "Choisissez 'Date d'échéance' pour l'analyse du recouvrement ou 'Date de facture' pour l'analyse financière."
+
+#. module: account_financial_report_ageing_date
+#: code:addons/account_financial_report_ageing_date/report/aged_partner_balance_xlsx.py:17
+#, python-format
+msgid "Date at filter"
+msgstr "Date au filtre"
+
+#. module: account_financial_report_ageing_date
+#: selection:aged.partner.balance.wizard,ageing_method:0
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_filters_inherit
+#: selection:report_aged_partner_balance,ageing_method:0
+msgid "Due Date"
+msgstr "Date d'échéance"
+
+#. module: account_financial_report_ageing_date
+#: selection:aged.partner.balance.wizard,ageing_method:0
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_filters_inherit
+#: selection:report_aged_partner_balance,ageing_method:0
+msgid "Invoice Date"
+msgstr "Date de facture"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "Not due"
+msgstr "Non échu"
+
+#. module: account_financial_report_ageing_date
+#: code:addons/account_financial_report_ageing_date/report/aged_partner_balance_xlsx.py:36
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+#, python-format
+msgid "Older"
+msgstr "Plus de 120 jours"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_financial_report_ageing_date
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+msgid "Residual"
+msgstr "Solde dû"
+
+#. module: account_financial_report_ageing_date
+#: code:addons/account_financial_report_ageing_date/report/aged_partner_balance_xlsx.py:41
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_account_ending_cumul_inherit
+#: model_terms:ir.ui.view,arch_db:account_financial_report_ageing_date.report_aged_partner_balance_lines_header_inherit
+#, python-format
+msgid "Total"
+msgstr "Total"
+
+#. module: account_financial_report_ageing_date
+#: model:ir.model,name:account_financial_report_ageing_date.model_report_a_f_r_report_aged_partner_balance_xlsx
+msgid "report.a_f_r.report_aged_partner_balance_xlsx"
+msgstr "rapport.rapport_comptable_financier.balance_agee_xlsx"
+
+#. module: account_financial_report_ageing_date
+#: model:ir.model,name:account_financial_report_ageing_date.model_report_aged_partner_balance
+msgid "report_aged_partner_balance"
+msgstr "rapport_balance_agee_partenaires"
