@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="aged_partner_balance_wizard_view_inherit" model="ir.ui.view">
+        <field name="name">aged.partner.balance.wizard.inherit</field>
+        <field name="model">aged.partner.balance.wizard</field>
+        <field name="inherit_id" ref="account_financial_report.aged_partner_balance_wizard"/>
+        <field name="arch" type="xml">
+            <field name="date_at" position="after">
+                <field name="ageing_method" widget="radio"/>
+            </field>
+        </field>
+    </record>
+</odoo>
