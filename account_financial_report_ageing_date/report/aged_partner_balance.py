@@ -21,7 +21,6 @@ class AgedPartnerBalanceReport(models.TransientModel):
         Override to dynamically change the date field AND the comparison operators
         based on the user's choice.
         """
-        print("ageing_method",self.ageing_method)
         date_field = 'rlo.date_due'
         op_current = '>='
         op_30_days = '<'
