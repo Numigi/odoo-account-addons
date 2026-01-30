@@ -111,3 +111,15 @@ msgstr "rapport.rapport_comptable_financier.balance_agee_xlsx"
 #: model:ir.model,name:account_financial_report_ageing_date.model_report_aged_partner_balance
 msgid "report_aged_partner_balance"
 msgstr "rapport_balance_agee_partenaires"
+
+#. module: account_financial_report_ageing_date
+#: code:addons/account_financial_report_ageing_date/wizard/aged_partner_balance_wizard.py:30
+#, python-format
+msgid "Incompatible Options"
+msgstr "Options incompatibles"
+
+#. module: account_financial_report_ageing_date
+#: code:addons/account_financial_report_ageing_date/wizard/aged_partner_balance_wizard.py:31
+#, python-format
+msgid "The \"Invoice Date\" ageing method is not compatible with \"Show Move Line Details\". Please disable details to use this method. The method has been reset to \"Due Date\"."
+msgstr "La méthode 'Date de facture' n'est pas compatible avec l'option 'Afficher le détail des écritures'. Veuillez désactiver les détails pour utiliser cette méthode. La méthode a été réinitialisée sur 'Date d'échéance'."
