@@ -21,23 +21,13 @@ class AgedPartnerBalanceReport(models.TransientModel):
         Override to dynamically change the date field AND the comparison operators
         based on the user's choice.
         """
-        # --- 1. Définition des variables dynamiques ---
-
-        # Par défaut (Date d'échéance / Standard OCA)
-        # Si échu aujourd'hui = Non échu (Current)
         date_field = 'rlo.date_due'
-        op_current = '>='  # "supérieur ou égal" pour inclure aujourd'hui dans 'Non échu'
-        op_30_days = '<'  # "strictement inférieur" pour exclure aujourd'hui de '1-30'
-
-        # Mode personnalisé (Date de facture)
-        # Si facturé aujourd'hui = 0 jour d'ancienneté = tranche 1-30
+        op_current = '>='
+        op_30_days = '<'
         if self.ageing_method == 'date':
             date_field = 'rlo.date'
-            op_current = '>'  # "strictement supérieur". Le futur est 'Non échu'.
-            op_30_days = '<='  # "inférieur ou égal". Aujourd'hui va dans '1-30'.
-
-        # --- 2. Construction de la requête ---
-        # On injecte date_field, mais aussi op_current et op_30_days
+            op_current = '>'
+            op_30_days = '<='
         query_inject_line = """
     WITH
         date_range AS
