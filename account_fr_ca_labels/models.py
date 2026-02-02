@@ -101,7 +101,7 @@ def _update_reconciliation_translations(env):
         ("Non lettré", "Non réconcilié"),
         ("Lettrer", "Réconcilier"),
         ("lettrer", "réconcilier"),
-        ("Lettrage", "Conciliation"),
+        ("Conciliation","Lettrage"),
         # Grammatical errors
         ("annuler le lettrage l'entrée", "annuler la conciliation"),
     ]
