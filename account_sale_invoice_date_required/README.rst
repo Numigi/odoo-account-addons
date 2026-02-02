@@ -1,5 +1,5 @@
 Account sale invoice date required
-============================
+==================================
 
 .. contents:: Table of Contents
 
