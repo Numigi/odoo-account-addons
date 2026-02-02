@@ -32,6 +32,8 @@ COPY account_dashboard_onboarding_state /mnt/extra-addons/account_dashboard_onbo
 COPY account_financial_report_ageing_date /mnt/extra-addons/account_financial_report_ageing_date
 COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
+COPY account_invoice_advance_report /mnt/extra-addons/account_invoice_advance_report
+COPY account_invoice_project_purchase /mnt/extra-addons/account_invoice_project_purchase
 COPY account_invoice_unified_payment /mnt/extra-addons/account_invoice_unified_payment
 COPY account_mail_autosubscribe /mnt/extra-addons/account_mail_autosubscribe
 COPY account_manual_entry_restricted /mnt/extra-addons/account_manual_entry_restricted
@@ -41,7 +43,6 @@ COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
 COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
-COPY payment_check_number /mnt/extra-addons/payment_check_number
 COPY account_payment_from_move_line /mnt/extra-addons/account_payment_from_move_line
 COPY account_payment_term_usage /mnt/extra-addons/account_payment_term_usage
 COPY account_payment_term_usage_purchase /mnt/extra-addons/account_payment_term_usage_purchase
@@ -49,12 +50,14 @@ COPY account_payment_term_usage_sale /mnt/extra-addons/account_payment_term_usag
 COPY account_payment_widget_link /mnt/extra-addons/account_payment_widget_link
 COPY account_report_line_menu /mnt/extra-addons/account_report_line_menu
 COPY account_report_trial_balance /mnt/extra-addons/account_report_trial_balance
+COPY account_search_by_amount /mnt/extra-addons/account_search_by_amount
 COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_transfer_with_partner /mnt/extra-addons/account_transfer_with_partner
 COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
 COPY bank_reconciliation_filter /mnt/extra-addons/bank_reconciliation_filter
 COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
+COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
 COPY bank_statement_online_stripe /mnt/extra-addons/bank_statement_online_stripe
 COPY bank_statement_partner_mapping /mnt/extra-addons/bank_statement_partner_mapping
@@ -75,7 +78,9 @@ COPY invoice_write_access_purchase /mnt/extra-addons/invoice_write_access_purcha
 COPY invoice_write_access_sale /mnt/extra-addons/invoice_write_access_sale
 COPY mis_builder_automated_report /mnt/extra-addons/mis_builder_automated_report
 COPY old_accounts /mnt/extra-addons/old_accounts
+COPY payment_check_number /mnt/extra-addons/payment_check_number
 COPY payment_stripe_not_silenced /mnt/extra-addons/payment_stripe_not_silenced
+COPY purchase_default_analytic_tag /mnt/extra-addons/purchase_default_analytic_tag
 COPY vendor_invoice_full_list /mnt/extra-addons/vendor_invoice_full_list
 
 COPY .docker_files/main /mnt/extra-addons/main
