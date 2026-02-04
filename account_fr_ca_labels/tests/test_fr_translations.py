@@ -50,7 +50,7 @@ class TestReconciliation(TranslationCase):
         ('Reconcile', 'Réconcilier'),
         ('Unreconcile', 'Annuler la conciliation'),
         ('Reconciliation Models', 'Modèles de conciliation bancaire'),
-        ('Reconciliation', 'Conciliation'),
+        ('Matching', 'Conciliation'),
     )
     def test_translations_found_with_correct_term(self, data):
         assert self._find_translation(data[0], data[1])
