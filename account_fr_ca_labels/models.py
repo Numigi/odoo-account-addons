@@ -95,14 +95,13 @@ def _update_reconciliation_translations(env):
     """Update the term `Lettrage` to `Conciliation`."""
     mapping = [
         ("Modèles de lettrage", "Modèles de conciliation bancaire"),
-        ("Modèles de rapprochement", "Modèles de conciliation bancaire"),
         ("de lettrage", "de conciliation"),
         ("du lettrage", "de la conciliation"),
         ("le lettrage", "la conciliation"),
-        ("Rapprochement", "Conciliation"),
-        ("Lettrage", "Conciliation"),
+        ("Non lettré", "Non réconcilié"),
         ("Lettrer", "Réconcilier"),
-        ("Rapprocher", "Réconcilier"),
+        ("lettrer", "réconcilier"),
+        ("Lettrage", "Conciliation"),
         # Grammatical errors
         ("annuler le lettrage l'entrée", "annuler la conciliation"),
     ]
