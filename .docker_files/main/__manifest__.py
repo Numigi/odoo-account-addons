@@ -18,6 +18,7 @@
         "account_closing_journal",
         "account_closing_journal_mis_builder",
         "account_closing_wizard",
+        "account_financial_report",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
         "account_invoice_constraint_chronology_forced",
@@ -55,7 +56,7 @@
         "hr_expense_tax_adjustment",
         "invoice_currency_validation",
         # FIX ME: Conflict with UT of account_invoice_constraint_chronology OCA Module
-        #"invoice_fiscal_position_required",
+        # "invoice_fiscal_position_required",
         "invoice_intercompany_compatible",
         "invoice_list_email",
         "invoice_mass_mailing_with_layout",
