@@ -11,7 +11,6 @@ class TranslationCase(common.TransactionCase):
         return self.env['ir.translation'].search([
             ('src', '=', source),
             ('value', '=', value),
-            ('lang', '=', 'fr_CA'),
         ])
 
 
