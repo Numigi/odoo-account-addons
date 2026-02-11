@@ -35,7 +35,8 @@ class TestReceivableEmail(common.TransactionCase):
             ('is_receivable_account', '=', True)
         ])
         self.assertTrue(child, "The child contact should be created.")
-        self.assertEqual(child.email, email_a, "The child email must match the parent payment email.")
+        self.assertEqual(child.email, email_a,
+                         "The child email must match the parent payment email.")
         self.assertEqual(child.type, 'other')
 
         # 2. Update parent email
@@ -48,7 +49,8 @@ class TestReceivableEmail(common.TransactionCase):
 
         # 3. Clear the field (Archive)
         self.partner.payment_email = False
-        self.assertFalse(child.active, "The child contact should be archived if the field is cleared.")
+        self.assertFalse(child.active,
+                         "The child contact should be archived if the field is cleared.")
 
         # 4. Set an email again (Reactivate)
         self.partner.payment_email = email_a
@@ -126,7 +128,7 @@ class TestReceivableEmail(common.TransactionCase):
 
         # B. Verify Mass Mail Mode (recipient_ids)
         # Simulate adding recipient_ids to values
-        composer_mass = composer.with_context(default_composition_mode='mass_mail')
+        # composer_mass = composer.with_context(default_composition_mode='mass_mail')
 
         # We manually check if email_to is cleared to force usage of partner ID
         self.assertFalse(mail_values.get('email_to'),
@@ -153,6 +155,9 @@ class TestReceivableEmail(common.TransactionCase):
         # Trigger sync (e.g., parent email change)
         self.partner.payment_email = "new@test.com"
 
-        # The system should have found old_child by name, set the flag True, and updated the email
-        self.assertTrue(old_child.is_receivable_account, "The flag should have been added during migration.")
-        self.assertEqual(old_child.email, "new@test.com", "The email should have been updated.")
+        # The system should have found old_child by name,
+        # set the flag True, and updated the email
+        self.assertTrue(old_child.is_receivable_account,
+                        "The flag should have been added during migration.")
+        self.assertEqual(old_child.email, "new@test.com",
+                         "The email should have been updated.")
