@@ -1,7 +1,8 @@
 # © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import fields, models, _
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -21,7 +22,8 @@ class ResPartner(models.Model):
             if not partner.payment_email:
                 continue
 
-            # 1. Check if a child contact of type 'other' with this email already exists for this parent
+            # 1. Check if a child contact of type 'other'
+            # with this email already exists for this parent
             child_partner = self.env['res.partner'].search([
                 ('parent_id', '=', partner.id),
                 ('type', '=', 'other'),

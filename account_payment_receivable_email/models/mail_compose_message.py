@@ -1,7 +1,7 @@
 # © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import models
 
 
 class MailComposer(models.TransientModel):
@@ -12,7 +12,8 @@ class MailComposer(models.TransientModel):
         Override to update the wizard UI when the template changes.
         We clear the 'Recipients' field visually if a specific payment email is set.
         """
-        res = super(MailComposer, self).onchange_template_id(template_id, composition_mode, model, res_id)
+        res = super(MailComposer, self).onchange_template_id(
+            template_id, composition_mode, model, res_id)
 
         # Apply only for relevant models with a valid record
         if model not in ['account.payment', 'account.eft'] or not res_id:
