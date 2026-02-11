@@ -155,6 +155,8 @@ class TestReceivableEmail(common.TransactionCase):
         # Trigger sync (e.g., parent email change)
         self.partner.payment_email = "new@test.com"
 
+        old_child.refresh()
+
         # The system should have found old_child by name,
         # set the flag True, and updated the email
         self.assertTrue(old_child.is_receivable_account,
