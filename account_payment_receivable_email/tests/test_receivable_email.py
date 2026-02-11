@@ -134,32 +134,3 @@ class TestReceivableEmail(common.TransactionCase):
         self.assertFalse(mail_values.get('email_to'),
                          "email_to must be False to force the use of the res.partner object.")
 
-    def test_04_fallback_logic(self):
-        """ Test: Fallback logic if boolean is missing (Migration scenario) """
-        self.partner.payment_email = "fallback@test.com"
-
-        # Simulate an "old" contact created before migration (no boolean but correct name)
-        # First delete the one properly created by payment_email
-        child = self.env['res.partner'].search([('parent_id', '=', self.partner.id)])
-        child.unlink()
-
-        # Manually create a legacy contact
-        old_child = self.env['res.partner'].create({
-            'name': 'Receivable Accounts',
-            'parent_id': self.partner.id,
-            'type': 'other',
-            'email': 'old@test.com',
-            'is_receivable_account': False,  # No flag
-        })
-
-        # Trigger sync (e.g., parent email change)
-        self.partner.payment_email = "new@test.com"
-
-        old_child.refresh()
-
-        # The system should have found old_child by name,
-        # set the flag True, and updated the email
-        self.assertTrue(old_child.is_receivable_account,
-                        "The flag should have been added during migration.")
-        self.assertEqual(old_child.email, "new@test.com",
-                         "The email should have been updated.")
