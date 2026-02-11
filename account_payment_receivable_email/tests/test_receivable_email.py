@@ -133,4 +133,3 @@ class TestReceivableEmail(common.TransactionCase):
         # We manually check if email_to is cleared to force usage of partner ID
         self.assertFalse(mail_values.get('email_to'),
                          "email_to must be False to force the use of the res.partner object.")
-
