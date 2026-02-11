@@ -4,7 +4,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='acc_purchase']" position="inside">
+            <xpath expr="//field[@name='property_account_payable_id']" position="after">
                 <field name="payment_email" widget="email"/>
             </xpath>
         </field>
