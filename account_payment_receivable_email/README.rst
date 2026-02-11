@@ -7,23 +7,23 @@ Currently, Odoo sends payment receipts and notifications to the partner's main e
 Features
 --------
 
-*New field 'Receivable Accounts Email' (payment_email) on the Partner form.
+* New field 'Receivable Accounts Email' (payment_email) on the Partner form.
 
-*Automatic use of this specific email when sending payment receipts or notifications.
+* Automatic use of this specific email when sending payment receipts or notifications.
 
-*Fallback to the main partner email if the specific receivable email is not defined.
+* Fallback to the main partner email if the specific receivable email is not defined.
 
 
 Usage
 -----
 
-CTo use this module:
+To use this module:
 
-*Go to Contacts and select a supplier.
+* Go to Contacts and select a supplier.
 
-*Open the Accounting tab.
+* Open the Accounting tab.
 
-*Fill in the field Receivable Accounts Email.
+* Fill in the field Receivable Accounts Email.
 
 *When you send a payment receipt (individually or in batch), the system will automatically address the email to this specific address.
 
