@@ -7,6 +7,12 @@ from odoo import fields, models, _
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    is_receivable_account = fields.Boolean(
+        string="Is Receivable Account",
+        default=False,
+        copy=False,
+    )
+
     payment_email = fields.Char(
         string="Receivable Accounts Email",
         help="Email address to send payment notifications and receipts",
@@ -15,28 +21,67 @@ class ResPartner(models.Model):
 
     def _inverse_payment_email(self):
         """
-        Create or update a child contact of type 'other'
-        when the payment_email is defined.
+        Sync from Parent Field -> Child Contact.
+        Uses the 'is_receivable_account' boolean to identify the target.
         """
         for partner in self:
-            if not partner.payment_email:
-                continue
+            if partner.payment_email:
+                # 1. Search using the STABLE Boolean field
+                child_partner = self.env['res.partner'].with_context(active_test=False).search([
+                    ('parent_id', '=', partner.id),
+                    ('is_receivable_account', '=', True)
+                ], limit=1)
 
-            # 1. Check if a child contact of type 'other'
-            # with this email already exists for this parent
-            child_partner = self.env['res.partner'].search([
-                ('parent_id', '=', partner.id),
-                ('type', '=', 'other'),
-                ('email', '=', partner.payment_email)
-            ], limit=1)
+                if child_partner:
+                    # Update existing contact
+                    if child_partner.email != partner.payment_email:
+                        child_partner.email = partner.payment_email
 
-            # 2. If not found, create it
-            if not child_partner:
-                self.env['res.partner'].create({
-                    'name': _('Receivable Accounts'),  # Default name
-                    'parent_id': partner.id,
-                    'type': 'other',
-                    'email': partner.payment_email,
-                    'comment': _('Automatically created from the Receivable'
-                                 ' Accounts Email field.'),
-                })
+                    # Reactivate if it was archived
+                    if not child_partner.active:
+                        child_partner.active = True
+                else:
+                    # Create NEW contact with the Boolean set to True
+                    self.env['res.partner'].create({
+                        'name': _('Receivable Accounts'),
+                        'parent_id': partner.id,
+                        'type': 'other',
+                        'email': partner.payment_email,
+                        'is_receivable_account': True,
+                        'comment': _('Automatically created from '
+                                     'the Receivable Accounts Email field.'),
+                    })
+
+            else:
+                # Field Cleared -> Find the boolean contact and Archive it
+                child_to_archive = self.env['res.partner'].search([
+                    ('parent_id', '=', partner.id),
+                    ('is_receivable_account', '=', True)
+                ], limit=1)
+
+                if child_to_archive:
+                    child_to_archive.active = False
+
+    def write(self, vals):
+        """
+        Sync from Child Contact -> Parent Field.
+        We strictly listen to contacts marked with 'is_receivable_account'.
+        """
+        # 1. Identify records to sync BEFORE the write
+        records_to_sync = self.env['res.partner']
+
+        if 'email' in vals:
+            for record in self:
+                # Simply check the boolean flag and parent existence
+                if record.parent_id and record.is_receivable_account:
+                    records_to_sync += record
+
+        # 2. Perform Standard Write
+        res = super(ResPartner, self).write(vals)
+
+        # 3. Propagate to parents
+        for record in records_to_sync:
+            if record.parent_id.payment_email != vals['email']:
+                record.parent_id.payment_email = vals['email']
+
+        return res
