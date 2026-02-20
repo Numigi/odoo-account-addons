@@ -21,7 +21,7 @@
                 <sheet>
                     <field name="active" column_invisible="True"/>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
-                        invisible="active != True"/>
+                        invisible="active"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="%(related_accounts_action)d"
                             type="action"
