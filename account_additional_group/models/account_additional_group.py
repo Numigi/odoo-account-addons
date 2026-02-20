@@ -15,6 +15,7 @@ class AccountAdditionalGroup(models.Model):
 
     name = fields.Char(required=True, translate=True)
     code = fields.Char(required=True,)
+    display_name = fields.Char(compute="_compute_display_name", store=True)
 
     parent_id = fields.Many2one("account.additional.group", ondelete="restrict")
     parent_path = fields.Char(index=True)
@@ -23,8 +24,18 @@ class AccountAdditionalGroup(models.Model):
     account_ids = fields.Many2many("account.account", compute="_compute_accounts")
     account_count = fields.Integer(compute="_compute_account_count")
 
+    @api.depends('code', 'name')
+    def _compute_display_name(self):
+        for record in self:
+            if record.code and record.name:
+                record.display_name = "{} {}".format(record.code, record.name)
+            elif record.name:
+                record.display_name = record.name
+            else:
+                record.display_name = ""
+
     def name_get(self):
-        return [(r.id, "{} - {}".format(r.code, r.name)) for r in self]
+        return [(r.id, "{} {}".format(r.code, r.name)) for r in self]
 
     @api.model
     def _name_search(self, name="", args=None, operator="ilike", limit=100, order=None):
