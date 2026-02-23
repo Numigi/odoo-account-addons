@@ -1,0 +1,136 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_additional_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-22 20:40+0000\n"
+"PO-Revision-Date: 2021-03-22 16:43-0400\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: account_additional_group
+#: model_terms:ir.ui.view,arch_db:account_additional_group.account_additional_group_form
+msgid "<span class=\"o_stat_text\"> Accounts</span>"
+msgstr "<span class=\"o_stat_text\"> Comptes</span>"
+
+#. module: account_additional_group
+#: model:ir.model,name:account_additional_group.model_account_account
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__account_ids
+msgid "Account"
+msgstr "Compte"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__account_count
+msgid "Account Count"
+msgstr "Nombre de comptes"
+
+#. module: account_additional_group
+#: model:ir.actions.act_window,name:account_additional_group.related_accounts_action
+msgid "Accounts"
+msgstr "Comptes"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: account_additional_group
+#: model:ir.actions.act_window,name:account_additional_group.action_account_additional_group
+#: model:ir.ui.menu,name:account_additional_group.menu_config_recording_subgenre
+msgid "Additional Account Groups"
+msgstr "Groupes de comptes supplémentaires"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_account__additional_group_id
+#: model_terms:ir.ui.view,arch_db:account_additional_group.account_search
+msgid "Additional Group"
+msgstr "Groupe supplémentaire"
+
+#. module: account_additional_group
+#: model:ir.model,name:account_additional_group.model_account_additional_group
+msgid "Additional Group of Account"
+msgstr "Groupe de comptes supplémentaire"
+
+#. module: account_additional_group
+#: model_terms:ir.ui.view,arch_db:account_additional_group.account_additional_group_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__code
+msgid "Code"
+msgstr "Code"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_additional_group
+#: model_terms:ir.ui.view,arch_db:account_additional_group.account_additional_group_form
+msgid "Group of Account"
+msgstr "Groupe de compte"
+
+#. module: account_additional_group
+#: model_terms:ir.ui.view,arch_db:account_additional_group.account_additional_group_list
+msgid "Groups of Accounts"
+msgstr "Groupes de comptes"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__parent_id
+msgid "Parent"
+msgstr "Parent"
+
+#. module: account_additional_group
+#: model:ir.model.fields,field_description:account_additional_group.field_account_additional_group__parent_path
+msgid "Parent Path"
+msgstr ""
+
+#. module: account_additional_group
+#: model_terms:ir.ui.view,arch_db:account_additional_group.account_additional_group_search
+msgid "Search Groups of Accounts"
+msgstr "Chercher des groupes de comptes"
