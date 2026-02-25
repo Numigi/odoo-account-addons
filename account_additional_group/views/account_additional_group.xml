@@ -37,11 +37,11 @@
                         </h1>
                     </div>
                     <group>
-                        <group name="group_1">
+                        <group>
                             <field name="code"/>
                             <field name="parent_id"/>
                         </group>
-                        <group name="group_2">
+                        <group>
                             <field name="active"/>
                         </group>
                     </group>
