@@ -34,8 +34,6 @@ class AccountAdditionalGroup(models.Model):
             else:
                 record.display_name = ""
 
-    def name_get(self):
-        return [(r.id, "{} {}".format(r.code, r.name)) for r in self]
 
     @api.model
     def _name_search(self, name="", args=None, operator="ilike", limit=100, order=None):
