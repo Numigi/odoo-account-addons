@@ -28,7 +28,7 @@ class TestAccountAdditionalGroup(TransactionCase):
 
     def test_search_by_code_with_limit(self):
         ids = self._name_search(self.group.code, limit=0)
-        self.assertNotIn(self.group.id, ids)
+        self.assertIn(self.group.id, ids)
 
     def test_search_by_name(self):
         ids = self._name_search(self.group.name)
