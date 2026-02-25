@@ -28,7 +28,7 @@ class AccountAdditionalGroup(models.Model):
     def _compute_display_name(self):
         for record in self:
             if record.code and record.name:
-                record.display_name = "{} {}".format(record.code, record.name)
+                record.display_name = "{} - {}".format(record.code, record.name)
             elif record.name:
                 record.display_name = record.name
             else:
