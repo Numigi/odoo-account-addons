@@ -15,7 +15,7 @@
         <field name="name">Additional Account Group Form</field>
         <field name="model">account.additional.group</field>
         <field name="arch" type="xml">
-            <form string="Group of Account">
+            <form>
                 <header>
                 </header>
                 <sheet>
@@ -56,7 +56,7 @@
         <field name="name">Additional Account Group List</field>
         <field name="model">account.additional.group</field>
         <field name="arch" type="xml">
-            <list string="Groups of Accounts">
+            <list>
                 <field name="code"/>
                 <field name="name"/>
                 <field name="parent_id"/>
@@ -69,7 +69,7 @@
         <field name="name">Additional Account Group Search</field>
         <field name="model">account.additional.group</field>
         <field name="arch" type="xml">
-            <search string="Search Groups of Accounts">
+            <search>
                 <field name="name"/>
                 <field name="parent_id" filter_domain="[('parent_id', 'child_of', raw_value)]"/>
                 <separator/>
