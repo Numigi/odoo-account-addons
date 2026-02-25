@@ -36,9 +36,9 @@ class AccountAdditionalGroup(models.Model):
 
 
     @api.model
-    def _name_search(self, name="", args=None, operator="ilike", limit=100, order=None):
+    def _name_search(self, name="", domain=None, operator="ilike", limit=100, order=None):
         """Search for records by name or code."""
-        domain = args or []
+        domain = domain or []
         if operator in ("=", "ilike", "=ilike", "like", "=like"):
             domain = ['|', ('name', operator, name), ('code', operator, name)] + domain
         return self.search(domain, limit=limit, order=order or self._order)
