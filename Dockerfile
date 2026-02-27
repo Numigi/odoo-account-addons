@@ -15,6 +15,8 @@ RUN if [ -s /gitoo.yml ]; then \
 
 USER odoo
 COPY account_additional_group /mnt/extra-addons/account_additional_group
+COPY canada_mis_report /mnt/extra-addons/canada_mis_report
+COPY canada_account_types /mnt/extra-addons/canada_account_types
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo

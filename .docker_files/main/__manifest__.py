@@ -12,6 +12,8 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account_additional_group",
+        "canada_account_types",
+        "canada_mis_report",
     ],
     "installable": True,
 }

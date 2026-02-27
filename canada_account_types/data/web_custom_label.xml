@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <record id="label_account_type_asset_receivable_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_receivable</field>
+        <field name="term">Comptes clients</field>
+    </record>
+
+    <record id="label_account_type_liability_non_current_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">liability_non_current</field>
+        <field name="term">Passifs non-courants</field>
+    </record>
+
+    <record id="label_account_type_equity_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">equity</field>
+        <field name="term">Capitaux propres</field>
+    </record>
+
+    <record id="label_account_type_asset_current_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_current</field>
+        <field name="term">Other Current Assets</field>
+    </record>
+
+    <record id="label_account_type_asset_current_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_current</field>
+        <field name="term">Autres actifs courants</field>
+    </record>
+
+    <record id="label_account_type_asset_fixed_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_fixed</field>
+        <field name="term">Immobilisations</field>
+    </record>
+
+    <record id="label_account_type_asset_fixed_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_fixed</field>
+        <field name="term">Immobilisations</field>
+    </record>
+
+    <record id="label_account_type_asset_non_current_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_non_current</field>
+        <field name="term">Other Non-current Assets</field>
+    </record>
+
+    <record id="label_account_type_asset_non_current_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">asset_non_current</field>
+        <field name="term">Autres actifs non-courants</field>
+    </record>
+
+    <record id="label_account_type_liability_current_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">liability_current</field>
+        <field name="term">Other Current Liabilities</field>
+    </record>
+
+    <record id="label_account_type_liability_current_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">liability_current</field>
+        <field name="term">Autres passifs courants</field>
+    </record>
+
+    <record id="label_account_type_income_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">income</field>
+        <field name="term">Revenues</field>
+    </record>
+
+    <record id="label_account_type_income_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">income</field>
+        <field name="term">Revenus</field>
+    </record>
+
+    <record id="label_account_type_income_other_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">income_other</field>
+        <field name="term">One-time Revenues</field>
+    </record>
+
+    <record id="label_account_type_income_other_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">income_other</field>
+        <field name="term">Revenus ponctuels</field>
+    </record>
+
+    <record id="label_account_type_expense_direct_cost_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">expense_direct_cost</field>
+        <field name="term">Direct Costs</field>
+    </record>
+
+    <record id="label_account_type_expense_direct_cost_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">expense_direct_cost</field>
+        <field name="term">Coûts directs</field>
+    </record>
+
+    <record id="label_account_type_expense_english" model="web.custom.label">
+        <field name="lang">en_US</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">expense</field>
+        <field name="term">Indirect Costs</field>
+    </record>
+
+    <record id="label_account_type_expense_french" model="web.custom.label">
+        <field name="lang">fr_FR</field>
+        <field name="model_ids"
+            eval="[(4, ref('account.model_account_account')), (4, ref('account.model_account_account_template'))]" />
+        <field name="type_">field</field>
+        <field name="position">selection</field>
+        <field name="reference">account_type</field>
+        <field name="key">expense</field>
+        <field name="term">Coûts indirects</field>
+    </record>
+</odoo>
