@@ -1,4 +1,4 @@
-FROM quay.io/numigi/odoo-public:16.latest
+FROM quay.io/numigi/odoo-public:18.latest
 LABEL maintainer="numigi <contact@numigi.com>"
 
 USER root
@@ -14,30 +14,7 @@ RUN if [ -s /gitoo.yml ]; then \
     fi
 
 USER odoo
-
-COPY account_additional_settings /mnt/extra-addons/account_additional_settings
-COPY account_bank_menu /mnt/extra-addons/account_bank_menu
-COPY account_fiscalyear_end_on_company /mnt/extra-addons/account_fiscalyear_end_on_company
-COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
-COPY account_invoice_constraint_chronology_forced /mnt/extra-addons/account_invoice_constraint_chronology_forced
-COPY account_manual_entry_restricted /mnt/extra-addons/account_manual_entry_restricted
-COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
-COPY account_move_reversed_entry /mnt/extra-addons/account_move_reversed_entry
-COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
-COPY account_negative_debit_credit /mnt/extra-addons/account_negative_debit_credit
-COPY account_search_by_amount /mnt/extra-addons/account_search_by_amount
-COPY account_payment_cancel_group /mnt/extra-addons/account_payment_cancel_group
-COPY account_show_full_features /mnt/extra-addons/account_show_full_features
-COPY account_search_date_range /mnt/extra-addons/account_search_date_range
-COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
-COPY canada_account_types /mnt/extra-addons/canada_account_types
-COPY canada_bank_transfer /mnt/extra-addons/canada_bank_transfer
-COPY canada_mis_report /mnt/extra-addons/canada_mis_report
-COPY hr_expense_tax_adjustment /mnt/extra-addons/hr_expense_tax_adjustment
-COPY invoice_fiscal_position_required /mnt/extra-addons/invoice_fiscal_position_required
-COPY invoice_intercompany_compatible /mnt/extra-addons/invoice_intercompany_compatible
-COPY invoice_refund_not_earlier /mnt/extra-addons/invoice_refund_not_earlier
-COPY old_accounts /mnt/extra-addons/old_accounts
+COPY account_additional_group /mnt/extra-addons/account_additional_group
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo
