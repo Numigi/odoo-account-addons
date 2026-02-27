@@ -16,7 +16,7 @@ class TestAccountAdditionalGroup(TransactionCase):
         cls.account.additional_group_id = cls.group
 
     def test_account_count(self):
-        self.group.refresh()
+        self.group.invalidate_recordset()
         self.assertEqual(self.group.account_count, 1)
 
     def test_display_name(self):
