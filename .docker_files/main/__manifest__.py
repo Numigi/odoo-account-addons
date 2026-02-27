@@ -1,4 +1,4 @@
-# Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
+# Copyright Numigi and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 {
@@ -12,29 +12,6 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account_additional_group",
-        "account_additional_settings",
-        "account_bank_menu",
-        "account_fiscalyear_end_on_company",
-        "account_fr_ca_labels",
-        "account_invoice_constraint_chronology_forced",
-        "account_manual_entry_restricted",
-        "account_move_reversal_access",
-        "account_move_reversed_entry",
-        "account_move_unique_reversal",
-        "account_negative_debit_credit",
-        "account_payment_cancel_group",
-        "account_search_by_amount",
-        "account_search_date_range",
-        "account_show_full_features",
-        "bank_statement_import_csv",
-        "canada_account_types",
-        "canada_bank_transfer",
-        "canada_mis_report",
-        "invoice_fiscal_position_required",
-        "invoice_intercompany_compatible",
-        "invoice_refund_not_earlier",
-        "hr_expense_tax_adjustment",
-        "old_accounts",
     ],
     "installable": True,
 }
