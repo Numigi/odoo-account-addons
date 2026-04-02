@@ -53,7 +53,8 @@ class TestReceivableEmail(common.TransactionCase):
 
         # Verify that the SAME contact is updated with new fake email
         fake_email_b = f"{email_b}.{self.partner.id}"
-        self.assertEqual(child.payment_email, email_b, "The child payment_email should be updated.")
+        self.assertEqual(child.payment_email, email_b,
+                         "The child payment_email should be updated.")
         self.assertEqual(child.email, fake_email_b, "The child fake email should be updated.")
         self.assertEqual(len(self.partner.child_ids), 1, "There should be no duplicates.")
 
@@ -129,7 +130,8 @@ class TestReceivableEmail(common.TransactionCase):
         # A. Verify Comment Mode (partner_ids must be empty)
         if 'partner_ids' in mail_values:
             self.assertEqual(mail_values['partner_ids'], [],
-                             "partner_ids must be empty so the mail isn't sent to the fake address.")
+                             "partner_ids must be empty so the"
+                             " mail isn't sent to the fake address.")
 
         # B. Verify Mass Mail Mode (recipient_ids must be cleared)
         # In mass mail, it uses recipient_ids with commands. We expect [(5, 0, 0)] (clear all).

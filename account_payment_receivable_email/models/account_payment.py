@@ -12,4 +12,3 @@ class AccountPayment(models.Model):
         if self.partner_id.payment_email:
             return []
         return super(AccountPayment, self)._notify_get_recipients(message, groups)
-

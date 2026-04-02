@@ -3,6 +3,7 @@
 
 from odoo import fields, models, _
 
+
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
@@ -55,7 +56,8 @@ class ResPartner(models.Model):
                         'email': unique_fake_email,
                         'payment_email': partner.payment_email,
                         'is_receivable_account': True,
-                        'comment': _('Automatically created from the Receivable Accounts Email field.'),
+                        'comment': _('Automatically created from the '
+                                     'Receivable Accounts Email field.'),
                     })
 
             else:
