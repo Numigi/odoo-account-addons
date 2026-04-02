@@ -142,3 +142,4 @@ class TestReceivableEmail(common.TransactionCase):
         # C. Verify email_to has the true string email
         self.assertEqual(mail_values.get('email_to'), target_email,
                          "email_to must contain the true raw email string.")
+
