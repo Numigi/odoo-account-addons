@@ -24,14 +24,20 @@ class ResPartner(models.Model):
         Uses the 'is_receivable_account' boolean to identify the target.
         """
         for partner in self:
+            # --- ANTI- UNLIMITED LOOP ---
+            if partner.is_receivable_account:
+                continue
+
             if partner.payment_email:
                 child_partner = self.env['res.partner'].with_context(active_test=False).search([
                     ('parent_id', '=', partner.id),
                     ('is_receivable_account', '=', True)
                 ], limit=1)
+
                 unique_fake_email = f"{partner.payment_email}.{partner.id}"
 
                 if child_partner:
+                    # Update existing contact
                     if child_partner.payment_email != partner.payment_email:
                         child_partner.payment_email = partner.payment_email
                         child_partner.email = unique_fake_email
