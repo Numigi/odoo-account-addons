@@ -54,38 +54,17 @@ class MailComposer(models.TransientModel):
             partner = getattr(record, 'partner_id', False)
 
             if partner and partner.payment_email:
-                # 1. Search for the 'Receivable Accounts' child contact
-                receivable_contact = self.env['res.partner'].search([
-                    ('parent_id', '=', partner.id),
-                    ('type', '=', 'other'),
-                    ('email', '=', partner.payment_email)
-                ], limit=1)
-
-                # Determine the target: Contact ID or Raw Email
-                target_partner_id = receivable_contact.id if receivable_contact else False
-                target_email = partner.payment_email if not receivable_contact else False
-
-                # 2. FORCE RECIPIENT LOGIC
-
+                target_email = partner.payment_email
                 # A. Handle 'partner_ids' (Used in Comment/Single mode)
-                # We simply set the list of IDs
+                # On vide la liste des partenaires pour ne pas envoyer à la fausse adresse
                 if 'partner_ids' in mail_values:
-                    mail_values['partner_ids'] = [target_partner_id] \
-                        if target_partner_id else []
-
+                    mail_values['partner_ids'] = []
                 # B. Handle 'recipient_ids' (Used in Mass Mail / EFT mode)
-                # CRITICAL: Must use ORM Commands [(5,0,0), (4, id)]
                 # (5, 0, 0) = Clear all existing recipients (followers/main partner)
-                # (4, id) = Add the new specific partner
                 if 'recipient_ids' in mail_values:
-                    commands = [(5, 0, 0)]  # Start by clearing
-                    if target_partner_id:
-                        commands.append((4, target_partner_id))
-                    mail_values['recipient_ids'] = commands
+                    mail_values['recipient_ids'] = [(5, 0, 0)]
 
                 # C. Handle 'email_to'
-                # If we have a partner, force email_to to False (so Odoo uses the partner)
-                # If not, set the raw string.
-                mail_values['email_to'] = target_email or False
+                mail_values['email_to'] = target_email
 
         return results
