@@ -3,7 +3,6 @@
 
 from odoo import fields, models, _
 
-
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
@@ -26,16 +25,16 @@ class ResPartner(models.Model):
         """
         for partner in self:
             if partner.payment_email:
-                # 1. Search using the STABLE Boolean field
                 child_partner = self.env['res.partner'].with_context(active_test=False).search([
                     ('parent_id', '=', partner.id),
                     ('is_receivable_account', '=', True)
                 ], limit=1)
+                unique_fake_email = f"{partner.payment_email}.{partner.id}"
 
                 if child_partner:
-                    # Update existing contact
-                    if child_partner.email != partner.payment_email:
-                        child_partner.email = partner.payment_email
+                    if child_partner.payment_email != partner.payment_email:
+                        child_partner.payment_email = partner.payment_email
+                        child_partner.email = unique_fake_email
 
                     # Reactivate if it was archived
                     if not child_partner.active:
@@ -46,10 +45,11 @@ class ResPartner(models.Model):
                         'name': _('Receivable Accounts'),
                         'parent_id': partner.id,
                         'type': 'other',
-                        'email': partner.payment_email,
+                        'company_type': 'person',
+                        'email': unique_fake_email,
+                        'payment_email': partner.payment_email,
                         'is_receivable_account': True,
-                        'comment': _('Automatically created from '
-                                     'the Receivable Accounts Email field.'),
+                        'comment': _('Automatically created from the Receivable Accounts Email field.'),
                     })
 
             else:
@@ -67,21 +67,18 @@ class ResPartner(models.Model):
         Sync from Child Contact -> Parent Field.
         We strictly listen to contacts marked with 'is_receivable_account'.
         """
-        # 1. Identify records to sync BEFORE the write
         records_to_sync = self.env['res.partner']
-
-        if 'email' in vals:
+        if 'payment_email' in vals:
             for record in self:
-                # Simply check the boolean flag and parent existence
                 if record.parent_id and record.is_receivable_account:
                     records_to_sync += record
 
-        # 2. Perform Standard Write
+        # Perform Standard Write
         res = super(ResPartner, self).write(vals)
 
-        # 3. Propagate to parents
+        # Propagate to parents
         for record in records_to_sync:
-            if record.parent_id.payment_email != vals['email']:
-                record.parent_id.payment_email = vals['email']
+            if record.parent_id.payment_email != vals['payment_email']:
+                record.parent_id.payment_email = vals['payment_email']
 
         return res
