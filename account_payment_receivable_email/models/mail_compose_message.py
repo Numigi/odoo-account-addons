@@ -56,7 +56,6 @@ class MailComposer(models.TransientModel):
             if partner and partner.payment_email:
                 target_email = partner.payment_email
                 # A. Handle 'partner_ids' (Used in Comment/Single mode)
-                # On vide la liste des partenaires pour ne pas envoyer à la fausse adresse
                 if 'partner_ids' in mail_values:
                     mail_values['partner_ids'] = []
                 # B. Handle 'recipient_ids' (Used in Mass Mail / EFT mode)
@@ -66,5 +65,5 @@ class MailComposer(models.TransientModel):
 
                 # C. Handle 'email_to'
                 mail_values['email_to'] = target_email
-
+        print("results.items()",results.items())
         return results
