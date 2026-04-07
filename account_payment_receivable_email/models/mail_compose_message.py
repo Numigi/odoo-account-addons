@@ -65,5 +65,4 @@ class MailComposer(models.TransientModel):
 
                 # C. Handle 'email_to'
                 mail_values['email_to'] = target_email
-        print("results.items()",results.items())
         return results

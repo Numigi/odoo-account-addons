@@ -42,18 +42,27 @@ class MailMail(models.Model):
         As a result, the notification stays in 'ready' state, causing a red envelope.
         We manually mark it as 'sent' if the SMTP transmission was successful.
         """
+        mails_to_process = []
+        for mail in self:
+            if mail.model in ['account.payment', 'account.move'] and mail.mail_message_id:
+                mails_to_process.append({
+                    'message_id': mail.mail_message_id,
+                    'model': mail.model,
+                    'res_id': mail.res_id,  # <-- CORRECTION 1 : Sauvegarder le res_id
+                })
+
         res = super(MailMail, self)._postprocess_sent_message(
             success_pids, failure_reason=failure_reason, failure_type=failure_type)
 
-        for mail in self:
-            if mail.model in ['account.payment', 'account.move'] and mail.mail_message_id:
-                record = self.env[mail.model].browse(mail.res_id)
+        for mail_data in mails_to_process:
+            if (mail_data['model'] in ['account.payment', 'account.move']
+                    and mail_data['message_id']):
+                record = self.env[mail_data['model']].browse(mail_data['res_id'])
                 partner = getattr(record, 'partner_id', False)
 
                 # If there is no genuine SMTP failure, we force the notification success
                 if partner and partner.payment_email and not failure_reason:
-                    # Find orphaned notifications stuck in 'ready' or 'exception'
-                    notifications = mail.mail_message_id.notification_ids.filtered(
+                    notifications = mail_data['message_id'].notification_ids.filtered(
                         lambda n: n.notification_status in ['ready', 'exception']
                     )
                     if notifications:
@@ -63,4 +72,3 @@ class MailMail(models.Model):
                             'failure_reason': False,
                         })
         return res
-
