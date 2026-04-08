@@ -88,7 +88,7 @@ class TestReceivableEmail(common.TransactionCase):
                          "Changes on the child's payment_email must update the parent field.")
 
     def test_03_mail_composer_injection(self):
-        """ Test: The wizard avoids sending to fake email and uses email_to string """
+        """ Test: The wizard injects the specific contact in UI and values """
 
         # Setup: Partner with specific config
         target_email = "specific@test.com"
@@ -104,6 +104,12 @@ class TestReceivableEmail(common.TransactionCase):
             'payment_method_id': self.payment_method.id,
         })
 
+        # Fetch the automatically created child contact
+        child = self.env['res.partner'].search([
+            ('parent_id', '=', self.partner.id),
+            ('is_receivable_account', '=', True)
+        ], limit=1)
+
         # Instantiate the Mail Composer wizard
         composer = self.env['mail.compose.message'].with_context(
             default_model='account.payment',
@@ -117,28 +123,20 @@ class TestReceivableEmail(common.TransactionCase):
             False, 'comment', 'account.payment', payment.id
         )
 
-        # Verify that partner_ids is visually cleared
+        # Verify that partner_ids visually injects the child contact
         if onchange_res and 'value' in onchange_res:
-            self.assertEqual(onchange_res['value'].get('partner_ids'), [(6, 0, [])],
-                             "The interface must visually clear the default recipients.")
+            self.assertEqual(onchange_res['value'].get('partner_ids'), [(6, 0, [child.id])],
+                             "The interface must visually inject the child recipient.")
 
         # 2. Test Get Mail Values (Sending Logic)
-        # We must ensure that the wizard does NOT use partner_ids (because of fake email)
-        # but uses the raw 'email_to' string.
         mail_values = composer.get_mail_values([payment.id])[payment.id]
 
-        # A. Verify Comment Mode (partner_ids must be empty)
+        # A. Verify Comment Mode (partner_ids)
         if 'partner_ids' in mail_values:
-            self.assertEqual(mail_values['partner_ids'], [],
-                             "partner_ids must be empty so the"
-                             " mail isn't sent to the fake address.")
+            self.assertEqual(mail_values['partner_ids'], [child.id],
+                             "partner_ids must contain the child so Odoo sends an email.")
 
-        # B. Verify Mass Mail Mode (recipient_ids must be cleared)
-        # In mass mail, it uses recipient_ids with commands. We expect [(5, 0, 0)] (clear all).
+        # B. Verify Mass Mail Mode (recipient_ids)
         if 'recipient_ids' in mail_values:
-            self.assertEqual(mail_values['recipient_ids'], [(5, 0, 0)],
-                             "recipient_ids must be cleared using ORM command.")
-
-        # C. Verify email_to has the true string email
-        self.assertEqual(mail_values.get('email_to'), target_email,
-                         "email_to must contain the true raw email string.")
+            self.assertEqual(mail_values['recipient_ids'], [(5, 0, 0), (4, child.id)],
+                             "recipient_ids must be swapped to the child.")
