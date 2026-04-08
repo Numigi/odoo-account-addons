@@ -25,13 +25,14 @@ class MailComposer(models.TransientModel):
         partner = getattr(record, 'partner_id', False)
 
         if partner and partner.payment_email:
-            if 'value' not in res:
-                res['value'] = {}
-
-            # VISUAL ONLY: Clear recipients in the wizard view
-            # We use Command (6) to replace the list with empty
-            res['value']['partner_ids'] = [(6, 0, [])]
-
+            child = self.env['res.partner'].search([
+                ('parent_id', '=', partner.id),
+                ('is_receivable_account', '=', True)
+            ], limit=1)
+            if child:
+                if 'value' not in res:
+                    res['value'] = {}
+                res['value']['partner_ids'] = [(6, 0, [child.id])]
         return res
 
     def get_mail_values(self, res_ids):
@@ -54,15 +55,16 @@ class MailComposer(models.TransientModel):
             partner = getattr(record, 'partner_id', False)
 
             if partner and partner.payment_email:
-                target_email = partner.payment_email
-                # A. Handle 'partner_ids' (Used in Comment/Single mode)
-                if 'partner_ids' in mail_values:
-                    mail_values['partner_ids'] = []
-                # B. Handle 'recipient_ids' (Used in Mass Mail / EFT mode)
-                # (5, 0, 0) = Clear all existing recipients (followers/main partner)
-                if 'recipient_ids' in mail_values:
-                    mail_values['recipient_ids'] = [(5, 0, 0)]
+                child = self.env['res.partner'].search([
+                    ('parent_id', '=', partner.id),
+                    ('is_receivable_account', '=', True)
+                ], limit=1)
 
-                # C. Handle 'email_to'
-                mail_values['email_to'] = target_email
+                if child:
+                    if 'partner_ids' in mail_values:
+                        mail_values['partner_ids'] = [child.id]
+
+                    if 'recipient_ids' in mail_values:
+                        mail_values['recipient_ids'] = [(5, 0, 0), (4, child.id)]
+
         return results
