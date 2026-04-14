@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="account_reconciliation_widget.reconciliation.line" t-inherit-mode="extension">
+
+        <xpath expr="//ul[hasclass('nav-tabs')]/li[a[hasclass('nav-match_other')]]" position="replace" />
+
+        <xpath expr="//ul[hasclass('nav-tabs')]/li[a[hasclass('nav-match_rp')]]" position="before">
+            <li class="nav-item"
+                title="Match with entries that are not from receivable/payable accounts"
+                data-toggle="tooltip">
+                <a data-toggle="tab"
+                   disable_anchor="true"
+                   t-attf-href="#notebook_page_match_other_#{state.st_line.id}"
+                   class="nav-link active nav-match_other"
+                   role="tab"
+                   aria-selected="true">Outstanding payments</a>
+            </li>
+        </xpath>
+
+        <xpath expr="//ul[hasclass('nav-tabs')]/li/a[hasclass('nav-match_rp')]" position="attributes">
+            <attribute name="class">nav-link nav-match_rp</attribute>
+            <attribute name="aria-selected">false</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('tab-content')]/div[div[hasclass('match')] and @t-attf-id='notebook_page_match_other_#{state.st_line.id}']" position="attributes">
+            <attribute name="class">tab-pane active</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('tab-content')]/div[div[hasclass('match')] and @t-attf-id='notebook_page_match_rp_#{state.st_line.id}']" position="attributes">
+            <attribute name="class">tab-pane</attribute>
+        </xpath>
+
+    </t>
+</templates>
