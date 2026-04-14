@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="account_reconciliation_default_payment assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/account_reconciliation_default_payment/static/src/js/reconciliation_override.js"></script>
+        </xpath>
+    </template>
+</odoo>

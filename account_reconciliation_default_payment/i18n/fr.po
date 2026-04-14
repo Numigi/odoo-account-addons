@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * account_reconciliation_default_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-14 16:17+0000\n"
+"PO-Revision-Date: 2026-04-14 16:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: account_reconciliation_default_payment
+#. openerp-web
+#: code:addons/account_reconciliation_default_payment/static/src/xml/reconciliation_line_override.xml:0
+#, python-format
+msgid "Match with entries that are not from receivable/payable accounts"
+msgstr "Associer à des écritures ne provenant pas de comptes clients/fournisseurs"
+
+#. module: account_reconciliation_default_payment
+#. openerp-web
+#: code:addons/account_reconciliation_default_payment/static/src/xml/reconciliation_line_override.xml:0
+#, python-format
+msgid "Outstanding payments"
+msgstr "Paiements en circulation"
+
+#. module: account_reconciliation_default_payment
+#. openerp-web
+#: code:addons/account_reconciliation_default_payment/static/src/xml/reconciliation_line_override.xml:0
+#, python-format
+msgid "false"
+msgstr "false"
+
+#. module: account_reconciliation_default_payment
+#. openerp-web
+#: code:addons/account_reconciliation_default_payment/static/src/xml/reconciliation_line_override.xml:0
+#, python-format
+msgid "nav-link nav-match_rp"
+msgstr "nav-link nav-match_rp"
+
+#. module: account_reconciliation_default_payment
+#. openerp-web
+#: code:addons/account_reconciliation_default_payment/static/src/xml/reconciliation_line_override.xml:0
+#, python-format
+msgid "tab-pane"
+msgstr "tab-pane"
+
+#. module: account_reconciliation_default_payment
+#. openerp-web
+#: code:addons/account_reconciliation_default_payment/static/src/xml/reconciliation_line_override.xml:0
+#, python-format
+msgid "tab-pane active"
+msgstr "tab-pane active"
