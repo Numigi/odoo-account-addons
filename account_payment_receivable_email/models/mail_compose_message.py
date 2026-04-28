@@ -17,36 +17,22 @@ class MailComposer(models.TransientModel):
         res = super(MailComposer, self).onchange_template_id(
             template_id, composition_mode, model, res_id)
 
-        # Check model: we target Payment and Invoices
         if model not in ['account.payment', 'account.move'] or not res_id:
             return res
 
         record = self.env[model].browse(res_id)
         partner = getattr(record, 'partner_id', False)
 
-        if partner and partner.payment_email:
-            child = self.env['res.partner'].search([
-                ('parent_id', '=', partner.id),
-                ('is_receivable_account', '=', True)
-            ], limit=1)
-            if child:
-                if 'value' not in res:
-                    res['value'] = {}
-                res['value']['partner_ids'] = [(6, 0, [child.id])]
+        if partner and partner.payment_email_id:
+            if 'value' not in res:
+                res['value'] = {}
+            res['value']['partner_ids'] = [(6, 0, [partner.payment_email_id.id])]
+
         return res
 
     def get_mail_values(self, res_ids):
-        """
-        Override to inject the specific recipient at sending time.
-        COMPATIBLE WITH:
-        - Standard Send (Comment mode)
-        - Mass Mailing (Batch Send)
-        - Canada Bank Transfer (EFT Wizards)
-        """
         self.ensure_one()
         results = super(MailComposer, self).get_mail_values(res_ids)
-
-        # Safety check on model
         if self.model not in ["account.payment", "account.move"]:
             return results
 
@@ -54,17 +40,13 @@ class MailComposer(models.TransientModel):
             record = self.env[self.model].browse(res_id)
             partner = getattr(record, 'partner_id', False)
 
-            if partner and partner.payment_email:
-                child = self.env['res.partner'].search([
-                    ('parent_id', '=', partner.id),
-                    ('is_receivable_account', '=', True)
-                ], limit=1)
+            if partner and partner.payment_email_id:
+                target_id = partner.payment_email_id.id
 
-                if child:
-                    if 'partner_ids' in mail_values:
-                        mail_values['partner_ids'] = [child.id]
+                if 'partner_ids' in mail_values:
+                    mail_values['partner_ids'] = [target_id]
 
-                    if 'recipient_ids' in mail_values:
-                        mail_values['recipient_ids'] = [(5, 0, 0), (4, child.id)]
+                if 'recipient_ids' in mail_values:
+                    mail_values['recipient_ids'] = [(5, 0, 0), (4, target_id)]
 
         return results

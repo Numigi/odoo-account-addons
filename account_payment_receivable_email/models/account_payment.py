@@ -8,7 +8,6 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     def _notify_get_recipients(self, message, groups):
-        """ Voir logique ci-dessus pour account.move """
-        if self.partner_id.payment_email:
+        if self.partner_id.payment_email_id:
             return []
         return super(AccountPayment, self)._notify_get_recipients(message, groups)
