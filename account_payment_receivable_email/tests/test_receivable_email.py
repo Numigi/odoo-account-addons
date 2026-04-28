@@ -27,12 +27,12 @@ class TestReceivableEmail(common.TransactionCase):
         self.payment_method = self.env.ref('account.account_payment_method_manual_in')
 
     def test_01_assign_receivable_contact(self):
-        """ Test: Assigner un contact comptes recevables """
+        """ Test: Assign a receivable accounts contact """
         self.partner.payment_email_id = self.receivable_contact.id
         self.assertEqual(self.partner.payment_email_id.email, "compta@test.com")
 
     def test_02_mail_composer_injection(self):
-        """ Test: Le wizard injecte l'ID du contact sélectionné """
+        """ Test: The wizard injects the ID of the selected contact """
         self.partner.payment_email_id = self.receivable_contact.id
 
         payment = self.env['account.payment'].create({
@@ -57,7 +57,8 @@ class TestReceivableEmail(common.TransactionCase):
         )
 
         if onchange_res and 'value' in onchange_res:
-            self.assertEqual(onchange_res['value'].get('partner_ids'), [(6, 0, [self.receivable_contact.id])])
+            self.assertEqual(onchange_res['value'].get('partner_ids'),
+                             [(6, 0, [self.receivable_contact.id])])
 
         # 2. Test Get Mail Values (Sending Logic)
         mail_values = composer.get_mail_values([payment.id])[payment.id]
@@ -66,4 +67,5 @@ class TestReceivableEmail(common.TransactionCase):
             self.assertEqual(mail_values['partner_ids'], [self.receivable_contact.id])
 
         if 'recipient_ids' in mail_values:
-            self.assertEqual(mail_values['recipient_ids'], [(5, 0, 0), (4, self.receivable_contact.id)])
+            self.assertEqual(mail_values['recipient_ids'],
+                             [(5, 0, 0), (4, self.receivable_contact.id)])
