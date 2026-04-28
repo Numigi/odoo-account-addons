@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 15:14+0000\n"
-"PO-Revision-Date: 2026-02-11 15:14+0000\n"
+"POT-Creation-Date: 2026-04-08 15:14+0000\n"
+"PO-Revision-Date: 2026-04-08 15:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,12 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: account_payment_receivable_email
-#: code:addons/account_payment_receivable_email/models/res_partner.py:0
-#, python-format
-msgid "Automatically created from the Receivable Accounts Email field."
-msgstr "Créé automatiquement à partir du champ Email Comptes Recevables."
 
 #. module: account_payment_receivable_email
 #: model:ir.model,name:account_payment_receivable_email.model_res_partner
@@ -33,12 +27,6 @@ msgstr "Contact"
 #: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
-
-#. module: account_payment_receivable_email
-#: model:ir.model.fields,help:account_payment_receivable_email.field_res_partner__payment_email
-#: model:ir.model.fields,help:account_payment_receivable_email.field_res_users__payment_email
-msgid "Email address to send payment notifications and receipts"
-msgstr "Adresse email pour envoyer les notifications de paiement et les reçus"
 
 #. module: account_payment_receivable_email
 #: model:ir.model,name:account_payment_receivable_email.model_mail_compose_message
@@ -65,14 +53,19 @@ msgid "Payments"
 msgstr "Paiements"
 
 #. module: account_payment_receivable_email
-#: code:addons/account_payment_receivable_email/models/res_partner.py:0
-#: code:addons/account_payment_receivable_email/models/res_partner.py:0
-#, python-format
-msgid "Receivable Accounts"
-msgstr "Comptes Recevables"
+#: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_partner__is_receivable_account
+#: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_users__is_receivable_account
+msgid "Is Receivable Account"
+msgstr "Est un Compte Recevable"
 
 #. module: account_payment_receivable_email
-#: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_partner__payment_email
-#: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_users__payment_email
-msgid "Receivable Accounts Email"
-msgstr "Email Comptes Recevables"
+#: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_partner__payment_email_id
+#: model:ir.model.fields,field_description:account_payment_receivable_email.field_res_users__payment_email_id
+msgid "Receivable Accounts Contact"
+msgstr "Contact Comptes Recevables"
+
+#. module: account_payment_receivable_email
+#: model:ir.model.fields,help:account_payment_receivable_email.field_res_partner__payment_email_id
+#: model:ir.model.fields,help:account_payment_receivable_email.field_res_users__payment_email_id
+msgid "Select the specific contact to receive payment notifications."
+msgstr "Sélectionnez le contact spécifique qui recevra les notifications de paiement et les reçus."
