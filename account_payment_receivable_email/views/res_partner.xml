@@ -6,7 +6,23 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='property_account_payable_id']" position="after">
                 <field name="payment_email_id"
-                       context="{'default_is_receivable_account': True, 'default_type': 'other'}"/>
+                       context="{'default_is_receivable_account': True, 'default_type': 'contact'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_receivable" model="ir.ui.view">
+        <field name="name">res.partner.select.receivable</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter string="Comptes recevables" name="is_receivable_account" domain="[('is_receivable_account', '=', True)]"/>
+                <separator/>
+            </xpath>
+
+            <xpath expr="//group[@name='group_by']" position="inside">
+                <filter name="group_payment_email_id" string="Compte recevable" context="{'group_by': 'payment_email_id'}"/>
             </xpath>
         </field>
     </record>
