@@ -3,7 +3,7 @@
 
 {
     'name': 'Account Payment Receivable Email',
-    'version': '14.0.2.1.0',
+    'version': '14.0.2.0.0',
     'category': 'Accounting',
     'author': 'Numigi',
     "maintainer": "Numigi",

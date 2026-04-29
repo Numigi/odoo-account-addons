@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='property_account_payable_id']" position="after">
                 <field name="payment_email_id"
-                       context="{'default_is_receivable_account': True}"/>
+                       context="{'default_is_receivable_account': True , 'default_company_type':'person'}"/>
             </xpath>
 
         </field>
