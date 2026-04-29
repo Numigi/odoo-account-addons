@@ -14,5 +14,6 @@ def migrate(cr, version):
                  "'payment_email_id' in 'res_partner'...")
 
     cr.execute("ALTER TABLE res_partner ADD COLUMN IF NOT EXISTS payment_email_id integer;")
+    cr.execute("ALTER TABLE res_partner ADD COLUMN IF NOT EXISTS payment_email varchar;")
 
     _logger.info("END PRE-MIGRATION: Column 'payment_email_id' is ready for the ORM.")

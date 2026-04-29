@@ -19,5 +19,3 @@ class ResPartner(models.Model):
         domain="[('is_receivable_account', '=', True)]",
         help="Select the specific contact to receive payment notifications."
     )
-
-    payment_email = fields.Char(string="Receivable Accounts Contact")
