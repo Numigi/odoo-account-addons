@@ -16,6 +16,7 @@ RUN if [ -s /gitoo.yml ]; then \
 USER odoo
 
 COPY account_additional_group /mnt/extra-addons/account_additional_group
+COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo
