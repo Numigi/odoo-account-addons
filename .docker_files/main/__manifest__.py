@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account_additional_group",
+        "account_move_unique_reversal"
     ],
     "installable": True,
 }
