@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="account_move_form_draft_group_inherit" model="ir.ui.view">
+        <field name="name">model.name.view.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <button name="button_draft" position="attributes">
+                <attribute name="groups">account_move_reversal_access.group_reverse_account_moves</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>
