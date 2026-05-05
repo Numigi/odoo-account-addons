@@ -88,7 +88,11 @@
     </record>
 
     <menuitem
+<<<<<<< HEAD
         id="menu_config_recording_subgenre"
+=======
+        id="menu_account_additional_group"
+>>>>>>> 579a2434c069884bf35385d10a1509d762eb56e8
         name="Additional Account Groups"
         parent="account.account_account_menu"
         action="action_account_additional_group"

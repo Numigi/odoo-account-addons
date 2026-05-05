@@ -1,30 +1,30 @@
 - url: https://github.com/OCA/mis-builder
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - mis_builder
 
 - url: https://github.com/OCA/partner-contact
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - partner_affiliate
 
 - url: https://github.com/OCA/reporting-engine
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - report_xlsx
 
 - url: https://github.com/OCA/server-ux
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - date_range
 
 - url: https://github.com/OCA/web
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - web_widget_dropdown_dynamic
 
 - url: https://github.com/OCA/bank-statement-import
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - account_statement_import
     - account_statement_import_base
@@ -34,34 +34,28 @@
     - account_statement_import_paypal
 
 - url: https://github.com/OCA/account-reconcile
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - account_statement_base
 
 - url: https://github.com/OCA/account-financial-tools
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - account_check_deposit
     - account_invoice_constraint_chronology
 
 - url: https://github.com/OCA/multi-company
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - account_invoice_inter_company
     - crm_tag_multi_company_event_crm
 
 - url: https://github.com/OCA/product-attribute
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - product_pricelist_direct_print_company_group
 
 - url: https://github.com/Numigi/odoo-base-addons
-  branch: "16.0"
+  branch: "18.0"
   includes:
     - lang_fr_activated
-
-- url: https://github.com/Numigi/odoo-web-addons
-  branch: "16.0"
-  includes:
-    - web_custom_label
-    - web_search_date_range

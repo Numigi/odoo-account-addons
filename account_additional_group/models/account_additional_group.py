@@ -28,12 +28,17 @@ class AccountAdditionalGroup(models.Model):
     def _compute_display_name(self):
         for record in self:
             if record.code and record.name:
+<<<<<<< HEAD
                 record.display_name = "{} {}".format(record.code, record.name)
+=======
+                record.display_name = "{} - {}".format(record.code, record.name)
+>>>>>>> 579a2434c069884bf35385d10a1509d762eb56e8
             elif record.name:
                 record.display_name = record.name
             else:
                 record.display_name = ""
 
+<<<<<<< HEAD
     def name_get(self):
         return [(r.id, "{} {}".format(r.code, r.name)) for r in self]
 
@@ -41,6 +46,13 @@ class AccountAdditionalGroup(models.Model):
     def _name_search(self, name="", args=None, operator="ilike", limit=100, order=None):
         """Search for records by name or code."""
         domain = args or []
+=======
+
+    @api.model
+    def _name_search(self, name="", domain=None, operator="ilike", limit=100, order=None):
+        """Search for records by name or code."""
+        domain = domain or []
+>>>>>>> 579a2434c069884bf35385d10a1509d762eb56e8
         if operator in ("=", "ilike", "=ilike", "like", "=like"):
             domain = ['|', ('name', operator, name), ('code', operator, name)] + domain
         return self.search(domain, limit=limit, order=order or self._order)

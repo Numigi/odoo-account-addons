@@ -45,7 +45,11 @@ msgstr "Actif"
 
 #. module: account_additional_group
 #: model:ir.actions.act_window,name:account_additional_group.action_account_additional_group
+<<<<<<< HEAD
 #: model:ir.ui.menu,name:account_additional_group.menu_config_recording_subgenre
+=======
+#: model:ir.ui.menu,name:account_additional_group.menu_account_additional_group
+>>>>>>> 579a2434c069884bf35385d10a1509d762eb56e8
 msgid "Additional Account Groups"
 msgstr "Groupes de comptes supplémentaires"
 

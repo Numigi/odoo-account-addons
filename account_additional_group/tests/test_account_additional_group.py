@@ -16,7 +16,11 @@ class TestAccountAdditionalGroup(TransactionCase):
         cls.account.additional_group_id = cls.group
 
     def test_account_count(self):
+<<<<<<< HEAD
         self.group.refresh()
+=======
+        self.group.invalidate_recordset()
+>>>>>>> 579a2434c069884bf35385d10a1509d762eb56e8
         self.assertEqual(self.group.account_count, 1)
 
     def test_display_name(self):
@@ -28,7 +32,11 @@ class TestAccountAdditionalGroup(TransactionCase):
 
     def test_search_by_code_with_limit(self):
         ids = self._name_search(self.group.code, limit=0)
+<<<<<<< HEAD
         self.assertNotIn(self.group.id, ids)
+=======
+        self.assertIn(self.group.id, ids)
+>>>>>>> 579a2434c069884bf35385d10a1509d762eb56e8
 
     def test_search_by_name(self):
         ids = self._name_search(self.group.name)
