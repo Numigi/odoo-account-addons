@@ -17,6 +17,10 @@ class MailComposer(models.TransientModel):
         res = super(MailComposer, self).onchange_template_id(
             template_id, composition_mode, model, res_id)
 
+        active_ids = self.env.context.get('active_ids', [])
+        if composition_mode == 'mass_mail' or len(active_ids) > 1:
+            return res
+
         if model not in ['account.payment', 'account.move'] or not res_id:
             return res
 
