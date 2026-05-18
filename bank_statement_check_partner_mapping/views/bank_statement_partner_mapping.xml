@@ -6,8 +6,12 @@
         <field name="inherit_id" ref="bank_statement_partner_mapping.bank_statement_partner_mapping_view_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='label']" position="after">
+                <field name="payment_id"/>
                 <field name="journal_id"/>
                 <field name="active" widget="boolean_toggle"/>
+            </xpath>
+             <xpath expr="//field[@name='mapping_type']" position="before">
+                <field name="create_date"/>
             </xpath>
         </field>
     </record>
@@ -19,6 +23,7 @@
             <search string="Bank Statement Partner Mapping Search">
                 <field name="partner_id"/>
                 <field name="label"/>
+                 <field name="payment_id"/>
                 <field name="journal_id"/>
                 <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <group expand="0" string="Group By">
