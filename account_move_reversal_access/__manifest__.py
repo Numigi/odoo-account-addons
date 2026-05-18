@@ -1,4 +1,4 @@
-# © Numigi (tm) and all its contributors (https://numigi.com/r/home)
+# Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -7,8 +7,8 @@
         Restricting access to the function of reversing Journal
         Entries and resetting to draft ().
     """,
-    "version": "14.0.2.0.0",
-    "website": "https://numigi.com/r/home",
+    "version": "16.0.1.0.0",
+    "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",

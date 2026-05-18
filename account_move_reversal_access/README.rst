@@ -1,10 +1,15 @@
+============================
 Account Move Reversal Access
 ============================
 
 This modules restricts access to the function of reversing Journal Entries and make it draft based on the security groups of the user and the type of journal.
-Making a journal entry and invoice to draft are also based on journal type associated to it (restriction applied on sale only).
+Making a journal entry and invoice to draft are also based on journal type associated to it .
+**| Restriction applied on sale journal type ONLY |**
 
-- A new group is created Reverse Account Moves
+- A new group is created : `Account Moves : Reverse and Modify`.
+
+  .. image:: static/description/user_groups.png
+
 - In case of reversal Journal Entries or auto reverse Journal Entries:
 
   + Users without this new group cannot reverse those Journal Entries
@@ -37,8 +42,9 @@ No configuration required apart from module installation.
 
 Contributors
 ------------
-
-The `Numigi <https://numigi.com/r/home>`_ team is the contributor to this project. We help Quebec companies implement Odoo and Konvergo ERP.
+* Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 * Komit (https://komit-consulting.com)
 
-
+More information
+----------------
+* Meet us at https://bit.ly/numigi-com

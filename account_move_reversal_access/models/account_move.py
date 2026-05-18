@@ -1,4 +1,4 @@
-# © Numigi (tm) and all its contributors (https://numigi.com/r/home)
+# Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, models
@@ -39,10 +39,10 @@ class AccountMove(models.Model):
                 )
             )
 
-    @api.depends('restrict_mode_hash_table', 'state')
+    @api.depends("restrict_mode_hash_table", "state")
     def _compute_show_reset_to_draft_button(self):
         for move in self:
-            # applied the restriction only if journal type is sale
+            # Apply the restriction only if journal type is sale
             if move.journal_id.type in ["sale"]:
                 move.show_reset_to_draft_button = False
             else:
