@@ -3,7 +3,7 @@
 
 {
     "name": "Bank Statement Check Partner Mapping",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "author": "Numigi",
     "website": "https://www.numigi.com",
     "license": "LGPL-3",
