@@ -22,6 +22,16 @@ class AccountPayment(models.Model):
         self._create_check_partner_mappings()
         return res
 
+    def write(self, vals):
+        """
+        Extend write to catch check number assignments that happen after posting
+        (e.g., when the check is actually printed).
+        """
+        res = super().write(vals)
+        if "check_number" in vals:
+            self._create_check_partner_mappings()
+        return res
+
     def action_draft(self):
         """
         Extend resetting to draft to archive the corresponding check mapping rules.
@@ -40,12 +50,22 @@ class AccountPayment(models.Model):
 
     def _create_check_partner_mappings(self):
         """
-        Identify eligible check payments and create their partner mapping entries.
+        Identify eligible check payments and create or update their partner mapping entries.
         """
         eligible_payments = self.filtered(lambda p: p._is_eligible_for_check_mapping())
         mapping_env = self.env["bank.statement.partner.mapping"]
+
         for payment in eligible_payments:
-            mapping_env.create(payment._prepare_check_mapping_vals())
+            vals = payment._prepare_check_mapping_vals()
+
+            if not payment.check_mapping_ids:
+                mapping_env.create(vals)
+            else:
+                # If the rule exists but the check number changed, we update the label
+                payment.check_mapping_ids.write({
+                    "label": vals["label"],
+                    "active": True
+                })
 
     def _archive_check_partner_mappings(self):
         """
@@ -67,10 +87,17 @@ class AccountPayment(models.Model):
         """
         Prepare values dictionary for creating a bank statement partner mapping record.
         Includes the strong relational link to the payment.
+        Uses native Python 3 string formatting safely to prevent UI-induced tracebacks.
         """
         self.ensure_one()
-        fmt = self.journal_id.check_format or "%%check_number%%"
-        mapping_label = fmt.replace("%%check_number%%", str(self.check_number))
+        fmt = self.journal_id.check_format or "{check_number}"
+
+        # Safely attempt to format the string using Python 3 standard
+        try:
+            mapping_label = fmt.format(check_number=self.check_number)
+        except (KeyError, ValueError):
+            mapping_label = str(self.check_number)
+
         return {
             "partner_id": self.partner_id.id,
             "label": mapping_label,

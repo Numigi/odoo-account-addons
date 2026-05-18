@@ -9,8 +9,8 @@ class AccountJournal(models.Model):
 
     check_format = fields.Char(
         string="Check Format on Statement",
-        default="%%check_number%%",
-        help="Format used on bank statements. Use %%check_number%% as placeholder. "
-             "For example, 'Check - %%check_number%%' or '%%check_number%% -CAD' or"
-             "CHQ-%%check_number%%-RBC",
+        default="{check_number}",
+        help="Format used on bank statements. Use {check_number} as placeholder. "
+             "For example, 'Check - {check_number}' or '{check_number} -CAD' or "
+             "'CHQ-{check_number}-RBC'.",
     )

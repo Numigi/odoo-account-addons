@@ -1,11 +1,9 @@
 # © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-# REMPLACEZ TransactionCase PAR SavepointCase ICI :
 from odoo.tests.common import SavepointCase
 
 
-# HÉRITEZ DE SavepointCase ICI :
 class TestBankStatementCheckPartnerMapping(SavepointCase):
 
     @classmethod
@@ -23,7 +21,7 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
             "name": "Bank Journal A",
             "type": "bank",
             "code": "BKA",
-            "check_format": "Chèque - %%check_number%%",
+            "check_format": "CHK - {check_number}",
         })
 
         # Journal B with another check format
@@ -31,7 +29,7 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
             "name": "Bank Journal B",
             "type": "bank",
             "code": "BKB",
-            "check_format": "CHQ-%%check_number%%-B",
+            "check_format": "CHQ-{check_number}-B",
         })
 
         # Locate or create the check printing payment method
@@ -70,7 +68,7 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
 
         assert len(payment.check_mapping_ids) == 1
         mapping = payment.check_mapping_ids[0]
-        assert mapping.label == "Chèque - 1001"
+        assert mapping.label == "CHK - 1001"
         assert mapping.journal_id == self.journal_a
         assert mapping.partner_id == self.partner
         assert mapping.active
@@ -94,7 +92,7 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
             "name": "Statement 1",
             "journal_id": self.journal_a.id,
             "line_ids": [(0, 0, {
-                "payment_ref": "Chèque - 1002",
+                "payment_ref": "CHK - 1002",
                 "amount": -100.0,
             })]
         })
@@ -136,7 +134,7 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
             "name": "Statement 3",
             "journal_id": self.journal_b.id,
             "line_ids": [(0, 0, {
-                "payment_ref": "Chèque - 3001",
+                "payment_ref": "CHK - 3001",
                 "amount": -100.0,
             })]
         })
