@@ -13,7 +13,9 @@
     "depends": [
         "account_additional_group",
         "account_move_reversal_access",
-        "account_move_unique_reversal"
+        "account_move_unique_reversal",
+        "canada_account_types",
+        "canada_mis_report",
     ],
     "installable": True,
 }
