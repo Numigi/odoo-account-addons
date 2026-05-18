@@ -1,10 +1,12 @@
 # © Numigi (tm) and all its contributors (https://numigi.com/r/home)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo.tests.common import TransactionCase
+# REMPLACEZ TransactionCase PAR SavepointCase ICI :
+from odoo.tests.common import SavepointCase
 
 
-class TestBankStatementCheckPartnerMapping(TransactionCase):
+# HÉRITEZ DE SavepointCase ICI :
+class TestBankStatementCheckPartnerMapping(SavepointCase):
 
     @classmethod
     def setUpClass(cls):
