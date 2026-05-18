@@ -16,23 +16,7 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
         cls.partner = cls.env["res.partner"].create({"name": "Test Supplier 1"})
         cls.partner_2 = cls.env["res.partner"].create({"name": "Test Supplier 2"})
 
-        # Journal A with a specific check format
-        cls.journal_a = cls.env["account.journal"].create({
-            "name": "Bank Journal A",
-            "type": "bank",
-            "code": "BKA",
-            "check_format": "CHK - {check_number}",
-        })
-
-        # Journal B with another check format
-        cls.journal_b = cls.env["account.journal"].create({
-            "name": "Bank Journal B",
-            "type": "bank",
-            "code": "BKB",
-            "check_format": "CHQ-{check_number}-B",
-        })
-
-        # Locate or create the check printing payment method
+        # Locate or create the check printing payment method FIRST
         cls.payment_method_check = cls.env["account.payment.method"].search(
             [("code", "=", "check_printing"), ("payment_type", "=", "outbound")], limit=1
         )
@@ -43,19 +27,42 @@ class TestBankStatementCheckPartnerMapping(SavepointCase):
                 "payment_type": "outbound",
             })
 
+        # Journal A with a specific check format AND the payment method allowed
+        cls.journal_a = cls.env["account.journal"].create({
+            "name": "Bank Journal A",
+            "type": "bank",
+            "code": "BKA",
+            "check_format": "CHK - {check_number}",
+            "outbound_payment_method_ids": [(4, cls.payment_method_check.id)],
+        })
+
+        # Journal B with another check format AND the payment method allowed
+        cls.journal_b = cls.env["account.journal"].create({
+            "name": "Bank Journal B",
+            "type": "bank",
+            "code": "BKB",
+            "check_format": "CHQ-{check_number}-B",
+            "outbound_payment_method_ids": [(4, cls.payment_method_check.id)],
+        })
+
     def _create_payment(self, partner, journal, check_number):
         """
         Helper method to create an outbound check payment.
         """
-        return self.env["account.payment"].create({
+        payment = self.env["account.payment"].create({
             "partner_id": partner.id,
             "amount": 100.0,
             "payment_type": "outbound",
             "partner_type": "supplier",
             "journal_id": journal.id,
             "payment_method_id": self.payment_method_check.id,
-            "check_number": check_number,
         })
+
+        if check_number:
+            # Force assigning the check number after creation to trigger the write method
+            payment.check_number = check_number
+
+        return payment
 
     def test_01_payment_mapping_lifecycle(self):
         """
