@@ -52,6 +52,7 @@ COPY account_show_full_features /mnt/extra-addons/account_show_full_features
 COPY account_type_archive /mnt/extra-addons/account_type_archive
 COPY account_type_sane /mnt/extra-addons/account_type_sane
 COPY account_unaffected_earnings_disabled /mnt/extra-addons/account_unaffected_earnings_disabled
+COPY bank_statement_check_partner_mapping /mnt/extra-addons/bank_statement_check_partner_mapping
 COPY bank_statement_extra_columns /mnt/extra-addons/bank_statement_extra_columns
 COPY bank_statement_import_csv /mnt/extra-addons/bank_statement_import_csv
 COPY bank_statement_no_reverse /mnt/extra-addons/bank_statement_no_reverse
