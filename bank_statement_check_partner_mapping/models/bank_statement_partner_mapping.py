@@ -7,6 +7,8 @@ from odoo import fields, models
 class BankStatementPartnerMapping(models.Model):
     _inherit = "bank.statement.partner.mapping"
 
+    _order = "create_date desc"
+
     payment_id = fields.Many2one(
         comodel_name="account.payment",
         string="Origin Payment",
