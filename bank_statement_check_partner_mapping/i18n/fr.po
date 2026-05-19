@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bank_statement_check_partner_mapping
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-19 10:23+0000\n"
+"PO-Revision-Date: 2026-05-19 10:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: bank_statement_check_partner_mapping
+#: model_terms:ir.ui.view,arch_db:bank_statement_check_partner_mapping.bank_statement_partner_mapping_view_search
+msgid "Archived"
+msgstr "Archivé"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__journal_id
+msgid "Bank Journal"
+msgstr "Journal bancaire"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model,name:bank_statement_check_partner_mapping.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Relevé bancaire"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model,name:bank_statement_check_partner_mapping.model_bank_statement_partner_mapping
+msgid "Bank Statement Partner Mapping"
+msgstr "Mapping des partenaires sur relevés bancaires"
+
+#. module: bank_statement_check_partner_mapping
+#: model_terms:ir.ui.view,arch_db:bank_statement_check_partner_mapping.bank_statement_partner_mapping_view_search
+msgid "Bank Statement Partner Mapping Search"
+msgstr "Recherche de mapping des partenaires sur relevés bancaires"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_journal__check_format
+msgid "Check Format on Statement"
+msgstr "Format de chèque sur le relevé"
+
+#. module: bank_statement_check_partner_mapping
+#: model_terms:ir.ui.view,arch_db:bank_statement_check_partner_mapping.view_account_journal_form_inherit_check_format
+msgid "Check Partner Mapping Configuration"
+msgstr "Configuration du mapping des partenaires par chèque"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_bank_statement__display_name
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_journal__display_name
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_payment__display_name
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,help:bank_statement_check_partner_mapping.field_account_journal__check_format
+msgid ""
+"Format used on bank statements. Use {check_number} as placeholder. For "
+"example, 'Check - {check_number}' or '{check_number} -CAD' or "
+"'CHQ-{check_number}-RBC'."
+msgstr ""
+"Format utilisé sur les relevés bancaires. Utilisez {check_number} comme espace "
+"réservé. Par exemple, 'Chèque - {check_number}' ou '{check_number} -CAD' ou "
+"'CHQ-{check_number}-RBC'."
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_payment__check_mapping_ids
+msgid "Generated Check Mappings"
+msgstr "Mappings de chèques générés"
+
+#. module: bank_statement_check_partner_mapping
+#: model_terms:ir.ui.view,arch_db:bank_statement_check_partner_mapping.bank_statement_partner_mapping_view_search
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_bank_statement__id
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_journal__id
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_payment__id
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__id
+msgid "ID"
+msgstr "ID"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model,name:bank_statement_check_partner_mapping.model_account_journal
+#: model_terms:ir.ui.view,arch_db:bank_statement_check_partner_mapping.bank_statement_partner_mapping_view_search
+msgid "Journal"
+msgstr "Journal"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_bank_statement____last_update
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_journal____last_update
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_account_payment____last_update
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,field_description:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__payment_id
+msgid "Origin Payment"
+msgstr "Paiement d'origine"
+
+#. module: bank_statement_check_partner_mapping
+#: model_terms:ir.ui.view,arch_db:bank_statement_check_partner_mapping.bank_statement_partner_mapping_view_search
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model,name:bank_statement_check_partner_mapping.model_account_payment
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,help:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__active
+msgid "Set to false to archive the mapping rule."
+msgstr "Décocher pour archiver la règle de mapping."
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,help:bank_statement_check_partner_mapping.field_account_payment__check_mapping_ids
+msgid "Technical field to link the payment to its generated mapping rules."
+msgstr "Champ technique pour lier le paiement à ses règles de mapping générées."
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,help:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__payment_id
+msgid "The payment that automatically generated this mapping rule."
+msgstr "Le paiement qui a généré automatiquement cette règle de mapping."
+
+#. module: bank_statement_check_partner_mapping
+#: model:ir.model.fields,help:bank_statement_check_partner_mapping.field_bank_statement_partner_mapping__journal_id
+msgid ""
+"The specific bank journal this rule applies to. If empty, it applies to all "
+"bank journals."
+msgstr ""
+"Le journal bancaire spécifique auquel cette règle s'applique. Si vide, elle "
+"s'applique à tous les journaux bancaires."
