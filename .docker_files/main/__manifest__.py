@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account_additional_group",
+        "account_fr_ca_labels",
         "account_move_reversal_access",
         "account_move_unique_reversal",
         "canada_account_types",
