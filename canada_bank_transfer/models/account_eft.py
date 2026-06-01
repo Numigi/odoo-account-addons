@@ -128,11 +128,41 @@ class EFT(models.Model):
             )
         return int(number)
 
+    @api.onchange("payment_ids")
+    def _onchange_payment_ids_assign_bank(self):
+        """
+        Dynamically assign the bank account in the UI when payments are added.
+
+        This provides immediate visual feedback to the user before saving.
+        Note: We modify the records in the NewId cache directly for the UI.
+        The actual database write is secured by the create/write methods
+        to ensure the skip_account_move_synchronization context is applied.
+        """
+        for payment in self.payment_ids:
+            # Only attempt to auto-assign if the field is currently empty
+            if not payment.partner_bank_id:
+                partner_banks = payment.partner_id.bank_ids
+                if len(partner_banks) == 1:
+                    payment.partner_bank_id = partner_banks
+
     @api.model
     def create(self, vals):
         eft = super().create(vals)
         eft._compute_name()
+        if eft.payment_ids:
+            auto_assign_bank_account_to_payments(eft.payment_ids)
         return eft
+
+    def write(self, vals):
+        """
+        Override write to handle new payments linked manually after creation.
+        """
+        res = super().write(vals)
+        if "payment_ids" in vals:
+            for eft in self:
+                if eft.payment_ids:
+                    auto_assign_bank_account_to_payments(eft.payment_ids)
+        return res
 
     def unlink(self):
         validated_eft = self.filtered(lambda r: r.state != "draft")
@@ -198,8 +228,6 @@ class EFT(models.Model):
         check_all_payments_have_same_journal(payments, self._context)
         check_payment_state_is_posted(payments, self._context)
         check_payment_is_not_sent(payments, self._context)
-        auto_assign_bank_account_to_payments(payments)
-
         eft = self.create(
             {
                 "state": "draft",
@@ -274,7 +302,10 @@ def auto_assign_bank_account_to_payments(payments):
     Otherwise, do nothing. We let the user decide what destination
     bank account to use.
     """
-    for payment in payments:
+    # Filter out payments that already have a bank account assigned
+    unassigned_payments = payments.filtered(lambda p: not p.partner_bank_id)
+
+    for payment in unassigned_payments:
         partner_account = payment.partner_id.bank_ids
         if len(partner_account) == 1:
             payment.with_context(
