@@ -132,7 +132,20 @@ class EFT(models.Model):
     def create(self, vals):
         eft = super().create(vals)
         eft._compute_name()
+        if eft.payment_ids:
+            auto_assign_bank_account_to_payments(eft.payment_ids)
         return eft
+
+    def write(self, vals):
+        """
+        Override write to handle new payments linked manually after creation.
+        """
+        res = super().write(vals)
+        if "payment_ids" in vals:
+            for eft in self:
+                if eft.payment_ids:
+                    auto_assign_bank_account_to_payments(eft.payment_ids)
+        return res
 
     def unlink(self):
         validated_eft = self.filtered(lambda r: r.state != "draft")
@@ -198,8 +211,6 @@ class EFT(models.Model):
         check_all_payments_have_same_journal(payments, self._context)
         check_payment_state_is_posted(payments, self._context)
         check_payment_is_not_sent(payments, self._context)
-        auto_assign_bank_account_to_payments(payments)
-
         eft = self.create(
             {
                 "state": "draft",
