@@ -68,7 +68,6 @@ class AccountPayment(models.Model):
 
     def _create_paired_internal_transfer_payment(self):
         """ 3. Concaténer les références des 2 pièces comptables dans le mémo """
-        # On laisse Odoo générer et valider le paiement miroir
         res = super()._create_paired_internal_transfer_payment()
 
         for payment in self:
