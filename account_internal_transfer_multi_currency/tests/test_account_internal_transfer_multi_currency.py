@@ -61,8 +61,9 @@ class TestAccountInternalTransferMultiCurrency(common.TransactionCase):
         })
 
         # Find a valid outstanding account to avoid ValidationError in tests
+        # In Odoo 18+, accounts are shared across companies using 'company_ids'
         outstanding_account = cls.env["account.account"].search([
-            ("company_id", "=", cls.company.id),
+            ("company_ids", "in", cls.company.id),
             ("account_type", "=", "asset_current"),
         ], limit=1) or cls.company.transfer_account_id
 
