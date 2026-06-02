@@ -16,6 +16,7 @@ RUN if [ -s /gitoo.yml ]; then \
 USER odoo
 COPY account_additional_group /mnt/extra-addons/account_additional_group
 COPY account_fr_ca_labels /mnt/extra-addons/account_fr_ca_labels
+COPY account_internal_transfer_multi_currency /mnt/extra-addons/account_internal_transfer_multi_currency
 COPY account_move_reversal_access /mnt/extra-addons/account_move_reversal_access
 COPY account_move_unique_reversal /mnt/extra-addons/account_move_unique_reversal
 COPY canada_account_types /mnt/extra-addons/canada_account_types
