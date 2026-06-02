@@ -60,8 +60,22 @@ class TestAccountInternalTransferMultiCurrency(common.TransactionCase):
             ),
         })
 
+        # Find a valid outstanding account to avoid ValidationError in tests
+        outstanding_account = cls.env["account.account"].search([
+            ("company_id", "=", cls.company.id),
+            ("account_type", "=", "asset_current"),
+        ], limit=1) or cls.company.transfer_account_id
+
+        # Assign the outstanding account to all payment method lines of the test journals
+        test_journals = cls.src_journal + cls.dest_journal
+        method_lines = (
+            test_journals.inbound_payment_method_line_ids
+            + test_journals.outbound_payment_method_line_ids
+        )
+        method_lines.write({"payment_account_id": outstanding_account.id})
+
     def test_multi_currency_internal_transfer(self):
-        """Test that multi-currency internal transfers convert amounts and concatenate memos."""
+        """Test multi-currency internal transfers conversion and combined memos."""
         # Create an internal transfer payment from the source to the destination journal
         payment = self.env["account.payment"].create({
             "is_internal_transfer": True,
@@ -79,12 +93,14 @@ class TestAccountInternalTransferMultiCurrency(common.TransactionCase):
 
         # Verify that the paired payment has been automatically created
         paired_payment = payment.paired_internal_transfer_payment_id
-        self.assertTrue(paired_payment, "A paired payment should have been automatically created.")
+        self.assertTrue(
+            paired_payment, "A paired payment should have been automatically created."
+        )
 
-        # Verify the currency of the paired payment matches the destination journal's currency
+        # Verify paired currency matches the destination journal's currency
         self.assertEqual(paired_payment.currency_id, self.dest_currency)
 
-        # Verify the amount has been converted accurately according to the exchange rate (100.0 * 2.0 = 200.0)
+        # Verify the amount has been converted accurately (100.0 * 2.0 = 200.0)
         self.assertAlmostEqual(paired_payment.amount, 200.0, places=2)
 
         # Verify that memos on both payments are concatenated with their posted references
