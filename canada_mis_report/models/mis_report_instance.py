@@ -4,7 +4,9 @@
 from odoo import models, _
 
 import logging
+
 _logger = logging.getLogger(__name__)
+
 
 class MisReportInstance(models.Model):
     _inherit = "mis.report.instance"
@@ -16,5 +18,4 @@ class MisReportInstance(models.Model):
             if not record.comparison_mode and record.period_ids:
                 # Override the hardcoded "Default" name
                 # Use standard Odoo translation function _()
-                record.period_ids.write({'name': _('Current Period')})
-
+                record.period_ids.write({"name": _("Current Period")})

@@ -9,7 +9,6 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 @tagged("post_install")
 class TestAccountMoveReversalAccess(AccountTestInvoicingCommon):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -97,7 +96,11 @@ class TestAccountMoveReversalAccess(AccountTestInvoicingCommon):
             {"date": today, "journal_id": journal_type.id}
         ).with_user(user).reverse_moves()
 
-        return move.reversal_move_ids[0] if move.reversal_move_ids else self.env['account.move']
+        return (
+            move.reversal_move_ids[0]
+            if move.reversal_move_ids
+            else self.env["account.move"]
+        )
 
     def __create_normal_move(self, journal_type, user):
         move = self.__create_move(journal_type, user)

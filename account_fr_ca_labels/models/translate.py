@@ -129,7 +129,10 @@ class CodeTranslations(BaseCodeTranslations):
                     if mapping_dict:
                         orig = self.python_translations[(module_name, lang)]
                         self.python_translations[(module_name, lang)] = ReadonlyDict(
-                            {src: _apply_mapping(val, mapping_dict) for src, val in orig.items()}
+                            {
+                                src: _apply_mapping(val, mapping_dict)
+                                for src, val in orig.items()
+                            }
                         )
                 except RuntimeError:
                     pass
@@ -149,10 +152,14 @@ class CodeTranslations(BaseCodeTranslations):
                     if mapping_dict:
                         orig = self.web_translations[(module_name, lang)]
                         new_messages = tuple(
-                            ReadonlyDict({
-                                "id": msg["id"],
-                                "string": _apply_mapping(msg["string"], mapping_dict),
-                            })
+                            ReadonlyDict(
+                                {
+                                    "id": msg["id"],
+                                    "string": _apply_mapping(
+                                        msg["string"], mapping_dict
+                                    ),
+                                }
+                            )
                             for msg in orig.get("messages", ())
                         )
                         self.web_translations[(module_name, lang)] = ReadonlyDict(
