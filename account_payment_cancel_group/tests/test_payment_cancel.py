@@ -37,11 +37,11 @@ class TestPaymentCancel(common.TransactionCase):
                 "amount": 100,
                 "payment_type": "outbound",
                 "partner_type": "supplier",
-                # Pas besoin de spécifier de payment_method_id, Odoo 18 le déduit seul
             }
         )
 
     def test_if_not_member_of_group__action_draft_not_allowed(self):
+        self.payment.action_post()
         with self.assertRaises(AccessError):
             self.payment.with_user(self.user).action_draft()
 
@@ -53,6 +53,8 @@ class TestPaymentCancel(common.TransactionCase):
         self.user.groups_id |= self.env.ref(
             "account_payment_cancel_group.group_cancel_payments"
         )
+
+        self.payment.action_post()
         self.payment.with_user(self.user).action_draft()
         self.assertEqual(self.payment.state, "draft")
 
