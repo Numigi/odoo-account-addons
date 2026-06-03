@@ -11,9 +11,9 @@ class TestAccountMove(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.default_plan = cls.env["account.analytic.plan"].create(
-            {"name": "Default", "company_id": False}
-        )
+
+        # Le plan analytique et compte analytique inutilisés ont été supprimés ici
+
         cls.journal = cls.env["account.journal"].create(
             {
                 "name": "Test",
@@ -21,9 +21,7 @@ class TestAccountMove(TransactionCase):
                 "type": "general",
             }
         )
-        cls.analytic = cls.env["account.analytic.account"].create(
-            {"name": "test", "plan_id": cls.default_plan.id, "company_id": False}
-        )
+
         cls.account_1 = cls.env["account.account"].create(
             {
                 "name": "Account 1",
@@ -66,7 +64,6 @@ class TestAccountMove(TransactionCase):
         )
 
     def test_if_reversed_prior_to_original_move__validation_raised(self):
-        # Utilisation de la méthode standard unittest
         with self.assertRaises(ValidationError):
             self._reverse_moves(date=self.yesterday)
 
