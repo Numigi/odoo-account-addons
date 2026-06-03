@@ -20,4 +20,3 @@ class Account(models.Model):
             "expense_tax": lambda rec: rec._compute_account_type(),
         },
     )
-

@@ -13,4 +13,3 @@
     "depends": ["account"],
     "installable": True,
 }
-

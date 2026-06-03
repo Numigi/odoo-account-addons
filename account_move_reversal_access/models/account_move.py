@@ -46,5 +46,3 @@ class AccountMove(models.Model):
             # Apply the restriction only if journal type is sale
             if move.journal_id.type in ["sale"]:
                 move.show_reset_to_draft_button = False
-
-

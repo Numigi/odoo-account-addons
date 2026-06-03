@@ -10,9 +10,7 @@
     "category": "Accounting",
     "summary": "Handles multi-currency conversions for paired internal transfers.",
     "license": "LGPL-3",
-    "depends": [
-        "account_internal_transfer"
-    ],
+    "depends": ["account_internal_transfer"],
     "data": [
         "views/account_payment_views.xml",
     ],

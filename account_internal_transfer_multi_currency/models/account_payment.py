@@ -9,7 +9,7 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     def copy_data(self, default=None):
-        """ 1. Handle amount and currency conversion when creating the paired payment """
+        """1. Handle amount and currency conversion when creating the paired payment"""
         default = dict(default or {})
 
         # Check if the copy is triggered by the creation of a paired internal transfer
@@ -21,9 +21,14 @@ class AccountPayment(models.Model):
             for payment, vals in zip(self, vals_list):
                 dest_journal = payment.destination_journal_id
 
-                # Target currency: the journal's currency or, if none, the journal's company currency
-                dest_currency = dest_journal.currency_id or dest_journal.company_id.currency_id
-                source_currency = payment.currency_id or payment.journal_id.company_id.currency_id
+                # Target currency: the journal's currency or,
+                # if none, the journal's company currency
+                dest_currency = (
+                    dest_journal.currency_id or dest_journal.company_id.currency_id
+                )
+                source_currency = (
+                    payment.currency_id or payment.journal_id.company_id.currency_id
+                )
 
                 # If there is a currency change, apply the conversion
                 if dest_currency and source_currency != dest_currency:
@@ -41,8 +46,10 @@ class AccountPayment(models.Model):
 
         return vals_list
 
-    def _generate_journal_entry(self, write_off_line_vals=None, force_balance=None, line_ids=None):
-        """ 2. Force the balance in company currency to avoid the 1-cent rounding difference """
+    def _generate_journal_entry(
+        self, write_off_line_vals=None, force_balance=None, line_ids=None
+    ):
+        """2. Force the balance in company currency to avoid the 1-cent rounding difference"""
 
         # If we are generating the journal entry for the paired payment (which was just copied)
         if not force_balance and len(self) == 1:
@@ -56,13 +63,13 @@ class AccountPayment(models.Model):
 
                 if counterpart:
                     # Force the new payment's balance to be exactly the same as the original's
-                    force_balance = abs(sum(counterpart.mapped('balance')))
+                    force_balance = abs(sum(counterpart.mapped("balance")))
 
         # Generate the journal entry with this forced balance
         return super()._generate_journal_entry(
             write_off_line_vals=write_off_line_vals,
             force_balance=force_balance,
-            line_ids=line_ids
+            line_ids=line_ids,
         )
 
     def _create_paired_internal_transfer_payment(self):
