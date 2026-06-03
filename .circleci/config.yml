@@ -40,7 +40,7 @@ jobs:
             # Always run this step to upload coverage even if tests fail
             when: always
             command: |
-              # Verify the file is successfully passed to the host machine
+            # Verify the file is successfully passed to the host machine
               if [ -f ".log/coverage.xml" ]; then
                   bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l python -r .log/coverage.xml
               else
