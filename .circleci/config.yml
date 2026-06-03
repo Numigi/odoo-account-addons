@@ -23,11 +23,10 @@ jobs:
 
       - run:
           name: Run Test and Generate Coverage
-          # We bypass the default run_pytest.sh from the base image
-          # and execute pytest directly to force coverage XML generation
-          # inside the mounted volume /var/log/odoo
+          # Add the --junitxml parameter to generate test results in a specific subfolder.
+          # This prevents CircleCI from confusing coverage.xml with JUnit test results.
           command: |
-            docker-compose run --rm odoo bash -c "cd /var/log/odoo && pytest /mnt/extra-addons -v --disable-warnings --cov=/mnt/extra-addons --cov-branch --cov-report=xml"
+            docker-compose run --rm odoo bash -c "mkdir -p /var/log/odoo/test-results && cd /var/log/odoo && pytest /mnt/extra-addons -v --disable-warnings --cov=/mnt/extra-addons --cov-branch --cov-report=xml --junitxml=/var/log/odoo/test-results/junit.xml"
 
       - run:
           name: Codacy Coverage
@@ -43,7 +42,9 @@ jobs:
             fi
 
       - store_test_results:
-          path: .log
+          # Point strictly to the subfolder containing the JUnit XML
+          # so CircleCI ignores the coverage.xml file.
+          path: .log/test-results
 
   # Job that finds the next tag for the current branch/repo and pushes the tag to github.
   # It will trigger the publish of a new docker image.
@@ -51,13 +52,16 @@ jobs:
     machine: true
     steps:
       - checkout
+
       - run:
           <<: *quay_io_login
+
       - run:
           name: Get nws
           command: |
             curl -L $NWS_BIN_LOCATION > ./nws
             chmod +x ./nws
+
       - run:
           name: Set tag
           command: |
