@@ -18,6 +18,7 @@
         "account_move_unique_reversal",
         "canada_account_types",
         "canada_mis_report",
+        "invoice_refund_not_earlier",
     ],
     "installable": True,
 }
