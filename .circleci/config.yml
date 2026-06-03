@@ -25,9 +25,28 @@ jobs:
           name: Run Test
           command: docker-compose run --rm odoo run_pytest.sh
 
+            # .circleci/config.yml (Snippet)
+
        - run:
-           name: Codacy Coverage
-           command: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l python -r .log/coverage.xml
+            name: Run Test and Generate Coverage
+            # We bypass the default run_pytest.sh from the base image
+            # and execute pytest directly to force coverage XML generation
+            # inside the mounted volume /var/log/odoo
+            command: |
+              docker-compose run --rm odoo bash -c "cd /var/log/odoo && pytest /mnt/extra-addons -v --disable-warnings --cov=/mnt/extra-addons --cov-branch --cov-report=xml"
+
+       - run:
+            name: Codacy Coverage
+            # Always run this step to upload coverage even if tests fail
+            when: always
+            command: |
+              # Verify the file is successfully passed to the host machine
+              if [ -f ".log/coverage.xml" ]; then
+                  bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l python -r .log/coverage.xml
+              else
+                  echo "Error: coverage.xml not found in .log directory."
+                  exit 1
+              fi
 
        - store_test_results:
           path: .log
