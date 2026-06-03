@@ -8,51 +8,45 @@ jobs:
   tests:
     machine: true
     steps:
-       - checkout
+      - checkout
 
-       - run:
-           <<: *quay_io_login
+      - run:
+          <<: *quay_io_login
 
-       - run:
+      - run:
           name: Build -- Init Database
           command: docker-compose run --rm odoo odoo --stop-after-init -i main
 
-       - run:
+      - run:
           name: Setup Log Folder For Reports
           command: sudo mkdir -p .log && sudo chmod 777 .log
 
-       - run:
-          name: Run Test
-          command: docker-compose run --rm odoo run_pytest.sh
+      - run:
+          name: Run Test and Generate Coverage
+          # We bypass the default run_pytest.sh from the base image
+          # and execute pytest directly to force coverage XML generation
+          # inside the mounted volume /var/log/odoo
+          command: |
+            docker-compose run --rm odoo bash -c "cd /var/log/odoo && pytest /mnt/extra-addons -v --disable-warnings --cov=/mnt/extra-addons --cov-branch --cov-report=xml"
 
-            # .circleci/config.yml (Snippet)
-
-       - run:
-            name: Run Test and Generate Coverage
-            # We bypass the default run_pytest.sh from the base image
-            # and execute pytest directly to force coverage XML generation
-            # inside the mounted volume /var/log/odoo
-            command: |
-              docker-compose run --rm odoo bash -c "cd /var/log/odoo && pytest /mnt/extra-addons -v --disable-warnings --cov=/mnt/extra-addons --cov-branch --cov-report=xml"
-
-       - run:
-            name: Codacy Coverage
-            # Always run this step to upload coverage even if tests fail
-            when: always
-            command: |
+      - run:
+          name: Codacy Coverage
+          # Always run this step to upload coverage even if tests fail
+          when: always
+          command: |
             # Verify the file is successfully passed to the host machine
-              if [ -f ".log/coverage.xml" ]; then
-                  bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l python -r .log/coverage.xml
-              else
-                  echo "Error: coverage.xml not found in .log directory."
-                  exit 1
-              fi
+            if [ -f ".log/coverage.xml" ]; then
+                bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l python -r .log/coverage.xml
+            else
+                echo "Error: coverage.xml not found in .log directory."
+                exit 1
+            fi
 
-       - store_test_results:
+      - store_test_results:
           path: .log
 
-  # job that find the next tag for the current branch/repo and push the tag to github.
-  # it will trigger the publish of a new docker image.
+  # Job that finds the next tag for the current branch/repo and pushes the tag to github.
+  # It will trigger the publish of a new docker image.
   auto-tag:
     machine: true
     steps:
@@ -68,7 +62,7 @@ jobs:
           name: Set tag
           command: |
             ./nws circleci create-tag -t odoo-base
-            
+
 workflows:
   version: 2
   odoo:
