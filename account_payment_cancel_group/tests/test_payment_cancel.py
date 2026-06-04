@@ -47,6 +47,7 @@ class TestPaymentCancel(common.TransactionCase):
             self.payment.with_user(self.user).action_draft()
 
     def test_if_not_member_of_group__action_cancel_not_allowed(self):
+        self.payment.action_post()
         with self.assertRaises(AccessError):
             self.payment.with_user(self.user).action_cancel()
 
