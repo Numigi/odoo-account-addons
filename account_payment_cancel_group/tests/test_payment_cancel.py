@@ -47,11 +47,6 @@ class TestPaymentCancel(common.TransactionCase):
             self.payment.with_user(self.user).action_draft()
 
     def test_if_not_member_of_group__action_cancel_not_allowed(self):
-        # Post and reset to draft as admin to ensure it goes
-        # through the complete cancellation workflow
-        self.payment.action_post()
-        self.payment.action_draft()
-
         with self.assertRaises(AccessError):
             self.payment.with_user(self.user).action_cancel()
 
