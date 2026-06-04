@@ -29,6 +29,4 @@ class AccountMove(models.Model):
         )
 
     def _contains_payments(self):
-        return self and bool(
-            self.env["account.payment"].search([("move_id", "in", self.ids)])
-        )
+        return any(move.payment_id for move in self)
