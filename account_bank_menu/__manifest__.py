@@ -1,6 +1,9 @@
 # Copyright 2024-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+# pylint: disable=pointless-statement
+# noqa: B018
+
 {
     "name": "Account Bank Menu",
     "version": "18.0.1.0.0",
