@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account_additional_group",
+        "account_bank_menu",
         "account_fr_ca_labels",
         "account_internal_transfer_multi_currency",
         "account_move_reversal_access",
