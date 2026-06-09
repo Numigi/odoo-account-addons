@@ -2,11 +2,18 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class AccountPayment(models.Model):
     _inherit = "account.payment"
+
+    @api.depends("is_internal_transfer", "company_id")
+    def _compute_partner_id(self):
+        """Propagate the company's partner to the payment and its journal entries."""
+        super()._compute_partner_id()
+        for pay in self.filtered("is_internal_transfer"):
+            pay.partner_id = pay.company_id.partner_id
 
     def copy_data(self, default=None):
         """1. Handle amount and currency conversion when creating the paired payment"""
