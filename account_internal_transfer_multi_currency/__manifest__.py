@@ -3,7 +3,7 @@
 
 {
     "name": "Account Internal Transfer - Multi Currency",
-    "version": "18.0.1.2.0",
+    "version": "18.0.1.2.1",
     "author": "Numigi",
     "maintainer": "numigi",
     "website": "http://www.numigi.com",
