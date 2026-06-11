@@ -13,6 +13,7 @@
     "depends": [
         "account_additional_group",
         "account_bank_menu",
+        "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
         "account_internal_transfer_multi_currency",
         "account_move_reversal_access",
