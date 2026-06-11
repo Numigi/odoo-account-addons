@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_inherit_hide_closing_type" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.hide.closing.type</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Ensure the custom journal type field is available in the view -->
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="journal_type" invisible="1"/>
+            </xpath>
+
+            <!-- Condition the visibility of the closing_type field.
+                 It will be invisible if the journal type is NOT 'general' (Miscellaneous Operations). -->
+            <xpath expr="//field[@name='closing_type']" position="attributes">
+                <attribute name="invisible">journal_type != 'general'</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
