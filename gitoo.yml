@@ -1,3 +1,9 @@
+- url: https://github.com/OCA/account-closing
+  branch: "18.0"
+  includes:
+    - account_fiscal_year_closing
+
+
 - url: https://github.com/OCA/mis-builder
   branch: "18.0"
   includes:

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Restrict the 'Secure Entries' menu to the hidden group -->
+    <record id="account.menu_action_secure_entries" model="ir.ui.menu">
+        <!-- Replaces any existing groups with our empty hidden group -->
+        <field name="groups_id" eval="[(6, 0, [ref('account_move_secure.group_hidden_menu')])]"/>
+    </record>
+</odoo>
