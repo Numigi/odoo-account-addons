@@ -48,7 +48,7 @@ class TestAccountJournalExclusivity(common.TransactionCase):
                 "name": "Bank 1",
                 "code": "BNK1",
                 "type": "bank",
-                "reconciliation_mode": "keep_suspense",
+                "reconcile_mode": "keep",
                 "suspense_account_id": self.suspense_account.id,
             }
         )
@@ -58,7 +58,7 @@ class TestAccountJournalExclusivity(common.TransactionCase):
                     "name": "Bank 2",
                     "code": "BNK2",
                     "type": "bank",
-                    "reconciliation_mode": "keep_suspense",
+                    "reconcile_mode": "keep",
                     "suspense_account_id": self.suspense_account.id,
                 }
             )
