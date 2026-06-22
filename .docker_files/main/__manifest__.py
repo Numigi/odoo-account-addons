@@ -23,6 +23,7 @@
         "account_move_unique_reversal",
         "account_negative_debit_credit",
         "account_payment_cancel_group",
+        "account_payment_from_move_line",
         "account_search_by_amount",
         "account_search_date_range",
         "account_show_full_features",
