@@ -29,7 +29,7 @@ class TestAccountJournalExclusivity(common.TransactionCase):
             }
         )
 
-    def _get_journal_vals(self, name, code, default_acc, suspense_acc, mode="modify"):
+    def _get_journal_vals(self, name, code, default_acc, suspense_acc, mode="edit"):
         return {
             "name": name,
             "code": code,
