@@ -25,7 +25,7 @@ class TestPaymentCancel(common.TransactionCase):
                 "name": "Suspense Test",
                 "code": "111999",
                 "account_type": "asset_current",
-                "company_id": cls.company.id,
+                "company_ids": [(4, cls.company.id)],
             }
         )
 

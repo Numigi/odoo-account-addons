@@ -36,7 +36,7 @@ class TestAccountInternalTransferMultiCurrency(common.TransactionCase):
                 "name": "Outstanding Src",
                 "code": "101002",
                 "account_type": "asset_current",
-                "company_id": cls.company.id,
+                "company_ids": [(4, cls.company.id)],
             }
         )
         cls.outstanding_dest = cls.env["account.account"].create(
@@ -44,7 +44,7 @@ class TestAccountInternalTransferMultiCurrency(common.TransactionCase):
                 "name": "Outstanding Dest",
                 "code": "101003",
                 "account_type": "asset_current",
-                "company_id": cls.company.id,
+                "company_ids": [(4, cls.company.id)],
             }
         )
 

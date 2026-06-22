@@ -1,5 +1,5 @@
-# Copyright 2026-today Numigi and all its contributors (https://bit.ly/numigiens)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2026 Numigi (tm) and all its contributors (https://bit.ly/numigiens)
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo.tests import common
 from odoo.exceptions import ValidationError
@@ -25,7 +25,7 @@ class TestAccountJournalExclusivity(common.TransactionCase):
                 "code": code,
                 "name": name,
                 "account_type": account_type,
-                "company_id": self.company.id,
+                "company_ids": [(4, self.company.id)],
             }
         )
 
