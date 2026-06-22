@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_journal_bank_exclusivity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-22 14:34+0000\n"
+"PO-Revision-Date: 2026-06-22 14:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
+msgid "At least one inbound payment suspense account must be configured."
+msgstr "Au moins un compte de paiements entrants en suspens doit être configuré."
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
+msgid "At least one outbound payment suspense account must be configured."
+msgstr "Au moins un compte de paiements sortants en suspens doit être configuré."
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/hooks.py:0
+msgid "Bank journal duplicates detected"
+msgstr "Doublons de journaux de banque détectés"
+
+#. module: account_journal_bank_exclusivity
+#: model:ir.model,name:account_journal_bank_exclusivity.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_journal_bank_exclusivity
+#: model:ir.model,name:account_journal_bank_exclusivity.model_account_payment_method_line
+msgid "Payment Methods"
+msgstr "Modes de paiement"
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
+msgid "The bank account %s is already associated with journal %s."
+msgstr "Le compte bancaire %s est déjà associé au journal %s."
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
+#: code:addons/account_journal_bank_exclusivity/models/account_payment_method_line.py:0
+msgid "The payment account %s is already used in journal %s."
+msgstr "Le compte de paiement %s est déjà utilisé dans le journal %s."
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
+msgid "The suspense account %s is exclusive and already used by journal %s."
+msgstr "Le compte d'attente %s est exclusif et déjà utilisé par le journal %s."
+
+#. module: account_journal_bank_exclusivity
+#. odoo-python
+#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
+msgid ""
+"You cannot modify the suspense account because transactions already exist "
+"for this journal."
+msgstr ""
+"Vous ne pouvez pas modifier le compte d'attente car des transactions existent "
+"déjà pour ce journal."
