@@ -5,7 +5,6 @@ from odoo import fields
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from unittest.mock import patch
 
 
 @tagged("post_install")
@@ -13,13 +12,6 @@ class TestAccountMoveReversalAccess(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        patcher = patch(
-            "odoo.addons.account_journal_bank_exclusivity.models.account_journal"
-            ".AccountJournal._check_suspense_accounts_requirements"
-        )
-        patcher.start()
-        super().setUpClass()
-        patcher.stop()
 
         cls.general_journal = cls.company_data["default_journal_misc"]
         cls.journal_cash = cls.company_data["default_journal_cash"]
