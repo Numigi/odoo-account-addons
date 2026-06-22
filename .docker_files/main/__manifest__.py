@@ -12,6 +12,7 @@
     "summary": "Install all addons required for testing.",
     "depends": [
         "account",
+        "account_additional_settings",
         "account_bank_menu",
         "account_fiscalyear_end_on_company",
         "account_fr_ca_labels",
@@ -33,6 +34,7 @@
         "invoice_fiscal_position_required",
         "invoice_intercompany_compatible",
         "invoice_refund_not_earlier",
+        "hr_expense_tax_adjustment",
         "old_accounts",
     ],
     "installable": True,
