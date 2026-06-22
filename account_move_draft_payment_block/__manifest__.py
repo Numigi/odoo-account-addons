@@ -5,7 +5,7 @@
 # noqa: B018
 
 {
-    "name": "Account Move Block Draft Payment",
+    "name": "Account Move Draft Payment Block",
     "summary": "Blocks payment registration for draft or cancelled invoices.",
     "version": "18.0.1.0.0",
     "category": "Accounting",

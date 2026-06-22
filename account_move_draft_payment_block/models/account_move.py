@@ -9,9 +9,9 @@ from odoo.exceptions import ValidationError
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def action_register_payment(self):
+    def action_force_register_payment(self):
         self._verify_moves_are_posted()
-        return super().action_register_payment()
+        return super().action_force_register_payment()
 
     def _verify_moves_are_posted(self):
         unposted_moves = self.filtered(lambda m: m.state != "posted")

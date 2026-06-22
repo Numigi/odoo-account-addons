@@ -37,14 +37,14 @@ class TestAccountMoveBlockDraftPayment(common.TransactionCase):
     def test_payment_on_draft_invoice_raises_error(self):
         invoice = self._create_draft_invoice()
         with pytest.raises(ValidationError):
-            invoice.action_register_payment()
+            invoice.action_force_register_payment()
 
     def test_payment_on_cancelled_invoice_raises_error(self):
         invoice = self._create_cancelled_invoice()
         with pytest.raises(ValidationError):
-            invoice.action_register_payment()
+            invoice.action_force_register_payment()
 
     def test_payment_on_posted_invoice_succeeds(self):
         invoice = self._create_posted_invoice()
-        action_result = invoice.action_register_payment()
+        action_result = invoice.action_force_register_payment()
         assert action_result["res_model"] == "account.payment.register"

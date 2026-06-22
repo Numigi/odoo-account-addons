@@ -1,5 +1,5 @@
 ================================
-Account Move Block Draft Payment
+Account Move Draft Payment Block
 ================================
 
 .. contents:: Table of Contents
