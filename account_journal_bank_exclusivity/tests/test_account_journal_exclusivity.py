@@ -63,12 +63,12 @@ class TestAccountJournalExclusivity(common.TransactionCase):
 
     def test_duplicate_bank_account_raises_error(self):
         vals1 = self._get_journal_vals(
-            "Bank 1", "BNK1", self.account_1, self.suspense_1
+            "Bank A", "TBNKA", self.account_1, self.suspense_1
         )
         self.env["account.journal"].create(vals1)
 
         vals2 = self._get_journal_vals(
-            "Bank 2", "BNK2", self.account_1, self.suspense_2
+            "Bank B", "TBNKB", self.account_1, self.suspense_2
         )
         with pytest.raises(ValidationError):
             self.env["account.journal"].create(vals2)

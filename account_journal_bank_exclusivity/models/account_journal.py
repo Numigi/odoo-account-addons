@@ -33,10 +33,14 @@ class AccountJournal(models.Model):
             )
 
     @api.constrains(
-        "inbound_payment_method_line_ids", "outbound_payment_method_line_ids"
+        "inbound_payment_method_line_ids",
+        "outbound_payment_method_line_ids",
+        "reconcile_mode",
     )
     def _check_suspense_accounts_requirements(self):
-        bank_journals = self.filtered(lambda j: j.type == "bank")
+        bank_journals = self.filtered(
+            lambda j: j.type == "bank" and j.reconcile_mode == "keep"
+        )
         for journal in bank_journals:
             self._validate_suspense_accounts_presence(journal)
             self._validate_suspense_accounts_uniqueness(journal)
