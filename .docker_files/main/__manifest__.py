@@ -17,6 +17,7 @@
         "account_fr_ca_labels",
         "account_internal_transfer_multi_currency",
         "account_move_reversal_access",
+        "account_move_secure",
         "account_move_unique_reversal",
         "account_payment_cancel_group",
         "canada_account_types",
