@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2026-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -45,6 +46,7 @@ class AccountJournal(models.Model):
         outbound_lines = journal.outbound_payment_method_line_ids
         in_accounts = inbound_lines.mapped("payment_account_id")
         out_accounts = outbound_lines.mapped("payment_account_id")
+
         if not in_accounts:
             raise ValidationError(
                 _("At least one inbound payment suspense account must be configured.")
@@ -103,18 +105,22 @@ class AccountJournal(models.Model):
                 % (journal.suspense_account_id.code, duplicate.name)
             )
 
-    @api.constrains("suspense_account_id")
-    def _check_suspense_account_modification(self):
+    def write(self, vals):
+        if "suspense_account_id" in vals:
+            self._check_suspense_account_transaction(vals.get("suspense_account_id"))
+        return super().write(vals)
+
+    def _check_suspense_account_transaction(self, new_account_id):
         target_journals = self.filtered(
             lambda j: j.type == "bank" and j.reconcile_mode == "keep"
         )
         for journal in target_journals:
-            self._verify_suspense_account_unchanged(journal)
+            journal._verify_suspense_account_change(new_account_id)
 
-    def _verify_suspense_account_unchanged(self, journal):
-        if not self._has_transactions(journal):
+    def _verify_suspense_account_change(self, new_account_id):
+        if self.suspense_account_id.id == new_account_id:
             return
-        if journal.suspense_account_id != journal._origin.suspense_account_id:
+        if self._has_transactions(self):
             raise ValidationError(
                 _(
                     "You cannot modify the suspense account because transactions "
@@ -126,9 +132,7 @@ class AccountJournal(models.Model):
         domain = [("journal_id", "=", journal.id)]
         has_move = self.env["account.move"].search_count(domain, limit=1)
         has_payment = self.env["account.payment"].search_count(domain, limit=1)
-        has_stmt = False
-        if "account.bank.statement" in self.env:
-            has_stmt = self.env["account.bank.statement"].search_count(domain, limit=1)
+        has_stmt = self.env["account.bank.statement"].search_count(domain, limit=1)
         has_line = self.env["account.bank.statement.line"].search_count(domain, limit=1)
         return bool(has_move or has_payment or has_stmt or has_line)
 

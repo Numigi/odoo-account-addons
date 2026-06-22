@@ -10,22 +10,55 @@ class TestPaymentCancel(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.company = cls.env.company
         cls.user = cls.env["res.users"].create(
             {
                 "name": "Test User",
                 "email": "test@test.com",
                 "login": "test@test.com",
-                "groups_id": [
-                    (4, cls.env.ref("account.group_account_manager").id),
-                ],
+                "groups_id": [(4, cls.env.ref("account.group_account_manager").id)],
             }
         )
+
+        cls.suspense = cls.env["account.account"].create(
+            {
+                "name": "Suspense Test",
+                "code": "111999",
+                "account_type": "asset_current",
+                "company_id": cls.company.id,
+            }
+        )
+
+        method_in = cls.env.ref("account.account_payment_method_manual_in")
+        method_out = cls.env.ref("account.account_payment_method_manual_out")
 
         cls.journal = cls.env["account.journal"].create(
             {
                 "name": "Test Bank Journal",
                 "type": "bank",
                 "code": "TEST",
+                "inbound_payment_method_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "In",
+                            "payment_method_id": method_in.id,
+                            "payment_account_id": cls.suspense.id,
+                        },
+                    )
+                ],
+                "outbound_payment_method_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Out",
+                            "payment_method_id": method_out.id,
+                            "payment_account_id": cls.suspense.id,
+                        },
+                    )
+                ],
             }
         )
 
@@ -37,7 +70,6 @@ class TestPaymentCancel(common.TransactionCase):
                 "amount": 100,
                 "payment_type": "outbound",
                 "partner_type": "supplier",
-                # No need to specify payment_method_id, Odoo 18 deduces it automatically
             }
         )
 
@@ -61,7 +93,6 @@ class TestPaymentCancel(common.TransactionCase):
         self.assertEqual(self.payment.state, "draft")
 
         self.payment.with_user(self.user).action_cancel()
-
         self.assertEqual(self.payment.state, "canceled")
 
     def test_call_method_with_empty_recordset(self):
