@@ -26,3 +26,13 @@ msgstr "Pièce comptable"
 #: code:addons/account_move_draft_payment_block/models/account_move.py:0
 msgid "You cannot register a payment for an unposted invoice."
 msgstr "Vous ne pouvez pas enregistrer un paiement pour une facture non comptabilisée."
+
+#. module: account_move_draft_payment_block
+#. odoo-python
+#: code:addons/account_move_draft_payment_block/models/account_move.py:0
+msgid ""
+"It is impossible to reset this invoice to draft because one or more payments "
+"are associated with it. Please cancel the concerned payments first."
+msgstr ""
+"Impossible de remettre cette facture en brouillon car un ou plusieurs paiements "
+"lui sont associés. Veuillez d'abord annuler les paiements concernés."
