@@ -17,6 +17,7 @@
         "account_fr_ca_labels",
         "account_internal_transfer_multi_currency",
         "account_journal_bank_exclusivity",
+        "account_move_draft_payment_block",
         "account_move_reversal_access",
         "account_move_secure",
         "account_move_unique_reversal",
