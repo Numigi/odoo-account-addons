@@ -1,6 +1,6 @@
 # Copyright 2020 - today Numigi (tm) and all its contributors (https://bit.ly/numigiens)
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from . import mis_report
-from . import mis_report_instance
-from . import mis_report_instance_period
+from . import mis_report  # noqa: F401
+from . import mis_report_instance  # noqa: F401
+from . import mis_report_instance_period  # noqa: F401
