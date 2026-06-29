@@ -32,33 +32,15 @@ class AccountJournal(models.Model):
                 % (journal.default_account_id.code, duplicate.name)
             )
 
-    # CORRECTION: Removed 'reconcile_mode' from dependencies and filtering
     @api.constrains(
         "inbound_payment_method_line_ids",
         "outbound_payment_method_line_ids",
     )
     def _check_payment_accounts_requirements(self):
-        # Enforce presence and uniqueness on ALL bank journals
+        # Enforce payment account exclusivity on ALL bank journals.
         bank_journals = self.filtered(lambda j: j.type == "bank")
         for journal in bank_journals:
-            self._validate_payment_accounts_presence(journal)
             self._validate_payment_accounts_uniqueness(journal)
-
-    def _validate_payment_accounts_presence(self, journal):
-        inbound_lines = journal.inbound_payment_method_line_ids
-        outbound_lines = journal.outbound_payment_method_line_ids
-
-        in_accounts = inbound_lines.mapped("payment_account_id")
-        out_accounts = outbound_lines.mapped("payment_account_id")
-
-        if not in_accounts:
-            raise ValidationError(
-                _("At least one inbound payment suspense account must be configured.")
-            )
-        if not out_accounts:
-            raise ValidationError(
-                _("At least one outbound payment suspense account must be configured.")
-            )
 
     def _validate_payment_accounts_uniqueness(self, journal):
         inbound_lines = journal.inbound_payment_method_line_ids
