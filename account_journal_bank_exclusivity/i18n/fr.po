@@ -17,18 +17,6 @@ msgstr ""
 
 #. module: account_journal_bank_exclusivity
 #. odoo-python
-#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
-msgid "At least one inbound payment suspense account must be configured."
-msgstr "Au moins un compte de paiements entrants en suspens doit être configuré."
-
-#. module: account_journal_bank_exclusivity
-#. odoo-python
-#: code:addons/account_journal_bank_exclusivity/models/account_journal.py:0
-msgid "At least one outbound payment suspense account must be configured."
-msgstr "Au moins un compte de paiements sortants en suspens doit être configuré."
-
-#. module: account_journal_bank_exclusivity
-#. odoo-python
 #: code:addons/account_journal_bank_exclusivity/hooks.py:0
 msgid "Bank journal duplicates detected"
 msgstr "Doublons de journaux de banque détectés"
