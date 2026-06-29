@@ -32,22 +32,22 @@ class AccountJournal(models.Model):
                 % (journal.default_account_id.code, duplicate.name)
             )
 
+    # CORRECTION: Removed 'reconcile_mode' from dependencies and filtering
     @api.constrains(
         "inbound_payment_method_line_ids",
         "outbound_payment_method_line_ids",
-        "reconcile_mode",
     )
-    def _check_suspense_accounts_requirements(self):
-        bank_journals = self.filtered(
-            lambda j: j.type == "bank" and j.reconcile_mode == "keep"
-        )
+    def _check_payment_accounts_requirements(self):
+        # Enforce presence and uniqueness on ALL bank journals
+        bank_journals = self.filtered(lambda j: j.type == "bank")
         for journal in bank_journals:
-            self._validate_suspense_accounts_presence(journal)
-            self._validate_suspense_accounts_uniqueness(journal)
+            self._validate_payment_accounts_presence(journal)
+            self._validate_payment_accounts_uniqueness(journal)
 
-    def _validate_suspense_accounts_presence(self, journal):
+    def _validate_payment_accounts_presence(self, journal):
         inbound_lines = journal.inbound_payment_method_line_ids
         outbound_lines = journal.outbound_payment_method_line_ids
+
         in_accounts = inbound_lines.mapped("payment_account_id")
         out_accounts = outbound_lines.mapped("payment_account_id")
 
@@ -60,10 +60,11 @@ class AccountJournal(models.Model):
                 _("At least one outbound payment suspense account must be configured.")
             )
 
-    def _validate_suspense_accounts_uniqueness(self, journal):
+    def _validate_payment_accounts_uniqueness(self, journal):
         inbound_lines = journal.inbound_payment_method_line_ids
         outbound_lines = journal.outbound_payment_method_line_ids
         all_accounts = (inbound_lines + outbound_lines).mapped("payment_account_id")
+
         duplicate_line = self.env["account.payment.method.line"].search(
             [
                 ("payment_account_id", "in", all_accounts.ids),
