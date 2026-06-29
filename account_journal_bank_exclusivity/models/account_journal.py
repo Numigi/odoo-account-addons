@@ -33,19 +33,41 @@ class AccountJournal(models.Model):
             )
 
     @api.constrains(
-        "inbound_payment_method_line_ids",
-        "outbound_payment_method_line_ids",
+        "inbound_payment_method_line_ids", "outbound_payment_method_line_ids", "type"
     )
     def _check_payment_accounts_requirements(self):
-        # Enforce payment account exclusivity on ALL bank journals.
+        # Outstanding incoming/outgoing payment accounts must be configured
+        # and exclusive to a single bank journal. The constraint fires on both
+        # creation and update of the journal.
         bank_journals = self.filtered(lambda j: j.type == "bank")
         for journal in bank_journals:
+            self._validate_payment_accounts_presence(journal)
             self._validate_payment_accounts_uniqueness(journal)
+
+    def _validate_payment_accounts_presence(self, journal):
+        inbound_accounts = journal.inbound_payment_method_line_ids.mapped(
+            "payment_account_id"
+        )
+        outbound_accounts = journal.outbound_payment_method_line_ids.mapped(
+            "payment_account_id"
+        )
+
+        if not inbound_accounts:
+            raise ValidationError(
+                _("At least one inbound payment suspense account must be configured.")
+            )
+        if not outbound_accounts:
+            raise ValidationError(
+                _("At least one outbound payment suspense account must be configured.")
+            )
 
     def _validate_payment_accounts_uniqueness(self, journal):
         inbound_lines = journal.inbound_payment_method_line_ids
         outbound_lines = journal.outbound_payment_method_line_ids
         all_accounts = (inbound_lines + outbound_lines).mapped("payment_account_id")
+
+        if not all_accounts:
+            return
 
         duplicate_line = self.env["account.payment.method.line"].search(
             [
@@ -107,7 +129,9 @@ class AccountJournal(models.Model):
     def _verify_suspense_account_change(self, new_account_id):
         if self.suspense_account_id.id == new_account_id:
             return
-        if self._has_transactions(self):
+
+        # Fixed: Removed "self" argument to avoid TypeError
+        if self._has_transactions():
             raise ValidationError(
                 _(
                     "You cannot modify the suspense account because transactions "
@@ -115,8 +139,9 @@ class AccountJournal(models.Model):
                 )
             )
 
-    def _has_transactions(self, journal):
-        domain = [("journal_id", "=", journal.id)]
+    # Fixed: Removed the redundant 'journal' parameter
+    def _has_transactions(self):
+        domain = [("journal_id", "=", self.id)]
         has_move = self.env["account.move"].search_count(domain, limit=1)
         has_payment = self.env["account.payment"].search_count(domain, limit=1)
         has_stmt = self.env["account.bank.statement"].search_count(domain, limit=1)
