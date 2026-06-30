@@ -12,7 +12,7 @@ This module allow to :
 .. image:: static/description/closing_type_field.png
 
 
-* Hide menu Secure entries
+* Hide  Secure entries menu
 
 .. image:: static/description/secure_entries_menu.png
 
@@ -28,14 +28,16 @@ Upon insalling this module, the ``closing_type`` field will be  hidden by defaul
 
 .. image:: static/description/closing_type_misc.png
 
-When the journal  is modified, the field will be hidden.
+When the journal  is diffrent than Miscellaneous Operations, the field will be hidden.
 
 .. image:: static/description/closing_type_hidden.png
 
-To hide the 'Secure Entries' menu, a new group is created with a 'False' value by default. 
+The Secure Entires menu is by default hidden when installing the module.
 
-This hides the menu for all users.
+To grant the visibility for specific users, a new access group is created with a 'False' value by default. 
+
+
 
 .. image:: static/description/hidden_menu_group.png
 
-Once this group is assigned to a user, he will be able to see the 'Secure Entries' menu.
+Once this group is enabled on user, he will be able to see the 'Secure Entries' menu.
