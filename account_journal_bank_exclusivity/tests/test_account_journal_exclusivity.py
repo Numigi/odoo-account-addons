@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2026-today Numigi and all its contributors (https://bit.ly/numigiens)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -11,6 +10,14 @@ class TestAccountJournalExclusivity(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, strict_bank_exclusivity=True))
+
+        # Find standard payment methods required by Odoo 18 data models
+        cls.payment_method_in = cls.env["account.payment.method"].search(
+            [("payment_type", "=", "inbound")], limit=1
+        )
+        cls.payment_method_out = cls.env["account.payment.method"].search(
+            [("payment_type", "=", "outbound")], limit=1
+        )
 
         # Create base accounts for testing
         cls.suspense_account_1 = cls.env["account.account"].create(
@@ -47,18 +54,18 @@ class TestAccountJournalExclusivity(TransactionCase):
         with self.assertRaises(ValidationError):
             self.env["account.journal"].create(
                 {
-                    "name": "Bank Journal 1",
+                    "name": "Bank Journal Unique 1",
                     "type": "bank",
-                    "code": "BNK1",
+                    "code": "TXB1",
                 }
             )
 
-        # 2. Test successful creation with unique accounts
+        # 2. Test successful creation with unique accounts and valid payment methods
         journal_1 = self.env["account.journal"].create(
             {
-                "name": "Bank Journal 1",
+                "name": "Bank Journal Unique 1",
                 "type": "bank",
-                "code": "BNK1",
+                "code": "TXB1",
                 "inbound_payment_method_line_ids": [
                     (
                         0,
@@ -66,6 +73,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                         {
                             "name": "In 1",
                             "payment_account_id": self.payment_account_1.id,
+                            "payment_method_id": self.payment_method_in.id,
                         },
                     )
                 ],
@@ -76,6 +84,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                         {
                             "name": "Out 1",
                             "payment_account_id": self.payment_account_2.id,
+                            "payment_method_id": self.payment_method_out.id,
                         },
                     )
                 ],
@@ -87,16 +96,17 @@ class TestAccountJournalExclusivity(TransactionCase):
         with self.assertRaises(ValidationError):
             self.env["account.journal"].create(
                 {
-                    "name": "Bank Journal 2",
+                    "name": "Bank Journal Unique 2",
                     "type": "bank",
-                    "code": "BNK2",
+                    "code": "TXB2",
                     "inbound_payment_method_line_ids": [
                         (
                             0,
                             0,
                             {
                                 "name": "In 2",
-                                "payment_account_id": self.payment_account_1.id,
+                                "payment_account_id": self.payment_account_1.id,  # Duplicate
+                                "payment_method_id": self.payment_method_in.id,
                             },
                         )
                     ],
@@ -107,6 +117,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                             {
                                 "name": "Out 2",
                                 "payment_account_id": self.suspense_account_2.id,
+                                "payment_method_id": self.payment_method_out.id,
                             },
                         )
                     ],
@@ -119,14 +130,18 @@ class TestAccountJournalExclusivity(TransactionCase):
             {
                 "name": "Bank Keep",
                 "type": "bank",
-                "code": "KEEP",
+                "code": "XKP1",
                 "reconcile_mode": "keep",
                 "suspense_account_id": self.suspense_account_1.id,
                 "inbound_payment_method_line_ids": [
                     (
                         0,
                         0,
-                        {"name": "In", "payment_account_id": self.payment_account_1.id},
+                        {
+                            "name": "In",
+                            "payment_account_id": self.payment_account_1.id,
+                            "payment_method_id": self.payment_method_in.id,
+                        },
                     )
                 ],
                 "outbound_payment_method_line_ids": [
@@ -136,6 +151,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                         {
                             "name": "Out",
                             "payment_account_id": self.payment_account_2.id,
+                            "payment_method_id": self.payment_method_out.id,
                         },
                     )
                 ],
@@ -146,11 +162,11 @@ class TestAccountJournalExclusivity(TransactionCase):
         with self.assertRaises(ValidationError):
             self.env["account.journal"].create(
                 {
-                    "name": "Bank Modify 1",
+                    "name": "Bank Modify Fail",
                     "type": "bank",
-                    "code": "MOD1",
+                    "code": "XMD1",
                     "reconcile_mode": "modify",
-                    "suspense_account_id": self.suspense_account_1.id,  # Used by keep
+                    "suspense_account_id": self.suspense_account_1.id,  # Already used by XKP1
                     "inbound_payment_method_line_ids": [
                         (
                             0,
@@ -158,6 +174,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                             {
                                 "name": "In",
                                 "payment_account_id": self.suspense_account_2.id,
+                                "payment_method_id": self.payment_method_in.id,
                             },
                         )
                     ],
@@ -168,6 +185,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                             {
                                 "name": "Out",
                                 "payment_account_id": self.suspense_account_2.id,
+                                "payment_method_id": self.payment_method_out.id,
                             },
                         )
                     ],
@@ -175,11 +193,18 @@ class TestAccountJournalExclusivity(TransactionCase):
             )
 
         # 3. Create a journal in "modify" mode with a free account
+        free_account_1 = self.env["account.account"].create(
+            {"code": "9991", "name": "Free 1", "account_type": "asset_current"}
+        )
+        free_account_2 = self.env["account.account"].create(
+            {"code": "9992", "name": "Free 2", "account_type": "asset_current"}
+        )
+
         journal_mod_1 = self.env["account.journal"].create(
             {
-                "name": "Bank Modify 1",
+                "name": "Bank Modify Pass 1",
                 "type": "bank",
-                "code": "MOD1",
+                "code": "XMD2",
                 "reconcile_mode": "modify",
                 "suspense_account_id": self.suspense_account_2.id,
                 "inbound_payment_method_line_ids": [
@@ -188,9 +213,8 @@ class TestAccountJournalExclusivity(TransactionCase):
                         0,
                         {
                             "name": "In",
-                            "payment_account_id": self.env["account.account"]
-                            .create({"code": "9991", "name": "x"})
-                            .id,
+                            "payment_account_id": free_account_1.id,
+                            "payment_method_id": self.payment_method_in.id,
                         },
                     )
                 ],
@@ -200,9 +224,8 @@ class TestAccountJournalExclusivity(TransactionCase):
                         0,
                         {
                             "name": "Out",
-                            "payment_account_id": self.env["account.account"]
-                            .create({"code": "9992", "name": "x"})
-                            .id,
+                            "payment_account_id": free_account_2.id,
+                            "payment_method_id": self.payment_method_out.id,
                         },
                     )
                 ],
@@ -210,22 +233,28 @@ class TestAccountJournalExclusivity(TransactionCase):
         )
 
         # 4. A "modify" mode journal CAN share an account with another "modify" mode journal
+        free_account_3 = self.env["account.account"].create(
+            {"code": "9993", "name": "Free 3", "account_type": "asset_current"}
+        )
+        free_account_4 = self.env["account.account"].create(
+            {"code": "9994", "name": "Free 4", "account_type": "asset_current"}
+        )
+
         journal_mod_2 = self.env["account.journal"].create(
             {
-                "name": "Bank Modify 2",
+                "name": "Bank Modify Pass 2",
                 "type": "bank",
-                "code": "MOD2",
+                "code": "XMD3",
                 "reconcile_mode": "modify",
-                "suspense_account_id": self.suspense_account_2.id,  # Shared with MOD1
+                "suspense_account_id": self.suspense_account_2.id,
                 "inbound_payment_method_line_ids": [
                     (
                         0,
                         0,
                         {
                             "name": "In",
-                            "payment_account_id": self.env["account.account"]
-                            .create({"code": "9993", "name": "x"})
-                            .id,
+                            "payment_account_id": free_account_3.id,
+                            "payment_method_id": self.payment_method_in.id,
                         },
                     )
                 ],
@@ -235,9 +264,8 @@ class TestAccountJournalExclusivity(TransactionCase):
                         0,
                         {
                             "name": "Out",
-                            "payment_account_id": self.env["account.account"]
-                            .create({"code": "9994", "name": "x"})
-                            .id,
+                            "payment_account_id": free_account_4.id,
+                            "payment_method_id": self.payment_method_out.id,
                         },
                     )
                 ],
