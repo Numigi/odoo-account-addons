@@ -76,12 +76,6 @@ class AccountJournal(models.Model):
             ("id", "!=", self.id),
         ]
 
-        # If the current journal is in 'modify' mode, we only check
-        # conflicts with 'keep' journals.
-        # If it is in 'keep' mode, it must be globally unique across ALL bank journals.
-        if self.reconcile_mode != "keep":
-            domain.append(("reconcile_mode", "=", "keep"))
-
         duplicate = self.search(domain, limit=1)
         if duplicate:
             raise ValidationError(
