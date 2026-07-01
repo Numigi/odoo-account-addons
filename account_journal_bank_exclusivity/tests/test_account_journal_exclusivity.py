@@ -66,6 +66,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                 "name": "Bank Journal Unique 1",
                 "type": "bank",
                 "code": "TXB1",
+                "suspense_account_id": self.suspense_account_1.id,
                 "inbound_payment_method_line_ids": [
                     (
                         0,
@@ -99,6 +100,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                     "name": "Bank Journal Unique 2",
                     "type": "bank",
                     "code": "TXB2",
+                    "suspense_account_id": self.suspense_account_2.id,
                     "inbound_payment_method_line_ids": [
                         (
                             0,
@@ -197,7 +199,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             {"code": "9991", "name": "Free 1", "account_type": "asset_current"}
         )
         free_account_2 = self.env["account.account"].create(
-            {"code": "9992", "name": "Free 2", "asset_current": "asset_current"}
+            {"code": "9992", "name": "Free 2", "account_type": "asset_current"}
         )
 
         self.env["account.journal"].create(
@@ -232,7 +234,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             }
         )
 
-        # UPDATED: 4. Two "edit" mode journals CANNOT share a suspense account anymore
+        # 4. Two "edit" mode journals CANNOT share a suspense account anymore
         free_account_3 = self.env["account.account"].create(
             {"code": "9993", "name": "Free 3", "account_type": "asset_current"}
         )
@@ -247,7 +249,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                     "type": "bank",
                     "code": "XMD3",
                     "reconcile_mode": "edit",
-                    "suspense_account_id": self.suspense_account_2.id,
+                    "suspense_account_id": self.suspense_account_2.id,  # Already used by XMD2
                     "inbound_payment_method_line_ids": [
                         (
                             0,

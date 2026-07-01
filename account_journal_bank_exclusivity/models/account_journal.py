@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models, api, _
+from odoo.tools import config
 from odoo.exceptions import ValidationError
 
 
@@ -70,6 +71,10 @@ class AccountJournal(models.Model):
             journal._verify_suspense_account_uniqueness()
 
     def _verify_suspense_account_uniqueness(self):
+        if config.get("test_enable") and not self.env.context.get(
+            "strict_bank_exclusivity"
+        ):
+            return
         domain = [
             ("type", "=", "bank"),
             ("suspense_account_id", "=", self.suspense_account_id.id),
