@@ -62,6 +62,14 @@ and outgoing payments.
 
 .. image:: static/description/outgoingblock_2.png
 
+For a bank-type journal, if the reconciliation mode is set to 'Keep suspense accounts', 
+
+the defined suspense account can not be used on any other bank journal that shares the same reconciliation mode.
+
+.. image:: static/description/suspaccount.png
+
+.. image:: static/description/blocking_concilition_type.png 
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
