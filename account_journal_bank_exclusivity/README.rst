@@ -52,8 +52,7 @@ When configuring a bank-type journal, the system prevents users from using a ban
 
 
 .. image::  static/description/bankjrnl.png
-
-.. image::  static/description/journalaccounterror.png
+.. image::  static/description/blockraising.png
 
 Additionally, the system enforces uniqueness for outstanding payment receipts 
 
