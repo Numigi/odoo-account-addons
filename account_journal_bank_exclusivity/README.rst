@@ -46,6 +46,23 @@ installation. Instead, a post-install hook will:
 The new constraints only block **future** modifications, so legacy data is
 preserved as-is until you address it manually.
 
+Usage
+--------------------------------------------
+When configuring a bank-type journal, the system prevents users from saving a bank account that is already linked to another journal.
+
+
+.. image::  static/description/bankjrnl.png
+
+.. image:: static/description/journalaccounterror.png
+
+ Additionally, the system enforces uniqueness for outstanding payment receipts 
+
+.. image:: static/description/receiptblock.png
+
+  and outgoing payments.
+  
+.. image:: static/description/outgoingblock_2.png
+
 Contributors
 ------------
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
