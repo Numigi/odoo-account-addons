@@ -26,7 +26,7 @@ As member of the group Accounting / Billing, I go to the form view of a journal 
 
 I click `ADD CREDIT NOTE` to create a reverse entry.
 
-.. image::static/description/journalentry.png
+.. image:: static/description/journalentry.png
 
 
 I select a date prior to the original move date. Then, I click on Reverse Moves.
