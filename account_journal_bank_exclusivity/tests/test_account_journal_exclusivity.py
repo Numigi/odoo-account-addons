@@ -158,14 +158,14 @@ class TestAccountJournalExclusivity(TransactionCase):
             }
         )
 
-        # 2. A "modify" mode journal CANNOT use a "keep" mode suspense account
+        # 2. A "edit" mode journal CANNOT use a "keep" mode suspense account
         with self.assertRaises(ValidationError):
             self.env["account.journal"].create(
                 {
                     "name": "Bank Modify Fail",
                     "type": "bank",
                     "code": "XMD1",
-                    "reconcile_mode": "modify",
+                    "reconcile_mode": "edit",
                     "suspense_account_id": self.suspense_account_1.id,  # Already used by XKP1
                     "inbound_payment_method_line_ids": [
                         (
@@ -192,7 +192,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                 }
             )
 
-        # 3. Create a journal in "modify" mode with a free account
+        # 3. Create a journal in "edit" mode with a free account
         free_account_1 = self.env["account.account"].create(
             {"code": "9991", "name": "Free 1", "account_type": "asset_current"}
         )
@@ -205,7 +205,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                 "name": "Bank Modify Pass 1",
                 "type": "bank",
                 "code": "XMD2",
-                "reconcile_mode": "modify",
+                "reconcile_mode": "edit",
                 "suspense_account_id": self.suspense_account_2.id,
                 "inbound_payment_method_line_ids": [
                     (
@@ -232,7 +232,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             }
         )
 
-        # 4. A "modify" mode journal CAN share an account with another "modify" mode journal
+        # 4. A "edit" mode journal CAN share an account with another "edit" mode journal
         free_account_3 = self.env["account.account"].create(
             {"code": "9993", "name": "Free 3", "account_type": "asset_current"}
         )
@@ -245,7 +245,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                 "name": "Bank Modify Pass 2",
                 "type": "bank",
                 "code": "XMD3",
-                "reconcile_mode": "modify",
+                "reconcile_mode": "edit",
                 "suspense_account_id": self.suspense_account_2.id,
                 "inbound_payment_method_line_ids": [
                     (
