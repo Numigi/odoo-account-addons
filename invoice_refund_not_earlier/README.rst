@@ -24,7 +24,7 @@ The equivalent constraint is also added when reversing a journal entry.
 
 As member of the group Accounting / Billing, I go to the form view of a journal entry.
 
-I click `ADD CREDIT NOTE` to create a reverse entry.
+I click on button ` CREDIT NOTE` to create a reverse entry.
 
 .. image:: static/description/journalentry.png
 
