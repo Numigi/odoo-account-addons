@@ -66,6 +66,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                 "name": "Bank Journal Unique 1",
                 "type": "bank",
                 "code": "TXB1",
+                "suspense_account_id": self.suspense_account_1.id,
                 "inbound_payment_method_line_ids": [
                     (
                         0,
@@ -99,6 +100,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                     "name": "Bank Journal Unique 2",
                     "type": "bank",
                     "code": "TXB2",
+                    "suspense_account_id": self.suspense_account_2.id,
                     "inbound_payment_method_line_ids": [
                         (
                             0,
@@ -125,7 +127,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             )
 
     def test_suspense_account_exclusivity_rules(self):
-        # 1. Create a journal in "keep" mode
+        # 1. Create a base journal in "keep" mode
         self.env["account.journal"].create(
             {
                 "name": "Bank Keep",
@@ -158,7 +160,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             }
         )
 
-        # 2. A "edit" mode journal CANNOT use a "keep" mode suspense account
+        # 2. An "edit" mode journal CANNOT use a "keep" mode suspense account
         with self.assertRaises(ValidationError):
             self.env["account.journal"].create(
                 {
@@ -166,7 +168,7 @@ class TestAccountJournalExclusivity(TransactionCase):
                     "type": "bank",
                     "code": "XMD1",
                     "reconcile_mode": "edit",
-                    "suspense_account_id": self.suspense_account_1.id,  # Already used by XKP1
+                    "suspense_account_id": self.suspense_account_1.id,  # Used by XKP1
                     "inbound_payment_method_line_ids": [
                         (
                             0,
@@ -200,7 +202,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             {"code": "9992", "name": "Free 2", "account_type": "asset_current"}
         )
 
-        journal_mod_1 = self.env["account.journal"].create(
+        self.env["account.journal"].create(
             {
                 "name": "Bank Modify Pass 1",
                 "type": "bank",
@@ -232,7 +234,7 @@ class TestAccountJournalExclusivity(TransactionCase):
             }
         )
 
-        # 4. A "edit" mode journal CAN share an account with another "edit" mode journal
+        # 4. Two "edit" mode journals CANNOT share a suspense account anymore
         free_account_3 = self.env["account.account"].create(
             {"code": "9993", "name": "Free 3", "account_type": "asset_current"}
         )
@@ -240,37 +242,35 @@ class TestAccountJournalExclusivity(TransactionCase):
             {"code": "9994", "name": "Free 4", "account_type": "asset_current"}
         )
 
-        journal_mod_2 = self.env["account.journal"].create(
-            {
-                "name": "Bank Modify Pass 2",
-                "type": "bank",
-                "code": "XMD3",
-                "reconcile_mode": "edit",
-                "suspense_account_id": self.suspense_account_2.id,
-                "inbound_payment_method_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "In",
-                            "payment_account_id": free_account_3.id,
-                            "payment_method_id": self.payment_method_in.id,
-                        },
-                    )
-                ],
-                "outbound_payment_method_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Out",
-                            "payment_account_id": free_account_4.id,
-                            "payment_method_id": self.payment_method_out.id,
-                        },
-                    )
-                ],
-            }
-        )
-        self.assertEqual(
-            journal_mod_1.suspense_account_id, journal_mod_2.suspense_account_id
-        )
+        with self.assertRaises(ValidationError):
+            self.env["account.journal"].create(
+                {
+                    "name": "Bank Modify Pass 2",
+                    "type": "bank",
+                    "code": "XMD3",
+                    "reconcile_mode": "edit",
+                    "suspense_account_id": self.suspense_account_2.id,  # Already used by XMD2
+                    "inbound_payment_method_line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "name": "In",
+                                "payment_account_id": free_account_3.id,
+                                "payment_method_id": self.payment_method_in.id,
+                            },
+                        )
+                    ],
+                    "outbound_payment_method_line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "name": "Out",
+                                "payment_account_id": free_account_4.id,
+                                "payment_method_id": self.payment_method_out.id,
+                            },
+                        )
+                    ],
+                }
+            )
