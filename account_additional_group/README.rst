@@ -17,7 +17,7 @@ Issues With Native Groups of Account
 In vanilla Odoo, you may define groups of account.
 
 
-.. image:: native_group_of_account.png
+.. image:: static/description/native_group_of_account.png
 These groups can be used to build accounting reports.
 
 One problem with these is that Odoo S.A changes this model from one major version to another.
