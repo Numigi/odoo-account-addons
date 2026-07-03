@@ -50,7 +50,7 @@ In the form view of an account, I can assign an additional group.
 
 In the list view of accounts, I can search and group by additional group.
 
-.. image:: account_additional_group/static/description/COA_listview.pnga
+.. image:: static/description/COA_listview.png
 
 Recursivity
 -----------
