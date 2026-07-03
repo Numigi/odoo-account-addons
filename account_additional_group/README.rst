@@ -7,7 +7,7 @@ Summary
 -------
 This module adds a second referencial of ``Group of Account``.
 
-.. image:: static/description/additional_group_list.png
+.. image:: static/description/additionalgroups.png
 
 Context
 -------
@@ -16,8 +16,8 @@ Issues With Native Groups of Account
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In vanilla Odoo, you may define groups of account.
 
-.. image:: static/description/vanilla_account_group.png
 
+.. image:: native_group_of_account.png
 These groups can be used to build accounting reports.
 
 One problem with these is that Odoo S.A changes this model from one major version to another.
@@ -35,28 +35,28 @@ Usage
 -----
 Under ``Accounting / Configuration``, I notice a new menu ``Additional Groups``.
 
-.. image:: static/description/additional_group_menu.png
+.. image:: static/description/addgroupMenu.png
+    
+.. image:: static/description/additionalgroups.png
 
-.. image:: static/description/additional_group_list.png
 
 I create an additional group of account.
 
-.. image:: static/description/additional_group_form.png
-
+.. image:: static/description/addgroup_formview.png
 In the form view of an account, I can assign an additional group.
 
-.. image:: static/description/account_form.png
+.. image:: static/description/addgroupCOA.png
+
 
 In the list view of accounts, I can search and group by additional group.
 
-.. image:: static/description/account_list.png
+.. image:: account_additional_group/static/description/COA_listview.pnga
 
 Recursivity
 -----------
 A group of account can have a parent.
 
-.. image:: static/description/additional_group_parent.png
-
+.. image:: static/description/addgroup_parent.png
 In such case, an account associated to the child group is also be associated to the parent group.
 
 Reports
