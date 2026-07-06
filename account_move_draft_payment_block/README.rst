@@ -32,8 +32,13 @@ To see this module in action:
 4. The system will immediately raise a validation error:
    *"You cannot register a payment for an unposted invoice."*
 
+ .. image:: static/description/blockinvoice.png
+
+
 The same strict restriction applies to cancelled invoices. Validated (posted)
 invoices remain unaffected and proceed to the payment wizard as usual.
+
+.. image:: static/description/cancledinv.png
 
 Bug Tracker
 -----------
