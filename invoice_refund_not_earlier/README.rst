@@ -10,12 +10,13 @@ As member of the group `Accounting / Billing`, I go to the form view of an invoi
 
 I click `ADD CREDIT NOTE` to create a refund.
 
-.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/invoice_refund_not_earlier/static/description/invoice_form_with_date.png
+.. image:: static/description/invoice18.png
 
 I select a refund date prior to the invoice date, then I click on ``Reverse``.
 A blocking message appears:
 
-.. image:: https://raw.githubusercontent.com/Numigi/odoo-account-addons/16.0/invoice_refund_not_earlier/static/description/invoice_reverse_with_error.png
+
+.. image:: static/description/blockMsg.png
 
 Journal Entries
 ---------------
@@ -23,14 +24,17 @@ The equivalent constraint is also added when reversing a journal entry.
 
 As member of the group Accounting / Billing, I go to the form view of a journal entry.
 
-I click `ADD CREDIT NOTE` to create a reverse entry.
+I click on button ` CREDIT NOTE` to create a reverse entry.
 
-.. image:: static/description/jounal_entry_form_with_date.png
+.. image:: static/description/journalentry.png
+
 
 I select a date prior to the original move date. Then, I click on Reverse Moves.
 A blocking message appears.
 
-.. image:: static/description/jounral_entry_reverse_with_error.png
+.. image:: static/description/wizard.png
+.. image:: static/description/blockjournalentry.png
+
 
 Contributors
 ------------
