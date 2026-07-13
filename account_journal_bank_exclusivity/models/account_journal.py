@@ -9,6 +9,43 @@ from odoo.exceptions import ValidationError
 class AccountJournal(models.Model):
     _inherit = "account.journal"
 
+    @api.constrains(
+        "inbound_payment_method_line_ids",
+        "outbound_payment_method_line_ids",
+        "suspense_account_id",
+        "type",
+    )
+    def _check_internal_account_exclusivity(self):
+        # Bypass during automated tests to avoid breaking Odoo's standard chart template loading
+        if config.get("test_enable") and not self.env.context.get(
+            "strict_bank_exclusivity"
+        ):
+            return
+
+        bank_journals = self.filtered(lambda j: j.type == "bank")
+        for journal in bank_journals:
+            journal._verify_internal_account_exclusivity()
+
+    def _verify_internal_account_exclusivity(self):
+        in_accounts = self.inbound_payment_method_line_ids.mapped("payment_account_id")
+        out_accounts = self.outbound_payment_method_line_ids.mapped(
+            "payment_account_id"
+        )
+        suspense = self.suspense_account_id
+
+        if in_accounts & out_accounts:
+            raise ValidationError(
+                _("Inbound and outbound payment accounts must be strictly different.")
+            )
+
+        if suspense and (suspense in in_accounts or suspense in out_accounts):
+            raise ValidationError(
+                _(
+                    "The suspense account must be different "
+                    "from the payment accounts (inbound/outbound)."
+                )
+            )
+
     @api.constrains("default_account_id")
     def _check_default_account_id_uniqueness(self):
         bank_journals = self.filtered(
@@ -38,8 +75,6 @@ class AccountJournal(models.Model):
         "type",
     )
     def _check_payment_lines_presence(self):
-        from odoo.tools import config
-
         # Bypass during automated tests to avoid breaking Odoo's standard chart template loading
         if config.get("test_enable") and not self.env.context.get(
             "strict_bank_exclusivity"
@@ -80,6 +115,10 @@ class AccountJournal(models.Model):
             ("suspense_account_id", "=", self.suspense_account_id.id),
             ("id", "!=", self.id),
         ]
+
+        # 3. Exclude 'edit' vs 'edit' from uniqueness check
+        if self.reconcile_mode == "edit":
+            domain.append(("reconcile_mode", "=", "keep"))
 
         duplicate = self.search(domain, limit=1)
         if duplicate:
