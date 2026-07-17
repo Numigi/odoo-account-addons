@@ -85,8 +85,8 @@ class AccountPayment(models.Model):
         for payment in self:
             paired = payment.paired_internal_transfer_payment_id
             if paired and payment.name and paired.name:
-                # Concat the two memo (ex: "BNK1/2026/0001 - BNK2/2026/0001")
-                combined_memo = f"{payment.name} - {paired.name}"
+                # Concat the two memo (ex: "BNK1/2026/0001 → BNK2/2026/0001")
+                combined_memo = f"{payment.name} → {paired.name}"
                 payment.memo = combined_memo
                 paired.memo = combined_memo
         return res

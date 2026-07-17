@@ -139,6 +139,6 @@ class TestAccountInternalTransferMultiCurrency(common.TransactionCase):
         self.assertEqual(paired_payment.currency_id, self.dest_currency)
         self.assertAlmostEqual(paired_payment.amount, 200.0, places=2)
 
-        expected_memo = f"{payment.name} - {paired_payment.name}"
+        expected_memo = f"{payment.name} → {paired_payment.name}"
         self.assertEqual(payment.memo, expected_memo)
         self.assertEqual(paired_payment.memo, expected_memo)
