@@ -23,11 +23,4 @@
 
         </field>
     </record>
-
-     <function model="ir.actions.act_window" name="write">
-        <!-- Target the XML ID of the action in the account module -->
-        <value eval="[ref('account.action_account_resequence')]"/>
-        <!-- Dictionary containing the values to update -->
-        <value eval="{'binding_model_id': False}"/>
-    </function>
 </odoo>
