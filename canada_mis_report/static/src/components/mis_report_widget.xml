@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t
+        t-name="canada_mis_report.MisReportWidget"
+        t-inherit="mis_builder.MisReportWidget"
+        t-inherit-mode="extension"
+    >
+        <!-- Replace the Bootstrap caret by a pencil icon (annotation menu) -->
+        <xpath expr="//div[@data-bs-toggle='dropdown']" position="attributes">
+            <attribute name="t-attf-class">fa fa-pencil</attribute>
+        </xpath>
+
+        <!-- Don't render any icon when the cell cannot be annotated -->
+        <xpath expr="//div[hasclass('oe_mis_builder_menu_disabled')]" position="replace" />
+    </t>
+
+</templates>
