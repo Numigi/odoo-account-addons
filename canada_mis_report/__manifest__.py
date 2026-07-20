@@ -22,5 +22,10 @@
         "data/mis_report.xml",
         "views/mis_report_views.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "canada_mis_report/static/src/components/mis_report_widget.xml",
+        ],
+    },
     "installable": True,
 }
