@@ -3,7 +3,7 @@
 
 {
     "name": "Canada French Accounting Labels",
-    "version": "18.0.1.0.0",
+    "version": "18.0.2.0.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://www.numigi.com",
@@ -19,4 +19,5 @@
     ],
     "installable": True,
     "auto-install": True,
+    "post_init_hook": "post_init_hook",
 }
