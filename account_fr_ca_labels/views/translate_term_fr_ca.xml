@@ -6,14 +6,25 @@
             <field name="model">translate.term.fr_ca</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
-                <list editable="bottom">
+                <list editable="top">
+                    <!-- Header section to hold the action button -->
+                    <header>
+                        <button name="action_apply_translations"
+                                string="Appliquer les traductions"
+                                type="object"
+                                class="oe_highlight"/>
+                    </header>
                     <field name="term_fr" />
                     <field name="term_ca" />
+                     <button name="action_apply_translations"
+                                string="Apply translation"
+                                type="object"
+                               icon="fa-refresh"/>
                 </list>
             </field>
         </record>
 
-         <record id="action_translate_term_fr_ca" model="ir.actions.act_window">
+        <record id="action_translate_term_fr_ca" model="ir.actions.act_window">
             <field name="name">CA Accouting Terms</field>
             <field name="res_model">translate.term.fr_ca</field>
             <field name="view_mode">list</field>
@@ -25,7 +36,5 @@
                   parent="base.menu_translation"
                   sequence="100"
         />
-    
     </data>
-    
 </odoo>
