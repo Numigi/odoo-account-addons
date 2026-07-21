@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-24 07:57+0000\n"
-"PO-Revision-Date: 2024-10-24 07:57+0000\n"
+"POT-Creation-Date: 2026-07-21 12:17+0000\n"
+"PO-Revision-Date: 2026-07-21 12:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_fr_ca_labels
-#: model_terms:ir.ui.view,arch_db:account_fr_ca_labels.account_journal_dashboard_kanban_view
-msgid "<span role=\"separator\">Bank Reconciliation</span>"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:account_fr_ca_labels.view_account_journal_group_tree
+msgid "Appliquer les traductions"
+msgstr "Appliquer les traductions"
+
+#. module: account_fr_ca_labels
+#: model_terms:ir.ui.view,arch_db:account_fr_ca_labels.view_account_journal_group_tree
+msgid "Apply translation"
+msgstr "Appliquer la traduction"
 
 #. module: account_fr_ca_labels
 #: model:ir.actions.act_window,name:account_fr_ca_labels.action_translate_term_fr_ca
@@ -29,12 +34,12 @@ msgstr "Termes comptables CA"
 #. module: account_fr_ca_labels
 #: model:ir.model.fields,field_description:account_fr_ca_labels.field_translate_term_fr_ca__create_uid
 msgid "Created by"
-msgstr "Crée par"
+msgstr "Créé par"
 
 #. module: account_fr_ca_labels
 #: model:ir.model.fields,field_description:account_fr_ca_labels.field_translate_term_fr_ca__create_date
 msgid "Created on"
-msgstr "Crée le"
+msgstr "Créé le"
 
 #. module: account_fr_ca_labels
 #: model:ir.model.fields,field_description:account_fr_ca_labels.field_translate_term_fr_ca__display_name
@@ -44,12 +49,7 @@ msgstr "Nom affiché"
 #. module: account_fr_ca_labels
 #: model:ir.model.fields,field_description:account_fr_ca_labels.field_translate_term_fr_ca__id
 msgid "ID"
-msgstr ""
-
-#. module: account_fr_ca_labels
-#: model:ir.model.fields,field_description:account_fr_ca_labels.field_translate_term_fr_ca____last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
+msgstr "ID"
 
 #. module: account_fr_ca_labels
 #: model:ir.model.fields,field_description:account_fr_ca_labels.field_translate_term_fr_ca__write_uid
@@ -73,5 +73,5 @@ msgstr "Terme Fr"
 
 #. module: account_fr_ca_labels
 #: model:ir.model,name:account_fr_ca_labels.model_translate_term_fr_ca
-msgid "translate.term.fr_ca"
-msgstr ""
+msgid "Translation Terms (FR to CA)"
+msgstr "Termes de traduction (FR vers CA)"

@@ -11,4 +11,6 @@ model.translate_canada_reports()
         </field>
     </record>
 
+
+
 </odoo>

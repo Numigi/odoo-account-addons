@@ -1,34 +1,47 @@
+===============================
 Canada French Accounting Labels
 ===============================
-This module sanitizes the labels of the accounting application for the french Canada language.
 
-Odoo's french terms are European terms. In Quebec, some important terms are different.
-This is at some point that people get confused.
+Context
+=======
+Odoo's default French terms are based on European terminology. In Quebec and Canada, some important accounting terms are significantly different, which can lead to confusion for local users. 
 
-Here is an overview of the changed terms.
+The issue with these translations is that they appear hundreds of times in Odoo PO files across different modules. Updating and maintaining each of these translations manually would require a major and constant effort.
 
+Description
+===========
+This module sanitizes and automatically adapts the labels of the accounting application for the French Canada (fr_CA) language. 
+
+Here is an overview of the main terminology changes applied by this module:
 * Avoir -> Note de crédit
 * Balance âgée -> Âge des comptes
 * Lettrage -> Conciliation bancaire
 
-The issue with these translations is that they appear undreds of times in Odoo PO files of different modules.
-Updating and maintaining each of these translations would require a major and constant effort.
+Translations to update can be as specific as the following: "Compte utilisé sur les lignes de taxes des avoirs. Laissez vide pour utiliser le compte de dépenses."
 
-Translations to update can be as specific as the following:
+Usage
+=====
+To use this module and trigger the translation replacements:
 
-..
+1. Navigate to **Accounting / Configuration / CA Accounting Terms**.
+2. Add, edit, or remove the specific French to Canadian French term mappings.
+3. Click the **"Apply translation"** button located in the header of the list view to apply changes across all installed modules.
 
-	Compte utilisé sur les lignes de taxes des `avoirs`. Laissez vide pour utiliser le compte de dépenses.
+Screenshots
+===========
 
 Menu Items Adjustments
 ----------------------
 The missing `s` is added to the menu item `Accounting / Vendors / Refund`.
 
 .. image:: static/description/supplier_refund_menu_item_en.png
+   :alt: Supplier Refund Menu Item EN
+   :width: 600 px
 
 .. image:: static/description/supplier_refund_menu_item_fr.png
-
+   :alt: Supplier Refund Menu Item FR
+   :width: 600 px
 
 Contributors
-------------
+============
 * Numigi (tm) and all its contributors (https://bit.ly/numigiens)
