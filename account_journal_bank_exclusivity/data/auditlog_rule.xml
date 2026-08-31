@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Define the auditlog rule for the account.journal model -->
+    <record id="auditlog_rule_account_journal" model="auditlog.rule">
+        <field name="name">Audit Log: Account Journals</field>
+        <field name="model_id" ref="account.model_account_journal"/>
+        <field name="log_read" eval="False"/>
+        <field name="log_create" eval="True"/>
+        <field name="log_write" eval="True"/>
+        <field name="log_unlink" eval="True"/>
+        <field name="log_type">full</field>
+        <field name="state">subscribed</field>
+    </record>
+</odoo>
