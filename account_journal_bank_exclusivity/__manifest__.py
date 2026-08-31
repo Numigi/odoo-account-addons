@@ -9,13 +9,13 @@
     "summary": """
         Guarantees uniqueness and exclusivity of bank journal accounts.
     """,
-    "version": "18.0.2.0.0",
+    "version": "18.0.2.0.1",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",
     "license": "AGPL-3",
-    "depends": ["account_reconcile_oca"],
-    "data": [],
+    "depends": ["account_reconcile_oca", "auditlog"],
+    "data": ["data/auditlog_rule.xml"],
     "installable": True,
     "post_init_hook": "post_init_hook",
 }
