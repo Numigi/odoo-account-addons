@@ -10,5 +10,6 @@
         <field name="log_unlink" eval="True"/>
         <field name="log_type">full</field>
         <field name="state">subscribed</field>
+        <field name="action_id" ref="base.ir_action_window"/>
     </record>
 </odoo>
