@@ -63,6 +63,12 @@
   includes:
     - product_pricelist_direct_print_company_group
 
+- url: https://github.com/oca/server-tools
+  branch: "18.0"
+  includes:
+    - auditlog
+
+
 - url: https://github.com/ingadhoc/account-financial-tools
   branch: "18.0"
   includes:
