@@ -9,7 +9,7 @@
     "summary": """
         Guarantees uniqueness and exclusivity of bank journal accounts.
     """,
-    "version": "18.0.2.0.2",
+    "version": "18.0.2.1.0",
     "website": "https://bit.ly/numigi-com",
     "author": "Numigi",
     "maintainer": "Numigi",

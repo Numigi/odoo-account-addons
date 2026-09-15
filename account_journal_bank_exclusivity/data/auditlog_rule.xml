@@ -9,7 +9,11 @@
         <field name="log_write" eval="True"/>
         <field name="log_unlink" eval="True"/>
         <field name="log_type">full</field>
-        <field name="state">subscribed</field>
-        <field name="action_id" ref="base.ir_action_window"/>
+        <field name="state">draft</field>
     </record>
+
+    <!-- Trigger the subscribe method to activate the rule and change state to subscribed -->
+        <function model="auditlog.rule" name="subscribe">
+            <value eval="[ref('auditlog_rule_account_journal')]"/>
+        </function>
 </odoo>
