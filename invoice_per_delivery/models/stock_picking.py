@@ -13,7 +13,12 @@ class StockPicking(models.Model):
         if self.sale_id and self.partner_id.invoice_per_delivery:
             if any(line for line in self.sale_id.order_line
                     if line.product_uom_qty != line.qty_invoiced):
-                self.sale_id.sudo().with_context(picking_id=self)._create_invoices()
+                # final=True so down payment lines (qty_to_invoice < 0) are kept
+                # by the standard _get_invoiceable_lines and deducted from the
+                # delivery invoice instead of being silently dropped.
+                self.sale_id.sudo().with_context(
+                    picking_id=self
+                )._create_invoices(final=True)
         return
 
     def write(self, vals):
