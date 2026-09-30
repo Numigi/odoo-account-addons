@@ -3,7 +3,7 @@
 
 {
     "name": "Invoice per delivery",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.2.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://numigi.com/r/home",
