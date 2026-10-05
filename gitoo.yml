@@ -3,7 +3,6 @@
   includes:
     - account_fiscal_year_closing
 
-
 - url: https://github.com/OCA/mis-builder
   branch: "18.0"
   includes:
@@ -67,7 +66,6 @@
   branch: "18.0"
   includes:
     - auditlog
-
 
 - url: https://github.com/ingadhoc/account-financial-tools
   branch: "18.0"
