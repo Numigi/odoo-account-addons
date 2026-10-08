@@ -74,6 +74,7 @@ COPY mis_builder_query_ignore_date_from /mnt/extra-addons/mis_builder_query_igno
 COPY old_accounts /mnt/extra-addons/old_accounts
 COPY payment_list_not_sent /mnt/extra-addons/payment_list_not_sent
 COPY payment_stripe_not_silenced /mnt/extra-addons/payment_stripe_not_silenced
+COPY purchase_stock_price_difference_currency /mnt/extra-addons/purchase_stock_price_difference_currency
 
 COPY .docker_files/main /mnt/extra-addons/main
 COPY .docker_files/odoo.conf /etc/odoo
