@@ -40,6 +40,32 @@ class TestPriceDifferenceFx(ValuationReconciliationTestCommon):
         cls.company_currency = cls.company.currency_id
         cls.product = cls.test_product_delivery
 
+        # The environment enforces (invoice_currency_validation) that both the
+        # journal and the partner payable account share the invoice currency.
+        # Provide a purchase journal and a payable account in the foreign currency.
+        cls.foreign_purchase_journal = cls.env["account.journal"].create(
+            {
+                "name": "Vendor Bills (foreign currency)",
+                "type": "purchase",
+                "code": "BILLFX",
+                "currency_id": cls.foreign_currency.id,
+                "company_id": cls.company.id,
+            }
+        )
+        cls.foreign_payable_account = cls.env["account.account"].create(
+            {
+                "name": "Payable (foreign currency)",
+                "code": "PAYFX",
+                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "reconcile": True,
+                "currency_id": cls.foreign_currency.id,
+                "company_id": cls.company.id,
+            }
+        )
+        cls.partner_a.with_company(cls.company).property_account_payable_id = (
+            cls.foreign_payable_account
+        )
+
     @classmethod
     def setup_company_data(cls, company_name, chart_template=None, **kwargs):
         company_data = super().setup_company_data(
@@ -112,6 +138,7 @@ class TestPriceDifferenceFx(ValuationReconciliationTestCommon):
         )
         move_form.invoice_date = date
         move_form.partner_id = self.partner_a
+        move_form.journal_id = self.foreign_purchase_journal
         move_form.currency_id = self.foreign_currency
         move_form.purchase_id = purchase_order
         return move_form.save()
