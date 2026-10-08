@@ -70,6 +70,7 @@
         "old_accounts",
         "payment_list_not_sent",
         "payment_stripe_not_silenced",
+        "purchase_stock_price_difference_currency",
     ],
     "installable": True,
 }

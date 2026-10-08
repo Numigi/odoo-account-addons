@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="automation_price_difference_fx" model="base.automation">
+        <field name="name">SRNF - Price difference without exchange artifact</field>
+        <field name="model_id" ref="account.model_account_move_line"/>
+        <field name="trigger">on_create</field>
+        <field name="state">code</field>
+        <field name="active" eval="True"/>
+        <field name="filter_domain">["&amp;", "&amp;", ["is_anglo_saxon_line", "=", True], ["move_id.move_type", "in", ["in_invoice", "in_refund"]], ["move_id.state", "=", "draft"]]</field>
+        <field name="code"><![CDATA[
+# =====================================================================
+# SRNF - Price difference without exchange artifact (prototype TA#85888)
+# Emulates the purchase_stock_price_difference_currency module.
+# ---------------------------------------------------------------------
+# Model        : Journal Item (account.move.line)
+# Trigger      : On creation
+# Apply on     : [("is_anglo_saxon_line", "=", True),
+#                 ("move_id.move_type", "in", ["in_invoice", "in_refund"]),
+#                 ("move_id.state", "=", "draft")]
+# Action       : Execute Python code
+#
+# How it works: when a vendor bill is posted, Odoo creates the
+# 569000 / 226050 pair (price difference) right before setting the bill
+# to "Posted". The action recomputes the difference from the currency
+# amount of the valuation entry (purchase order price at reception)
+# instead of the reconversion of the layer at the reception day rate.
+# If the recomputed difference is zero, the pair is removed; otherwise
+# its unit price is corrected and Odoo recomputes the amounts. The
+# native reconciliation then does the rest (ECH entry on 568010).
+#
+# The action runs once per created line: we only process the 226050
+# correction line, which finds back its twin 569000 line.
+# =====================================================================
+
+TOL = 0.000001
+
+if record.exists() and record.move_id.state == 'draft':
+    move = record.move_id
+    cur = move.currency_id
+    company_cur = move.company_id.currency_id
+
+    # Original invoice line (same product, same label, same quantity)
+    inv_lines = move.invoice_line_ids.filtered(
+        lambda l: l.product_id == record.product_id
+        and l.purchase_line_id
+        and (l.name or '')[:64] == (record.name or '')
+        and float_compare(l.quantity, record.quantity, precision_digits=4) == 0
+    )
+    inv_line = inv_lines[:1]
+
+    # Only process the correction line (invoice line account = 226050)
+    if (len(inv_lines) == 1 and cur != company_cur
+            and record.account_id == inv_line.account_id
+            and inv_line.product_id.cost_method != 'standard'
+            and not inv_line.tax_ids.filtered(lambda t: t.price_include)):
+
+        pdiff = move.line_ids.filtered(
+            lambda l: l.is_anglo_saxon_line and l.id != record.id
+            and l.product_id == record.product_id
+            and l.account_id != record.account_id
+            and float_compare(l.price_unit, -record.price_unit, precision_digits=6) == 0
+        )[:1]
+
+        pol = inv_line.purchase_line_id
+        stock_moves = env['stock.move'].search([
+            ('purchase_line_id', '=', pol.id),
+            ('state', '=', 'done'),
+            ('product_qty', '!=', 0.0),
+        ])
+        if move.move_type == 'in_refund':
+            stock_moves = stock_moves.filtered(lambda m: m._is_out())
+        else:
+            stock_moves = stock_moves.filtered(lambda m: m._is_in())
+
+        val_account = inv_line.product_id.product_tmpl_id.get_product_accounts()['stock_valuation']
+        total_amount = 0.0
+        total_qty = 0.0
+        exploitable = bool(stock_moves) and bool(pdiff)
+        for sm in stock_moves:
+            layers = sm.with_context(active_test=False).stock_valuation_layer_ids.filtered(
+                lambda l: l.quantity)
+            amls = layers.mapped('account_move_id.line_ids').filtered(
+                lambda l: l.account_id == val_account)
+            if (not layers or not all(layers.mapped('account_move_id')) or not amls
+                    or any(l.currency_id != cur for l in amls)):
+                exploitable = False
+                break
+            total_amount += sum(amls.mapped('amount_currency'))
+            total_qty += sum(layers.mapped('quantity'))
+
+        if exploitable and total_qty:
+            valuation_price_unit = inv_line.product_id.uom_id._compute_price(
+                total_amount / total_qty, inv_line.product_uom_id)
+            price_unit = inv_line.price_unit * (1 - (inv_line.discount or 0.0) / 100.0)
+            new_dif = price_unit - valuation_price_unit
+            old_dif = pdiff.price_unit
+            old_cur = pdiff.amount_currency
+            old_cad = pdiff.balance
+            ref_po = pol.order_id.name
+
+            # Recomputed difference is zero: drop the native artifact pair
+            if cur.is_zero(new_dif * inv_line.quantity):
+                (pdiff | record).with_context(check_move_validity=False).unlink()
+                msg = ("SRNF prototype - %s - %s : native price difference %.2f %s (%.2f CAD) "
+                       "removed; real difference is null (exchange artifact)." % (
+                           ref_po, inv_line.product_id.default_code or '',
+                           old_cur, cur.name, old_cad))
+                move.message_post(body=msg)
+                log(msg)
+            # Recomputed difference is non-zero: correct the unit price
+            elif abs(new_dif - old_dif) > TOL:
+                pdiff.with_context(check_move_validity=False).write({'price_unit': new_dif})
+                record.with_context(check_move_validity=False).write({'price_unit': -new_dif})
+                msg = ("SRNF prototype - %s - %s : native price difference %.2f %s (%.2f CAD) "
+                       "corrected to %.2f %s (%.2f CAD)." % (
+                           ref_po, inv_line.product_id.default_code or '',
+                           old_cur, cur.name, old_cad,
+                           pdiff.amount_currency, cur.name, pdiff.balance))
+                move.message_post(body=msg)
+                log(msg)
+]]></field>
+    </record>
+
+</odoo>
