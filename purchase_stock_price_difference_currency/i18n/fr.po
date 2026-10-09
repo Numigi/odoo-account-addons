@@ -17,5 +17,5 @@ msgstr ""
 #. module: purchase_stock_price_difference_currency
 #: model:base.automation,name:purchase_stock_price_difference_currency.automation_price_difference_fx
 #: model:ir.actions.server,name:purchase_stock_price_difference_currency.automation_price_difference_fx
-msgid "SRNF - Price difference without exchange artifact"
-msgstr "SRNF - Écart de prix sans artefact de change"
+msgid "SRNF - Price difference without exchange artifact (do not archive)"
+msgstr "SRNF - Écart de prix sans artefact de change (ne pas archiver)"
