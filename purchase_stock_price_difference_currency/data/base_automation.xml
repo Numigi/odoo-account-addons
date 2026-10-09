@@ -2,7 +2,7 @@
 <odoo noupdate="1">
 
     <record id="automation_price_difference_fx" model="base.automation">
-        <field name="name">SRNF - Price difference without exchange artifact</field>
+        <field name="name">SRNF - Price difference without exchange artifact (do not archive)</field>
         <field name="model_id" ref="account.model_account_move_line"/>
         <field name="trigger">on_create</field>
         <field name="state">code</field>
@@ -10,8 +10,8 @@
         <field name="filter_domain">["&amp;", "&amp;", ["is_anglo_saxon_line", "=", True], ["move_id.move_type", "in", ["in_invoice", "in_refund"]], ["move_id.state", "=", "draft"]]</field>
         <field name="code"><![CDATA[
 # =====================================================================
-# SRNF - Price difference without exchange artifact (prototype TA#85888)
-# Emulates the purchase_stock_price_difference_currency module.
+# SRNF - Price difference without exchange artifact (do not archive)
+# Shipped by the purchase_stock_price_difference_currency module.
 # ---------------------------------------------------------------------
 # Model        : Journal Item (account.move.line)
 # Trigger      : On creation
@@ -102,7 +102,7 @@ if record.exists() and record.move_id.state == 'draft':
             # Recomputed difference is zero: drop the native artifact pair
             if cur.is_zero(new_dif * inv_line.quantity):
                 (pdiff | record).with_context(check_move_validity=False).unlink()
-                msg = ("SRNF prototype - %s - %s : native price difference %.2f %s (%.2f CAD) "
+                msg = ("SRNF - %s - %s : native price difference %.2f %s (%.2f CAD) "
                        "removed; real difference is null (exchange artifact)." % (
                            ref_po, inv_line.product_id.default_code or '',
                            old_cur, cur.name, old_cad))
@@ -112,7 +112,7 @@ if record.exists() and record.move_id.state == 'draft':
             elif abs(new_dif - old_dif) > TOL:
                 pdiff.with_context(check_move_validity=False).write({'price_unit': new_dif})
                 record.with_context(check_move_validity=False).write({'price_unit': -new_dif})
-                msg = ("SRNF prototype - %s - %s : native price difference %.2f %s (%.2f CAD) "
+                msg = ("SRNF - %s - %s : native price difference %.2f %s (%.2f CAD) "
                        "corrected to %.2f %s (%.2f CAD)." % (
                            ref_po, inv_line.product_id.default_code or '',
                            old_cur, cur.name, old_cad,

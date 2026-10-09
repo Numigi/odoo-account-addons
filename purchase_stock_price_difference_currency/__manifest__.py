@@ -3,7 +3,7 @@
 
 {
     "name": "Purchase Stock Price Difference Currency",
-    "version": "1.0.0",
+    "version": "14.0.1.1.0",
     "author": "Numigi",
     "maintainer": "Numigi",
     "website": "https://www.numigi.com",

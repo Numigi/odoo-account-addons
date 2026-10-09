@@ -49,7 +49,7 @@ required.
 
 The automated action can be reviewed and (de)activated under
 ``Settings / Technical / Automation / Automated Actions``, with the name
-``SRNF - Écart de prix sans artefact de change``.
+``SRNF - Écart de prix sans artefact de change (ne pas archiver)``.
 
 Each correction is traced in the bill's chatter.
 
