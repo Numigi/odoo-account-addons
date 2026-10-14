@@ -12,7 +12,6 @@ class AccountMoveLine(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             _update_vals_debit_credit(vals)
-        print(vals_list)
         return super().create(vals_list)
 
     def write(self, vals):
