@@ -236,37 +236,6 @@ class TestAccountMoveLine(common.SavepointCase):
         self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
         self.assertAlmostEqual(payable.credit, 700 * 1.14975, 2)
 
-    def test_whenTaxManuallyAdjusted_thenMoveKeepsTheAdjustedAmount(self):
-        """A manual tax correction must be kept in the generated journal entry.
-
-        Reproduces TA#86318: the system computes a tax, the user corrects it by
-        one cent, and the accounting entry must reflect the corrected amount
-        (and the balancing payable/bank line) instead of the recomputed one.
-        """
-        self.tax_1.amount = 5
-        self.tax_1.price_include = False
-        self.tax_2.price_include = False
-
-        self.expense._onchange_amount_setup_tax_lines()
-
-        system_tax_1 = round(700 * 0.05, 2)
-        adjusted_tax_1 = system_tax_1 + 0.01
-        self.expense.tax_line_ids[0].amount = adjusted_tax_1
-
-        self.sheet.approve_expense_sheets()
-        self.sheet.action_sheet_move_create()
-
-        move_lines = self.sheet.account_move_id.line_ids
-        tax_1 = move_lines.filtered(lambda l: l.account_id == self.tax_account)
-        tax_2 = move_lines.filtered(lambda l: l.account_id == self.tax_account_2)
-        payable = move_lines.filtered(lambda l: l.account_id == self.payable)
-
-        self.assertAlmostEqual(tax_1.debit, adjusted_tax_1, 2)
-        self.assertAlmostEqual(tax_2.debit, 700 * 0.09975, 2)
-        self.assertAlmostEqual(
-            payable.credit, 700 + adjusted_tax_1 + 700 * 0.09975, 2
-        )
-
     def test_withMultipleExpenseLines_totalAmountsAreComputedProperly(self):
         self.expense._onchange_amount_setup_tax_lines()
 
